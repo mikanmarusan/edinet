@@ -1,0 +1,25 @@
+[
+  {
+    "secCode": "6201",
+    "filerName": "株式会社豊田自動織機",
+    "docID": "S100VWD2",
+    "periodEnd": "2025年3月期",
+    "characteristic": null,
+    "stockPrice": null,
+    "netSales": 4084984000000.0,
+    "employees": 79454,
+    "operatingIncome": 118159000000.0,
+    "operatingIncomeRate": 2.892520509260257,
+    "depreciation": null,
+    "ebitda": null,
+    "ebitdaMargin": null,
+    "marketCapitalization": null,
+    "per": null,
+    "ev": null,
+    "evPerEbitda": null,
+    "pbr": null,
+    "equity": 5015246000000.0,
+    "debt": null,
+    "retrievedDate": "2025-06-11"
+  }
+]
