@@ -16,12 +16,12 @@ import time
 from typing import List, Dict, Any, Optional
 import requests
 
-from edinet_common import (
+from lib.edinet_common import (
     EDINET_BASE_URL, RATE_LIMIT_DELAY, DEFAULT_TIMEOUT, DOWNLOAD_TIMEOUT,
     setup_logging, validate_date_format, normalize_securities_code,
     ensure_output_directory, EdinetAPIError
 )
-from xbrl_parser import XBRLParser
+from lib.xbrl_parser import XBRLParser
 
 
 class EdinetClient:

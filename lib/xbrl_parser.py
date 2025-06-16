@@ -13,7 +13,7 @@ import sys
 from datetime import datetime
 from typing import Dict, Any, Optional, List
 
-from edinet_common import XBRL_NAMESPACES, XBRL_PATTERNS, XBRLParsingError, format_period_end
+from .edinet_common import XBRL_NAMESPACES, XBRL_PATTERNS, XBRLParsingError, format_period_end
 
 
 class XBRLExtractor:
