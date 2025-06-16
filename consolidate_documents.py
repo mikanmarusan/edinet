@@ -20,7 +20,7 @@ from datetime import datetime
 from typing import List, Dict, Any, Optional
 from collections import defaultdict
 
-from edinet_common import setup_logging, ensure_output_directory
+from lib.edinet_common import setup_logging, ensure_output_directory
 
 
 class DataConsolidator:
