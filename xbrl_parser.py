@@ -167,7 +167,7 @@ class FinancialDataExtractor:
     
     def extract_operating_income_special(self, root: ET.Element) -> Optional[float]:
         """
-        Special extraction for operating income using tag search
+        Special extraction for operating income using tag search with context prioritization
         
         Args:
             root: XBRL root element
@@ -175,12 +175,38 @@ class FinancialDataExtractor:
         Returns:
             Operating income value or None
         """
-        # Search for operating income in tag names
+        # Collect operating income elements
+        operating_income_elements = []
         for elem in root.iter():
             if elem.tag and ('OperatingProfitLoss' in elem.tag or 'OperatingIncome' in elem.tag):
                 if elem.text:
+                    operating_income_elements.append(elem)
+        
+        if operating_income_elements:
+            # Separate current year and other elements
+            current_year_elements = []
+            other_elements = []
+            
+            for element in operating_income_elements:
+                context_ref = element.get('contextRef', '')
+                if 'CurrentYear' in context_ref:
+                    current_year_elements.append(element)
+                else:
+                    other_elements.append(element)
+            
+            # Try current year elements first
+            for element in current_year_elements:
+                if element.text:
                     try:
-                        return float(elem.text.replace(',', ''))
+                        return float(element.text.replace(',', ''))
+                    except ValueError:
+                        continue
+            
+            # Fallback to other elements
+            for element in other_elements:
+                if element.text:
+                    try:
+                        return float(element.text.replace(',', ''))
                     except ValueError:
                         continue
         
