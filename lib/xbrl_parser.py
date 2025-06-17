@@ -332,6 +332,7 @@ class XBRLParser:
             "secCode": sec_code,
             "filerName": filer_name,
             "docID": doc_id,
+            "docPdfURL": f"https://disclosure2dl.edinet-fsa.go.jp/searchdocument/pdf/{doc_id}.pdf",
             "periodEnd": format_period_end(period_end),
             "characteristic": self._extract_characteristic(root),
             "stockPrice": self._extract_stock_price(root),
