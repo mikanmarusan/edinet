@@ -333,6 +333,7 @@ class XBRLParser:
             "filerName": filer_name,
             "docID": doc_id,
             "docPdfURL": f"https://disclosure2dl.edinet-fsa.go.jp/searchdocument/pdf/{doc_id}.pdf",
+            "yahooURL": f"https://finance.yahoo.co.jp/quote/{sec_code}.T",
             "periodEnd": format_period_end(period_end),
             "characteristic": self._extract_characteristic(root),
             "stockPrice": self._extract_stock_price(root),
