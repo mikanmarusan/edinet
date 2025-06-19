@@ -38,5 +38,5 @@ jobs:
         uses: anthropics/claude-code-action@beta
         with:
           anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
-          auto_review: ${{ github.event_name == 'pull_request' }}
+          custom_instructions: ${{ github.event_name == 'pull_request' && 'Please automatically review this pull request comprehensively. Analyze the code changes, check for potential issues, security concerns, and adherence to project standards. Provide detailed feedback and recommend whether to approve or request changes.' || '' }}
 
