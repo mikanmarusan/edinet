@@ -201,6 +201,12 @@ python consolidate_documents.py --inputdir data/jsons/ --output data/edinet.json
 project/
 ├── fetch_edinet_financial_documents.py
 ├── consolidate_documents.py
+├── lib/
+│   ├── __init__.py
+│   ├── edinet_common.py
+│   └── xbrl_parser.py
+├── .ai-rules/
+│   └── edinet_requirements_spec.md
 └── data/
     ├── jsons/
     │   ├── 2025-06-10.json
