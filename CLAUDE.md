@@ -20,6 +20,11 @@ The project consists of two main command-line tools for EDINET financial data ex
 - `fetch_edinet_financial_documents.py`: Daily data extraction from EDINET API
 - `consolidate_documents.py`: Data consolidation from multiple daily files
 
+### Modular Architecture
+The system uses a modular architecture with shared utilities in the `lib/` directory:
+- `lib/edinet_common.py`: Core utilities, API configuration, XBRL namespaces, logging
+- `lib/xbrl_parser.py`: Specialized XBRL document parsing and financial metrics extraction
+
 ## Tool Design Principles
 
 ### Command-Line Interface Standards

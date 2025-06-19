@@ -131,6 +131,10 @@ The system extracts the following financial metrics from XBRL data:
 project/
 ├── fetch_edinet_financial_documents.py    # Daily data extraction tool
 ├── consolidate_documents.py               # Data consolidation tool
+├── lib/                                   # Shared utilities module
+│   ├── __init__.py                       # Module initialization
+│   ├── edinet_common.py                  # Common utilities and configurations
+│   └── xbrl_parser.py                    # XBRL parsing functionality
 ├── requirements.txt                       # Python dependencies
 ├── README.md                             # This file
 ├── LICENSE                               # License file
@@ -142,6 +146,21 @@ project/
     │   └── ...
     └── edinet.json                      # Consolidated output
 ```
+
+## Development Architecture
+
+### Modular Structure
+The system uses a modular architecture with shared utilities:
+
+- **lib/edinet_common.py**: Core utilities including API configuration, XBRL namespaces, logging setup, and data validation functions
+- **lib/xbrl_parser.py**: Specialized XBRL document extraction and financial metrics parsing
+- **Main scripts**: Import from lib module for shared functionality
+
+### Key Shared Components
+- EDINET API configuration and rate limiting
+- XBRL namespace mappings for EDINET 2024-11-01 taxonomy  
+- Common logging and error handling
+- Data validation and formatting utilities
 
 ## API Rate Limiting
 
