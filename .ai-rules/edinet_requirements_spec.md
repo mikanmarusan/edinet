@@ -62,6 +62,9 @@ Extract the following financial data from XBRL:
 | pbr | Price-to-book ratio | 3.2 |
 | equity | Total equity/shareholders' equity | 15000000000 |
 | debt | Net interest-bearing debt (excluding cash) | 2000000000 |
+| outstandingShares | Number of outstanding shares | 40000000 |
+| netIncome | Net income attributable to shareholders | 800000000 |
+| eps | Earnings per share (diluted preferred) | 20.0 |
 | retrievedDate | Data retrieval date | "2025-06-10" |
 
 #### 2.1.4 Output Specification
@@ -101,7 +104,10 @@ Extract the following financial data from XBRL:
     "evPerEbitda": 34.7,
     "pbr": 3.2,
     "equity": 15000000000,
-    "debt": 2000000000
+    "debt": 2000000000,
+    "outstandingShares": 40000000,
+    "netIncome": 800000000,
+    "eps": 20.0
   }
 ]
 ```
@@ -168,6 +174,24 @@ python consolidate_documents.py --inputdir data/jsons/ --output data/edinet.json
   - jpcrp_cor: http://disclosure.edinet-fsa.go.jp/taxonomy/jpcrp/2024-11-01/jpcrp_cor
   - jppfs_cor: http://disclosure.edinet-fsa.go.jp/taxonomy/jppfs/2024-11-01/jppfs_cor
   - jpigp_cor: http://disclosure.edinet-fsa.go.jp/taxonomy/jpigp/2024-11-01/jpigp_cor
+
+#### 3.4.2 Advanced XBRL Processing Features
+The system implements sophisticated data extraction algorithms:
+
+**Dynamic Search Algorithms:**
+- **PER Extraction**: When standard XBRL patterns fail, dynamically searches for PER-related tags with priority scoring
+- **EPS Extraction**: Advanced detection of diluted/basic EPS with context-aware fallback mechanisms
+- **Outstanding Shares**: Comprehensive share count detection with dynamic tag search capabilities
+
+**Context-Aware Processing:**
+- **Current Year Priority**: Prioritizes current fiscal year data over historical data using XBRL context references
+- **Priority Scoring**: Implements scoring algorithms to select the most relevant data when multiple candidates exist
+- **Fallback Mechanisms**: Multiple extraction strategies ensure robust data capture even with non-standard XBRL formats
+
+**Data Quality Enhancement:**
+- **Range Validation**: Filters unreasonable values (e.g., PER > 1000, shares outside typical ranges)
+- **Context Prioritization**: Uses XBRL context references to identify and prefer current year data
+- **Tag Keyword Matching**: Advanced pattern matching for tags when standard taxonomy patterns don't match
 
 ## 4. Non-Functional Requirements
 
@@ -239,11 +263,16 @@ EDINET API → XBRL Data → fetch_edinet_financial_documents.py → Daily JSON 
 #### 6.1.1 EDINET Data Scope
 **Available from XBRL:**
 - secCode, filerName, docID, periodEnd
-- netSales, employees, operatingIncome, equity
-- Calculated metrics: operatingIncomeRate, ebitda, ebitdaMargin
+- netSales, employees, operatingIncome, equity, netIncome
+- outstandingShares, eps (basic/diluted with dynamic extraction)
+- per (with dynamic search capabilities when standard patterns fail)
+- stockPrice, depreciation, marketCapitalization, pbr, debt, characteristic (when available)
+- Calculated metrics: operatingIncomeRate, ebitda, ebitdaMargin, ev, evPerEbitda
 
-**Not Available (null values):**
-- stockPrice, depreciation, marketCapitalization, per, pbr, debt, characteristic
+**Variable Availability:**
+- Some fields may not be available for all companies due to XBRL reporting variations
+- Dynamic search algorithms improve data extraction success rates
+- Missing fields are set to null in JSON output
 
 ### 6.2 Data Limitations
 - Financial data availability depends on companies' reporting schedules

@@ -11,7 +11,9 @@ The system consists of two command-line tools:
 ## Features
 
 - **Automated Data Extraction**: Retrieves securities reports from EDINET API with rate limiting compliance
-- **XBRL Parsing**: Extracts 17+ financial metrics from XBRL documents
+- **Advanced XBRL Parsing**: Extracts 20+ financial metrics from XBRL documents with dynamic search capabilities
+- **Context-Aware Processing**: Prioritizes current year data over historical using XBRL context references
+- **Dynamic Search Algorithms**: Sophisticated fallback mechanisms for PER, EPS, and outstanding shares extraction
 - **Data Consolidation**: Handles duplicate companies by keeping the latest data
 - **Comprehensive Logging**: Detailed logging with configurable verbosity
 - **Error Handling**: Robust error handling with retry mechanisms
@@ -123,6 +125,9 @@ The system extracts the following financial metrics from XBRL data:
 | pbr | Price-to-book ratio | Number |
 | equity | Total equity/shareholders' equity | Number |
 | debt | Net interest-bearing debt | Number |
+| outstandingShares | Number of outstanding shares | Number |
+| netIncome | Net income attributable to shareholders | Number |
+| eps | Earnings per share (diluted preferred) | Number |
 | retrievedDate | Data retrieval date | String |
 
 ## File Structure
@@ -163,6 +168,20 @@ The system uses a modular architecture with shared utilities:
 - XBRL namespace mappings for EDINET 2024-11-01 taxonomy  
 - Common logging and error handling
 - Data validation and formatting utilities
+
+### Advanced XBRL Processing
+
+The system implements sophisticated data extraction algorithms for robust financial metrics capture:
+
+#### Dynamic Search Capabilities
+- **PER Extraction**: When standard XBRL patterns fail, dynamically searches for PER-related tags using keyword matching and priority scoring
+- **EPS Extraction**: Advanced detection of diluted/basic EPS with context-aware fallback mechanisms and comprehensive tag pattern matching
+- **Outstanding Shares**: Sophisticated share count detection with dynamic search across multiple tag variations and context prioritization
+
+#### Context-Aware Processing
+- **Current Year Priority**: Automatically prioritizes current fiscal year data over historical data using XBRL context references
+- **Priority Scoring**: Implements intelligent scoring algorithms to select the most relevant data when multiple candidates exist
+- **Range Validation**: Filters unreasonable values (e.g., PER > 1000, shares outside typical ranges) to ensure data quality
 
 ## API Rate Limiting
 

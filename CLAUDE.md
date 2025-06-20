@@ -54,8 +54,9 @@ This modularization improves code maintainability, reduces duplication, and prov
 ### EDINET-Focused Data Strategy
 - Primary data source: EDINET XBRL data
 - Focus on reliable, verifiable financial data from official sources
-- Extract available metrics: netSales, employees, operatingIncome, equity
-- Calculate derived metrics: operatingIncomeRate, ebitda, ebitdaMargin
+- Extract available metrics: netSales, employees, operatingIncome, equity, netIncome, outstandingShares, eps
+- Calculate derived metrics: operatingIncomeRate, ebitda, ebitdaMargin, ev, evPerEbitda
+- Advanced extraction: Dynamic search algorithms for PER, EPS, and outstanding shares when standard patterns fail
 
 ## Technical Implementation Guidelines
 
@@ -63,6 +64,13 @@ This modularization improves code maintainability, reduces duplication, and prov
 - Target taxonomy: EDINET 2024-11-01
 - Use specific namespace mappings for reliable data extraction
 - Handle XBRL parsing errors gracefully (continue with other companies)
+
+### Advanced XBRL Processing Features
+- **Dynamic Search Algorithms**: When standard XBRL patterns fail, implement sophisticated fallback mechanisms
+- **Context Prioritization**: Use XBRL context references to prioritize current year data over historical
+- **Priority Scoring**: Calculate priority scores for data candidates to select the most relevant values
+- **Range Validation**: Filter unreasonable values to ensure data quality (e.g., PER < 1000, share counts in reasonable ranges)
+- **Multi-Pattern Extraction**: Support multiple extraction strategies for robust data capture across different company reporting formats
 
 ### File Organization
 - Descriptive filenames: `fetch_edinet_financial_documents.py`, `consolidate_documents.py`
