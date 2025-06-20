@@ -351,6 +351,7 @@ class XBRLParser:
             "pbr": self._extract_pbr(root),
             "equity": self._extract_equity(root),
             "debt": self._extract_debt(root),
+            "outstandingShares": self._extract_outstanding_shares(root),
             "retrievedDate": datetime.now().strftime("%Y-%m-%d")
         }
     
@@ -398,3 +399,114 @@ class XBRLParser:
     def _extract_debt(self, root: ET.Element) -> Optional[float]:
         """Extract net interest-bearing debt"""
         return self.data_extractor.extract_numeric_value_with_context(root, self.data_extractor.patterns['debt'])
+    
+    def _extract_outstanding_shares(self, root: ET.Element) -> Optional[int]:
+        """Extract outstanding shares (actually issued shares)"""
+        # Try standard patterns first
+        value = self.data_extractor.extract_numeric_value_with_context(root, self.data_extractor.patterns['outstanding_shares'])
+        if value is not None:
+            return int(value)
+        
+        # Fallback: Dynamic search for share-related tags
+        value = self._dynamic_search_shares(root)
+        return int(value) if value is not None else None
+    
+    def _dynamic_search_shares(self, root: ET.Element) -> Optional[float]:
+        """
+        Dynamic search for share-related tags when standard patterns fail
+        
+        Args:
+            root: XBRL root element
+            
+        Returns:
+            Share count value or None
+        """
+        share_candidates = []
+        
+        # Keywords indicating share-related data
+        share_keywords = [
+            'NumberOfShares', 'SharesIssued', 'SharesOutstanding', 'IssuedShares',
+            'NumberOfIssuedShares', 'NumberOfOutstandingShares', 'TotalShares',
+            'CommonShares', 'CapitalStock', 'StockShares'
+        ]
+        
+        # Search through all elements
+        for elem in root.iter():
+            if elem.tag and elem.text:
+                tag_name = elem.tag
+                
+                # Remove namespace prefix for matching
+                local_name = tag_name.split('}')[-1] if '}' in tag_name else tag_name
+                
+                # Check if tag contains share-related keywords
+                for keyword in share_keywords:
+                    if keyword.lower() in local_name.lower():
+                        try:
+                            # Try to parse as number
+                            value_text = elem.text.replace(',', '').strip()
+                            numeric_value = float(value_text)
+                            
+                            # Filter reasonable share counts (between 1,000 and 100 billion)
+                            if 1_000 <= numeric_value <= 100_000_000_000:
+                                context_ref = elem.get('contextRef', '')
+                                priority = self._calculate_share_priority(local_name, context_ref, numeric_value)
+                                share_candidates.append((numeric_value, priority, local_name, context_ref))
+                                
+                        except (ValueError, AttributeError):
+                            continue
+                        break
+        
+        # Sort by priority (higher is better) and return the best match
+        if share_candidates:
+            share_candidates.sort(key=lambda x: x[1], reverse=True)
+            best_match = share_candidates[0]
+            print(f"Dynamic share search found: {best_match[0]:,.0f} shares from tag '{best_match[2]}' (context: {best_match[3]})")
+            return best_match[0]
+        
+        return None
+    
+    def _calculate_share_priority(self, tag_name: str, context_ref: str, value: float) -> int:
+        """
+        Calculate priority score for share candidate
+        
+        Args:
+            tag_name: Local tag name
+            context_ref: Context reference
+            value: Numeric value
+            
+        Returns:
+            Priority score (higher is better)
+        """
+        priority = 0
+        
+        # Higher priority for current year context
+        if 'CurrentYear' in context_ref:
+            priority += 20
+        elif 'Current' in context_ref:
+            priority += 15
+        
+        # Higher priority for "outstanding" or "issued"
+        if 'outstanding' in tag_name.lower():
+            priority += 15
+        elif 'issued' in tag_name.lower():
+            priority += 12
+        
+        # Higher priority for end-of-period data
+        if any(term in tag_name.lower() for term in ['attheendof', 'endof', 'fiscal', 'year']):
+            priority += 10
+        
+        # Higher priority for common stock
+        if 'common' in tag_name.lower():
+            priority += 8
+        
+        # Prefer values in typical ranges for Japanese companies
+        if 10_000_000 <= value <= 10_000_000_000:  # 10M to 10B shares
+            priority += 5
+        elif 1_000_000 <= value <= 100_000_000_000:  # 1M to 100B shares
+            priority += 3
+        
+        # Lower priority for treasury stock or authorized shares
+        if any(term in tag_name.lower() for term in ['treasury', 'authorized']):
+            priority -= 5
+        
+        return priority

@@ -80,6 +80,47 @@ XBRL_PATTERNS = {
         './/jpcrp_cor:BusinessDescription',
         './/jpcrp_cor:OutlineOfBusiness',
         './/jppfs_cor:DescriptionOfBusiness'
+    ],
+    'outstanding_shares': [
+        # Standard issued and outstanding shares patterns
+        './/jpcrp_cor:NumberOfIssuedAndOutstandingSharesAtTheEndOfFiscalYearIncludingTreasuryStock',
+        './/jpcrp_cor:NumberOfIssuedAndOutstandingSharesAtTheEndOfFiscalYear',
+        './/jpcrp_cor:NumberOfSharesIssuedAtTheEndOfFiscalYear',
+        './/jppfs_cor:NumberOfIssuedAndOutstandingShares',
+        './/jpcrp_cor:NumberOfSharesOutstandingIncludingTreasuryStock',
+        './/jpcrp_cor:NumberOfSharesOutstanding',
+        
+        # Additional issued shares patterns
+        './/jpcrp_cor:NumberOfIssuedShares',
+        './/jppfs_cor:NumberOfIssuedShares',
+        './/jpcrp_cor:SharesIssued',
+        './/jppfs_cor:SharesIssued',
+        './/jpcrp_cor:TotalNumberOfIssuedShares',
+        './/jppfs_cor:TotalNumberOfIssuedShares',
+        
+        # Common stock specific patterns
+        './/jpcrp_cor:NumberOfSharesIssuedCommonStock',
+        './/jppfs_cor:NumberOfSharesIssuedCommonStock',
+        './/jpcrp_cor:CommonStockNumberOfSharesIssued',
+        './/jppfs_cor:CommonStockNumberOfSharesIssued',
+        
+        # Outstanding shares specific patterns
+        './/jpcrp_cor:NumberOfSharesOutstandingAtFiscalYearEnd',
+        './/jppfs_cor:NumberOfSharesOutstandingAtFiscalYearEnd',
+        './/jpcrp_cor:SharesOutstanding',
+        './/jppfs_cor:SharesOutstanding',
+        
+        # Authorized and issued patterns
+        './/jpcrp_cor:NumberOfAuthorizedShares',
+        './/jppfs_cor:NumberOfAuthorizedShares',
+        './/jpcrp_cor:AuthorizedNumberOfShares',
+        './/jppfs_cor:AuthorizedNumberOfShares',
+        
+        # Capital stock related patterns
+        './/jpcrp_cor:CapitalStockNumberOfShares',
+        './/jppfs_cor:CapitalStockNumberOfShares',
+        './/jpcrp_cor:NumberOfSharesCapitalStock',
+        './/jppfs_cor:NumberOfSharesCapitalStock'
     ]
 }
 
