@@ -196,3 +196,12 @@ cython_debug/
 # EDINET data files
 data/edinet.json
 data/jsons/
+
+# Debug and investigation files
+test_*.py
+investigate_*.py
+analyze_*.py
+*_debug.py
+*.log
+XBRL_*.md
+xbrl_*_investigation_*.json
