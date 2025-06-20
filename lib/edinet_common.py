@@ -60,7 +60,9 @@ XBRL_PATTERNS = {
     ],
     'per': [
         './/jpcrp_cor:PriceEarningsRatio',
-        './/jppfs_cor:PriceEarningsRatio'
+        './/jppfs_cor:PriceEarningsRatio',
+        './/jpcrp_cor:PriceToEarningsRatio',
+        './/jppfs_cor:PriceToEarningsRatio'
     ],
     'pbr': [
         './/jpcrp_cor:PriceBookValueRatio', 
@@ -121,6 +123,38 @@ XBRL_PATTERNS = {
         './/jppfs_cor:CapitalStockNumberOfShares',
         './/jpcrp_cor:NumberOfSharesCapitalStock',
         './/jppfs_cor:NumberOfSharesCapitalStock'
+    ],
+    'eps_basic': [
+        './/jpcrp_cor:BasicEarningsPerShare',
+        './/jppfs_cor:BasicEarningsPerShare',
+        './/jpcrp_cor:EarningsPerShareBasic',
+        './/jppfs_cor:EarningsPerShareBasic',
+        './/jpcrp_cor:BasicNetIncomePerShare',
+        './/jppfs_cor:BasicNetIncomePerShare',
+        './/jpcrp_cor:NetIncomePerShareBasic',
+        './/jppfs_cor:NetIncomePerShareBasic'
+    ],
+    'eps_diluted': [
+        './/jpcrp_cor:DilutedEarningsPerShare',
+        './/jppfs_cor:DilutedEarningsPerShare',
+        './/jpcrp_cor:EarningsPerShareDiluted',
+        './/jppfs_cor:EarningsPerShareDiluted',
+        './/jpcrp_cor:DilutedNetIncomePerShare',
+        './/jppfs_cor:DilutedNetIncomePerShare',
+        './/jpcrp_cor:NetIncomePerShareDiluted',
+        './/jppfs_cor:NetIncomePerShareDiluted'
+    ],
+    'net_income': [
+        './/jpcrp_cor:NetIncomeLoss',
+        './/jppfs_cor:NetIncomeLoss',
+        './/jpcrp_cor:ProfitLoss',
+        './/jppfs_cor:ProfitLoss',
+        './/jpcrp_cor:NetIncomeAttributableToOwnersOfParent',
+        './/jppfs_cor:NetIncomeAttributableToOwnersOfParent',
+        './/jpcrp_cor:NetIncomeAttributableToShareholdersOfParentCompany',
+        './/jppfs_cor:NetIncomeAttributableToShareholdersOfParentCompany',
+        './/jpcrp_cor:NetIncomeAttributableToOwnersOfTheParent',
+        './/jppfs_cor:NetIncomeAttributableToOwnersOfTheParent'
     ]
 }
 

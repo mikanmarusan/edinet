@@ -234,6 +234,8 @@ class MetricsCalculator:
             depreciation = financial_data.get('depreciation')
             market_cap = financial_data.get('marketCapitalization')
             debt = financial_data.get('debt', 0)
+            outstanding_shares = financial_data.get('outstandingShares')
+            stock_price = financial_data.get('stockPrice')
             
             # Operating income rate
             if net_sales and operating_income and net_sales > 0:
@@ -255,10 +257,82 @@ class MetricsCalculator:
             if financial_data.get('ev') and financial_data.get('ebitda') and financial_data['ebitda'] > 0:
                 financial_data['evPerEbitda'] = financial_data['ev'] / financial_data['ebitda']
             
+            # Calculate EPS if not already available and we have the necessary data
+            if not financial_data.get('eps'):
+                calculated_eps = MetricsCalculator._calculate_eps(financial_data)
+                if calculated_eps is not None:
+                    financial_data['eps'] = calculated_eps
+                    print(f"Calculated EPS: {calculated_eps:.2f} yen")
+            
+            # Calculate PER if not already available and we have the necessary data
+            if not financial_data.get('per'):
+                calculated_per = MetricsCalculator._calculate_per(financial_data)
+                if calculated_per is not None:
+                    financial_data['per'] = calculated_per
+                    print(f"Calculated PER: {calculated_per:.2f}")
+            
         except Exception as e:
             print(f"Error calculating derived metrics: {e}", file=sys.stderr)
         
         return financial_data
+    
+    @staticmethod
+    def _calculate_eps(financial_data: Dict[str, Any]) -> Optional[float]:
+        """
+        Calculate EPS from net income and outstanding shares
+        
+        Args:
+            financial_data: Dictionary with financial data
+            
+        Returns:
+            Calculated EPS or None
+        """
+        try:
+            # Priority 1: Use actual net income if available
+            net_income = financial_data.get('netIncome')
+            outstanding_shares = financial_data.get('outstandingShares')
+            
+            if net_income and outstanding_shares and outstanding_shares > 0:
+                eps = net_income / outstanding_shares
+                return eps
+            
+            # Priority 2: Use operating income as approximation
+            operating_income = financial_data.get('operatingIncome')
+            if operating_income and outstanding_shares and outstanding_shares > 0:
+                # This is an approximation - operating income is typically higher than net income
+                # We apply a rough adjustment factor of 0.7 to approximate net income
+                estimated_net_income = operating_income * 0.7
+                eps = estimated_net_income / outstanding_shares
+                return eps
+            
+        except Exception as e:
+            print(f"Error calculating EPS: {e}", file=sys.stderr)
+        
+        return None
+    
+    @staticmethod
+    def _calculate_per(financial_data: Dict[str, Any]) -> Optional[float]:
+        """
+        Calculate PER from stock price and EPS
+        
+        Args:
+            financial_data: Dictionary with financial data
+            
+        Returns:
+            Calculated PER or None
+        """
+        try:
+            stock_price = financial_data.get('stockPrice')
+            eps = financial_data.get('eps')
+            
+            if stock_price and eps and eps > 0:
+                per = stock_price / eps
+                return per
+            
+        except Exception as e:
+            print(f"Error calculating PER: {e}", file=sys.stderr)
+        
+        return None
 
 
 class XBRLParser:
@@ -352,6 +426,8 @@ class XBRLParser:
             "equity": self._extract_equity(root),
             "debt": self._extract_debt(root),
             "outstandingShares": self._extract_outstanding_shares(root),
+            "netIncome": self._extract_net_income(root),
+            "eps": self._extract_eps(root),
             "retrievedDate": datetime.now().strftime("%Y-%m-%d")
         }
     
@@ -386,7 +462,104 @@ class XBRLParser:
     
     def _extract_per(self, root: ET.Element) -> Optional[float]:
         """Extract price-to-earnings ratio"""
-        return self.data_extractor.extract_numeric_value(root, self.data_extractor.patterns['per'])
+        # Try standard patterns first
+        per_value = self.data_extractor.extract_numeric_value(root, self.data_extractor.patterns['per'])
+        if per_value is not None:
+            return per_value
+        
+        # Dynamic search for PER-related tags
+        return self._dynamic_search_per(root)
+    
+    def _dynamic_search_per(self, root: ET.Element) -> Optional[float]:
+        """
+        Dynamic search for PER-related tags when standard patterns fail
+        
+        Args:
+            root: XBRL root element
+            
+        Returns:
+            PER value or None
+        """
+        per_candidates = []
+        
+        # Keywords indicating PER-related data
+        per_keywords = [
+            'PriceEarningsRatio', 'PriceToEarnings', 'PER', 'PE', 'PEMultiple',
+            'PriceEarnings', 'StockPriceEarningsRatio', 'SharePriceEarningsRatio'
+        ]
+        
+        # Search through all elements
+        for elem in root.iter():
+            if elem.tag and elem.text:
+                tag_name = elem.tag
+                
+                # Remove namespace prefix for matching
+                local_name = tag_name.split('}')[-1] if '}' in tag_name else tag_name
+                
+                # Check if tag contains PER-related keywords
+                for keyword in per_keywords:
+                    if keyword.lower() in local_name.lower():
+                        try:
+                            # Try to parse as number
+                            value_text = elem.text.replace(',', '').strip()
+                            numeric_value = float(value_text)
+                            
+                            # Filter reasonable PER values (between 0 and 1000)
+                            if 0 <= numeric_value <= 1000:
+                                context_ref = elem.get('contextRef', '')
+                                priority = self._calculate_per_priority(local_name, context_ref, numeric_value)
+                                per_candidates.append((numeric_value, priority, local_name, context_ref))
+                                
+                        except (ValueError, AttributeError):
+                            continue
+                        break
+        
+        # Sort by priority (higher is better) and return the best match
+        if per_candidates:
+            per_candidates.sort(key=lambda x: x[1], reverse=True)
+            best_match = per_candidates[0]
+            print(f"Dynamic PER search found: {best_match[0]:.2f} from tag '{best_match[2]}' (context: {best_match[3]})")
+            return best_match[0]
+        
+        return None
+    
+    def _calculate_per_priority(self, tag_name: str, context_ref: str, value: float) -> int:
+        """
+        Calculate priority score for PER candidate
+        
+        Args:
+            tag_name: Local tag name
+            context_ref: Context reference
+            value: Numeric value
+            
+        Returns:
+            Priority score (higher is better)
+        """
+        priority = 0
+        
+        # Higher priority for current year context
+        if 'CurrentYear' in context_ref:
+            priority += 20
+        elif 'Current' in context_ref:
+            priority += 15
+        
+        # Higher priority for exact PER tags
+        if tag_name.lower() in ['per', 'priceearningsratio', 'pricetoearnings']:
+            priority += 15
+        
+        # Higher priority for price-earnings combinations
+        if 'price' in tag_name.lower() and 'earnings' in tag_name.lower():
+            priority += 12
+        
+        # Prefer reasonable PER values (typical range for listed companies)
+        if 5 <= value <= 50:  # Most reasonable PER range
+            priority += 10
+        elif 1 <= value <= 100:
+            priority += 5
+        elif 0 < value <= 200:
+            priority += 2
+        
+        return priority
     
     def _extract_pbr(self, root: ET.Element) -> Optional[float]:
         """Extract price-to-book ratio"""
@@ -399,6 +572,10 @@ class XBRLParser:
     def _extract_debt(self, root: ET.Element) -> Optional[float]:
         """Extract net interest-bearing debt"""
         return self.data_extractor.extract_numeric_value_with_context(root, self.data_extractor.patterns['debt'])
+    
+    def _extract_net_income(self, root: ET.Element) -> Optional[float]:
+        """Extract net income"""
+        return self.data_extractor.extract_numeric_value_with_context(root, self.data_extractor.patterns['net_income'])
     
     def _extract_outstanding_shares(self, root: ET.Element) -> Optional[int]:
         """Extract outstanding shares (actually issued shares)"""
@@ -508,5 +685,116 @@ class XBRLParser:
         # Lower priority for treasury stock or authorized shares
         if any(term in tag_name.lower() for term in ['treasury', 'authorized']):
             priority -= 5
+        
+        return priority
+    
+    def _extract_eps(self, root: ET.Element) -> Optional[float]:
+        """Extract earnings per share, preferring diluted over basic"""
+        # Try diluted EPS first (priority)
+        diluted_eps = self.data_extractor.extract_numeric_value_with_context(root, self.data_extractor.patterns['eps_diluted'])
+        if diluted_eps is not None:
+            return diluted_eps
+        
+        # Fallback to basic EPS
+        basic_eps = self.data_extractor.extract_numeric_value_with_context(root, self.data_extractor.patterns['eps_basic'])
+        if basic_eps is not None:
+            return basic_eps
+        
+        # Dynamic search for EPS-related tags
+        return self._dynamic_search_eps(root)
+    
+    def _dynamic_search_eps(self, root: ET.Element) -> Optional[float]:
+        """
+        Dynamic search for EPS-related tags when standard patterns fail
+        
+        Args:
+            root: XBRL root element
+            
+        Returns:
+            EPS value or None
+        """
+        eps_candidates = []
+        
+        # Keywords indicating EPS-related data
+        eps_keywords = [
+            'EarningsPerShare', 'NetIncomePerShare', 'BasicEarnings', 'DilutedEarnings',
+            'ProfitPerShare', 'IncomePerShare', 'EarningsAttributable',
+            'BasicNetIncomePerShare', 'DilutedNetIncomePerShare'
+        ]
+        
+        # Search through all elements
+        for elem in root.iter():
+            if elem.tag and elem.text:
+                tag_name = elem.tag
+                
+                # Remove namespace prefix for matching
+                local_name = tag_name.split('}')[-1] if '}' in tag_name else tag_name
+                
+                # Check if tag contains EPS-related keywords
+                for keyword in eps_keywords:
+                    if keyword.lower() in local_name.lower():
+                        try:
+                            # Try to parse as number
+                            value_text = elem.text.replace(',', '').strip()
+                            numeric_value = float(value_text)
+                            
+                            # Filter reasonable EPS values (between -10,000 and 10,000 yen)
+                            if -10_000 <= numeric_value <= 10_000:
+                                context_ref = elem.get('contextRef', '')
+                                priority = self._calculate_eps_priority(local_name, context_ref, numeric_value)
+                                eps_candidates.append((numeric_value, priority, local_name, context_ref))
+                                
+                        except (ValueError, AttributeError):
+                            continue
+                        break
+        
+        # Sort by priority (higher is better) and return the best match
+        if eps_candidates:
+            eps_candidates.sort(key=lambda x: x[1], reverse=True)
+            best_match = eps_candidates[0]
+            print(f"Dynamic EPS search found: {best_match[0]:.2f} yen from tag '{best_match[2]}' (context: {best_match[3]})")
+            return best_match[0]
+        
+        return None
+    
+    def _calculate_eps_priority(self, tag_name: str, context_ref: str, value: float) -> int:
+        """
+        Calculate priority score for EPS candidate
+        
+        Args:
+            tag_name: Local tag name
+            context_ref: Context reference
+            value: Numeric value
+            
+        Returns:
+            Priority score (higher is better)
+        """
+        priority = 0
+        
+        # Higher priority for current year context
+        if 'CurrentYear' in context_ref:
+            priority += 20
+        elif 'Current' in context_ref:
+            priority += 15
+        
+        # Higher priority for diluted EPS
+        if 'diluted' in tag_name.lower():
+            priority += 15
+        elif 'basic' in tag_name.lower():
+            priority += 12
+        
+        # Higher priority for "per share" tags
+        if 'pershare' in tag_name.lower():
+            priority += 10
+        
+        # Higher priority for earnings/income
+        if any(term in tag_name.lower() for term in ['earnings', 'income', 'profit']):
+            priority += 8
+        
+        # Prefer reasonable EPS values (not too extreme)
+        if 0 <= abs(value) <= 1000:  # Most Japanese company EPS is in this range
+            priority += 5
+        elif 0 <= abs(value) <= 5000:
+            priority += 3
         
         return priority
