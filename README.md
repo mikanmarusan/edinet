@@ -11,9 +11,9 @@ The system consists of two command-line tools:
 ## Features
 
 - **Automated Data Extraction**: Retrieves securities reports from EDINET API with rate limiting compliance
-- **Advanced XBRL Parsing**: Extracts 20+ financial metrics from XBRL documents with dynamic search capabilities
+- **Advanced XBRL Parsing**: Extracts 21 financial metrics from XBRL documents with dynamic search capabilities
 - **Context-Aware Processing**: Prioritizes current year data over historical using XBRL context references
-- **Dynamic Search Algorithms**: Sophisticated fallback mechanisms for PER, EPS, and outstanding shares extraction
+- **Dynamic Search Algorithms**: Sophisticated fallback mechanisms for PER, EPS, outstanding shares, and cash extraction
 - **Data Consolidation**: Handles duplicate companies by keeping the latest data
 - **Comprehensive Logging**: Detailed logging with configurable verbosity
 - **Error Handling**: Robust error handling with retry mechanisms
@@ -128,6 +128,7 @@ The system extracts the following financial metrics from XBRL data:
 | outstandingShares | Number of outstanding shares | Number |
 | netIncome | Net income attributable to shareholders | Number |
 | eps | Earnings per share (diluted preferred) | Number |
+| cash | Cash and cash equivalents at end of period | Number |
 | retrievedDate | Data retrieval date | String |
 
 ## File Structure
@@ -177,6 +178,7 @@ The system implements sophisticated data extraction algorithms for robust financ
 - **PER Extraction**: When standard XBRL patterns fail, dynamically searches for PER-related tags using keyword matching and priority scoring
 - **EPS Extraction**: Advanced detection of diluted/basic EPS with context-aware fallback mechanisms and comprehensive tag pattern matching
 - **Outstanding Shares**: Sophisticated share count detection with dynamic search across multiple tag variations and context prioritization
+- **Cash Extraction**: Comprehensive cash and cash equivalents detection with period-end prioritization and consolidated data preference
 
 #### Context-Aware Processing
 - **Current Year Priority**: Automatically prioritizes current fiscal year data over historical data using XBRL context references
