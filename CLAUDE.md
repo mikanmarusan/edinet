@@ -54,9 +54,9 @@ This modularization improves code maintainability, reduces duplication, and prov
 ### EDINET-Focused Data Strategy
 - Primary data source: EDINET XBRL data
 - Focus on reliable, verifiable financial data from official sources
-- Extract available metrics: netSales, employees, operatingIncome, equity, netIncome, outstandingShares, eps
+- Extract available metrics: netSales, employees, operatingIncome, equity, netIncome, outstandingShares, eps, cash
 - Calculate derived metrics: operatingIncomeRate, ebitda, ebitdaMargin, ev, evPerEbitda
-- Advanced extraction: Dynamic search algorithms for PER, EPS, and outstanding shares when standard patterns fail
+- Advanced extraction: Dynamic search algorithms for PER, EPS, outstanding shares, and cash when standard patterns fail
 
 ## Technical Implementation Guidelines
 
@@ -68,9 +68,11 @@ This modularization improves code maintainability, reduces duplication, and prov
 ### Advanced XBRL Processing Features
 - **Dynamic Search Algorithms**: When standard XBRL patterns fail, implement sophisticated fallback mechanisms
 - **Context Prioritization**: Use XBRL context references to prioritize current year data over historical
+- **Consolidated Data Priority**: Systematically exclude NonConsolidatedMember contexts to prioritize consolidated financial data
 - **Priority Scoring**: Calculate priority scores for data candidates to select the most relevant values
 - **Range Validation**: Filter unreasonable values to ensure data quality (e.g., PER < 1000, share counts in reasonable ranges)
 - **Multi-Pattern Extraction**: Support multiple extraction strategies for robust data capture across different company reporting formats
+- **Period-End Prioritization**: For cash and time-sensitive metrics, prioritize end-of-period data over other temporal contexts
 
 ### File Organization
 - Descriptive filenames: `fetch_edinet_financial_documents.py`, `consolidate_documents.py`
@@ -98,6 +100,15 @@ This modularization improves code maintainability, reduces duplication, and prov
 - periodEnd format standardization improves data consistency
 - Securities code normalization (4-digit) ensures uniform identification
 - Robust namespace handling essential for reliable XBRL parsing
+- Consolidated vs individual data distinction critical for accurate financial metrics
+- Dynamic search patterns significantly improve extraction success rates (e.g., netIncome: 40% → 100%)
+
+### Recent Enhancement Learnings (2025-06-22)
+- **Consolidated Data Prioritization**: Root cause of data extraction issues was NonConsolidatedMember contexts being included
+- **Dynamic Search Success**: Implementing comprehensive keyword-based fallback mechanisms dramatically improves metric extraction rates
+- **Cash and Cash Equivalents**: Successfully implemented with period-end prioritization and consolidated data preference
+- **Context Hierarchy**: Established priority order: Consolidated+CurrentYear > CurrentYear > Consolidated > Others
+- **Field Positioning**: New financial metrics should be positioned before retrievedDate field in JSON structure
 
 ## Future Development Guidelines
 

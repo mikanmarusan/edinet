@@ -260,6 +260,37 @@ XBRL_PATTERNS = {
         './/jppfs_cor:NetIncomeAttributableToShareholdersOfParentCompany',
         './/jpcrp_cor:NetIncomeAttributableToOwnersOfTheParent',
         './/jppfs_cor:NetIncomeAttributableToOwnersOfTheParent'
+    ],
+    'cash': [
+        # Consolidated cash and cash equivalents patterns (priority)
+        './/jpcrp_cor:ConsolidatedCashAndCashEquivalents',
+        './/jppfs_cor:ConsolidatedCashAndCashEquivalents',
+        './/jpcrp_cor:CashAndCashEquivalentsConsolidated',
+        './/jppfs_cor:CashAndCashEquivalentsConsolidated',
+        './/jpcrp_cor:ConsolidatedCashAndCashEquivalentsAtEndOfPeriod',
+        './/jppfs_cor:ConsolidatedCashAndCashEquivalentsAtEndOfPeriod',
+        
+        # Standard cash and cash equivalents patterns
+        './/jpcrp_cor:CashAndCashEquivalents',
+        './/jppfs_cor:CashAndCashEquivalents',
+        './/jpcrp_cor:CashAndCashEquivalentsAtEndOfPeriod',
+        './/jppfs_cor:CashAndCashEquivalentsAtEndOfPeriod',
+        './/jpcrp_cor:CashAndCashEquivalentsAtEndOfFiscalYear',
+        './/jppfs_cor:CashAndCashEquivalentsAtEndOfFiscalYear',
+        
+        # Cash balance patterns
+        './/jpcrp_cor:CashAndDeposits',
+        './/jppfs_cor:CashAndDeposits',
+        './/jpcrp_cor:CashAndCashEquivalentsBalanceAtEndOfPeriod',
+        './/jppfs_cor:CashAndCashEquivalentsBalanceAtEndOfPeriod',
+        './/jpcrp_cor:CashAndEquivalents',
+        './/jppfs_cor:CashAndEquivalents',
+        
+        # Short-term investments included in cash equivalents
+        './/jpcrp_cor:CashDepositsAndShortTermInvestments',
+        './/jppfs_cor:CashDepositsAndShortTermInvestments',
+        './/jpcrp_cor:CashAndShortTermInvestments',
+        './/jppfs_cor:CashAndShortTermInvestments'
     ]
 }
 

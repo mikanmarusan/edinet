@@ -483,6 +483,7 @@ class XBRLParser:
             "outstandingShares": self._extract_outstanding_shares(root),
             "netIncome": self._extract_net_income(root),
             "eps": self._extract_eps(root),
+            "cash": self._extract_cash(root),
             "retrievedDate": datetime.now().strftime("%Y-%m-%d")
         }
     
@@ -658,8 +659,24 @@ class XBRLParser:
         return self.data_extractor.extract_numeric_value_with_context(root, self.data_extractor.patterns['debt'])
     
     def _extract_net_income(self, root: ET.Element) -> Optional[float]:
-        """Extract net income"""
-        return self.data_extractor.extract_numeric_value_with_context(root, self.data_extractor.patterns['net_income'])
+        """Extract net income with enhanced pattern matching"""
+        # Try standard patterns first
+        value = self.data_extractor.extract_numeric_value_with_context(root, self.data_extractor.patterns['net_income'])
+        if value is not None:
+            return value
+        
+        # Fallback: Dynamic search for net income-related tags
+        return self._dynamic_search_net_income(root)
+    
+    def _extract_cash(self, root: ET.Element) -> Optional[float]:
+        """Extract cash and cash equivalents with enhanced pattern matching"""
+        # Try standard patterns first
+        value = self.data_extractor.extract_numeric_value_with_context(root, self.data_extractor.patterns['cash'])
+        if value is not None:
+            return value
+        
+        # Fallback: Dynamic search for cash-related tags
+        return self._dynamic_search_cash(root)
     
     def _extract_outstanding_shares(self, root: ET.Element) -> Optional[int]:
         """Extract outstanding shares (actually issued shares)"""
@@ -1186,6 +1203,116 @@ class XBRLParser:
         
         return priority
     
+    def _dynamic_search_net_income(self, root: ET.Element) -> Optional[float]:
+        """
+        Dynamic search for net income related tags when standard patterns fail
+        
+        Args:
+            root: XBRL root element
+            
+        Returns:
+            Net income value or None
+        """
+        net_income_candidates = []
+        
+        # Keywords indicating net income-related data
+        net_income_keywords = [
+            'NetIncome', 'NetIncomeLoss', 'ProfitLoss', 'Profit', 'NetProfit',
+            'ConsolidatedNetIncome', 'ConsolidatedNetIncomeLoss', 'ConsolidatedProfit',
+            'NetIncomeAttributableToOwnersOfParent', 'NetIncomeAttributableToParent',
+            'ParentCompanyNetIncome', 'BasicNetIncome', 'NetIncomeCommon',
+            'ProfitAttributableToOwnersOfParent', 'NetIncomeBeforeExtraordinaryItems'
+        ]
+        
+        # Search through all elements
+        for elem in root.iter():
+            if elem.tag and elem.text:
+                tag_name = elem.tag
+                
+                # Remove namespace prefix for matching
+                local_name = tag_name.split('}')[-1] if '}' in tag_name else tag_name
+                
+                # Check if tag contains net income-related keywords
+                for keyword in net_income_keywords:
+                    if keyword.lower() in local_name.lower():
+                        try:
+                            # Try to parse as number
+                            value_text = elem.text.replace(',', '').strip()
+                            numeric_value = float(value_text)
+                            
+                            # Filter reasonable net income values (between -1T and 1T yen, allowing losses)
+                            if -1_000_000_000_000 <= numeric_value <= 1_000_000_000_000:
+                                context_ref = elem.get('contextRef', '')
+                                
+                                # Skip NonConsolidatedMember contexts (individual company data)
+                                if 'NonConsolidatedMember' in context_ref:
+                                    continue
+                                
+                                priority = self._calculate_net_income_priority(local_name, context_ref, numeric_value)
+                                net_income_candidates.append((numeric_value, priority, local_name, context_ref))
+                                
+                        except (ValueError, AttributeError):
+                            continue
+                        break
+        
+        # Sort by priority (higher is better) and return the best match
+        if net_income_candidates:
+            net_income_candidates.sort(key=lambda x: x[1], reverse=True)
+            best_match = net_income_candidates[0]
+            print(f"Dynamic net income search found: {best_match[0]:,.0f} yen from tag '{best_match[2]}' (context: {best_match[3]})")
+            return best_match[0]
+        
+        return None
+    
+    def _calculate_net_income_priority(self, tag_name: str, context_ref: str, value: float) -> int:
+        """
+        Calculate priority score for net income candidate
+        
+        Args:
+            tag_name: Local tag name
+            context_ref: Context reference
+            value: Numeric value
+            
+        Returns:
+            Priority score (higher is better)
+        """
+        priority = 0
+        
+        # Higher priority for consolidated data
+        if 'Consolidated' in context_ref:
+            priority += 25
+            if 'CurrentYear' in context_ref:
+                priority += 20  # Consolidated + CurrentYear is highest priority
+        elif 'CurrentYear' in context_ref:
+            priority += 15
+        
+        # Higher priority for exact net income tags
+        if any(term in tag_name.lower() for term in ['netincome', 'netincomeloss', 'profitloss']):
+            priority += 15
+        elif any(term in tag_name.lower() for term in ['profit', 'income']):
+            priority += 12
+        
+        # Higher priority for consolidated in tag name
+        if 'consolidated' in tag_name.lower():
+            priority += 10
+        
+        # Higher priority for parent company attributable income
+        if any(term in tag_name.lower() for term in ['attributable', 'parent', 'owners']):
+            priority += 12
+        
+        # Higher priority for summary/results sections
+        if any(term in tag_name.lower() for term in ['summary', 'results']):
+            priority += 8
+        
+        # Prefer reasonable net income values for Japanese companies
+        if abs(value) >= 100_000_000:  # At least 100M yen (absolute value for losses)
+            if abs(value) <= 100_000_000_000:  # Up to 100B yen
+                priority += 10
+            elif abs(value) <= 1_000_000_000_000:  # Up to 1T yen
+                priority += 5
+        
+        return priority
+    
     def _extract_eps(self, root: ET.Element) -> Optional[float]:
         """Extract earnings per share, preferring diluted over basic"""
         # Try diluted EPS first (priority)
@@ -1299,5 +1426,115 @@ class XBRLParser:
             priority += 5
         elif 0 <= abs(value) <= 5000:
             priority += 3
+        
+        return priority
+    
+    def _dynamic_search_cash(self, root: ET.Element) -> Optional[float]:
+        """
+        Dynamic search for cash and cash equivalents related tags when standard patterns fail
+        
+        Args:
+            root: XBRL root element
+            
+        Returns:
+            Cash value or None
+        """
+        cash_candidates = []
+        
+        # Keywords indicating cash and cash equivalents-related data
+        cash_keywords = [
+            'CashAndCashEquivalents', 'CashAndEquivalents', 'CashAndDeposits',
+            'ConsolidatedCashAndCashEquivalents', 'CashEquivalents', 'Cash',
+            'CashAndCashEquivalentsAtEndOfPeriod', 'CashAndCashEquivalentsAtEndOfFiscalYear',
+            'CashAndCashEquivalentsBalanceAtEndOfPeriod', 'CashBalance',
+            'CashDepositsAndShortTermInvestments', 'CashAndShortTermInvestments',
+            'MoneyAndDeposits', 'CashOnHand', 'CashInBank'
+        ]
+        
+        # Search through all elements
+        for elem in root.iter():
+            if elem.tag and elem.text:
+                tag_name = elem.tag
+                
+                # Remove namespace prefix for matching
+                local_name = tag_name.split('}')[-1] if '}' in tag_name else tag_name
+                
+                # Check if tag contains cash-related keywords
+                for keyword in cash_keywords:
+                    if keyword.lower() in local_name.lower():
+                        try:
+                            # Try to parse as number
+                            value_text = elem.text.replace(',', '').strip()
+                            numeric_value = float(value_text)
+                            
+                            # Filter reasonable cash values (between 1M and 10T yen)
+                            if 1_000_000 <= numeric_value <= 10_000_000_000_000:
+                                context_ref = elem.get('contextRef', '')
+                                
+                                # Skip NonConsolidatedMember contexts (individual company data)
+                                if 'NonConsolidatedMember' in context_ref:
+                                    continue
+                                
+                                priority = self._calculate_cash_priority(local_name, context_ref, numeric_value)
+                                cash_candidates.append((numeric_value, priority, local_name, context_ref))
+                                
+                        except (ValueError, AttributeError):
+                            continue
+                        break
+        
+        # Sort by priority (higher is better) and return the best match
+        if cash_candidates:
+            cash_candidates.sort(key=lambda x: x[1], reverse=True)
+            best_match = cash_candidates[0]
+            print(f"Dynamic cash search found: {best_match[0]:,.0f} yen from tag '{best_match[2]}' (context: {best_match[3]})")
+            return best_match[0]
+        
+        return None
+    
+    def _calculate_cash_priority(self, tag_name: str, context_ref: str, value: float) -> int:
+        """
+        Calculate priority score for cash candidate
+        
+        Args:
+            tag_name: Local tag name
+            context_ref: Context reference
+            value: Numeric value
+            
+        Returns:
+            Priority score (higher is better)
+        """
+        priority = 0
+        
+        # Higher priority for consolidated data
+        if 'Consolidated' in context_ref:
+            priority += 25
+            if 'CurrentYear' in context_ref:
+                priority += 20  # Consolidated + CurrentYear is highest priority
+        elif 'CurrentYear' in context_ref:
+            priority += 15
+        
+        # Higher priority for end-of-period data
+        if any(term in context_ref.lower() for term in ['endofperiod', 'endoffiscalyear', 'end']):
+            priority += 15
+        
+        # Higher priority for exact cash and cash equivalents tags
+        if any(term in tag_name.lower() for term in ['cashandcashequivalents', 'cashequivalents']):
+            priority += 15
+        elif any(term in tag_name.lower() for term in ['cash', 'deposits']):
+            priority += 12
+        
+        # Higher priority for consolidated in tag name
+        if 'consolidated' in tag_name.lower():
+            priority += 10
+        
+        # Higher priority for balance/end-of-period in tag name
+        if any(term in tag_name.lower() for term in ['balance', 'endofperiod', 'endoffiscalyear']):
+            priority += 8
+        
+        # Prefer reasonable cash values for Japanese companies
+        if 1_000_000_000 <= value <= 1_000_000_000_000:  # 1B to 1T yen
+            priority += 10
+        elif 100_000_000 <= value <= 10_000_000_000_000:  # 100M to 10T yen
+            priority += 5
         
         return priority

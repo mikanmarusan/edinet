@@ -65,6 +65,7 @@ Extract the following financial data from XBRL:
 | outstandingShares | Number of outstanding shares | 40000000 |
 | netIncome | Net income attributable to shareholders | 800000000 |
 | eps | Earnings per share (diluted preferred) | 20.0 |
+| cash | Cash and cash equivalents at end of period | 5000000000 |
 | retrievedDate | Data retrieval date | "2025-06-10" |
 
 #### 2.1.4 Output Specification
@@ -107,7 +108,8 @@ Extract the following financial data from XBRL:
     "debt": 2000000000,
     "outstandingShares": 40000000,
     "netIncome": 800000000,
-    "eps": 20.0
+    "eps": 20.0,
+    "cash": 5000000000
   }
 ]
 ```
@@ -182,11 +184,14 @@ The system implements sophisticated data extraction algorithms:
 - **PER Extraction**: When standard XBRL patterns fail, dynamically searches for PER-related tags with priority scoring
 - **EPS Extraction**: Advanced detection of diluted/basic EPS with context-aware fallback mechanisms
 - **Outstanding Shares**: Comprehensive share count detection with dynamic tag search capabilities
+- **Cash Extraction**: Period-end prioritized extraction of cash and cash equivalents with consolidated data preference
 
 **Context-Aware Processing:**
 - **Current Year Priority**: Prioritizes current fiscal year data over historical data using XBRL context references
+- **Consolidated Data Priority**: Systematically excludes NonConsolidatedMember contexts to ensure consolidated financial data
 - **Priority Scoring**: Implements scoring algorithms to select the most relevant data when multiple candidates exist
 - **Fallback Mechanisms**: Multiple extraction strategies ensure robust data capture even with non-standard XBRL formats
+- **Context Hierarchy**: Established priority order: Consolidated+CurrentYear > CurrentYear > Consolidated > Others
 
 **Data Quality Enhancement:**
 - **Range Validation**: Filters unreasonable values (e.g., PER > 1000, shares outside typical ranges)
@@ -263,7 +268,7 @@ EDINET API → XBRL Data → fetch_edinet_financial_documents.py → Daily JSON 
 #### 6.1.1 EDINET Data Scope
 **Available from XBRL:**
 - secCode, filerName, docID, periodEnd
-- netSales, employees, operatingIncome, equity, netIncome
+- netSales, employees, operatingIncome, equity, netIncome, cash
 - outstandingShares, eps (basic/diluted with dynamic extraction)
 - per (with dynamic search capabilities when standard patterns fail)
 - stockPrice, depreciation, marketCapitalization, pbr, debt, characteristic (when available)
