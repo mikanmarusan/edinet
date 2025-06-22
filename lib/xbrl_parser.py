@@ -520,8 +520,14 @@ class XBRLParser:
         return self.data_extractor.extract_operating_income_special(root)
     
     def _extract_depreciation(self, root: ET.Element) -> Optional[float]:
-        """Extract depreciation expenses"""
-        return self.data_extractor.extract_numeric_value_with_context(root, self.data_extractor.patterns['depreciation'])
+        """Extract depreciation expenses with enhanced pattern matching"""
+        # Try standard patterns first
+        value = self.data_extractor.extract_numeric_value_with_context(root, self.data_extractor.patterns['depreciation'])
+        if value is not None:
+            return value
+        
+        # Fallback: Dynamic search for depreciation-related tags
+        return self._dynamic_search_depreciation(root)
     
     def _extract_market_cap(self, root: ET.Element) -> Optional[float]:
         """Extract market capitalization"""
@@ -1068,6 +1074,114 @@ class XBRLParser:
         if 1_000_000_000 <= value <= 10_000_000_000_000:  # 1B to 10T yen
             priority += 10
         elif 100_000_000 <= value <= 100_000_000_000_000:  # 100M to 100T yen
+            priority += 5
+        
+        return priority
+    
+    def _dynamic_search_depreciation(self, root: ET.Element) -> Optional[float]:
+        """
+        Dynamic search for depreciation and amortization related tags when standard patterns fail
+        
+        Args:
+            root: XBRL root element
+            
+        Returns:
+            Depreciation value or None
+        """
+        depreciation_candidates = []
+        
+        # Keywords indicating depreciation-related data
+        depreciation_keywords = [
+            'DepreciationAndAmortization', 'Depreciation', 'Amortization', 'DepreciationExpenses',
+            'ConsolidatedDepreciation', 'ConsolidatedDepreciationAndAmortization', 
+            'DepreciationAndAmortizationExpenses', 'DepreciationCosts', 'AmortizationExpenses',
+            'TangibleAssetsDepreciation', 'IntangibleAssetsAmortization', 'DepreciationOfProperty'
+        ]
+        
+        # Search through all elements
+        for elem in root.iter():
+            if elem.tag and elem.text:
+                tag_name = elem.tag
+                
+                # Remove namespace prefix for matching
+                local_name = tag_name.split('}')[-1] if '}' in tag_name else tag_name
+                
+                # Check if tag contains depreciation-related keywords
+                for keyword in depreciation_keywords:
+                    if keyword.lower() in local_name.lower():
+                        try:
+                            # Try to parse as number
+                            value_text = elem.text.replace(',', '').strip()
+                            numeric_value = float(value_text)
+                            
+                            # Filter reasonable depreciation values (between 10M and 1T yen)
+                            if 10_000_000 <= numeric_value <= 1_000_000_000_000:
+                                context_ref = elem.get('contextRef', '')
+                                
+                                # Skip NonConsolidatedMember contexts (individual company data)
+                                if 'NonConsolidatedMember' in context_ref:
+                                    continue
+                                
+                                priority = self._calculate_depreciation_priority(local_name, context_ref, numeric_value)
+                                depreciation_candidates.append((numeric_value, priority, local_name, context_ref))
+                                
+                        except (ValueError, AttributeError):
+                            continue
+                        break
+        
+        # Sort by priority (higher is better) and return the best match
+        if depreciation_candidates:
+            depreciation_candidates.sort(key=lambda x: x[1], reverse=True)
+            best_match = depreciation_candidates[0]
+            print(f"Dynamic depreciation search found: {best_match[0]:,.0f} yen from tag '{best_match[2]}' (context: {best_match[3]})")
+            return best_match[0]
+        
+        return None
+    
+    def _calculate_depreciation_priority(self, tag_name: str, context_ref: str, value: float) -> int:
+        """
+        Calculate priority score for depreciation candidate
+        
+        Args:
+            tag_name: Local tag name
+            context_ref: Context reference
+            value: Numeric value
+            
+        Returns:
+            Priority score (higher is better)
+        """
+        priority = 0
+        
+        # Higher priority for consolidated data
+        if 'Consolidated' in context_ref:
+            priority += 25
+            if 'CurrentYear' in context_ref:
+                priority += 20  # Consolidated + CurrentYear is highest priority
+        elif 'CurrentYear' in context_ref:
+            priority += 15
+        
+        # Higher priority for exact depreciation tags
+        if any(term in tag_name.lower() for term in ['depreciationandamortization', 'depreciation']):
+            priority += 15
+        elif 'depreciation' in tag_name.lower() or 'amortization' in tag_name.lower():
+            priority += 12
+        
+        # Higher priority for consolidated in tag name
+        if 'consolidated' in tag_name.lower():
+            priority += 10
+        
+        # Higher priority for expenses/costs
+        if any(term in tag_name.lower() for term in ['expenses', 'costs', 'expense']):
+            priority += 8
+        
+        # Higher priority for cash flow related depreciation
+        if any(term in tag_name.lower() for term in ['cashflow', 'cf', 'operatingcf']):
+            priority += 12
+        
+        # Prefer reasonable depreciation values for Japanese companies
+        if 100_000_000 <= value <= 100_000_000_000:  # 100M to 100B yen
+            priority += 10
+        elif 10_000_000 <= value <= 1_000_000_000_000:  # 10M to 1T yen
             priority += 5
         
         return priority
