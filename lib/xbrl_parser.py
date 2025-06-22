@@ -104,7 +104,7 @@ class FinancialDataExtractor:
     
     def extract_numeric_value_with_context(self, root: ET.Element, patterns: List[str]) -> Optional[float]:
         """
-        Extract numeric value with priority for current year context
+        Extract numeric value with priority for consolidated current year context
         
         Args:
             root: XBRL root element
@@ -116,19 +116,47 @@ class FinancialDataExtractor:
         for pattern in patterns:
             elements = root.findall(pattern, self.namespaces)
             if elements:
-                # Separate current year and other elements
+                # Separate elements by priority, excluding NonConsolidatedMember
+                consolidated_current_elements = []
                 current_year_elements = []
+                consolidated_elements = []
                 other_elements = []
                 
                 for element in elements:
                     context_ref = element.get('contextRef', '')
-                    if 'CurrentYear' in context_ref:
+                    
+                    # Skip NonConsolidatedMember contexts (individual company data)
+                    if 'NonConsolidatedMember' in context_ref:
+                        continue
+                    
+                    # Prioritize consolidated data
+                    if 'Consolidated' in context_ref and 'CurrentYear' in context_ref:
+                        consolidated_current_elements.append(element)
+                    elif 'CurrentYear' in context_ref:
                         current_year_elements.append(element)
+                    elif 'Consolidated' in context_ref:
+                        consolidated_elements.append(element)
                     else:
                         other_elements.append(element)
                 
-                # Try current year elements first
+                # Try consolidated current year elements first (highest priority)
+                for element in consolidated_current_elements:
+                    if element.text:
+                        try:
+                            return float(element.text.replace(',', ''))
+                        except ValueError:
+                            continue
+                
+                # Try current year elements
                 for element in current_year_elements:
+                    if element.text:
+                        try:
+                            return float(element.text.replace(',', ''))
+                        except ValueError:
+                            continue
+                
+                # Try consolidated elements
+                for element in consolidated_elements:
                     if element.text:
                         try:
                             return float(element.text.replace(',', ''))
@@ -183,19 +211,46 @@ class FinancialDataExtractor:
                     operating_income_elements.append(elem)
         
         if operating_income_elements:
-            # Separate current year and other elements
+            # Separate elements by priority: Consolidated CurrentYear > CurrentYear > Consolidated > Others
+            consolidated_current_elements = []
             current_year_elements = []
+            consolidated_elements = []
             other_elements = []
             
             for element in operating_income_elements:
                 context_ref = element.get('contextRef', '')
-                if 'CurrentYear' in context_ref:
+                
+                # Skip NonConsolidatedMember contexts (individual company data)
+                if 'NonConsolidatedMember' in context_ref:
+                    continue
+                
+                if 'Consolidated' in context_ref and 'CurrentYear' in context_ref:
+                    consolidated_current_elements.append(element)
+                elif 'CurrentYear' in context_ref:
                     current_year_elements.append(element)
+                elif 'Consolidated' in context_ref:
+                    consolidated_elements.append(element)
                 else:
                     other_elements.append(element)
             
-            # Try current year elements first
+            # Try consolidated current year elements first (highest priority)
+            for element in consolidated_current_elements:
+                if element.text:
+                    try:
+                        return float(element.text.replace(',', ''))
+                    except ValueError:
+                        continue
+            
+            # Try current year elements
             for element in current_year_elements:
+                if element.text:
+                    try:
+                        return float(element.text.replace(',', ''))
+                    except ValueError:
+                        continue
+            
+            # Try consolidated elements
+            for element in consolidated_elements:
                 if element.text:
                     try:
                         return float(element.text.replace(',', ''))
@@ -440,12 +495,24 @@ class XBRLParser:
         return self.data_extractor.extract_numeric_value(root, self.data_extractor.patterns['stock_price'])
     
     def _extract_net_sales(self, root: ET.Element) -> Optional[float]:
-        """Extract net sales/revenue"""
-        return self.data_extractor.extract_numeric_value_with_context(root, self.data_extractor.patterns['net_sales'])
+        """Extract net sales/revenue with enhanced pattern matching"""
+        # Try standard patterns first
+        value = self.data_extractor.extract_numeric_value_with_context(root, self.data_extractor.patterns['net_sales'])
+        if value is not None:
+            return value
+        
+        # Fallback: Dynamic search for sales-related tags
+        return self._dynamic_search_net_sales(root)
     
     def _extract_employees(self, root: ET.Element) -> Optional[int]:
-        """Extract number of employees"""
+        """Extract number of employees with enhanced pattern matching"""
+        # Try standard patterns first
         value = self.data_extractor.extract_numeric_value_with_context(root, self.data_extractor.patterns['employees'])
+        if value is not None:
+            return int(value)
+        
+        # Fallback: Dynamic search for employee-related tags
+        value = self._dynamic_search_employees(root)
         return int(value) if value is not None else None
     
     def _extract_operating_income(self, root: ET.Element) -> Optional[float]:
@@ -507,6 +574,11 @@ class XBRLParser:
                             # Filter reasonable PER values (between 0 and 1000)
                             if 0 <= numeric_value <= 1000:
                                 context_ref = elem.get('contextRef', '')
+                                
+                                # Skip NonConsolidatedMember contexts (individual company data)
+                                if 'NonConsolidatedMember' in context_ref:
+                                    continue
+                                
                                 priority = self._calculate_per_priority(local_name, context_ref, numeric_value)
                                 per_candidates.append((numeric_value, priority, local_name, context_ref))
                                 
@@ -566,8 +638,14 @@ class XBRLParser:
         return self.data_extractor.extract_numeric_value(root, self.data_extractor.patterns['pbr'])
     
     def _extract_equity(self, root: ET.Element) -> Optional[float]:
-        """Extract total equity/shareholders' equity"""
-        return self.data_extractor.extract_numeric_value_with_context(root, self.data_extractor.patterns['equity'])
+        """Extract total equity/shareholders' equity with enhanced pattern matching"""
+        # Try standard patterns first
+        value = self.data_extractor.extract_numeric_value_with_context(root, self.data_extractor.patterns['equity'])
+        if value is not None:
+            return value
+        
+        # Fallback: Dynamic search for equity-related tags
+        return self._dynamic_search_equity(root)
     
     def _extract_debt(self, root: ET.Element) -> Optional[float]:
         """Extract net interest-bearing debt"""
@@ -626,6 +704,11 @@ class XBRLParser:
                             # Filter reasonable share counts (between 1,000 and 100 billion)
                             if 1_000 <= numeric_value <= 100_000_000_000:
                                 context_ref = elem.get('contextRef', '')
+                                
+                                # Skip NonConsolidatedMember contexts (individual company data)
+                                if 'NonConsolidatedMember' in context_ref:
+                                    continue
+                                
                                 priority = self._calculate_share_priority(local_name, context_ref, numeric_value)
                                 share_candidates.append((numeric_value, priority, local_name, context_ref))
                                 
@@ -688,6 +771,307 @@ class XBRLParser:
         
         return priority
     
+    def _dynamic_search_net_sales(self, root: ET.Element) -> Optional[float]:
+        """
+        Dynamic search for net sales/revenue related tags when standard patterns fail
+        
+        Args:
+            root: XBRL root element
+            
+        Returns:
+            Net sales value or None
+        """
+        sales_candidates = []
+        
+        # Keywords indicating sales/revenue-related data
+        sales_keywords = [
+            'NetSales', 'Revenue', 'Sales', 'TotalRevenue', 'OperatingRevenue',
+            'TotalSales', 'TotalNetSales', 'ConsolidatedNetSales', 'ConsolidatedRevenue'
+        ]
+        
+        # Search through all elements
+        for elem in root.iter():
+            if elem.tag and elem.text:
+                tag_name = elem.tag
+                
+                # Remove namespace prefix for matching
+                local_name = tag_name.split('}')[-1] if '}' in tag_name else tag_name
+                
+                # Check if tag contains sales-related keywords
+                for keyword in sales_keywords:
+                    if keyword.lower() in local_name.lower():
+                        try:
+                            # Try to parse as number
+                            value_text = elem.text.replace(',', '').strip()
+                            numeric_value = float(value_text)
+                            
+                            # Filter reasonable sales values (between 1M and 100T yen)
+                            if 1_000_000 <= numeric_value <= 100_000_000_000_000:
+                                context_ref = elem.get('contextRef', '')
+                                
+                                # Skip NonConsolidatedMember contexts (individual company data)
+                                if 'NonConsolidatedMember' in context_ref:
+                                    continue
+                                
+                                priority = self._calculate_sales_priority(local_name, context_ref, numeric_value)
+                                sales_candidates.append((numeric_value, priority, local_name, context_ref))
+                                
+                        except (ValueError, AttributeError):
+                            continue
+                        break
+        
+        # Sort by priority (higher is better) and return the best match
+        if sales_candidates:
+            sales_candidates.sort(key=lambda x: x[1], reverse=True)
+            best_match = sales_candidates[0]
+            print(f"Dynamic net sales search found: {best_match[0]:,.0f} yen from tag '{best_match[2]}' (context: {best_match[3]})")
+            return best_match[0]
+        
+        return None
+    
+    def _calculate_sales_priority(self, tag_name: str, context_ref: str, value: float) -> int:
+        """
+        Calculate priority score for sales candidate
+        
+        Args:
+            tag_name: Local tag name
+            context_ref: Context reference
+            value: Numeric value
+            
+        Returns:
+            Priority score (higher is better)
+        """
+        priority = 0
+        
+        # Higher priority for consolidated data
+        if 'Consolidated' in context_ref:
+            priority += 25
+            if 'CurrentYear' in context_ref:
+                priority += 20  # Consolidated + CurrentYear is highest priority
+        elif 'CurrentYear' in context_ref:
+            priority += 15
+        
+        # Higher priority for exact sales/revenue tags
+        if any(term in tag_name.lower() for term in ['netsales', 'revenue', 'totalrevenue']):
+            priority += 15
+        elif 'sales' in tag_name.lower():
+            priority += 12
+        
+        # Higher priority for consolidated in tag name
+        if 'consolidated' in tag_name.lower():
+            priority += 10
+        
+        # Prefer reasonable sales values for Japanese companies
+        if 100_000_000 <= value <= 10_000_000_000_000:  # 100M to 10T yen
+            priority += 10
+        elif 10_000_000 <= value <= 100_000_000_000_000:  # 10M to 100T yen
+            priority += 5
+        
+        return priority
+    
+    def _dynamic_search_employees(self, root: ET.Element) -> Optional[float]:
+        """
+        Dynamic search for employee count related tags when standard patterns fail
+        
+        Args:
+            root: XBRL root element
+            
+        Returns:
+            Employee count value or None
+        """
+        employee_candidates = []
+        
+        # Keywords indicating employee-related data
+        employee_keywords = [
+            'NumberOfEmployees', 'Employees', 'TotalEmployees', 'EmployeeCount',
+            'ConsolidatedNumberOfEmployees', 'ConsolidatedEmployees', 'Staff',
+            'Personnel', 'WorkForce', 'TotalPersonnel'
+        ]
+        
+        # Search through all elements
+        for elem in root.iter():
+            if elem.tag and elem.text:
+                tag_name = elem.tag
+                
+                # Remove namespace prefix for matching
+                local_name = tag_name.split('}')[-1] if '}' in tag_name else tag_name
+                
+                # Check if tag contains employee-related keywords
+                for keyword in employee_keywords:
+                    if keyword.lower() in local_name.lower():
+                        try:
+                            # Try to parse as number
+                            value_text = elem.text.replace(',', '').strip()
+                            numeric_value = float(value_text)
+                            
+                            # Filter reasonable employee counts (between 1 and 1M employees)
+                            if 1 <= numeric_value <= 1_000_000:
+                                context_ref = elem.get('contextRef', '')
+                                
+                                # Skip NonConsolidatedMember contexts (individual company data)
+                                if 'NonConsolidatedMember' in context_ref:
+                                    continue
+                                
+                                priority = self._calculate_employee_priority(local_name, context_ref, numeric_value)
+                                employee_candidates.append((numeric_value, priority, local_name, context_ref))
+                                
+                        except (ValueError, AttributeError):
+                            continue
+                        break
+        
+        # Sort by priority (higher is better) and return the best match
+        if employee_candidates:
+            employee_candidates.sort(key=lambda x: x[1], reverse=True)
+            best_match = employee_candidates[0]
+            print(f"Dynamic employee search found: {best_match[0]:,.0f} employees from tag '{best_match[2]}' (context: {best_match[3]})")
+            return best_match[0]
+        
+        return None
+    
+    def _calculate_employee_priority(self, tag_name: str, context_ref: str, value: float) -> int:
+        """
+        Calculate priority score for employee candidate
+        
+        Args:
+            tag_name: Local tag name
+            context_ref: Context reference
+            value: Numeric value
+            
+        Returns:
+            Priority score (higher is better)
+        """
+        priority = 0
+        
+        # Higher priority for consolidated data
+        if 'Consolidated' in context_ref:
+            priority += 25
+            if 'CurrentYear' in context_ref:
+                priority += 20  # Consolidated + CurrentYear is highest priority
+        elif 'CurrentYear' in context_ref:
+            priority += 15
+        
+        # Higher priority for exact employee tags
+        if 'numberofemployees' in tag_name.lower():
+            priority += 15
+        elif 'employees' in tag_name.lower():
+            priority += 12
+        
+        # Higher priority for consolidated in tag name
+        if 'consolidated' in tag_name.lower():
+            priority += 10
+        
+        # Prefer reasonable employee counts for Japanese companies
+        if 10 <= value <= 100_000:  # 10 to 100K employees (typical range)
+            priority += 10
+        elif 1 <= value <= 500_000:  # 1 to 500K employees
+            priority += 5
+        
+        return priority
+    
+    def _dynamic_search_equity(self, root: ET.Element) -> Optional[float]:
+        """
+        Dynamic search for equity/shareholders' equity related tags when standard patterns fail
+        
+        Args:
+            root: XBRL root element
+            
+        Returns:
+            Equity value or None
+        """
+        equity_candidates = []
+        
+        # Keywords indicating equity-related data
+        equity_keywords = [
+            'ShareholdersEquity', 'Equity', 'NetAssets', 'TotalEquity', 'OwnersEquity',
+            'ConsolidatedEquity', 'ConsolidatedShareholdersEquity', 'NetWorth',
+            'ShareholdersCapital', 'StockholdersEquity', 'TotalNetAssets',
+            'EquityAttributableToOwnersOfParent', 'ParentCompanyShareholdersEquity'
+        ]
+        
+        # Search through all elements
+        for elem in root.iter():
+            if elem.tag and elem.text:
+                tag_name = elem.tag
+                
+                # Remove namespace prefix for matching
+                local_name = tag_name.split('}')[-1] if '}' in tag_name else tag_name
+                
+                # Check if tag contains equity-related keywords
+                for keyword in equity_keywords:
+                    if keyword.lower() in local_name.lower():
+                        try:
+                            # Try to parse as number
+                            value_text = elem.text.replace(',', '').strip()
+                            numeric_value = float(value_text)
+                            
+                            # Filter reasonable equity values (between 100M and 100T yen)
+                            if 100_000_000 <= numeric_value <= 100_000_000_000_000:
+                                context_ref = elem.get('contextRef', '')
+                                
+                                # Skip NonConsolidatedMember contexts (individual company data)
+                                if 'NonConsolidatedMember' in context_ref:
+                                    continue
+                                
+                                priority = self._calculate_equity_priority(local_name, context_ref, numeric_value)
+                                equity_candidates.append((numeric_value, priority, local_name, context_ref))
+                                
+                        except (ValueError, AttributeError):
+                            continue
+                        break
+        
+        # Sort by priority (higher is better) and return the best match
+        if equity_candidates:
+            equity_candidates.sort(key=lambda x: x[1], reverse=True)
+            best_match = equity_candidates[0]
+            print(f"Dynamic equity search found: {best_match[0]:,.0f} yen from tag '{best_match[2]}' (context: {best_match[3]})")
+            return best_match[0]
+        
+        return None
+    
+    def _calculate_equity_priority(self, tag_name: str, context_ref: str, value: float) -> int:
+        """
+        Calculate priority score for equity candidate
+        
+        Args:
+            tag_name: Local tag name
+            context_ref: Context reference
+            value: Numeric value
+            
+        Returns:
+            Priority score (higher is better)
+        """
+        priority = 0
+        
+        # Higher priority for consolidated data
+        if 'Consolidated' in context_ref:
+            priority += 25
+            if 'CurrentYear' in context_ref:
+                priority += 20  # Consolidated + CurrentYear is highest priority
+        elif 'CurrentYear' in context_ref:
+            priority += 15
+        
+        # Higher priority for exact equity tags
+        if any(term in tag_name.lower() for term in ['shareholdersequity', 'equity', 'netassets']):
+            priority += 15
+        elif 'equity' in tag_name.lower():
+            priority += 12
+        
+        # Higher priority for consolidated in tag name
+        if 'consolidated' in tag_name.lower():
+            priority += 10
+        
+        # Higher priority for parent company equity
+        if any(term in tag_name.lower() for term in ['parent', 'owners', 'attributable']):
+            priority += 8
+        
+        # Prefer reasonable equity values for Japanese companies
+        if 1_000_000_000 <= value <= 10_000_000_000_000:  # 1B to 10T yen
+            priority += 10
+        elif 100_000_000 <= value <= 100_000_000_000_000:  # 100M to 100T yen
+            priority += 5
+        
+        return priority
+    
     def _extract_eps(self, root: ET.Element) -> Optional[float]:
         """Extract earnings per share, preferring diluted over basic"""
         # Try diluted EPS first (priority)
@@ -741,6 +1125,11 @@ class XBRLParser:
                             # Filter reasonable EPS values (between -10,000 and 10,000 yen)
                             if -10_000 <= numeric_value <= 10_000:
                                 context_ref = elem.get('contextRef', '')
+                                
+                                # Skip NonConsolidatedMember contexts (individual company data)
+                                if 'NonConsolidatedMember' in context_ref:
+                                    continue
+                                
                                 priority = self._calculate_eps_priority(local_name, context_ref, numeric_value)
                                 eps_candidates.append((numeric_value, priority, local_name, context_ref))
                                 

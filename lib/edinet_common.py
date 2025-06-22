@@ -39,20 +39,73 @@ XBRL_PATTERNS = {
         './/jppfs_cor:SharePrice'
     ],
     'net_sales': [
+        # Primary consolidated patterns
         './/jpcrp_cor:RevenueIFRSSummaryOfBusinessResults',
         './/jpcrp_cor:NetSalesSummaryOfBusinessResults',
-        './/jppfs_cor:NetSales'
+        './/jppfs_cor:NetSales',
+        
+        # Additional consolidated revenue patterns
+        './/jpcrp_cor:ConsolidatedNetSales',
+        './/jppfs_cor:ConsolidatedNetSales',
+        './/jpcrp_cor:ConsolidatedRevenue',
+        './/jppfs_cor:ConsolidatedRevenue',
+        './/jpcrp_cor:TotalRevenue',
+        './/jppfs_cor:TotalRevenue',
+        './/jpcrp_cor:OperatingRevenue',
+        './/jppfs_cor:OperatingRevenue',
+        
+        # IFRS patterns
+        './/jpcrp_cor:Revenue',
+        './/jppfs_cor:Revenue',
+        './/jpcrp_cor:RevenueFromContractsWithCustomers',
+        './/jppfs_cor:RevenueFromContractsWithCustomers'
     ],
     'employees': [
+        # Primary employee patterns
         './/jpcrp_cor:NumberOfEmployees',
-        './/jppfs_cor:NumberOfEmployees'
+        './/jppfs_cor:NumberOfEmployees',
+        
+        # Consolidated employee patterns
+        './/jpcrp_cor:ConsolidatedNumberOfEmployees',
+        './/jppfs_cor:ConsolidatedNumberOfEmployees',
+        './/jpcrp_cor:TotalNumberOfEmployees',
+        './/jppfs_cor:TotalNumberOfEmployees',
+        './/jpcrp_cor:NumberOfEmployeesConsolidated',
+        './/jppfs_cor:NumberOfEmployeesConsolidated',
+        
+        # Alternative employee patterns
+        './/jpcrp_cor:Employees',
+        './/jppfs_cor:Employees',
+        './/jpcrp_cor:TotalEmployees',
+        './/jppfs_cor:TotalEmployees',
+        './/jpcrp_cor:Personnel',
+        './/jppfs_cor:Personnel'
     ],
     'operating_income': [
-        './/jppfs_cor:OperatingIncome'
+        # Consolidated operating income patterns (priority)
+        './/jpcrp_cor:ConsolidatedOperatingIncome',
+        './/jppfs_cor:ConsolidatedOperatingIncome',
+        './/jpcrp_cor:OperatingIncomeConsolidated',
+        './/jppfs_cor:OperatingIncomeConsolidated',
+        
+        # Standard operating income patterns
+        './/jppfs_cor:OperatingIncome',
+        './/jpcrp_cor:OperatingIncome',
+        './/jppfs_cor:OperatingProfitLoss',
+        './/jpcrp_cor:OperatingProfitLoss'
     ],
     'depreciation': [
+        # Consolidated depreciation patterns (priority)
+        './/jpcrp_cor:ConsolidatedDepreciationAndAmortization',
+        './/jppfs_cor:ConsolidatedDepreciationAndAmortization',
+        './/jpcrp_cor:DepreciationAndAmortizationConsolidated',
+        './/jppfs_cor:DepreciationAndAmortizationConsolidated',
+        
+        # Standard depreciation patterns
         './/jppfs_cor:DepreciationAndAmortization',
-        './/jpcrp_cor:DepreciationAndAmortization'
+        './/jpcrp_cor:DepreciationAndAmortization',
+        './/jppfs_cor:Depreciation',
+        './/jpcrp_cor:Depreciation'
     ],
     'market_cap': [
         './/jpcrp_cor:MarketCapitalization',
@@ -69,13 +122,36 @@ XBRL_PATTERNS = {
         './/jppfs_cor:PriceBookValueRatio'
     ],
     'equity': [
+        # Consolidated equity patterns (priority)
+        './/jpcrp_cor:ConsolidatedShareholdersEquity',
+        './/jppfs_cor:ConsolidatedShareholdersEquity',
+        './/jpcrp_cor:ShareholdersEquityConsolidated',
+        './/jppfs_cor:ShareholdersEquityConsolidated',
+        './/jpigp_cor:ConsolidatedEquityIFRS',
+        './/jpcrp_cor:ConsolidatedEquity',
+        './/jppfs_cor:ConsolidatedEquity',
+        
+        # Standard equity patterns
         './/jpigp_cor:EquityIFRS',
         './/jppfs_cor:ShareholdersEquity', 
-        './/jpcrp_cor:ShareholdersEquity'
+        './/jpcrp_cor:ShareholdersEquity',
+        './/jppfs_cor:Equity',
+        './/jpcrp_cor:Equity'
     ],
     'debt': [
+        # Consolidated debt patterns (priority)
+        './/jpcrp_cor:ConsolidatedInterestBearingDebt',
+        './/jppfs_cor:ConsolidatedInterestBearingDebt',
+        './/jpcrp_cor:InterestBearingDebtConsolidated',
+        './/jppfs_cor:InterestBearingDebtConsolidated',
+        './/jpcrp_cor:ConsolidatedDebt',
+        './/jppfs_cor:ConsolidatedDebt',
+        
+        # Standard debt patterns
         './/jppfs_cor:InterestBearingDebt',
-        './/jpcrp_cor:InterestBearingDebt'
+        './/jpcrp_cor:InterestBearingDebt',
+        './/jppfs_cor:TotalDebt',
+        './/jpcrp_cor:TotalDebt'
     ],
     'characteristic': [
         './/jpcrp_cor:DescriptionOfBusiness',
@@ -125,6 +201,15 @@ XBRL_PATTERNS = {
         './/jppfs_cor:NumberOfSharesCapitalStock'
     ],
     'eps_basic': [
+        # Consolidated basic EPS patterns (priority)
+        './/jpcrp_cor:ConsolidatedBasicEarningsPerShare',
+        './/jppfs_cor:ConsolidatedBasicEarningsPerShare',
+        './/jpcrp_cor:BasicEarningsPerShareConsolidated',
+        './/jppfs_cor:BasicEarningsPerShareConsolidated',
+        './/jpcrp_cor:ConsolidatedBasicNetIncomePerShare',
+        './/jppfs_cor:ConsolidatedBasicNetIncomePerShare',
+        
+        # Standard basic EPS patterns
         './/jpcrp_cor:BasicEarningsPerShare',
         './/jppfs_cor:BasicEarningsPerShare',
         './/jpcrp_cor:EarningsPerShareBasic',
@@ -135,6 +220,15 @@ XBRL_PATTERNS = {
         './/jppfs_cor:NetIncomePerShareBasic'
     ],
     'eps_diluted': [
+        # Consolidated diluted EPS patterns (priority)
+        './/jpcrp_cor:ConsolidatedDilutedEarningsPerShare',
+        './/jppfs_cor:ConsolidatedDilutedEarningsPerShare',
+        './/jpcrp_cor:DilutedEarningsPerShareConsolidated',
+        './/jppfs_cor:DilutedEarningsPerShareConsolidated',
+        './/jpcrp_cor:ConsolidatedDilutedNetIncomePerShare',
+        './/jppfs_cor:ConsolidatedDilutedNetIncomePerShare',
+        
+        # Standard diluted EPS patterns
         './/jpcrp_cor:DilutedEarningsPerShare',
         './/jppfs_cor:DilutedEarningsPerShare',
         './/jpcrp_cor:EarningsPerShareDiluted',
@@ -145,6 +239,17 @@ XBRL_PATTERNS = {
         './/jppfs_cor:NetIncomePerShareDiluted'
     ],
     'net_income': [
+        # Consolidated net income patterns (priority)
+        './/jpcrp_cor:ConsolidatedNetIncomeLoss',
+        './/jppfs_cor:ConsolidatedNetIncomeLoss',
+        './/jpcrp_cor:NetIncomeLossConsolidated',
+        './/jppfs_cor:NetIncomeLossConsolidated',
+        './/jpcrp_cor:ConsolidatedProfitLoss',
+        './/jppfs_cor:ConsolidatedProfitLoss',
+        './/jpcrp_cor:ConsolidatedNetIncomeAttributableToOwnersOfParent',
+        './/jppfs_cor:ConsolidatedNetIncomeAttributableToOwnersOfParent',
+        
+        # Standard net income patterns
         './/jpcrp_cor:NetIncomeLoss',
         './/jppfs_cor:NetIncomeLoss',
         './/jpcrp_cor:ProfitLoss',
