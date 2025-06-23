@@ -54,9 +54,9 @@ This modularization improves code maintainability, reduces duplication, and prov
 ### EDINET-Focused Data Strategy
 - Primary data source: EDINET XBRL data
 - Focus on reliable, verifiable financial data from official sources
-- Extract available metrics: netSales, employees, operatingIncome, equity, netIncome, outstandingShares, eps, cash
+- Extract available metrics: netSales, employees, operatingIncome, equity, netIncome, outstandingShares, eps, cash, bps, debt
 - Calculate derived metrics: operatingIncomeRate, ebitda, ebitdaMargin, ev, evPerEbitda
-- Advanced extraction: Dynamic search algorithms for PER, EPS, outstanding shares, and cash when standard patterns fail
+- Advanced extraction: Dynamic search algorithms for PER, EPS, outstanding shares, cash, BPS, and debt when standard patterns fail
 
 ## Technical Implementation Guidelines
 
@@ -127,3 +127,4 @@ This modularization improves code maintainability, reduces duplication, and prov
 Refer to the product requirement document located at .ai-rules/edinet_requirements_spec.md 
 for building this software.
 
+ to memorize

@@ -121,6 +121,25 @@ XBRL_PATTERNS = {
         './/jpcrp_cor:PriceBookValueRatio', 
         './/jppfs_cor:PriceBookValueRatio'
     ],
+    'bps': [
+        # Consolidated BPS patterns (priority)
+        './/jpcrp_cor:ConsolidatedBookValuePerShare',
+        './/jppfs_cor:ConsolidatedBookValuePerShare',
+        './/jpcrp_cor:BookValuePerShareConsolidated',
+        './/jppfs_cor:BookValuePerShareConsolidated',
+        './/jpcrp_cor:ConsolidatedNetAssetsPerShare',
+        './/jppfs_cor:ConsolidatedNetAssetsPerShare',
+        
+        # Standard BPS patterns
+        './/jpcrp_cor:BookValuePerShare',
+        './/jppfs_cor:BookValuePerShare',
+        './/jpcrp_cor:NetAssetsPerShare',
+        './/jppfs_cor:NetAssetsPerShare',
+        './/jpcrp_cor:NetBookValuePerShare',
+        './/jppfs_cor:NetBookValuePerShare',
+        './/jpcrp_cor:ShareholdersEquityPerShare',
+        './/jppfs_cor:ShareholdersEquityPerShare'
+    ],
     'equity': [
         # Consolidated equity patterns (priority)
         './/jpcrp_cor:ConsolidatedShareholdersEquity',
@@ -139,19 +158,101 @@ XBRL_PATTERNS = {
         './/jpcrp_cor:Equity'
     ],
     'debt': [
-        # Consolidated debt patterns (priority)
+        # Consolidated interest-bearing debt patterns (priority)
         './/jpcrp_cor:ConsolidatedInterestBearingDebt',
         './/jppfs_cor:ConsolidatedInterestBearingDebt',
         './/jpcrp_cor:InterestBearingDebtConsolidated',
         './/jppfs_cor:InterestBearingDebtConsolidated',
+        './/jpcrp_cor:ConsolidatedTotalInterestBearingDebt',
+        './/jppfs_cor:ConsolidatedTotalInterestBearingDebt',
+        
+        # Consolidated debt patterns
         './/jpcrp_cor:ConsolidatedDebt',
         './/jppfs_cor:ConsolidatedDebt',
+        './/jpcrp_cor:ConsolidatedTotalDebt',
+        './/jppfs_cor:ConsolidatedTotalDebt',
+        './/jpcrp_cor:DebtConsolidated',
+        './/jppfs_cor:DebtConsolidated',
         
-        # Standard debt patterns
+        # Consolidated borrowings patterns
+        './/jpcrp_cor:ConsolidatedBorrowings',
+        './/jppfs_cor:ConsolidatedBorrowings',
+        './/jpcrp_cor:ConsolidatedTotalBorrowings',
+        './/jppfs_cor:ConsolidatedTotalBorrowings',
+        './/jpcrp_cor:BorrowingsConsolidated',
+        './/jppfs_cor:BorrowingsConsolidated',
+        
+        # Standard interest-bearing debt patterns
         './/jppfs_cor:InterestBearingDebt',
         './/jpcrp_cor:InterestBearingDebt',
+        './/jppfs_cor:TotalInterestBearingDebt',
+        './/jpcrp_cor:TotalInterestBearingDebt',
+        './/jppfs_cor:InterestBearingLiabilities',
+        './/jpcrp_cor:InterestBearingLiabilities',
+        
+        # Standard debt patterns
         './/jppfs_cor:TotalDebt',
-        './/jpcrp_cor:TotalDebt'
+        './/jpcrp_cor:TotalDebt',
+        './/jppfs_cor:Debt',
+        './/jpcrp_cor:Debt',
+        
+        # Borrowings patterns
+        './/jppfs_cor:Borrowings',
+        './/jpcrp_cor:Borrowings',
+        './/jppfs_cor:TotalBorrowings',
+        './/jpcrp_cor:TotalBorrowings',
+        './/jppfs_cor:BorrowingsAndDebt',
+        './/jpcrp_cor:BorrowingsAndDebt',
+        
+        # Loans patterns
+        './/jppfs_cor:Loans',
+        './/jpcrp_cor:Loans',
+        './/jppfs_cor:TotalLoans',
+        './/jpcrp_cor:TotalLoans',
+        './/jppfs_cor:LoanPayable',
+        './/jpcrp_cor:LoanPayable',
+        './/jppfs_cor:LoansPayable',
+        './/jpcrp_cor:LoansPayable',
+        
+        # Short-term and long-term debt patterns
+        './/jppfs_cor:ShortTermDebt',
+        './/jpcrp_cor:ShortTermDebt',
+        './/jppfs_cor:LongTermDebt',
+        './/jpcrp_cor:LongTermDebt',
+        './/jppfs_cor:ShortTermBorrowings',
+        './/jpcrp_cor:ShortTermBorrowings',
+        './/jppfs_cor:LongTermBorrowings',
+        './/jpcrp_cor:LongTermBorrowings',
+        './/jppfs_cor:ShortTermLoans',
+        './/jpcrp_cor:ShortTermLoans',
+        './/jppfs_cor:LongTermLoans',
+        './/jpcrp_cor:LongTermLoans',
+        
+        # Bank loans and bonds patterns
+        './/jppfs_cor:BankLoans',
+        './/jpcrp_cor:BankLoans',
+        './/jppfs_cor:CorporateBonds',
+        './/jpcrp_cor:CorporateBonds',
+        './/jppfs_cor:BondsPayable',
+        './/jpcrp_cor:BondsPayable',
+        './/jppfs_cor:NotesPayable',
+        './/jpcrp_cor:NotesPayable',
+        
+        # Financial liabilities patterns (IFRS)
+        './/jpigp_cor:FinancialLiabilities',
+        './/jpigp_cor:FinancialLiabilitiesIFRS',
+        './/jpigp_cor:ConsolidatedFinancialLiabilities',
+        './/jpigp_cor:ConsolidatedFinancialLiabilitiesIFRS',
+        
+        # Net debt patterns
+        './/jppfs_cor:NetDebt',
+        './/jpcrp_cor:NetDebt',
+        './/jppfs_cor:NetInterestBearingDebt',
+        './/jpcrp_cor:NetInterestBearingDebt',
+        './/jppfs_cor:ConsolidatedNetDebt',
+        './/jpcrp_cor:ConsolidatedNetDebt',
+        './/jppfs_cor:ConsolidatedNetInterestBearingDebt',
+        './/jpcrp_cor:ConsolidatedNetInterestBearingDebt'
     ],
     'characteristic': [
         './/jpcrp_cor:DescriptionOfBusiness',

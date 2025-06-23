@@ -326,6 +326,13 @@ class MetricsCalculator:
                     financial_data['per'] = calculated_per
                     print(f"Calculated PER: {calculated_per:.2f}")
             
+            # Calculate BPS if not already available and we have the necessary data
+            if not financial_data.get('bps'):
+                calculated_bps = MetricsCalculator._calculate_bps(financial_data)
+                if calculated_bps is not None:
+                    financial_data['bps'] = calculated_bps
+                    print(f"Calculated BPS: {calculated_bps:.2f} yen")
+            
         except Exception as e:
             print(f"Error calculating derived metrics: {e}", file=sys.stderr)
         
@@ -386,6 +393,30 @@ class MetricsCalculator:
             
         except Exception as e:
             print(f"Error calculating PER: {e}", file=sys.stderr)
+        
+        return None
+    
+    @staticmethod
+    def _calculate_bps(financial_data: Dict[str, Any]) -> Optional[float]:
+        """
+        Calculate BPS (Book Value Per Share) from equity and outstanding shares
+        
+        Args:
+            financial_data: Dictionary with financial data
+            
+        Returns:
+            Calculated BPS or None
+        """
+        try:
+            equity = financial_data.get('equity')
+            outstanding_shares = financial_data.get('outstandingShares')
+            
+            if equity and outstanding_shares and outstanding_shares > 0:
+                bps = equity / outstanding_shares
+                return bps
+            
+        except Exception as e:
+            print(f"Error calculating BPS: {e}", file=sys.stderr)
         
         return None
 
@@ -478,6 +509,7 @@ class XBRLParser:
             "ev": None,  # Calculated later
             "evPerEbitda": None,  # Calculated later
             "pbr": self._extract_pbr(root),
+            "bps": self._extract_bps(root),
             "equity": self._extract_equity(root),
             "debt": self._extract_debt(root),
             "outstandingShares": self._extract_outstanding_shares(root),
@@ -644,6 +676,16 @@ class XBRLParser:
         """Extract price-to-book ratio"""
         return self.data_extractor.extract_numeric_value(root, self.data_extractor.patterns['pbr'])
     
+    def _extract_bps(self, root: ET.Element) -> Optional[float]:
+        """Extract book value per share (BPS) with enhanced pattern matching"""
+        # Try standard patterns first
+        value = self.data_extractor.extract_numeric_value_with_context(root, self.data_extractor.patterns['bps'])
+        if value is not None:
+            return value
+        
+        # Fallback: Dynamic search for BPS-related tags
+        return self._dynamic_search_bps(root)
+    
     def _extract_equity(self, root: ET.Element) -> Optional[float]:
         """Extract total equity/shareholders' equity with enhanced pattern matching"""
         # Try standard patterns first
@@ -655,8 +697,19 @@ class XBRLParser:
         return self._dynamic_search_equity(root)
     
     def _extract_debt(self, root: ET.Element) -> Optional[float]:
-        """Extract net interest-bearing debt"""
-        return self.data_extractor.extract_numeric_value_with_context(root, self.data_extractor.patterns['debt'])
+        """Extract net interest-bearing debt with enhanced pattern matching"""
+        # Try standard patterns first
+        value = self.data_extractor.extract_numeric_value_with_context(root, self.data_extractor.patterns['debt'])
+        if value is not None:
+            return value
+        
+        # Fallback: Dynamic search for debt-related tags
+        dynamic_value = self._dynamic_search_debt(root)
+        if dynamic_value is not None:
+            return dynamic_value
+        
+        # Final fallback: Try to calculate debt from short-term + long-term components
+        return self._calculate_debt_from_components(root)
     
     def _extract_net_income(self, root: ET.Element) -> Optional[float]:
         """Extract net income with enhanced pattern matching"""
@@ -1428,6 +1481,341 @@ class XBRLParser:
             priority += 3
         
         return priority
+    
+    def _dynamic_search_bps(self, root: ET.Element) -> Optional[float]:
+        """
+        Dynamic search for BPS (Book Value Per Share) related tags when standard patterns fail
+        
+        Args:
+            root: XBRL root element
+            
+        Returns:
+            BPS value or None
+        """
+        bps_candidates = []
+        
+        # Keywords indicating BPS-related data
+        bps_keywords = [
+            'BookValuePerShare', 'NetAssetsPerShare', 'NetBookValuePerShare',
+            'ShareholdersEquityPerShare', 'BookValue', 'NetAssets',
+            'ConsolidatedBookValuePerShare', 'ConsolidatedNetAssetsPerShare',
+            'BookValuePerCommonShare', 'NetAssetsPerCommonShare',
+            'EquityPerShare', 'NetWorthPerShare'
+        ]
+        
+        # Search through all elements
+        for elem in root.iter():
+            if elem.tag and elem.text:
+                tag_name = elem.tag
+                
+                # Remove namespace prefix for matching
+                local_name = tag_name.split('}')[-1] if '}' in tag_name else tag_name
+                
+                # Check if tag contains BPS-related keywords
+                for keyword in bps_keywords:
+                    if keyword.lower() in local_name.lower():
+                        try:
+                            # Try to parse as number
+                            value_text = elem.text.replace(',', '').strip()
+                            numeric_value = float(value_text)
+                            
+                            # Filter reasonable BPS values (between 1 and 100,000 yen per share)
+                            if 1 <= numeric_value <= 100_000:
+                                context_ref = elem.get('contextRef', '')
+                                
+                                # Skip NonConsolidatedMember contexts (individual company data)
+                                if 'NonConsolidatedMember' in context_ref:
+                                    continue
+                                
+                                priority = self._calculate_bps_priority(local_name, context_ref, numeric_value)
+                                bps_candidates.append((numeric_value, priority, local_name, context_ref))
+                                
+                        except (ValueError, AttributeError):
+                            continue
+                        break
+        
+        # Sort by priority (higher is better) and return the best match
+        if bps_candidates:
+            bps_candidates.sort(key=lambda x: x[1], reverse=True)
+            best_match = bps_candidates[0]
+            print(f"Dynamic BPS search found: {best_match[0]:.2f} yen from tag '{best_match[2]}' (context: {best_match[3]})")
+            return best_match[0]
+        
+        return None
+    
+    def _calculate_bps_priority(self, tag_name: str, context_ref: str, value: float) -> int:
+        """
+        Calculate priority score for BPS candidate
+        
+        Args:
+            tag_name: Local tag name
+            context_ref: Context reference
+            value: Numeric value
+            
+        Returns:
+            Priority score (higher is better)
+        """
+        priority = 0
+        
+        # Higher priority for consolidated data
+        if 'Consolidated' in context_ref:
+            priority += 25
+            if 'CurrentYear' in context_ref:
+                priority += 20  # Consolidated + CurrentYear is highest priority
+        elif 'CurrentYear' in context_ref:
+            priority += 15
+        
+        # Higher priority for exact BPS tags
+        if any(term in tag_name.lower() for term in ['bookvaluepershare', 'netassetspershare']):
+            priority += 15
+        elif any(term in tag_name.lower() for term in ['bookvalue', 'netassets', 'equity']):
+            priority += 12
+        
+        # Higher priority for consolidated in tag name
+        if 'consolidated' in tag_name.lower():
+            priority += 10
+        
+        # Higher priority for per share indicators
+        if 'pershare' in tag_name.lower():
+            priority += 10
+        elif 'share' in tag_name.lower():
+            priority += 8
+        
+        # Prefer reasonable BPS values for Japanese companies
+        if 100 <= value <= 10_000:  # 100 to 10,000 yen per share (typical range)
+            priority += 10
+        elif 10 <= value <= 50_000:  # 10 to 50,000 yen per share
+            priority += 5
+        elif 1 <= value <= 100_000:  # 1 to 100,000 yen per share
+            priority += 3
+        
+        return priority
+    
+    def _dynamic_search_debt(self, root: ET.Element) -> Optional[float]:
+        """
+        Dynamic search for debt (interest-bearing debt) related tags when standard patterns fail
+        
+        Args:
+            root: XBRL root element
+            
+        Returns:
+            Debt value or None
+        """
+        debt_candidates = []
+        
+        # Keywords indicating debt-related data
+        debt_keywords = [
+            # Primary debt terms
+            'InterestBearingDebt', 'TotalInterestBearingDebt', 'NetInterestBearingDebt',
+            'TotalDebt', 'NetDebt', 'Debt', 'BorrowingsAndDebt',
+            
+            # Consolidated debt terms
+            'ConsolidatedInterestBearingDebt', 'ConsolidatedTotalInterestBearingDebt',
+            'ConsolidatedDebt', 'ConsolidatedTotalDebt', 'ConsolidatedNetDebt',
+            'ConsolidatedBorrowings', 'ConsolidatedTotalBorrowings',
+            
+            # Borrowings terms
+            'Borrowings', 'TotalBorrowings', 'NetBorrowings', 'BorrowingsAndDebt',
+            'ShortTermBorrowings', 'LongTermBorrowings',
+            
+            # Loans terms
+            'Loans', 'TotalLoans', 'LoanPayable', 'LoansPayable',
+            'ShortTermLoans', 'LongTermLoans', 'BankLoans',
+            
+            # Debt classification terms
+            'ShortTermDebt', 'LongTermDebt', 'CurrentDebt', 'NonCurrentDebt',
+            
+            # Specific debt instruments
+            'BondsPayable', 'CorporateBonds', 'NotesPayable', 'BillsPayable',
+            'Debentures', 'ConvertibleBonds',
+            
+            # Liabilities terms
+            'InterestBearingLiabilities', 'FinancialLiabilities', 'DebtLiabilities',
+            
+            # IFRS terms
+            'FinancialLiabilitiesIFRS', 'ConsolidatedFinancialLiabilities',
+            'ConsolidatedFinancialLiabilitiesIFRS',
+            
+            # Other debt-related terms
+            'DebtFinancing', 'InterestPayable', 'AccruedInterest',
+            'CommercialPaper', 'CreditFacilities', 'LineOfCredit',
+            
+            # Japanese-specific terms (romanized)
+            'Shakkan', 'Fusai', 'Kariire', 'Shakkankin', 'Fusaikin'
+        ]
+        
+        # Search through all elements
+        for elem in root.iter():
+            if elem.tag and elem.text:
+                tag_name = elem.tag
+                
+                # Remove namespace prefix for matching
+                local_name = tag_name.split('}')[-1] if '}' in tag_name else tag_name
+                
+                # Check if tag contains debt-related keywords
+                for keyword in debt_keywords:
+                    if keyword.lower() in local_name.lower():
+                        try:
+                            # Try to parse as number
+                            value_text = elem.text.replace(',', '').strip()
+                            numeric_value = float(value_text)
+                            
+                            # Filter reasonable debt values (between 0 and 100T yen, including 0 for debt-free companies)
+                            if 0 <= numeric_value <= 100_000_000_000_000:
+                                context_ref = elem.get('contextRef', '')
+                                
+                                # Skip NonConsolidatedMember contexts (individual company data)
+                                if 'NonConsolidatedMember' in context_ref:
+                                    continue
+                                
+                                priority = self._calculate_debt_priority(local_name, context_ref, numeric_value)
+                                debt_candidates.append((numeric_value, priority, local_name, context_ref))
+                                
+                        except (ValueError, AttributeError):
+                            continue
+                        break
+        
+        # Sort by priority (higher is better) and return the best match
+        if debt_candidates:
+            debt_candidates.sort(key=lambda x: x[1], reverse=True)
+            best_match = debt_candidates[0]
+            print(f"Dynamic debt search found: {best_match[0]:,.0f} yen from tag '{best_match[2]}' (context: {best_match[3]})")
+            return best_match[0]
+        
+        return None
+    
+    def _calculate_debt_priority(self, tag_name: str, context_ref: str, value: float) -> int:
+        """
+        Calculate priority score for debt candidate
+        
+        Args:
+            tag_name: Local tag name
+            context_ref: Context reference
+            value: Numeric value
+            
+        Returns:
+            Priority score (higher is better)
+        """
+        priority = 0
+        
+        # Higher priority for consolidated data
+        if 'Consolidated' in context_ref:
+            priority += 25
+            if 'CurrentYear' in context_ref:
+                priority += 20  # Consolidated + CurrentYear is highest priority
+        elif 'CurrentYear' in context_ref:
+            priority += 15
+        
+        # Highest priority for interest-bearing debt (most accurate for financial analysis)
+        if any(term in tag_name.lower() for term in ['interestbearingdebt', 'totalinterestbearingdebt', 'netinterestbearingdebt']):
+            priority += 20
+        elif any(term in tag_name.lower() for term in ['totaldebt', 'netdebt']):
+            priority += 18
+        elif any(term in tag_name.lower() for term in ['totalborrowing', 'netborrowing']):
+            priority += 16
+        elif any(term in tag_name.lower() for term in ['debt', 'borrowings', 'loans']):
+            priority += 12
+        
+        # Higher priority for consolidated in tag name
+        if 'consolidated' in tag_name.lower():
+            priority += 12
+        
+        # Higher priority for total vs specific components
+        if 'total' in tag_name.lower():
+            priority += 10
+        elif 'net' in tag_name.lower():
+            priority += 8  # Net debt is preferred over gross debt
+        
+        # Boost priority for financial liabilities (IFRS)
+        if any(term in tag_name.lower() for term in ['financialliabilities', 'financialliabilitiesifrs']):
+            priority += 15
+        
+        # Higher priority for comprehensive debt terms
+        if any(term in tag_name.lower() for term in ['borrowingsanddebt', 'debtandborrowings']):
+            priority += 14
+        
+        # Lower priority for specific short-term components unless it's a comprehensive measure
+        if any(term in tag_name.lower() for term in ['shortterm', 'current']) and 'total' not in tag_name.lower():
+            priority -= 5
+        
+        # Higher priority for current year/fiscal year context
+        if any(term in context_ref.lower() for term in ['currentyear', 'current', 'fiscal']):
+            priority += 8
+        
+        # Prefer reasonable debt values for Japanese companies
+        if 100_000_000 <= value <= 50_000_000_000_000:  # 100M to 50T yen (reasonable range)
+            priority += 12
+        elif 10_000_000 <= value <= 100_000_000_000_000:  # 10M to 100T yen
+            priority += 8
+        elif 0 <= value <= 10_000_000:  # Very small debt (could be debt-free)
+            priority += 5
+        
+        # Slight penalty for extremely large values that might be errors
+        if value > 100_000_000_000_000:  # Over 100T yen
+            priority -= 5
+        
+        return priority
+    
+    def _calculate_debt_from_components(self, root: ET.Element) -> Optional[float]:
+        """
+        Calculate total debt from short-term and long-term debt components
+        
+        Args:
+            root: XBRL root element
+            
+        Returns:
+            Calculated total debt or None
+        """
+        short_term_debt = None
+        long_term_debt = None
+        
+        # Patterns for short-term debt
+        short_term_patterns = [
+            './/jpcrp_cor:ShortTermBorrowings',
+            './/jppfs_cor:ShortTermBorrowings',
+            './/jpcrp_cor:ShortTermDebt',
+            './/jppfs_cor:ShortTermDebt',
+            './/jpcrp_cor:ShortTermLoans',
+            './/jppfs_cor:ShortTermLoans',
+            './/jpcrp_cor:CurrentPortionOfLongTermDebt',
+            './/jppfs_cor:CurrentPortionOfLongTermDebt',
+            './/jpcrp_cor:ConsolidatedShortTermBorrowings',
+            './/jppfs_cor:ConsolidatedShortTermBorrowings'
+        ]
+        
+        # Patterns for long-term debt
+        long_term_patterns = [
+            './/jpcrp_cor:LongTermBorrowings',
+            './/jppfs_cor:LongTermBorrowings',
+            './/jpcrp_cor:LongTermDebt',
+            './/jppfs_cor:LongTermDebt',
+            './/jpcrp_cor:LongTermLoans',
+            './/jppfs_cor:LongTermLoans',
+            './/jpcrp_cor:ConsolidatedLongTermBorrowings',
+            './/jppfs_cor:ConsolidatedLongTermBorrowings',
+            './/jpcrp_cor:BondsPayable',
+            './/jppfs_cor:BondsPayable'
+        ]
+        
+        # Try to extract short-term debt
+        short_term_debt = self.data_extractor.extract_numeric_value_with_context(root, short_term_patterns)
+        
+        # Try to extract long-term debt
+        long_term_debt = self.data_extractor.extract_numeric_value_with_context(root, long_term_patterns)
+        
+        # Calculate total if we have at least one component
+        if short_term_debt is not None and long_term_debt is not None:
+            total_debt = short_term_debt + long_term_debt
+            print(f"Calculated total debt from components: {short_term_debt:,.0f} (short-term) + {long_term_debt:,.0f} (long-term) = {total_debt:,.0f}")
+            return total_debt
+        elif short_term_debt is not None:
+            print(f"Using short-term debt only: {short_term_debt:,.0f}")
+            return short_term_debt
+        elif long_term_debt is not None:
+            print(f"Using long-term debt only: {long_term_debt:,.0f}")
+            return long_term_debt
+        
+        return None
     
     def _dynamic_search_cash(self, root: ET.Element) -> Optional[float]:
         """

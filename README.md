@@ -11,9 +11,9 @@ The system consists of two command-line tools:
 ## Features
 
 - **Automated Data Extraction**: Retrieves securities reports from EDINET API with rate limiting compliance
-- **Advanced XBRL Parsing**: Extracts 21 financial metrics from XBRL documents with dynamic search capabilities
+- **Advanced XBRL Parsing**: Extracts 22 financial metrics from XBRL documents with dynamic search capabilities
 - **Context-Aware Processing**: Prioritizes current year data over historical using XBRL context references
-- **Dynamic Search Algorithms**: Sophisticated fallback mechanisms for PER, EPS, outstanding shares, and cash extraction
+- **Dynamic Search Algorithms**: Sophisticated fallback mechanisms for PER, EPS, outstanding shares, cash, BPS, and debt extraction
 - **Data Consolidation**: Handles duplicate companies by keeping the latest data
 - **Comprehensive Logging**: Detailed logging with configurable verbosity
 - **Error Handling**: Robust error handling with retry mechanisms
@@ -123,6 +123,7 @@ The system extracts the following financial metrics from XBRL data:
 | ev | Enterprise value | Number |
 | evPerEbitda | Enterprise value / EBITDA | Number |
 | pbr | Price-to-book ratio | Number |
+| bps | Book value per share | Number |
 | equity | Total equity/shareholders' equity | Number |
 | debt | Net interest-bearing debt | Number |
 | outstandingShares | Number of outstanding shares | Number |
