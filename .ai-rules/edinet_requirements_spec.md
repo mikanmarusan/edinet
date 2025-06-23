@@ -60,6 +60,7 @@ Extract the following financial data from XBRL:
 | ev | Enterprise value (Market cap + Net debt) | 52000000000 |
 | evPerEbitda | Enterprise value / EBITDA | 34.7 |
 | pbr | Price-to-book ratio | 3.2 |
+| bps | Book value per share | 375.0 |
 | equity | Total equity/shareholders' equity | 15000000000 |
 | debt | Net interest-bearing debt (excluding cash) | 2000000000 |
 | outstandingShares | Number of outstanding shares | 40000000 |
@@ -104,6 +105,7 @@ Extract the following financial data from XBRL:
     "ev": 52000000000,
     "evPerEbitda": 34.7,
     "pbr": 3.2,
+    "bps": 375.0,
     "equity": 15000000000,
     "debt": 2000000000,
     "outstandingShares": 40000000,
