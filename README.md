@@ -110,7 +110,7 @@ The system extracts the following financial metrics from XBRL data:
 | secCode | 4-digit securities code | String |
 | periodEnd | Fiscal period end | String |
 | characteristic | Company characteristics | String |
-| stockPrice | Stock price at fiscal year end | Number |
+| stockPrice | Stock price at fiscal year end (calculated: eps × per if missing) | Number |
 | netSales | Total net sales | Number |
 | employees | Number of employees | Number |
 | operatingIncome | Operating income | Number |
@@ -118,11 +118,11 @@ The system extracts the following financial metrics from XBRL data:
 | depreciation | Depreciation expenses | Number |
 | ebitda | EBITDA | Number |
 | ebitdaMargin | EBITDA margin (%) | Number |
-| marketCapitalization | Market capitalization | Number |
+| marketCapitalization | Market capitalization (calculated: outstandingShares × stockPrice if missing) | Number |
 | per | Price-to-earnings ratio | Number |
-| ev | Enterprise value | Number |
+| ev | Enterprise value (calculated: marketCapitalization + debt - cash) | Number |
 | evPerEbitda | Enterprise value / EBITDA | Number |
-| pbr | Price-to-book ratio | Number |
+| pbr | Price-to-book ratio (calculated: stockPrice ÷ bps if missing) | Number |
 | bps | Book value per share | Number |
 | equity | Total equity/shareholders' equity | Number |
 | debt | Net interest-bearing debt | Number |

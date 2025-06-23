@@ -56,6 +56,7 @@ This modularization improves code maintainability, reduces duplication, and prov
 - Focus on reliable, verifiable financial data from official sources
 - Extract available metrics: netSales, employees, operatingIncome, equity, netIncome, outstandingShares, eps, cash, bps, debt
 - Calculate derived metrics: operatingIncomeRate, ebitda, ebitdaMargin, ev, evPerEbitda
+- Calculate fallback financial fields: stockPrice (eps × per), marketCapitalization (outstandingShares × stockPrice), pbr (stockPrice ÷ bps)
 - Advanced extraction: Dynamic search algorithms for PER, EPS, outstanding shares, cash, BPS, and debt when standard patterns fail
 
 ## Technical Implementation Guidelines
@@ -109,6 +110,13 @@ This modularization improves code maintainability, reduces duplication, and prov
 - **Cash and Cash Equivalents**: Successfully implemented with period-end prioritization and consolidated data preference
 - **Context Hierarchy**: Established priority order: Consolidated+CurrentYear > CurrentYear > Consolidated > Others
 - **Field Positioning**: New financial metrics should be positioned before retrievedDate field in JSON structure
+
+### Calculated Financial Fields Implementation (2025-06-23)
+- **Issue #21 Resolution**: Implemented null-safe calculations for fields not directly available from EDINET API
+- **Fallback Calculations**: Added stockPrice (eps × per), marketCapitalization (outstandingShares × stockPrice), pbr (stockPrice ÷ bps)
+- **Enterprise Value Correction**: Fixed EV calculation to properly include cash subtraction (marketCapitalization + debt - cash)
+- **Null Safety Strategy**: If any required parameter is null, calculated parameter is also null to maintain data integrity
+- **Calculation Priority**: Prefer direct EDINET extraction over calculated values, use calculations only as fallbacks
 
 ## Future Development Guidelines
 
