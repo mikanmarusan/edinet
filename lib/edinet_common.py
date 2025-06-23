@@ -255,10 +255,49 @@ XBRL_PATTERNS = {
         './/jpcrp_cor:ConsolidatedNetInterestBearingDebt'
     ],
     'characteristic': [
+        # Primary business description patterns
         './/jpcrp_cor:DescriptionOfBusiness',
         './/jpcrp_cor:BusinessDescription',
         './/jpcrp_cor:OutlineOfBusiness',
-        './/jppfs_cor:DescriptionOfBusiness'
+        './/jppfs_cor:DescriptionOfBusiness',
+        './/jppfs_cor:BusinessDescription',
+        './/jppfs_cor:OutlineOfBusiness',
+        
+        # Business overview patterns
+        './/jpcrp_cor:BusinessOverview',
+        './/jppfs_cor:BusinessOverview',
+        './/jpcrp_cor:OverviewOfBusiness',
+        './/jppfs_cor:OverviewOfBusiness',
+        './/jpcrp_cor:BusinessSummary',
+        './/jppfs_cor:BusinessSummary',
+        
+        # Business content patterns
+        './/jpcrp_cor:BusinessContent',
+        './/jppfs_cor:BusinessContent',
+        './/jpcrp_cor:ContentOfBusiness',
+        './/jppfs_cor:ContentOfBusiness',
+        './/jpcrp_cor:NatureOfBusiness',
+        './/jppfs_cor:NatureOfBusiness',
+        
+        # Main business patterns
+        './/jpcrp_cor:MainBusiness',
+        './/jppfs_cor:MainBusiness',
+        './/jpcrp_cor:PrincipalBusiness',
+        './/jppfs_cor:PrincipalBusiness',
+        './/jpcrp_cor:CoreBusiness',
+        './/jppfs_cor:CoreBusiness',
+        
+        # Company profile patterns
+        './/jpcrp_cor:CompanyProfile',
+        './/jppfs_cor:CompanyProfile',
+        './/jpcrp_cor:CorporateProfile',
+        './/jppfs_cor:CorporateProfile',
+        
+        # Business activities patterns
+        './/jpcrp_cor:BusinessActivities',
+        './/jppfs_cor:BusinessActivities',
+        './/jpcrp_cor:ActivitiesOfBusiness',
+        './/jppfs_cor:ActivitiesOfBusiness'
     ],
     'outstanding_shares': [
         # Standard issued and outstanding shares patterns

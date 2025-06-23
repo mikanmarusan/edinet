@@ -174,7 +174,7 @@ class FinancialDataExtractor:
     
     def extract_text_value(self, root: ET.Element, patterns: List[str], max_length: int = 100) -> Optional[str]:
         """
-        Extract text value from XBRL
+        Extract text value from XBRL with HTML sanitization
         
         Args:
             root: XBRL root element
@@ -188,10 +188,56 @@ class FinancialDataExtractor:
             elements = root.findall(pattern, self.namespaces)
             if elements and elements[0].text:
                 text = elements[0].text.strip()
+                # Remove HTML tags and entities
+                text = self._sanitize_html_text(text)
                 # Clean up whitespace
                 text = re.sub(r'\s+', ' ', text)
                 return text[:max_length] + "..." if len(text) > max_length else text
         return None
+    
+    def _sanitize_html_text(self, text: str) -> str:
+        """
+        Remove HTML tags and decode HTML entities from text
+        
+        Args:
+            text: Text that may contain HTML tags
+            
+        Returns:
+            Cleaned text with HTML tags removed
+        """
+        if not text:
+            return ""
+        
+        # Remove HTML/XML tags using regex
+        # Remove all tags like <tag>, <tag attr="value">, </tag>, <tag/>
+        clean_text = re.sub(r'<[^>]+>', '', text)
+        
+        # Decode common HTML entities
+        html_entities = {
+            '&amp;': '&',
+            '&lt;': '<',
+            '&gt;': '>',
+            '&quot;': '"',
+            '&apos;': "'",
+            '&nbsp;': ' ',
+            '&#x20;': ' ',
+            '&#32;': ' ',
+            '&#160;': ' ',
+            '&copy;': '©',
+            '&reg;': '®',
+            '&trade;': '™'
+        }
+        
+        for entity, replacement in html_entities.items():
+            clean_text = clean_text.replace(entity, replacement)
+        
+        # Remove any remaining HTML entities (&#number; or &#xhex;)
+        clean_text = re.sub(r'&#?\w+;', '', clean_text)
+        
+        # Clean up multiple whitespace characters
+        clean_text = re.sub(r'\s+', ' ', clean_text)
+        
+        return clean_text.strip()
     
     def extract_operating_income_special(self, root: ET.Element) -> Optional[float]:
         """
@@ -520,8 +566,19 @@ class XBRLParser:
         }
     
     def _extract_characteristic(self, root: ET.Element) -> Optional[str]:
-        """Extract company characteristics/business description"""
-        return self.data_extractor.extract_text_value(root, self.data_extractor.patterns['characteristic'])
+        """Extract first sentence of company characteristics/business description"""
+        # Try standard patterns first
+        full_text = self.data_extractor.extract_text_value(root, self.data_extractor.patterns['characteristic'], max_length=1000)
+        if full_text:
+            # Extract first sentence
+            return self._extract_first_sentence(full_text)
+        
+        # Fallback: Dynamic search for business description
+        full_text = self._dynamic_search_business_description(root)
+        if full_text:
+            return self._extract_first_sentence(full_text)
+        
+        return None
     
     def _extract_stock_price(self, root: ET.Element) -> Optional[float]:
         """Extract stock price"""
@@ -1924,5 +1981,234 @@ class XBRLParser:
             priority += 10
         elif 100_000_000 <= value <= 10_000_000_000_000:  # 100M to 10T yen
             priority += 5
+        
+        return priority
+    
+    def _extract_first_sentence(self, text: str) -> str:
+        """
+        Extract the first sentence from text
+        
+        Args:
+            text: Full text to extract sentence from
+            
+        Returns:
+            First sentence of the text
+        """
+        if not text:
+            return ""
+        
+        # Clean up the text
+        text = text.strip()
+        
+        # Look for sentence-ending punctuation: 。、！？.!?
+        # Japanese text typically uses 。 as sentence ending
+        sentence_endings = ['。', '！', '？', '.', '!', '?']
+        
+        # Find the first sentence ending
+        first_ending_pos = len(text)  # Default to full text if no ending found
+        
+        for ending in sentence_endings:
+            pos = text.find(ending)
+            if pos != -1 and pos < first_ending_pos:
+                first_ending_pos = pos
+        
+        # Extract first sentence including the punctuation
+        if first_ending_pos < len(text):
+            first_sentence = text[:first_ending_pos + 1].strip()
+        else:
+            # No sentence ending found, take first 100 characters and add ...
+            first_sentence = text[:100].strip()
+            if len(text) > 100:
+                first_sentence += "..."
+        
+        return first_sentence
+    
+    def _sanitize_html(self, text: str) -> str:
+        """
+        Remove HTML tags and decode HTML entities from text
+        
+        Args:
+            text: Text that may contain HTML tags
+            
+        Returns:
+            Cleaned text with HTML tags removed
+        """
+        if not text:
+            return ""
+        
+        import re
+        
+        # Remove dangerous script and style tags along with their content
+        clean_text = re.sub(r'<script[^>]*>.*?</script>', '', text, flags=re.DOTALL | re.IGNORECASE)
+        clean_text = re.sub(r'<style[^>]*>.*?</style>', '', clean_text, flags=re.DOTALL | re.IGNORECASE)
+        
+        # Remove all HTML/XML tags like <tag>, <tag attr="value">, </tag>, <tag/>
+        clean_text = re.sub(r'<[^>]+>', '', clean_text)
+        
+        # Decode common HTML entities
+        html_entities = {
+            '&amp;': '&',
+            '&lt;': '<',
+            '&gt;': '>',
+            '&quot;': '"',
+            '&apos;': "'",
+            '&nbsp;': ' ',
+            '&#x20;': ' ',
+            '&#32;': ' ',
+            '&#160;': ' ',
+            '&copy;': '©',
+            '&reg;': '®',
+            '&trade;': '™'
+        }
+        
+        for entity, replacement in html_entities.items():
+            clean_text = clean_text.replace(entity, replacement)
+        
+        # Remove any remaining HTML entities (&#number; or &#xhex;)
+        clean_text = re.sub(r'&#?\w+;', '', clean_text)
+        
+        # Clean up multiple whitespace characters and normalize spaces
+        clean_text = re.sub(r'\s+', ' ', clean_text)
+        
+        return clean_text.strip()
+    
+    def _dynamic_search_business_description(self, root: ET.Element) -> Optional[str]:
+        """
+        Dynamic search for business description when standard patterns fail
+        
+        Args:
+            root: XBRL root element
+            
+        Returns:
+            Business description text or None
+        """
+        business_candidates = []
+        
+        # Keywords indicating business description-related data
+        business_keywords = [
+            # Japanese terms (romanized)
+            'jigyou', 'jigyo', 'jigyounaiyo', 'jigyo_naiyo',
+            'zigyou', 'zigyo', 'zigyounaiyo', 'zigyo_naiyo',
+            'business', 'description', 'outline', 'overview',
+            'summary', 'content', 'nature', 'main', 'principal',
+            'core', 'profile', 'activities', 'corporate',
+            'company', 'enterprise', 'operation', 'service',
+            'segment', 'division', 'sector', 'industry',
+            'field', 'area', 'domain', 'scope', 'activity',
+            
+            # More specific business terms
+            'BusinessRisks', 'BusinessEnvironment', 'BusinessModel',
+            'BusinessStrategy', 'BusinessPlan', 'BusinessStatus',
+            'BusinessConditions', 'BusinessOutlook', 'BusinessResults',
+            'BusinessPerformance', 'BusinessTrends', 'BusinessPolicy',
+            
+            # Company description terms
+            'CompanyOverview', 'CorporateOverview', 'OrganizationOverview',
+            'CompanyInformation', 'CorporateInformation', 'CompanyData',
+            'CorporateData', 'CompanyDetails', 'CorporateDetails',
+            
+            # Report section terms
+            'ManagementDiscussion', 'ManagementAnalysis', 'ExecutiveSummary',
+            'CompanyDescription', 'CorporateDescription', 'AboutCompany',
+            'AboutCorporation', 'WhatWeDo', 'OurBusiness'
+        ]
+        
+        # Search through all elements for text content
+        for elem in root.iter():
+            if elem.tag and elem.text:
+                tag_name = elem.tag
+                
+                # Remove namespace prefix for matching
+                local_name = tag_name.split('}')[-1] if '}' in tag_name else tag_name
+                
+                # Check if tag contains business-related keywords
+                for keyword in business_keywords:
+                    if keyword.lower() in local_name.lower():
+                        text_content = elem.text.strip()
+                        
+                        # Remove HTML tags and entities from text
+                        text_content = self._sanitize_html(text_content)
+                        
+                        # Filter for meaningful business descriptions
+                        if len(text_content) >= 20:  # At least 20 characters
+                            context_ref = elem.get('contextRef', '')
+                            
+                            # Skip NonConsolidatedMember contexts (individual company data)
+                            if 'NonConsolidatedMember' in context_ref:
+                                continue
+                            
+                            priority = self._calculate_business_description_priority(local_name, context_ref, text_content)
+                            business_candidates.append((text_content, priority, local_name, context_ref))
+                            
+                        break
+        
+        # Sort by priority (higher is better) and return the best match
+        if business_candidates:
+            business_candidates.sort(key=lambda x: x[1], reverse=True)
+            best_match = business_candidates[0]
+            print(f"Dynamic business description search found text from tag '{best_match[2]}' (context: {best_match[3]})")
+            return best_match[0]
+        
+        return None
+    
+    def _calculate_business_description_priority(self, tag_name: str, context_ref: str, text: str) -> int:
+        """
+        Calculate priority score for business description candidate
+        
+        Args:
+            tag_name: Local tag name
+            context_ref: Context reference
+            text: Text content
+            
+        Returns:
+            Priority score (higher is better)
+        """
+        priority = 0
+        
+        # Higher priority for current year context
+        if 'CurrentYear' in context_ref:
+            priority += 15
+        elif 'Current' in context_ref:
+            priority += 10
+        
+        # Higher priority for exact business description tags
+        if any(term in tag_name.lower() for term in ['descriptionofbusiness', 'businessdescription', 'outlineofbusiness']):
+            priority += 20
+        elif any(term in tag_name.lower() for term in ['businessoverview', 'overviewofbusiness', 'businesssummary']):
+            priority += 18
+        elif any(term in tag_name.lower() for term in ['businesscontent', 'contentofbusiness', 'natureofbusiness']):
+            priority += 16
+        elif any(term in tag_name.lower() for term in ['mainbusiness', 'principalbusiness', 'corebusiness']):
+            priority += 14
+        elif any(term in tag_name.lower() for term in ['companyprofile', 'corporateprofile']):
+            priority += 12
+        elif any(term in tag_name.lower() for term in ['businessactivities', 'activitiesofbusiness']):
+            priority += 10
+        elif 'business' in tag_name.lower():
+            priority += 8
+        
+        # Higher priority for consolidated in tag name
+        if 'consolidated' in tag_name.lower():
+            priority += 5
+        
+        # Prefer longer, more descriptive text
+        text_length = len(text)
+        if text_length >= 100:
+            priority += 10
+        elif text_length >= 50:
+            priority += 8
+        elif text_length >= 30:
+            priority += 5
+        elif text_length >= 20:
+            priority += 3
+        
+        # Higher priority for text that looks like business descriptions
+        business_indicators = ['事業', '業務', '営業', '製造', '販売', '開発', 'サービス', '提供', '展開', 'グループ', '会社']
+        japanese_business_count = sum(1 for indicator in business_indicators if indicator in text)
+        priority += japanese_business_count * 3
+        
+        english_business_indicators = ['business', 'service', 'product', 'company', 'group', 'operation', 'manufacturing', 'development']
+        english_business_count = sum(1 for indicator in english_business_indicators if indicator.lower() in text.lower())
+        priority += english_business_count * 2
         
         return priority
