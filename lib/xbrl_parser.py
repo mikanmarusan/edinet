@@ -350,13 +350,48 @@ class MetricsCalculator:
             if financial_data.get('ebitda') and net_sales and net_sales > 0:
                 financial_data['ebitdaMargin'] = (financial_data['ebitda'] / net_sales) * 100
             
-            # Enterprise Value (EV)
-            if market_cap and debt is not None:
-                financial_data['ev'] = market_cap + debt
+            # Calculate missing financial metrics (Issue #21)
+            # stockPrice = eps × per (only if stockPrice is missing)
+            if not financial_data.get('stockPrice'):
+                eps = financial_data.get('eps')
+                per = financial_data.get('per')
+                if eps is not None and per is not None:
+                    financial_data['stockPrice'] = eps * per
+                else:
+                    financial_data['stockPrice'] = None
+            
+            # marketCapitalization = outstandingShares × stockPrice (only if marketCapitalization is missing)
+            if not financial_data.get('marketCapitalization'):
+                outstanding_shares = financial_data.get('outstandingShares')
+                calculated_stock_price = financial_data.get('stockPrice')
+                if outstanding_shares is not None and calculated_stock_price is not None:
+                    financial_data['marketCapitalization'] = outstanding_shares * calculated_stock_price
+                else:
+                    financial_data['marketCapitalization'] = None
+            
+            # pbr = stockPrice ÷ bps (only if pbr is missing)
+            if not financial_data.get('pbr'):
+                calculated_stock_price = financial_data.get('stockPrice')
+                bps = financial_data.get('bps')
+                if calculated_stock_price is not None and bps is not None and bps > 0:
+                    financial_data['pbr'] = calculated_stock_price / bps
+                else:
+                    financial_data['pbr'] = None
+            
+            # Enterprise Value (EV) = marketCapitalization + debt - cash
+            calculated_market_cap = financial_data.get('marketCapitalization')
+            debt = financial_data.get('debt')
+            cash = financial_data.get('cash')
+            if calculated_market_cap is not None and debt is not None and cash is not None:
+                financial_data['ev'] = calculated_market_cap + debt - cash
+            else:
+                financial_data['ev'] = None
             
             # EV/EBITDA
             if financial_data.get('ev') and financial_data.get('ebitda') and financial_data['ebitda'] > 0:
                 financial_data['evPerEbitda'] = financial_data['ev'] / financial_data['ebitda']
+            else:
+                financial_data['evPerEbitda'] = None
             
             # Calculate EPS if not already available and we have the necessary data
             if not financial_data.get('eps'):
