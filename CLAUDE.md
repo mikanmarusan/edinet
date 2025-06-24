@@ -9,16 +9,16 @@ This is the **edinet** project - a tool for retrieving Listed Company Disclosure
 ## Current State
 
 This repository contains a functional EDINET financial data extraction system:
-- `fetch_edinet_financial_documents.py`: Daily data extraction tool
-- `consolidate_documents.py`: Data consolidation tool
+- `bin/fetch_edinet_financial_documents.py`: Daily data extraction tool
+- `bin/consolidate_documents.py`: Data consolidation tool
 - `requirements.txt`: Python dependencies
 - Complete documentation and specification files
 
 ## Development Notes
 
 The project consists of two main command-line tools for EDINET financial data extraction and consolidation:
-- `fetch_edinet_financial_documents.py`: Daily data extraction from EDINET API
-- `consolidate_documents.py`: Data consolidation from multiple daily files
+- `bin/fetch_edinet_financial_documents.py`: Daily data extraction from EDINET API
+- `bin/consolidate_documents.py`: Data consolidation from multiple daily files
 
 ### Modular Architecture
 
@@ -76,7 +76,9 @@ This modularization improves code maintainability, reduces duplication, and prov
 - **Period-End Prioritization**: For cash and time-sensitive metrics, prioritize end-of-period data over other temporal contexts
 
 ### File Organization
-- Descriptive filenames: `fetch_edinet_financial_documents.py`, `consolidate_documents.py`
+- Command-line tools organized in `bin/` directory: `bin/fetch_edinet_financial_documents.py`, `bin/consolidate_documents.py`
+- Shared utilities in `lib/` directory for modular architecture
+- Default data directory: `data/jsons/` for financial data output
 - Structured output: `{outputdir}/{YYYY-MM-DD}.json` pattern
 - Log files: `{script_name}_{YYYYMMDD}.log` pattern
 
