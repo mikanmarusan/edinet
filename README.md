@@ -5,8 +5,8 @@ A Python-based tool for retrieving and analyzing financial data from listed comp
 ## Overview
 
 The system consists of two command-line tools:
-- **fetch_edinet_financial_documents.py**: Daily data extraction tool that retrieves securities reports for a specific date
-- **consolidate_documents.py**: Data consolidation tool that merges multiple daily files into a single consolidated dataset
+- **bin/fetch_edinet_financial_documents.py**: Daily data extraction tool that retrieves securities reports for a specific date
+- **bin/consolidate_documents.py**: Data consolidation tool that merges multiple daily files into a single consolidated dataset
 
 ## Features
 
@@ -55,13 +55,13 @@ Extract financial data for a specific date:
 
 ```bash
 # Basic usage
-python fetch_edinet_financial_documents.py --date 2025-06-10 --outputdir data/jsons --api-key YOUR_API_KEY
+python bin/fetch_edinet_financial_documents.py --date 2025-06-10 --outputdir data/jsons --api-key YOUR_API_KEY
 
 # With verbose logging
-python fetch_edinet_financial_documents.py --date 2025-06-10 --outputdir data/jsons --api-key YOUR_API_KEY --verbose
+python bin/fetch_edinet_financial_documents.py --date 2025-06-10 --outputdir data/jsons --api-key YOUR_API_KEY --verbose
 
 # With custom retry settings
-python fetch_edinet_financial_documents.py --date 2025-06-10 --outputdir data/jsons --api-key YOUR_API_KEY --max-retries 5
+python bin/fetch_edinet_financial_documents.py --date 2025-06-10 --outputdir data/jsons --api-key YOUR_API_KEY --max-retries 5
 ```
 
 **Required Parameters:**
@@ -83,10 +83,10 @@ Consolidate multiple daily JSON files:
 
 ```bash
 # Basic usage
-python consolidate_documents.py --inputdir data/jsons/ --output data/edinet.json
+python bin/consolidate_documents.py --inputdir data/jsons/ --output data/edinet.json
 
 # With summary report
-python consolidate_documents.py --inputdir data/jsons/ --output data/consolidated.json --summary --verbose
+python bin/consolidate_documents.py --inputdir data/jsons/ --output data/consolidated.json --summary --verbose
 ```
 
 **Required Parameters:**
@@ -136,24 +136,25 @@ The system extracts the following financial metrics from XBRL data:
 
 ```
 project/
-├── fetch_edinet_financial_documents.py    # Daily data extraction tool
-├── consolidate_documents.py               # Data consolidation tool
+├── bin/                                   # Command-line tools
+│   ├── fetch_edinet_financial_documents.py # Daily data extraction tool
+│   └── consolidate_documents.py             # Data consolidation tool
 ├── lib/                                   # Shared utilities module
 │   ├── __init__.py                       # Module initialization
 │   ├── edinet_common.py                  # Common utilities and configurations
 │   └── xbrl_parser.py                    # XBRL parsing functionality
+├── data/                                  # Data storage
+│   ├── jsons/                           # Daily JSON files
+│   │   ├── 2025-06-10.json
+│   │   ├── 2025-06-11.json
+│   │   └── ...
+│   └── edinet.json                      # Consolidated output
 ├── requirements.txt                       # Python dependencies
 ├── README.md                             # This file
 ├── LICENSE                               # License file
 ├── CLAUDE.md                            # Project instructions
-├── .ai-rules/                            # AI development rules
-│   └── edinet_requirements_spec.md       # Product requirements specification
-└── data/
-    ├── jsons/                           # Daily JSON files
-    │   ├── 2025-06-10.json
-    │   ├── 2025-06-11.json
-    │   └── ...
-    └── edinet.json                      # Consolidated output
+└── .ai-rules/                            # AI development rules
+    └── edinet_requirements_spec.md       # Product requirements specification
 ```
 
 ## Development Architecture
@@ -222,18 +223,18 @@ The system ensures data quality through:
 
 1. **Daily Extraction**:
 ```bash
-python fetch_edinet_financial_documents.py --date 2025-06-10 --outputdir data/jsons --api-key YOUR_API_KEY
+python bin/fetch_edinet_financial_documents.py --date 2025-06-10 --outputdir data/jsons --api-key YOUR_API_KEY
 ```
 
 2. **Repeat for Multiple Days**:
 ```bash
-python fetch_edinet_financial_documents.py --date 2025-06-11 --outputdir data/jsons --api-key YOUR_API_KEY
-python fetch_edinet_financial_documents.py --date 2025-06-12 --outputdir data/jsons --api-key YOUR_API_KEY
+python bin/fetch_edinet_financial_documents.py --date 2025-06-11 --outputdir data/jsons --api-key YOUR_API_KEY
+python bin/fetch_edinet_financial_documents.py --date 2025-06-12 --outputdir data/jsons --api-key YOUR_API_KEY
 ```
 
 3. **Consolidate Data**:
 ```bash
-python consolidate_documents.py --inputdir data/jsons/ --output data/edinet.json --summary
+python bin/consolidate_documents.py --inputdir data/jsons/ --output data/edinet.json --summary
 ```
 
 4. **Result**: Consolidated financial data in `data/edinet.json`
@@ -272,10 +273,10 @@ When you have an API key available, test the tools:
 
 ```bash
 # Test fetch_edinet_financial_documents with a recent date
-python fetch_edinet_financial_documents.py --date 2025-06-10 --outputdir data/jsons --api-key YOUR_API_KEY --verbose
+python bin/fetch_edinet_financial_documents.py --date 2025-06-10 --outputdir data/jsons --api-key YOUR_API_KEY --verbose
 
 # Test consolidate_documents with generated data
-python consolidate_documents.py --inputdir data/jsons/ --output data/edinet.json --summary --verbose
+python bin/consolidate_documents.py --inputdir data/jsons/ --output data/edinet.json --summary --verbose
 ```
 
 ### Contributing

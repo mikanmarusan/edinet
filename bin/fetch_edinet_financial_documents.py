@@ -6,15 +6,19 @@ Retrieves securities reports submitted on a specific date via EDINET API,
 parses XBRL data, and extracts predefined financial metrics.
 
 Usage:
-    python fetch_edinet_financial_documents.py --date 2025-06-10 --outputdir data/jsons --api-key YOUR_API_KEY
+    python bin/fetch_edinet_financial_documents.py --date 2025-06-10 --outputdir data/jsons --api-key YOUR_API_KEY
 """
 
 import argparse
 import json
 import sys
 import time
+import os
 from typing import List, Dict, Any, Optional
 import requests
+
+# Add parent directory to path to access lib module
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from lib.edinet_common import (
     EDINET_BASE_URL, RATE_LIMIT_DELAY, DEFAULT_TIMEOUT, DOWNLOAD_TIMEOUT,

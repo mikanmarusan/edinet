@@ -7,7 +7,7 @@ consolidates data from the past year, handles duplicate companies by keeping
 the latest data, and outputs consolidated data.
 
 Usage:
-    python consolidate_documents.py --inputdir data/jsons/ --output data/consolidated.json
+    python bin/consolidate_documents.py --inputdir data/jsons/ --output data/consolidated.json
 """
 
 import argparse
@@ -19,6 +19,9 @@ import logging
 from datetime import datetime
 from typing import List, Dict, Any, Optional
 from collections import defaultdict
+
+# Add parent directory to path to access lib module
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from lib.edinet_common import setup_logging, ensure_output_directory
 
