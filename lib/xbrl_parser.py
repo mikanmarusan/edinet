@@ -1072,8 +1072,8 @@ class XBRLParser:
                             value_text = elem.text.replace(',', '').strip()
                             numeric_value = float(value_text)
                             
-                            # Filter reasonable employee counts (between 1 and 1M employees)
-                            if 1 <= numeric_value <= 1_000_000:
+                            # Filter reasonable employee counts (between 10 and 1M employees)
+                            if 10 <= numeric_value <= 1_000_000:
                                 context_ref = elem.get('contextRef', '')
                                 
                                 # Skip NonConsolidatedMember contexts (individual company data)
@@ -1131,7 +1131,7 @@ class XBRLParser:
         # Prefer reasonable employee counts for Japanese companies
         if 10 <= value <= 100_000:  # 10 to 100K employees (typical range)
             priority += 10
-        elif 1 <= value <= 500_000:  # 1 to 500K employees
+        elif 10 <= value <= 500_000:  # 10 to 500K employees
             priority += 5
         
         return priority
