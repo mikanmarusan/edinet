@@ -351,12 +351,15 @@ class MetricsCalculator:
                 financial_data['ebitdaMargin'] = (financial_data['ebitda'] / net_sales) * 100
             
             # Calculate missing financial metrics (Issue #21)
-            # stockPrice = eps × per (only if stockPrice is missing)
+            # stockPrice = eps × per (only if stockPrice is missing and eps >= 0)
             if not financial_data.get('stockPrice'):
                 eps = financial_data.get('eps')
                 per = financial_data.get('per')
                 if eps is not None and per is not None:
-                    financial_data['stockPrice'] = eps * per
+                    if eps >= 0:  # Issue #28: Only calculate stock price for non-negative eps
+                        financial_data['stockPrice'] = eps * per
+                    else:
+                        financial_data['stockPrice'] = None  # Set to null for negative eps
                 else:
                     financial_data['stockPrice'] = None
             

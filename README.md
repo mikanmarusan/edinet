@@ -110,7 +110,7 @@ The system extracts the following financial metrics from XBRL data:
 | secCode | 4-digit securities code | String |
 | periodEnd | Fiscal period end | String |
 | characteristic | Company characteristics | String |
-| stockPrice | Stock price at fiscal year end (calculated: eps × per if missing) | Number |
+| stockPrice | Stock price at fiscal year end (calculated: eps × per if missing, null if eps < 0) | Number |
 | netSales | Total net sales | Number |
 | employees | Number of employees | Number |
 | operatingIncome | Operating income | Number |
