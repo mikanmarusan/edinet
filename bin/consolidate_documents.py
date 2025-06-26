@@ -16,7 +16,7 @@ import os
 import sys
 import glob
 import logging
-from datetime import datetime
+from datetime import datetime, timedelta
 from typing import List, Dict, Any, Optional
 from collections import defaultdict
 
@@ -50,12 +50,19 @@ class DataConsolidator:
             self.logger.warning("No JSON files found in the input directory")
             return []
         
-        self.logger.info(f"Found {len(json_files)} JSON files")
+        # Filter files to only include those from the past 400 days
+        filtered_files = self._filter_files_by_date(json_files)
+        
+        if not filtered_files:
+            self.logger.warning("No JSON files found within the past 400 days")
+            return []
+        
+        self.logger.info(f"Found {len(json_files)} JSON files, filtered to {len(filtered_files)} files within past 400 days")
         
         # Process each JSON file
         company_data = defaultdict(list)
         
-        for json_file in json_files:
+        for json_file in filtered_files:
             self.logger.debug(f"Processing: {os.path.basename(json_file)}")
             
             try:
@@ -96,6 +103,79 @@ class DataConsolidator:
         
         self.logger.info(f"Consolidation complete: {len(consolidated_companies)} unique companies")
         return consolidated_companies
+    
+    def _filter_files_by_date(self, json_files: List[str]) -> List[str]:
+        """
+        Filter JSON files to only include those from the past 400 days
+        
+        Args:
+            json_files: List of JSON file paths
+            
+        Returns:
+            List of filtered JSON file paths
+        """
+        current_date = datetime.now()
+        cutoff_date = current_date - timedelta(days=400)  # Past 400 days
+        
+        filtered_files = []
+        
+        for json_file in json_files:
+            filename = os.path.basename(json_file)
+            
+            # Extract date from filename (expected format: YYYY-MM-DD.json)
+            try:
+                # Remove .json extension and parse date
+                date_str = filename.replace('.json', '')
+                file_date = datetime.strptime(date_str, '%Y-%m-%d')
+                
+                if file_date >= cutoff_date:
+                    filtered_files.append(json_file)
+                else:
+                    self.logger.debug(f"Excluding file older than 400 days: {filename}")
+                    
+            except ValueError:
+                # If filename doesn't match expected format, include it anyway
+                self.logger.warning(f"Could not parse date from filename: {filename}, including in processing")
+                filtered_files.append(json_file)
+        
+        # Log the oldest file being processed
+        if filtered_files:
+            oldest_file = self._get_oldest_file(filtered_files)
+            if oldest_file:
+                self.logger.info(f"Oldest file being processed: {os.path.basename(oldest_file)}")
+        
+        return filtered_files
+    
+    def _get_oldest_file(self, json_files: List[str]) -> Optional[str]:
+        """
+        Get the oldest file from the list based on filename date
+        
+        Args:
+            json_files: List of JSON file paths
+            
+        Returns:
+            Path to oldest file or None if no valid files
+        """
+        oldest_file = None
+        oldest_date = None
+        
+        for json_file in json_files:
+            filename = os.path.basename(json_file)
+            
+            try:
+                # Remove .json extension and parse date  
+                date_str = filename.replace('.json', '')
+                file_date = datetime.strptime(date_str, '%Y-%m-%d')
+                
+                if oldest_date is None or file_date < oldest_date:
+                    oldest_date = file_date
+                    oldest_file = json_file
+                    
+            except ValueError:
+                # Skip files that don't match expected format
+                continue
+        
+        return oldest_file
     
     def _get_latest_entry(self, entries: List[Dict[str, Any]]) -> Optional[Dict[str, Any]]:
         """
