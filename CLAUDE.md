@@ -120,6 +120,12 @@ This modularization improves code maintainability, reduces duplication, and prov
 - **Null Safety Strategy**: If any required parameter is null, calculated parameter is also null to maintain data integrity
 - **Calculation Priority**: Prefer direct EDINET extraction over calculated values, use calculations only as fallbacks
 
+### Negative EPS Handling (2025-06-26)
+- **Issue #28 Resolution**: Enhanced null-safety for negative earnings scenarios
+- **Stock Price Logic**: When eps < 0, stockPrice is set to null (negative stock prices are meaningless)
+- **PER Logic**: When eps ≤ 0, PER cannot be calculated and is set to null
+- **Cascade Effect**: All dependent calculations (marketCapitalization, pbr, ev, evPerEbitda) automatically become null when stockPrice is null
+
 ## Future Development Guidelines
 
 ### Maintainability Focus
