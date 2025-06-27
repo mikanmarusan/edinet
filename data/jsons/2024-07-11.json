@@ -1,0 +1,32 @@
+[
+  {
+    "secCode": "7488",
+    "filerName": "株式会社ヤガミ",
+    "docID": "S100U130",
+    "docPdfURL": "https://disclosure2dl.edinet-fsa.go.jp/searchdocument/pdf/S100U130.pdf",
+    "yahooURL": "https://finance.yahoo.co.jp/quote/7488.T",
+    "periodEnd": "2024年4月期",
+    "characteristic": "３ 【事業の内容】当社グループ(当社及び連結子会社)は、当社と㈱ヤガミファニテク及び㈱平山製作所の３社で構成され、理科実験機器、実験台、調理台、滅菌器、保健室設備品、ＡＥＤ(自動体外式除細動器)、蘇生法教育人体モデル、保温・加熱用電気ヒーター、環境試験装置等の製造及び販売等の事業活動を行っております。",
+    "stockPrice": 2618.1386,
+    "netSales": 10545080000.0,
+    "employees": 231,
+    "operatingIncome": 1861897000.0,
+    "operatingIncomeRate": 17.65654693942578,
+    "depreciation": 69324000.0,
+    "ebitda": 1931221000.0,
+    "ebitdaMargin": 18.313953047297886,
+    "marketCapitalization": 13729518818.400002,
+    "per": 11.41,
+    "ev": null,
+    "evPerEbitda": null,
+    "pbr": 1.0288392179978387,
+    "bps": 2544.75,
+    "equity": 14120850000.0,
+    "debt": null,
+    "outstandingShares": 5244000,
+    "netIncome": 1203596000.0,
+    "eps": 229.46,
+    "cash": 7607177000.0,
+    "retrievedDate": "2025-06-27"
+  }
+]

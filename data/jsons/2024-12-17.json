@@ -1,0 +1,32 @@
+[
+  {
+    "secCode": "6176",
+    "filerName": "株式会社ブランジスタ",
+    "docID": "S100UYE9",
+    "docPdfURL": "https://disclosure2dl.edinet-fsa.go.jp/searchdocument/pdf/S100UYE9.pdf",
+    "yahooURL": "https://finance.yahoo.co.jp/quote/6176.T",
+    "periodEnd": "2024年9月期",
+    "characteristic": "３【事業の内容】 当社グループは、当社（㈱ブランジスタ）及び連結子会社５社（㈱ブランジスタエール、㈱ブランジスタメディア、㈱ブランジスタソリューション、博設技股份有限公司、㈱ＣｒｏｗｄＬａｂ）によって構成されております。",
+    "stockPrice": 652.533,
+    "netSales": 4822452000.0,
+    "employees": 317,
+    "operatingIncome": 951385000.0,
+    "operatingIncomeRate": 19.72824198146503,
+    "depreciation": 36297000.0,
+    "ebitda": 987682000.0,
+    "ebitdaMargin": 20.480908882037603,
+    "marketCapitalization": 8820092801.1,
+    "per": 14.7,
+    "ev": 7535216801.1,
+    "evPerEbitda": 7.629193202974237,
+    "pbr": 2.4759362549800796,
+    "bps": 263.55,
+    "equity": 3637102000.0,
+    "debt": 100333000.0,
+    "outstandingShares": 13516700,
+    "netIncome": 606804000.0,
+    "eps": 44.39,
+    "cash": 1385209000.0,
+    "retrievedDate": "2025-06-27"
+  }
+]

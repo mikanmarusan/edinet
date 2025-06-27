@@ -1,0 +1,32 @@
+[
+  {
+    "secCode": "2923",
+    "filerName": "サトウ食品株式会社",
+    "docID": "S100U2ZG",
+    "docPdfURL": "https://disclosure2dl.edinet-fsa.go.jp/searchdocument/pdf/S100U2ZG.pdf",
+    "yahooURL": "https://finance.yahoo.co.jp/quote/2923.T",
+    "periodEnd": "2024年4月期",
+    "characteristic": "・当社の製品の原材料の仕入先であり、取引関係の維持及び強化を目的として、継続して保有しております。",
+    "stockPrice": 6327.419,
+    "netSales": 42581386000.0,
+    "employees": 631,
+    "operatingIncome": 2656719000.0,
+    "operatingIncomeRate": 6.2391557663247506,
+    "depreciation": 2312174000.0,
+    "ebitda": 4968893000.0,
+    "ebitdaMargin": 11.669166898418947,
+    "marketCapitalization": 31801607894.0,
+    "per": 13.9,
+    "ev": 40705099894.0,
+    "evPerEbitda": 8.191985597999393,
+    "pbr": 1.5502148646132436,
+    "bps": 4081.64,
+    "equity": 20586489000.0,
+    "debt": 11568764000.0,
+    "outstandingShares": 5026000,
+    "netIncome": 2295958000.0,
+    "eps": 455.21,
+    "cash": 2665272000.0,
+    "retrievedDate": "2025-06-27"
+  }
+]

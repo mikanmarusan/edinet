@@ -194,8 +194,9 @@ cython_debug/
 .cursorindexingignore
 
 # EDINET data files
-data/edinet.json
-data/jsons/
+# data/edinet.json
+# data/jsons/
+
 
 # Debug and investigation files
 test_*.py

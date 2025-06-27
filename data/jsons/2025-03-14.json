@@ -1,0 +1,32 @@
+[
+  {
+    "secCode": "2408",
+    "filerName": "株式会社ＫＧ情報",
+    "docID": "S100VDDB",
+    "docPdfURL": "https://disclosure2dl.edinet-fsa.go.jp/searchdocument/pdf/S100VDDB.pdf",
+    "yahooURL": "https://finance.yahoo.co.jp/quote/2408.T",
+    "periodEnd": "2024年12月期",
+    "characteristic": "３ 【事業の内容】当社グループは、当社と子会社である株式会社アピールコム、株式会社ディー・ウォーク・クリエイション及びKG MYANMAR COMPANY LIMITEDで構成され、ＨＲソリューション情報及び住宅情報を中心とした生活関連情報の提供を主な事業としています。",
+    "stockPrice": 600.054,
+    "netSales": 2467056000.0,
+    "employees": 176,
+    "operatingIncome": 304708000.0,
+    "operatingIncomeRate": 12.351077559650046,
+    "depreciation": 47270000.0,
+    "ebitda": 351978000.0,
+    "ebitdaMargin": 14.26712648598167,
+    "marketCapitalization": 4387534842.599999,
+    "per": 18.2,
+    "ev": null,
+    "evPerEbitda": null,
+    "pbr": 0.743515271668422,
+    "bps": 807.05,
+    "equity": 5907621000.0,
+    "debt": null,
+    "outstandingShares": 7311900,
+    "netIncome": 241038000.0,
+    "eps": 32.97,
+    "cash": 5084617000.0,
+    "retrievedDate": "2025-06-27"
+  }
+]

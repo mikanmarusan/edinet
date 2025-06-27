@@ -1,0 +1,32 @@
+[
+  {
+    "secCode": "4750",
+    "filerName": "株式会社ダイサン",
+    "docID": "S100TZS5",
+    "docPdfURL": "https://disclosure2dl.edinet-fsa.go.jp/searchdocument/pdf/S100TZS5.pdf",
+    "yahooURL": "https://finance.yahoo.co.jp/quote/4750.T",
+    "periodEnd": "2024年4月期",
+    "characteristic": "３【事業の内容】 当社グループは、連結財務諸表提出会社及び子会社７社（連結子会社１社、非連結子会社６社）により構成されており、建設向け仮設足場の企画・開発・生産・販売のほか、足場の組立て・解体・貸出しを行う施工サービスを主たる業務としております。",
+    "stockPrice": 572.0084999999999,
+    "netSales": 10407623000.0,
+    "employees": 537,
+    "operatingIncome": 56288000.0,
+    "operatingIncomeRate": 0.540834348054306,
+    "depreciation": 214716000.0,
+    "ebitda": 271004000.0,
+    "ebitdaMargin": 2.6038990843538437,
+    "marketCapitalization": 689327443.3499999,
+    "per": 60.53,
+    "ev": -415591556.6500001,
+    "evPerEbitda": -1.5335255444569087,
+    "pbr": 0.685081142583388,
+    "bps": 834.95,
+    "equity": 5354389000.0,
+    "debt": 592255000.0,
+    "outstandingShares": 1205100,
+    "netIncome": 60601000.0,
+    "eps": 9.45,
+    "cash": 1697174000.0,
+    "retrievedDate": "2025-06-27"
+  }
+]

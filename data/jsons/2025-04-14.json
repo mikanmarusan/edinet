@@ -1,0 +1,32 @@
+[
+  {
+    "secCode": "7590",
+    "filerName": "株式会社タカショー",
+    "docID": "S100VLI7",
+    "docPdfURL": "https://disclosure2dl.edinet-fsa.go.jp/searchdocument/pdf/S100VLI7.pdf",
+    "yahooURL": "https://finance.yahoo.co.jp/quote/7590.T",
+    "periodEnd": "2025年1月期",
+    "characteristic": "３ 【事業の内容】当社グループ(当社および当社の関係会社)は、当社、子会社17社および関連会社３社で構成されており、庭空間を構成する各種庭園資材の製造販売を主な事業内容とし、さらに関連するその他のサービス等の事業活動を展開しております。",
+    "stockPrice": null,
+    "netSales": 19890018000.0,
+    "employees": 901,
+    "operatingIncome": -150677000.0,
+    "operatingIncomeRate": -0.7575508478675083,
+    "depreciation": 801185000.0,
+    "ebitda": 650508000.0,
+    "ebitdaMargin": 3.2705249437179997,
+    "marketCapitalization": null,
+    "per": 55.78,
+    "ev": null,
+    "evPerEbitda": null,
+    "pbr": null,
+    "bps": 748.41,
+    "equity": 12756299000.0,
+    "debt": 550331000.0,
+    "outstandingShares": 16847500,
+    "netIncome": -242934000.0,
+    "eps": -14.41,
+    "cash": 3432682000.0,
+    "retrievedDate": "2025-06-27"
+  }
+]

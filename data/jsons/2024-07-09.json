@@ -1,0 +1,32 @@
+[
+  {
+    "secCode": "4169",
+    "filerName": "ＥＮＥＣＨＡＮＧＥ株式会社",
+    "docID": "S100U0RZ",
+    "docPdfURL": "https://disclosure2dl.edinet-fsa.go.jp/searchdocument/pdf/S100U0RZ.pdf",
+    "yahooURL": "https://finance.yahoo.co.jp/quote/4169.T",
+    "periodEnd": "2023年12月期",
+    "characteristic": "３【事業の内容】 当社グループは、「エネルギーの未来をつくる」というミッションを掲げ、世界的な課題である脱炭素社会（カーボンゼロ）の実現に向けて、グリーン・トランスフォーメーション（GX）を推進する企業です。",
+    "stockPrice": null,
+    "netSales": 4379001000.0,
+    "employees": 285,
+    "operatingIncome": -2125017000.0,
+    "operatingIncomeRate": -48.52743810745876,
+    "depreciation": 109052000.0,
+    "ebitda": -2015965000.0,
+    "ebitdaMargin": -46.037098415825895,
+    "marketCapitalization": null,
+    "per": 0.1448,
+    "ev": null,
+    "evPerEbitda": null,
+    "pbr": null,
+    "bps": 163.09,
+    "equity": 5564807000.0,
+    "debt": 102255000.0,
+    "outstandingShares": 30883100,
+    "netIncome": -4985167000.0,
+    "eps": -163.55,
+    "cash": 2179715000.0,
+    "retrievedDate": "2025-06-27"
+  }
+]
