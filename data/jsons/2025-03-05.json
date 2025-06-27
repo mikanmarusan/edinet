@@ -1,0 +1,32 @@
+[
+  {
+    "secCode": "7944",
+    "filerName": "ローランド株式会社",
+    "docID": "S100VC6D",
+    "docPdfURL": "https://disclosure2dl.edinet-fsa.go.jp/searchdocument/pdf/S100VC6D.pdf",
+    "yahooURL": "https://finance.yahoo.co.jp/quote/7944.T",
+    "periodEnd": "2024年12月期",
+    "characteristic": "３ 【事業の内容】当社グループは、当社、子会社16社及び関連会社1社で構成されており、電子楽器の開発、製造、販売を主たる事業とし、幅広いジャンルの製品群をグローバルに提供しています。",
+    "stockPrice": 3887.156,
+    "netSales": 99433000000.0,
+    "employees": 2957,
+    "operatingIncome": 9951000000.0,
+    "operatingIncomeRate": 10.007743907958123,
+    "depreciation": 2506000000.0,
+    "ebitda": 12457000000.0,
+    "ebitdaMargin": 12.528033952510736,
+    "marketCapitalization": 108132516892.4,
+    "per": 18.1,
+    "ev": 94654516892.4,
+    "evPerEbitda": 7.5985001920526605,
+    "pbr": 2.3176184400376814,
+    "bps": 1677.22,
+    "equity": 46682000000.0,
+    "debt": 1000000000.0,
+    "outstandingShares": 27817900,
+    "netIncome": 5976000000.0,
+    "eps": 214.76,
+    "cash": 14478000000.0,
+    "retrievedDate": "2025-06-27"
+  }
+]

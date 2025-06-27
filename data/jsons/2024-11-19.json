@@ -1,0 +1,32 @@
+[
+  {
+    "secCode": "8254",
+    "filerName": "株式会社さいか屋",
+    "docID": "S100USSZ",
+    "docPdfURL": "https://disclosure2dl.edinet-fsa.go.jp/searchdocument/pdf/S100USSZ.pdf",
+    "yahooURL": "https://finance.yahoo.co.jp/quote/8254.T",
+    "periodEnd": "2024年8月期",
+    "characteristic": "３ 【事業の内容】(１)当社の企業集団は、当社及び連結子会社２社並びに非連結子会社１社で構成され、百貨店業を中核として、以下の関連する各種事業活動を展開しております。",
+    "stockPrice": 460.06749999999994,
+    "netSales": 4950143000.0,
+    "employees": 145,
+    "operatingIncome": 110544000.0,
+    "operatingIncomeRate": 2.2331476080589994,
+    "depreciation": 332928000.0,
+    "ebitda": 443472000.0,
+    "ebitdaMargin": 8.95877149407603,
+    "marketCapitalization": 682296664.93,
+    "per": 40.75,
+    "ev": 7686163664.93,
+    "evPerEbitda": 17.331790203056787,
+    "pbr": null,
+    "bps": 7961.356298835632,
+    "equity": 11806978000.0,
+    "debt": 8653536000.0,
+    "outstandingShares": 1483036,
+    "netIncome": 72701000.0,
+    "eps": 11.29,
+    "cash": 1649669000.0,
+    "retrievedDate": "2025-06-27"
+  }
+]
