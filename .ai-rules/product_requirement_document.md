@@ -38,6 +38,7 @@ python fetch_edinet_financial_documents.py --date 2025-06-10 --outputdir data/js
 #### 2.1.2.2 Optional Parameters
 - `--verbose, -v`: Enable verbose logging
 - `--max-retries`: Maximum number of retries for failed requests (default: 3)
+- `--sec-codes`: Comma-separated list of security codes to filter (e.g., 7203,9984,4755)
 
 #### 2.1.3 Data Extraction Requirements
 Extract the following financial data from XBRL:
@@ -68,6 +69,14 @@ Extract the following financial data from XBRL:
 | eps | Earnings per share (diluted preferred) | 20.0 |
 | cash | Cash and cash equivalents at end of period | 5000000000 |
 | retrievedDate | Data retrieval date | "2025-06-10" |
+
+#### 2.1.3.1 Security Code Filtering
+When `--sec-codes` option is specified:
+- Only process companies whose security codes match the provided list
+- Skip all other companies before XBRL download to minimize API calls
+- Accept comma-separated list of 4 or 5-digit security codes
+- Normalize codes to 4-digit format (remove trailing zero from 5-digit codes)
+- Log skipped companies at debug level
 
 #### 2.1.4 Output Specification
 - **File Format**: JSON

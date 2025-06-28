@@ -72,6 +72,8 @@ edinet/
 **日次データ取得**:
 ```bash
 python bin/fetch_edinet_financial_documents.py --date YYYY-MM-DD --outputdir data/jsons --api-key YOUR_KEY
+# 特定企業のみ取得（--sec-codes オプション）
+python bin/fetch_edinet_financial_documents.py --date YYYY-MM-DD --outputdir data/jsons --api-key YOUR_KEY --sec-codes 7203,9984,4755
 ```
 
 **データ統合**:
@@ -96,5 +98,4 @@ python bin/consolidate_documents.py --inputdir data/jsons --output data/edinet.j
 - 詳細は`.ai-rules/web-viewer.md`参照
 
 ## 開発時の注意
-
 新機能追加やバグ修正の際は、必ず`.ai-rules/`配下の関連ドキュメントを参照してください。

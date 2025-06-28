@@ -135,6 +135,7 @@ def main():
     parser.add_argument("--api-key", required=True, help="EDINET API key")
     parser.add_argument("--verbose", "-v", action="store_true", help="Enable verbose logging")
     parser.add_argument("--max-retries", type=int, default=3, help="Maximum number of retries for failed requests")
+    parser.add_argument("--sec-codes", help="Comma-separated list of security codes to filter (e.g., 7203,9984)")
     
     args = parser.parse_args()
     
@@ -147,6 +148,13 @@ def main():
     if not validate_date_format(args.date):
         logger.error("Date must be in YYYY-MM-DD format")
         sys.exit(1)
+    
+    # Process security codes filter
+    target_sec_codes = None
+    if args.sec_codes:
+        target_sec_codes = [normalize_securities_code(code.strip()) 
+                           for code in args.sec_codes.split(',')]
+        logger.info(f"Filtering for security codes: {target_sec_codes}")
     
     try:
         # Initialize clients
@@ -180,6 +188,11 @@ def main():
             sec_code = normalize_securities_code(sec_code)
             filer_name = doc.get("filerName", "")
             period_end = doc.get("periodEnd", "")
+            
+            # Skip if security code filter is set and this code is not in the list
+            if target_sec_codes and sec_code not in target_sec_codes:
+                logger.debug(f"Skipping {filer_name} ({sec_code}) - not in target list")
+                continue
             
             logger.info(f"Processing [{i}/{len(documents)}] {filer_name} ({sec_code})...")
             
