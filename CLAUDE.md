@@ -79,6 +79,22 @@ python bin/fetch_edinet_financial_documents.py --date YYYY-MM-DD --outputdir dat
 python bin/consolidate_documents.py --inputdir data/jsons --output data/edinet.json
 ```
 
+## Webビューア（/docs）
+
+**概要**: data/edinet.jsonを可視化するWebツール（GitHub Pages用）
+
+### 実装済み機能
+- 固定ヘッダー（タイトル＋テーブル列名）
+- 証券コード検索（部分一致、自動スクロール＋ハイライト）
+- 事業内容の省略表示（20文字＋ホバーで全文）
+- トップへ戻るボタン（左下、300px以上で表示）
+- 金額は百万円単位、null値は「-」表示
+
+### 技術ポイント
+- ヘッダー固定: `position: fixed !important`（インライン）
+- テーブルヘッダー: `position: sticky`＋コンテナ内スクロール
+- 詳細は`.ai-rules/web-viewer.md`参照
+
 ## 開発時の注意
 
 新機能追加やバグ修正の際は、必ず`.ai-rules/`配下の関連ドキュメントを参照してください。
