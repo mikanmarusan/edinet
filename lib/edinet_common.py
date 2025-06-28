@@ -300,45 +300,57 @@ XBRL_PATTERNS = {
         './/jppfs_cor:ActivitiesOfBusiness'
     ],
     'outstanding_shares': [
-        # Standard issued and outstanding shares patterns
-        './/jpcrp_cor:NumberOfIssuedAndOutstandingSharesAtTheEndOfFiscalYearIncludingTreasuryStock',
-        './/jpcrp_cor:NumberOfIssuedAndOutstandingSharesAtTheEndOfFiscalYear',
-        './/jpcrp_cor:NumberOfSharesIssuedAtTheEndOfFiscalYear',
-        './/jppfs_cor:NumberOfIssuedAndOutstandingShares',
-        './/jpcrp_cor:NumberOfSharesOutstandingIncludingTreasuryStock',
-        './/jpcrp_cor:NumberOfSharesOutstanding',
+        # Priority 1: Total issued shares from summary of business results (most authoritative)
+        './/jpcrp_cor:TotalNumberOfIssuedSharesSummaryOfBusinessResults',
+        './/jppfs_cor:TotalNumberOfIssuedSharesSummaryOfBusinessResults',
         
-        # Additional issued shares patterns
+        # Priority 2: Total issued shares (general patterns)
+        './/jpcrp_cor:TotalNumberOfIssuedShares',
+        './/jppfs_cor:TotalNumberOfIssuedShares',
+        './/jpcrp_cor:TotalNumberOfSharesIssued',
+        './/jppfs_cor:TotalNumberOfSharesIssued',
+        
+        # Issued shares at end of fiscal year (without treasury stock mention)
+        './/jpcrp_cor:NumberOfSharesIssuedAtTheEndOfFiscalYear',
+        './/jppfs_cor:NumberOfSharesIssuedAtTheEndOfFiscalYear',
+        './/jpcrp_cor:NumberOfIssuedSharesAtTheEndOfFiscalYear',
+        './/jppfs_cor:NumberOfIssuedSharesAtTheEndOfFiscalYear',
+        
+        # Standard issued shares patterns
         './/jpcrp_cor:NumberOfIssuedShares',
         './/jppfs_cor:NumberOfIssuedShares',
         './/jpcrp_cor:SharesIssued',
         './/jppfs_cor:SharesIssued',
-        './/jpcrp_cor:TotalNumberOfIssuedShares',
-        './/jppfs_cor:TotalNumberOfIssuedShares',
+        './/jpcrp_cor:IssuedShares',
+        './/jppfs_cor:IssuedShares',
         
         # Common stock specific patterns
         './/jpcrp_cor:NumberOfSharesIssuedCommonStock',
         './/jppfs_cor:NumberOfSharesIssuedCommonStock',
         './/jpcrp_cor:CommonStockNumberOfSharesIssued',
         './/jppfs_cor:CommonStockNumberOfSharesIssued',
-        
-        # Outstanding shares specific patterns
-        './/jpcrp_cor:NumberOfSharesOutstandingAtFiscalYearEnd',
-        './/jppfs_cor:NumberOfSharesOutstandingAtFiscalYearEnd',
-        './/jpcrp_cor:SharesOutstanding',
-        './/jppfs_cor:SharesOutstanding',
-        
-        # Authorized and issued patterns
-        './/jpcrp_cor:NumberOfAuthorizedShares',
-        './/jppfs_cor:NumberOfAuthorizedShares',
-        './/jpcrp_cor:AuthorizedNumberOfShares',
-        './/jppfs_cor:AuthorizedNumberOfShares',
+        './/jpcrp_cor:CommonStockSharesIssued',
+        './/jppfs_cor:CommonStockSharesIssued',
         
         # Capital stock related patterns
         './/jpcrp_cor:CapitalStockNumberOfShares',
         './/jppfs_cor:CapitalStockNumberOfShares',
         './/jpcrp_cor:NumberOfSharesCapitalStock',
-        './/jppfs_cor:NumberOfSharesCapitalStock'
+        './/jppfs_cor:NumberOfSharesCapitalStock',
+        
+        # Outstanding shares patterns (lower priority as these might exclude treasury stock)
+        './/jpcrp_cor:NumberOfIssuedAndOutstandingSharesAtTheEndOfFiscalYear',
+        './/jppfs_cor:NumberOfIssuedAndOutstandingShares',
+        './/jpcrp_cor:NumberOfSharesOutstanding',
+        './/jppfs_cor:NumberOfSharesOutstanding',
+        './/jpcrp_cor:SharesOutstanding',
+        './/jppfs_cor:SharesOutstanding',
+        './/jpcrp_cor:NumberOfSharesOutstandingAtFiscalYearEnd',
+        './/jppfs_cor:NumberOfSharesOutstandingAtFiscalYearEnd',
+        
+        # Patterns that explicitly include treasury stock (lowest priority)
+        './/jpcrp_cor:NumberOfIssuedAndOutstandingSharesAtTheEndOfFiscalYearIncludingTreasuryStock',
+        './/jpcrp_cor:NumberOfSharesOutstandingIncludingTreasuryStock'
     ],
     'eps_basic': [
         # Consolidated basic EPS patterns (priority)

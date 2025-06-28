@@ -200,6 +200,67 @@ The system implements sophisticated data extraction algorithms:
 - **Context Prioritization**: Uses XBRL context references to identify and prefer current year data
 - **Tag Keyword Matching**: Advanced pattern matching for tags when standard taxonomy patterns don't match
 
+#### 3.4.3 Outstanding Shares (発行済株式総数) Extraction Specification
+
+**Definition:**
+- **Outstanding Shares (発行済株式総数)**: Total number of shares issued by the company, including treasury stock
+- **Float (流通株式数)**: Outstanding shares minus treasury stock
+
+**XBRL Tag Priority Order:**
+
+1. **Highest Priority: Summary of Business Results Tags**
+   - `TotalNumberOfIssuedSharesSummaryOfBusinessResults`
+   - Most authoritative source from the summary section of securities reports
+
+2. **High Priority: General Total Issued Shares Tags**
+   - `TotalNumberOfIssuedShares`
+   - `TotalNumberOfSharesIssued`
+   - `NumberOfSharesIssuedAtTheEndOfFiscalYear`
+   - `NumberOfIssuedSharesAtTheEndOfFiscalYear`
+
+3. **Medium Priority: Standard Issued Shares Tags**
+   - `NumberOfIssuedShares`
+   - `SharesIssued`
+   - `IssuedShares`
+
+4. **Common Stock Specific Tags**
+   - `NumberOfSharesIssuedCommonStock`
+   - `CommonStockNumberOfSharesIssued`
+   - `CommonStockSharesIssued`
+   - `CapitalStockNumberOfShares`
+
+5. **Lower Priority: Outstanding Shares Tags**
+   - `NumberOfIssuedAndOutstandingSharesAtTheEndOfFiscalYear`
+   - `NumberOfIssuedAndOutstandingShares`
+   - `NumberOfSharesOutstanding`
+   - `SharesOutstanding`
+   - Note: These may represent shares excluding treasury stock
+
+6. **Lowest Priority: Tags Explicitly Including Treasury Stock**
+   - `NumberOfIssuedAndOutstandingSharesAtTheEndOfFiscalYearIncludingTreasuryStock`
+   - `NumberOfSharesOutstandingIncludingTreasuryStock`
+
+**Dynamic Search Priority Scoring:**
+
+*Positive Scoring:*
+- `totalnumberofsharesissued`: +25 points
+- `numberofissuedandoutstandingshares` (without treasury): +23 points
+- `sharesissued` (without treasury): +20 points
+- `outstanding` (without treasury): +15 points
+- `issued` (without treasury): +12 points
+- End of period indicators (`attheendof`, `endof`, `fiscal`, `year`): +10 points
+- Common stock indicators (`common`): +8 points
+
+*Negative Scoring:*
+- `treasury` (treasury stock indicator): -20 points
+- `authorized` (authorized shares): -10 points
+
+**Implementation Notes:**
+- Context filtering: Exclude `NonConsolidatedMember` contexts
+- Valid range: 1,000 to 100,000,000,000 shares
+- Priority: CurrentYear contexts over historical data
+- Fallback: Dynamic search when standard patterns fail
+
 ## 4. Non-Functional Requirements
 
 ### 4.1 Performance Requirements

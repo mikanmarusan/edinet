@@ -853,7 +853,8 @@ class XBRLParser:
         share_keywords = [
             'NumberOfShares', 'SharesIssued', 'SharesOutstanding', 'IssuedShares',
             'NumberOfIssuedShares', 'NumberOfOutstandingShares', 'TotalShares',
-            'CommonShares', 'CapitalStock', 'StockShares'
+            'CommonShares', 'CapitalStock', 'StockShares', 'TotalNumberOfSharesIssued',
+            'NumberOfIssuedAndOutstandingShares', 'IssuedAndOutstandingShares'
         ]
         
         # Search through all elements
@@ -916,10 +917,16 @@ class XBRLParser:
         elif 'Current' in context_ref:
             priority += 15
         
-        # Higher priority for "outstanding" or "issued"
-        if 'outstanding' in tag_name.lower():
+        # Highest priority for total issued shares (not treasury stock)
+        if 'totalnumberofsharesissued' in tag_name.lower():
+            priority += 25
+        elif 'numberofissuedandoutstandingshares' in tag_name.lower() and 'treasury' not in tag_name.lower():
+            priority += 23
+        elif 'sharesissued' in tag_name.lower() and 'treasury' not in tag_name.lower():
+            priority += 20
+        elif 'outstanding' in tag_name.lower() and 'treasury' not in tag_name.lower():
             priority += 15
-        elif 'issued' in tag_name.lower():
+        elif 'issued' in tag_name.lower() and 'treasury' not in tag_name.lower():
             priority += 12
         
         # Higher priority for end-of-period data
@@ -936,9 +943,13 @@ class XBRLParser:
         elif 1_000_000 <= value <= 100_000_000_000:  # 1M to 100B shares
             priority += 3
         
-        # Lower priority for treasury stock or authorized shares
-        if any(term in tag_name.lower() for term in ['treasury', 'authorized']):
-            priority -= 5
+        # Much lower priority for treasury stock
+        if 'treasury' in tag_name.lower():
+            priority -= 20  # Strong penalty for treasury stock
+        
+        # Lower priority for authorized shares
+        if 'authorized' in tag_name.lower():
+            priority -= 10
         
         return priority
     
