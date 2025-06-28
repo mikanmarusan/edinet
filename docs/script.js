@@ -11,10 +11,10 @@ document.addEventListener('DOMContentLoaded', async () => {
 async function loadData() {
     try {
         // GitHub Pages用とローカル用で切り替え
-        const isGitHubPages = window.location.hostname.includes('github.io');
-        const dataUrl = isGitHubPages 
-            ? 'data.json'  // GitHub Pages: docs内のdata.json
-            : '../data/edinet.json';  // ローカル: 元のパス
+        const isLocal = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+        const dataUrl = isLocal 
+            ? '../data/edinet.json'  // ローカル: 元のパス
+            : 'data.json';  // GitHub Pages: docs内のdata.json
         
         console.log('Loading data from:', dataUrl);
         const response = await fetch(dataUrl);
