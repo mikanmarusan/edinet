@@ -1,29 +1,23 @@
 # EDINET Financial Data Analysis System
 
-A Python-based tool for retrieving and analyzing financial data from listed companies' securities reports through the EDINET API. This system extracts financial information from XBRL data and compiles it into JSON format for analysis by corporate finance teams and M&A departments.
+A Python-based tool for retrieving and analyzing financial data from listed companies' securities reports through the EDINET API.
 
 ## Overview
 
-The system consists of two command-line tools:
-- **bin/fetch_edinet_financial_documents.py**: Daily data extraction tool that retrieves securities reports for a specific date
-- **bin/consolidate_documents.py**: Data consolidation tool that merges multiple daily files into a single consolidated dataset
+This system extracts financial information from XBRL data and compiles it into JSON format for analysis by corporate finance teams and M&A departments.
 
-## Features
-
-- **Automated Data Extraction**: Retrieves securities reports from EDINET API with rate limiting compliance
-- **Advanced XBRL Parsing**: Extracts 22 financial metrics from XBRL documents with dynamic search capabilities
-- **Context-Aware Processing**: Prioritizes current year data over historical using XBRL context references
-- **Dynamic Search Algorithms**: Sophisticated fallback mechanisms for PER, EPS, outstanding shares, cash, BPS, and debt extraction
-- **Data Consolidation**: Handles duplicate companies by keeping the latest data
-- **Comprehensive Logging**: Detailed logging with configurable verbosity
-- **Error Handling**: Robust error handling with retry mechanisms
-- **JSON Output**: Clean, structured JSON output with CORS support
+**Key Features:**
+- Automated daily data extraction from EDINET API
+- Extraction of 22 financial metrics from XBRL documents
+- Data consolidation across multiple dates
+- Robust error handling and retry mechanisms
+- Clean JSON output format
 
 ## Prerequisites
 
 - Python 3.7+
 - EDINET API key (register at https://disclosure2.edinet-fsa.go.jp/)
-- Internet connection for API access
+- Internet connection
 
 ## Installation
 
@@ -38,253 +32,155 @@ cd edinet
 pip install -r requirements.txt
 ```
 
-## Configuration
+## Quick Start
 
-### EDINET API Key
+### 1. Get Your API Key
 
-You need to register for an EDINET API key:
-1. Visit https://disclosure2.edinet-fsa.go.jp/
-2. Register for API access
-3. Obtain your API key
+Register at https://disclosure2.edinet-fsa.go.jp/ to obtain an EDINET API key.
 
-## Usage
-
-### Daily Data Extraction
-
-Extract financial data for a specific date:
+### 2. Extract Daily Data
 
 ```bash
-# Basic usage
-python bin/fetch_edinet_financial_documents.py --date 2025-06-10 --outputdir data/jsons --api-key YOUR_API_KEY
-
-# With verbose logging
-python bin/fetch_edinet_financial_documents.py --date 2025-06-10 --outputdir data/jsons --api-key YOUR_API_KEY --verbose
-
-# With custom retry settings
-python bin/fetch_edinet_financial_documents.py --date 2025-06-10 --outputdir data/jsons --api-key YOUR_API_KEY --max-retries 5
+python bin/fetch_edinet_financial_documents.py \
+  --date 2025-06-10 \
+  --outputdir data/jsons \
+  --api-key YOUR_API_KEY
 ```
+
+### 3. Consolidate Multiple Days
+
+```bash
+python bin/consolidate_documents.py \
+  --inputdir data/jsons/ \
+  --output data/edinet.json \
+  --summary
+```
+
+## Command Reference
+
+### fetch_edinet_financial_documents.py
+
+Extracts financial data for a specific date.
 
 **Required Parameters:**
 - `--date`: Date in YYYY-MM-DD format
 - `--outputdir`: Output directory for JSON files
-- `--api-key`: EDINET API key
+- `--api-key`: Your EDINET API key
 
 **Optional Parameters:**
-- `--verbose, -v`: Enable verbose logging
-- `--max-retries`: Maximum number of retries for failed requests (default: 3)
+- `--verbose, -v`: Enable detailed logging
+- `--max-retries`: Maximum retry attempts (default: 3)
 
-**Output:**
-- Creates `{outputdir}/{YYYY-MM-DD}.json` with extracted financial data
-- Generates log file `fetch_edinet_financial_documents_{YYYYMMDD}.log`
+**Output:** Creates `{outputdir}/{YYYY-MM-DD}.json`
 
-### Data Consolidation
+### consolidate_documents.py
 
-Consolidate multiple daily JSON files:
-
-```bash
-# Basic usage
-python bin/consolidate_documents.py --inputdir data/jsons/ --output data/edinet.json
-
-# With summary report
-python bin/consolidate_documents.py --inputdir data/jsons/ --output data/consolidated.json --summary --verbose
-```
+Consolidates multiple daily JSON files into a single file.
 
 **Required Parameters:**
-- `--inputdir`: Input directory containing JSON files
+- `--inputdir`: Directory containing daily JSON files
 - `--output`: Output file path
 
 **Optional Parameters:**
-- `--summary`: Display summary report
-- `--verbose, -v`: Enable verbose logging
+- `--summary`: Display summary statistics
+- `--verbose, -v`: Enable detailed logging
 
-**Output:**
-- Creates consolidated JSON file at specified location
-- Generates log file `consolidate_documents_{YYYYMMDD}.log`
+**Output:** Creates consolidated JSON file
 
 ## Extracted Financial Metrics
-
-The system extracts the following financial metrics from XBRL data:
 
 | Field | Description | Type |
 |-------|-------------|------|
 | secCode | 4-digit securities code | String |
-| periodEnd | Fiscal period end | String |
+| periodEnd | Fiscal period end (YYYY年M月期) | String |
 | characteristic | Company characteristics | String |
-| stockPrice | Stock price at fiscal year end (calculated: eps × per if missing, null if eps < 0) | Number |
+| stockPrice | Stock price at fiscal year end | Number |
 | netSales | Total net sales | Number |
 | employees | Number of employees | Number |
 | operatingIncome | Operating income | Number |
 | operatingIncomeRate | Operating income rate (%) | Number |
-| depreciation | Depreciation expenses | Number |
+| marketCapitalization | Market capitalization | Number |
+| per | Price-to-earnings ratio | Number |
+| pbr | Price-to-book ratio | Number |
+| bps | Book value per share | Number |
+| equity | Total equity | Number |
+| debt | Net interest-bearing debt | Number |
+| outstandingShares | Outstanding shares | Number |
+| netIncome | Net income | Number |
+| eps | Earnings per share | Number |
+| cash | Cash and cash equivalents | Number |
 | ebitda | EBITDA | Number |
 | ebitdaMargin | EBITDA margin (%) | Number |
-| marketCapitalization | Market capitalization (calculated: outstandingShares × stockPrice if missing) | Number |
-| per | Price-to-earnings ratio | Number |
-| ev | Enterprise value (calculated: marketCapitalization + debt - cash) | Number |
-| evPerEbitda | Enterprise value / EBITDA | Number |
-| pbr | Price-to-book ratio (calculated: stockPrice ÷ bps if missing) | Number |
-| bps | Book value per share | Number |
-| equity | Total equity/shareholders' equity | Number |
-| debt | Net interest-bearing debt | Number |
-| outstandingShares | Number of outstanding shares | Number |
-| netIncome | Net income attributable to shareholders | Number |
-| eps | Earnings per share (diluted preferred) | Number |
-| cash | Cash and cash equivalents at end of period | Number |
+| ev | Enterprise value | Number |
+| evPerEbitda | EV/EBITDA ratio | Number |
 | retrievedDate | Data retrieval date | String |
 
-## File Structure
+## Example Workflow
 
-```
-project/
-├── bin/                                   # Command-line tools
-│   ├── fetch_edinet_financial_documents.py # Daily data extraction tool
-│   └── consolidate_documents.py             # Data consolidation tool
-├── lib/                                   # Shared utilities module
-│   ├── __init__.py                       # Module initialization
-│   ├── edinet_common.py                  # Common utilities and configurations
-│   └── xbrl_parser.py                    # XBRL parsing functionality
-├── data/                                  # Data storage
-│   ├── jsons/                           # Daily JSON files
-│   │   ├── 2025-06-10.json
-│   │   ├── 2025-06-11.json
-│   │   └── ...
-│   └── edinet.json                      # Consolidated output
-├── requirements.txt                       # Python dependencies
-├── README.md                             # This file
-├── LICENSE                               # License file
-├── CLAUDE.md                            # Project instructions
-└── .ai-rules/                            # AI development rules
-    └── edinet_requirements_spec.md       # Product requirements specification
-```
-
-## Development Architecture
-
-### Modular Structure
-The system uses a modular architecture with shared utilities:
-
-- **lib/edinet_common.py**: Core utilities including API configuration, XBRL namespaces, logging setup, and data validation functions
-- **lib/xbrl_parser.py**: Specialized XBRL document extraction and financial metrics parsing
-- **Main scripts**: Import from lib module for shared functionality
-
-### Key Shared Components
-- EDINET API configuration and rate limiting
-- XBRL namespace mappings for EDINET 2024-11-01 taxonomy  
-- Common logging and error handling
-- Data validation and formatting utilities
-
-### Advanced XBRL Processing
-
-The system implements sophisticated data extraction algorithms for robust financial metrics capture:
-
-#### Dynamic Search Capabilities
-- **PER Extraction**: When standard XBRL patterns fail, dynamically searches for PER-related tags using keyword matching and priority scoring
-- **EPS Extraction**: Advanced detection of diluted/basic EPS with context-aware fallback mechanisms and comprehensive tag pattern matching
-- **Outstanding Shares**: Sophisticated share count detection with dynamic search across multiple tag variations and context prioritization
-- **Cash Extraction**: Comprehensive cash and cash equivalents detection with period-end prioritization and consolidated data preference
-
-#### Context-Aware Processing
-- **Current Year Priority**: Automatically prioritizes current fiscal year data over historical data using XBRL context references
-- **Priority Scoring**: Implements intelligent scoring algorithms to select the most relevant data when multiple candidates exist
-- **Range Validation**: Filters unreasonable values (e.g., PER > 1000, shares outside typical ranges) to ensure data quality
-
-## API Rate Limiting
-
-The system automatically enforces EDINET API rate limits:
-- Maximum 1 request per second
-- Automatic retry with exponential backoff for failed requests
-- Comprehensive error handling for network issues
-
-## Error Handling
-
-The system includes robust error handling for:
-- **Missing Data**: Skips companies with incomplete data
-- **API Errors**: Logs errors and continues processing
-- **File I/O Errors**: Displays clear error messages
-- **Network Issues**: Implements retry logic with delays
-- **XBRL Parsing Errors**: Handles malformed or incomplete XBRL data
-
-## Logging
-
-Both tools generate detailed logs:
-- Console output for real-time monitoring
-- Log files for detailed debugging
-- Configurable verbosity levels
-- Progress indicators for long-running operations
-
-## Data Quality
-
-The system ensures data quality through:
-- **Data Validation**: Validates extracted financial metrics
-- **Missing Fields**: Handles incomplete XBRL data gracefully
-- **Data Consistency**: Ensures consistent data types across output
-- **Duplicate Handling**: Latest data takes precedence in consolidation
-
-## Workflow Example
-
-1. **Daily Extraction**:
 ```bash
-python bin/fetch_edinet_financial_documents.py --date 2025-06-10 --outputdir data/jsons --api-key YOUR_API_KEY
-```
+# Day 1: Extract data
+python bin/fetch_edinet_financial_documents.py --date 2025-06-10 --outputdir data/jsons --api-key YOUR_KEY
 
-2. **Repeat for Multiple Days**:
-```bash
-python bin/fetch_edinet_financial_documents.py --date 2025-06-11 --outputdir data/jsons --api-key YOUR_API_KEY
-python bin/fetch_edinet_financial_documents.py --date 2025-06-12 --outputdir data/jsons --api-key YOUR_API_KEY
-```
+# Day 2: Extract data
+python bin/fetch_edinet_financial_documents.py --date 2025-06-11 --outputdir data/jsons --api-key YOUR_KEY
 
-3. **Consolidate Data**:
-```bash
+# Day 3: Extract data
+python bin/fetch_edinet_financial_documents.py --date 2025-06-12 --outputdir data/jsons --api-key YOUR_KEY
+
+# Consolidate all data
 python bin/consolidate_documents.py --inputdir data/jsons/ --output data/edinet.json --summary
 ```
-
-4. **Result**: Consolidated financial data in `data/edinet.json`
 
 ## Troubleshooting
 
 ### Common Issues
 
-1. **API Key Issues**:
-   - Ensure your API key is valid and active
-   - Check EDINET API service status
+**No Data Found**
+- Verify the date format (YYYY-MM-DD)
+- Securities reports may not be filed on weekends/holidays
+- Check if the date is too recent (data may not be available yet)
 
-2. **No Data Found**:
-   - Verify the date format (YYYY-MM-DD)
-   - Check if securities reports were filed on that date
+**API Key Issues**
+- Ensure your API key is valid and active
+- Check EDINET API service status
 
-3. **Network Errors**:
-   - Check internet connectivity
-   - API might be temporarily unavailable
+**Network Errors**
+- Verify internet connectivity
+- The tool will automatically retry failed requests
 
-4. **XBRL Parsing Errors**:
-   - Some companies may have non-standard XBRL formats
-   - The system will skip and log these errors
+**XBRL Parsing Errors**
+- Some companies may have non-standard formats
+- The system will skip problematic files and continue
 
 ### Log Files
 
-Check log files for detailed error information:
-- `fetch_edinet_financial_documents_{YYYYMMDD}.log`: Daily extraction logs
-- `consolidate_documents_{YYYYMMDD}.log`: Consolidation logs
+Check logs for detailed information:
+- `fetch_edinet_financial_documents_{YYYYMMDD}.log`
+- `consolidate_documents_{YYYYMMDD}.log`
 
-## Development
+## Output Format
 
-### Running Tests
+The system generates JSON files with the following structure:
 
-When you have an API key available, test the tools:
-
-```bash
-# Test fetch_edinet_financial_documents with a recent date
-python bin/fetch_edinet_financial_documents.py --date 2025-06-10 --outputdir data/jsons --api-key YOUR_API_KEY --verbose
-
-# Test consolidate_documents with generated data
-python bin/consolidate_documents.py --inputdir data/jsons/ --output data/edinet.json --summary --verbose
+```json
+{
+  "companies": [
+    {
+      "secCode": "1234",
+      "periodEnd": "2025年3月期",
+      "netSales": 1000000000,
+      "employees": 500,
+      // ... other metrics
+    }
+  ]
+}
 ```
 
-### Contributing
+## Technical Documentation
 
-1. Follow the existing code style
-2. Add appropriate error handling
-3. Update documentation for new features
-4. Test with real EDINET data
+For developers and technical details, see:
+- `.ai-rules/` - Development guidelines
+- `CLAUDE.md` - AI assistant instructions
 
 ## License
 
@@ -293,6 +189,7 @@ See LICENSE file for details.
 ## Support
 
 For issues and questions:
-- Check the troubleshooting section
-- Review log files for error details
-- Ensure API key is valid and active
+1. Check the troubleshooting section above
+2. Review log files for detailed error messages
+3. Ensure your API key is valid
+4. Open an issue on GitHub if problems persist

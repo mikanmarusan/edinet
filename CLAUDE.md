@@ -1,146 +1,84 @@
 # CLAUDE.md
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+このファイルはClaude Code (claude.ai/code)がこのリポジトリで作業する際のガイダンスです。
 
-## Project Overview
+## プロジェクト概要
 
-This is the **edinet** project - a tool for retrieving Listed Company Disclosures from EDINET (Electronic Disclosure for Investors' NETwork), which is Japan's electronic disclosure system for corporate information.
+**edinet** - EDINETから上場企業の開示情報を取得・処理するツール
+- EDINET: 日本の企業情報電子開示システム
+- 日次で財務データを自動取得し、構造化されたJSONとして保管
+- Python 3.x + requests/lxml/argparse
 
-## Current State
+## アーキテクチャ
 
-This repository contains a functional EDINET financial data extraction system:
-- `bin/fetch_edinet_financial_documents.py`: Daily data extraction tool
-- `bin/consolidate_documents.py`: Data consolidation tool
-- `requirements.txt`: Python dependencies
-- Complete documentation and specification files
+```
+edinet/
+├── bin/                    # 実行可能スクリプト
+├── lib/                    # 共有ライブラリ（edinet_common.py, xbrl_parser.py）
+├── data/jsons/            # 出力データ
+└── .ai-rules/             # 詳細な開発ルール
+```
 
-## Development Notes
+## 重要な設計原則
 
-The project consists of two main command-line tools for EDINET financial data extraction and consolidation:
-- `bin/fetch_edinet_financial_documents.py`: Daily data extraction from EDINET API
-- `bin/consolidate_documents.py`: Data consolidation from multiple daily files
+1. **DRY**: lib/モジュールで共通処理を集約
+2. **フェイルセーフ**: 個別エラーで全体停止を避ける
+3. **明示的 > 暗黙的**: 必須パラメータにデフォルト値なし
+4. **API制限遵守**: 1リクエスト/秒
 
-### Modular Architecture
+## 開発規約
 
-The system has been refactored to use a modular architecture with shared utilities in the `lib/` directory:
+### 基本ルール
+- Python PEP 8準拠
+- 関数名: snake_case
+- 定数: UPPER_SNAKE_CASE
+- エラーは個別に処理し、ログ記録
 
-- **lib/edinet_common.py**: Contains shared API configuration, XBRL namespace mappings, logging setup, and common utility functions used by both main scripts
-- **lib/xbrl_parser.py**: Dedicated XBRL document parsing and financial metrics extraction functionality 
-- **lib/__init__.py**: Module initialization for the shared library
+### データ形式
+- 証券コード: 4桁（末尾0削除）
+- 決算期: YYYY年M月期（先頭0なし）
+- 財務データ優先: 連結 > 個別、当期 > 過去
 
-This modularization improves code maintainability, reduces duplication, and provides a clean separation of concerns between shared utilities and main application logic.
+### プロジェクト固有の用語
+- **docID**: EDINET文書ID
+- **secCode**: 証券コード
+- **periodEnd**: 決算期末
+- **XBRL**: 財務情報標準フォーマット
 
-## Tool Design Principles
+## 詳細ルールへの参照
 
-### Command-Line Interface Standards
-- All required parameters must be explicitly specified (no defaults for critical paths)
-- Use descriptive parameter names that clearly indicate purpose:
-  - `--inputdir` / `--outputdir` instead of generic `--input` / `--output`
-  - `--api-key` as required parameter for security transparency
-- Implement consistent logging patterns across all tools
+以下のドキュメントで詳細を確認：
 
-### Error Handling Philosophy
-- Fail gracefully: continue processing other items when individual items fail
-- Comprehensive logging: both console and file output for debugging
-- Rate limiting compliance: respect external API constraints (1 req/sec for EDINET)
+### 必須参照
+- `.ai-rules/product_requirement_document.md` - プロダクト要件
+- `.ai-rules/coding-standards.md` - コーディング規約詳細
+- `.ai-rules/security.md` - セキュリティ指針
+- `.ai-rules/performance.md` - パフォーマンス最適化
 
-## Data Quality Standards
+### 開発プロセス
+- `.ai-rules/git-workflow.md` - Git運用ルール
+- `.ai-rules/development-patterns.md` - 開発パターン
+- `.ai-rules/testing.md` - テスト戦略
+- `.ai-rules/deployment.md` - デプロイ設定
 
-### Data Format Consistency
-- Japanese date format: YYYY年MM月期 (no leading zeros for single-digit months)
-- Securities codes: 4-digit format (remove trailing zero from 5-digit codes)
-- Null handling: Explicitly set unavailable fields to null rather than omitting
+### その他
+- `.ai-rules/documentation.md` - ドキュメント作成
+- `.ai-rules/dependencies.md` - 依存関係管理
+- `.ai-rules/api-design.md` - API設計（将来用）
+- `.ai-rules/database.md` - DB設計（将来用）
 
-### EDINET-Focused Data Strategy
-- Primary data source: EDINET XBRL data
-- Focus on reliable, verifiable financial data from official sources
-- Extract available metrics: netSales, employees, operatingIncome, equity, netIncome, outstandingShares, eps, cash, bps, debt
-- Calculate derived metrics: operatingIncomeRate, ebitda, ebitdaMargin, ev, evPerEbitda
-- Calculate fallback financial fields: stockPrice (eps × per), marketCapitalization (outstandingShares × stockPrice), pbr (stockPrice ÷ bps)
-- Advanced extraction: Dynamic search algorithms for PER, EPS, outstanding shares, cash, BPS, and debt when standard patterns fail
+## クイックリファレンス
 
-## Technical Implementation Guidelines
+**日次データ取得**:
+```bash
+python bin/fetch_edinet_financial_documents.py --date YYYY-MM-DD --outputdir data/jsons --api-key YOUR_KEY
+```
 
-### XBRL Processing Standards
-- Target taxonomy: EDINET 2024-11-01
-- Use specific namespace mappings for reliable data extraction
-- Handle XBRL parsing errors gracefully (continue with other companies)
+**データ統合**:
+```bash
+python bin/consolidate_documents.py --inputdir data/jsons --output data/edinet.json
+```
 
-### Advanced XBRL Processing Features
-- **Dynamic Search Algorithms**: When standard XBRL patterns fail, implement sophisticated fallback mechanisms
-- **Context Prioritization**: Use XBRL context references to prioritize current year data over historical
-- **Consolidated Data Priority**: Systematically exclude NonConsolidatedMember contexts to prioritize consolidated financial data
-- **Priority Scoring**: Calculate priority scores for data candidates to select the most relevant values
-- **Range Validation**: Filter unreasonable values to ensure data quality (e.g., PER < 1000, share counts in reasonable ranges)
-- **Multi-Pattern Extraction**: Support multiple extraction strategies for robust data capture across different company reporting formats
-- **Period-End Prioritization**: For cash and time-sensitive metrics, prioritize end-of-period data over other temporal contexts
+## 開発時の注意
 
-### File Organization
-- Command-line tools organized in `bin/` directory: `bin/fetch_edinet_financial_documents.py`, `bin/consolidate_documents.py`
-- Shared utilities in `lib/` directory for modular architecture
-- Default data directory: `data/jsons/` for financial data output
-- Structured output: `{outputdir}/{YYYY-MM-DD}.json` pattern
-- Log files: `{script_name}_{YYYYMMDD}.log` pattern
-
-### API Integration Best Practices
-- Mandatory API key parameter for accountability
-- Implement proper rate limiting (1 second delays)
-- Robust retry mechanisms with exponential backoff
-
-## Development Lessons Learned
-
-### Command-Line Tool Evolution
-- Initial optional parameters led to unclear execution contexts
-- Solution: Make critical parameters (outputdir, api-key) mandatory
-- Benefit: More predictable and secure tool behavior
-
-### Data Consolidation Strategy
-- Latest data precedence for duplicate companies
-- Explicit output path specification prevents accidental overwrites
-- Summary reporting for data quality verification
-
-### XBRL Data Processing
-- periodEnd format standardization improves data consistency
-- Securities code normalization (4-digit) ensures uniform identification
-- Robust namespace handling essential for reliable XBRL parsing
-- Consolidated vs individual data distinction critical for accurate financial metrics
-- Dynamic search patterns significantly improve extraction success rates (e.g., netIncome: 40% → 100%)
-
-### Recent Enhancement Learnings (2025-06-22)
-- **Consolidated Data Prioritization**: Root cause of data extraction issues was NonConsolidatedMember contexts being included
-- **Dynamic Search Success**: Implementing comprehensive keyword-based fallback mechanisms dramatically improves metric extraction rates
-- **Cash and Cash Equivalents**: Successfully implemented with period-end prioritization and consolidated data preference
-- **Context Hierarchy**: Established priority order: Consolidated+CurrentYear > CurrentYear > Consolidated > Others
-- **Field Positioning**: New financial metrics should be positioned before retrievedDate field in JSON structure
-
-### Calculated Financial Fields Implementation (2025-06-23)
-- **Issue #21 Resolution**: Implemented null-safe calculations for fields not directly available from EDINET API
-- **Fallback Calculations**: Added stockPrice (eps × per), marketCapitalization (outstandingShares × stockPrice), pbr (stockPrice ÷ bps)
-- **Enterprise Value Correction**: Fixed EV calculation to properly include cash subtraction (marketCapitalization + debt - cash)
-- **Null Safety Strategy**: If any required parameter is null, calculated parameter is also null to maintain data integrity
-- **Calculation Priority**: Prefer direct EDINET extraction over calculated values, use calculations only as fallbacks
-
-### Negative EPS Handling (2025-06-26)
-- **Issue #28 Resolution**: Enhanced null-safety for negative earnings scenarios
-- **Stock Price Logic**: When eps < 0, stockPrice is set to null (negative stock prices are meaningless)
-- **PER Logic**: When eps ≤ 0, PER cannot be calculated and is set to null
-- **Cascade Effect**: All dependent calculations (marketCapitalization, pbr, ev, evPerEbitda) automatically become null when stockPrice is null
-
-## Future Development Guidelines
-
-### Maintainability Focus
-- Prioritize reliable EDINET data extraction over feature expansion
-- Maintain clear separation between data extraction and consolidation tools
-- Document all XBRL field mappings for future taxonomy updates
-
-### Extension Considerations
-- Any new data sources must meet reliability standards of EDINET
-- Consider database integration for large-scale deployments
-- Maintain backward compatibility for existing JSON output format
-
-## Product Requirement Document
-
-Refer to the product requirement document located at .ai-rules/edinet_requirements_spec.md 
-for building this software.
-
- to memorize
+新機能追加やバグ修正の際は、必ず`.ai-rules/`配下の関連ドキュメントを参照してください。
