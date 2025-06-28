@@ -39,7 +39,10 @@ jobs:
     
     # 2つ目のスクリプトを実行
     - name: Consolidate documents
-      run: python bin/consolidate_documents.py --inputdir data/jsons/ --output data/edinet.json
+      run: |
+        python bin/consolidate_documents.py --inputdir data/jsons/ --output data/edinet.json
+        # docs配下にもコピー（GitHub Pages用）
+        cp data/edinet.json docs/data.json
     
     # Gitの設定
     - name: Configure Git

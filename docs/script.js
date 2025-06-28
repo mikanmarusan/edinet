@@ -13,8 +13,10 @@ async function loadData() {
         // GitHub Pages用とローカル用で切り替え
         const isGitHubPages = window.location.hostname.includes('github.io');
         const dataUrl = isGitHubPages 
-            ? 'https://raw.githubusercontent.com/mikanmarusan/edinet/main/data/edinet.json'
-            : '../data/edinet.json';
+            ? 'data.json'  // GitHub Pages: docs内のdata.json
+            : '../data/edinet.json';  // ローカル: 元のパス
+        
+        console.log('Loading data from:', dataUrl);
         const response = await fetch(dataUrl);
         if (!response.ok) {
             throw new Error('データの読み込みに失敗しました');
