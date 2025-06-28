@@ -15,19 +15,19 @@
     "depreciation": 12774000000.0,
     "ebitda": null,
     "ebitdaMargin": null,
-    "marketCapitalization": 11211428663.2114,
+    "marketCapitalization": 1121142866321.14,
     "per": 13.69,
-    "ev": -4321931571336.7886,
+    "ev": -3212000133678.8604,
     "evPerEbitda": null,
     "pbr": 0.8692699164073788,
     "bps": 1128.09,
     "equity": 1192284000000.0,
     "debt": 20000000000.0,
-    "outstandingShares": 11433062,
+    "outstandingShares": 1143306200,
     "netIncome": 83071000000.0,
     "eps": 71.63,
     "cash": 4353143000000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "7380",
@@ -57,7 +57,7 @@
     "netIncome": 21144000000.0,
     "eps": 577.29,
     "cash": 1070066000000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "7857",
@@ -87,7 +87,7 @@
     "netIncome": 292696000.0,
     "eps": 67.32,
     "cash": 3617589000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "2664",
@@ -117,7 +117,7 @@
     "netIncome": 4884000000.0,
     "eps": 218.48,
     "cash": 36674000000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "9046",
@@ -147,7 +147,7 @@
     "netIncome": 1150000000.0,
     "eps": 143.57,
     "cash": 1052000000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "7381",
@@ -177,7 +177,7 @@
     "netIncome": 8438000000.0,
     "eps": 354.84,
     "cash": 1642236000000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "5906",
@@ -207,7 +207,7 @@
     "netIncome": 1334649000.0,
     "eps": 90.76,
     "cash": 2515173000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "9950",
@@ -237,7 +237,7 @@
     "netIncome": 236202000.0,
     "eps": 80.49,
     "cash": 1009636000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "6345",
@@ -267,7 +267,7 @@
     "netIncome": 6334645000.0,
     "eps": 84.96,
     "cash": 46871546000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "9029",
@@ -297,7 +297,7 @@
     "netIncome": 1805858000.0,
     "eps": 136.77,
     "cash": 4647595000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "8795",
@@ -327,6 +327,6 @@
     "netIncome": 127404000000.0,
     "eps": 241.6,
     "cash": 823096000000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   }
 ]

@@ -27,7 +27,7 @@
     "netIncome": 6306000000.0,
     "eps": 452.43,
     "cash": 12023000000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "137A",
@@ -57,6 +57,6 @@
     "netIncome": null,
     "eps": null,
     "cash": null,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   }
 ]

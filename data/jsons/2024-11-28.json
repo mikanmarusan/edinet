@@ -27,7 +27,7 @@
     "netIncome": 133275000.0,
     "eps": 165.75,
     "cash": 1043896000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "7219",
@@ -57,7 +57,7 @@
     "netIncome": 347746000.0,
     "eps": 245.77,
     "cash": 1522462000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "3440",
@@ -87,7 +87,7 @@
     "netIncome": 1094600000.0,
     "eps": 167.25,
     "cash": 5524306000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "7818",
@@ -117,7 +117,7 @@
     "netIncome": 3763601000.0,
     "eps": 129.4,
     "cash": 5846780000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "6048",
@@ -147,7 +147,7 @@
     "netIncome": -310591000.0,
     "eps": -21.05,
     "cash": 2376748000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "7581",
@@ -177,7 +177,7 @@
     "netIncome": 8149000000.0,
     "eps": 164.87,
     "cash": 386000000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "4439",
@@ -207,7 +207,7 @@
     "netIncome": 1552954000.0,
     "eps": 102.32,
     "cash": 6323403000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "3498",
@@ -237,7 +237,7 @@
     "netIncome": 5020003000.0,
     "eps": 531.95,
     "cash": 11056990000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "5578",
@@ -267,7 +267,7 @@
     "netIncome": 275669000.0,
     "eps": 78.03,
     "cash": 2329879000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "2449",
@@ -297,7 +297,7 @@
     "netIncome": 226653000.0,
     "eps": 51.43,
     "cash": 4415680000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "156A",
@@ -327,7 +327,7 @@
     "netIncome": 709632000.0,
     "eps": 71.23,
     "cash": 1122606000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "3991",
@@ -357,7 +357,7 @@
     "netIncome": 1036414000.0,
     "eps": 109.13,
     "cash": 4521960000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "9560",
@@ -387,7 +387,7 @@
     "netIncome": null,
     "eps": null,
     "cash": null,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "9264",
@@ -417,7 +417,7 @@
     "netIncome": 195761000.0,
     "eps": 42.34,
     "cash": 1626679000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "7352",
@@ -447,7 +447,7 @@
     "netIncome": 188863000.0,
     "eps": 3.98,
     "cash": 3698236000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "8904",
@@ -477,7 +477,7 @@
     "netIncome": 589107000.0,
     "eps": 41.12,
     "cash": 14038055000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "5580",
@@ -507,7 +507,7 @@
     "netIncome": null,
     "eps": null,
     "cash": null,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "3046",
@@ -537,7 +537,7 @@
     "netIncome": 4671000000.0,
     "eps": 190.97,
     "cash": 18673000000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "9331",
@@ -567,7 +567,7 @@
     "netIncome": -217905000.0,
     "eps": -113.47,
     "cash": 1606886000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "1434",
@@ -597,7 +597,37 @@
     "netIncome": 1012359000.0,
     "eps": 146.63,
     "cash": 2350632000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
+  },
+  {
+    "secCode": "9979",
+    "filerName": "株式会社大庄",
+    "docID": "S100USWG",
+    "docPdfURL": "https://disclosure2dl.edinet-fsa.go.jp/searchdocument/pdf/S100USWG.pdf",
+    "yahooURL": "https://finance.yahoo.co.jp/quote/9979.T",
+    "periodEnd": "2024年8月期",
+    "characteristic": "(セグメント情報等)【セグメント情報】１．報告セグメントの概要当社グループの報告セグメントは、当社の構成単位のうち分離された財務情報が入手可能であり、取締役会が、経営資源の配分の決定及び業績を評価するために、定期的に検討を行う対象となっているものであります。",
+    "stockPrice": 1099.415,
+    "netSales": 50586000000.0,
+    "employees": 1594,
+    "operatingIncome": 1000000000.0,
+    "operatingIncomeRate": 1.976831534416637,
+    "depreciation": 1060000000.0,
+    "ebitda": 2060000000.0,
+    "ebitdaMargin": 4.072272960898273,
+    "marketCapitalization": 23061988689.0,
+    "per": 17.3,
+    "ev": 20245988689.0,
+    "evPerEbitda": 9.828149849029126,
+    "pbr": 2.21790397417793,
+    "bps": 495.7,
+    "equity": 10402000000.0,
+    "debt": 6185000000.0,
+    "outstandingShares": 20976600,
+    "netIncome": 1333000000.0,
+    "eps": 63.55,
+    "cash": 9001000000.0,
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "6668",
@@ -627,7 +657,7 @@
     "netIncome": 1213000000.0,
     "eps": 141.83,
     "cash": 6148000000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "3174",
@@ -657,7 +687,7 @@
     "netIncome": -459062000.0,
     "eps": -180.39,
     "cash": 981220000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "7351",
@@ -687,7 +717,7 @@
     "netIncome": 11532000.0,
     "eps": 1.26,
     "cash": 3275145000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "4176",
@@ -717,7 +747,7 @@
     "netIncome": 243716000.0,
     "eps": 10.0,
     "cash": 3905323000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "4440",
@@ -747,7 +777,7 @@
     "netIncome": 275081000.0,
     "eps": 67.67,
     "cash": 1572064000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "3987",
@@ -777,6 +807,6 @@
     "netIncome": -69151000.0,
     "eps": -13.13,
     "cash": 582791000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   }
 ]

@@ -27,7 +27,7 @@
     "netIncome": 955975000.0,
     "eps": 126.6,
     "cash": 6550074000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "7804",
@@ -57,7 +57,7 @@
     "netIncome": null,
     "eps": null,
     "cash": null,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "7983",
@@ -87,7 +87,7 @@
     "netIncome": -2294180000.0,
     "eps": -777.67,
     "cash": 1299638000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "9565",
@@ -117,7 +117,7 @@
     "netIncome": -19210000.0,
     "eps": -7.02,
     "cash": 359299000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "5218",
@@ -147,7 +147,7 @@
     "netIncome": 1568205000.0,
     "eps": 64.36,
     "cash": 13595485000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "215A",
@@ -177,7 +177,7 @@
     "netIncome": null,
     "eps": null,
     "cash": null,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "5585",
@@ -207,7 +207,7 @@
     "netIncome": null,
     "eps": null,
     "cash": null,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "4441",
@@ -237,7 +237,7 @@
     "netIncome": null,
     "eps": null,
     "cash": null,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "4378",
@@ -267,7 +267,7 @@
     "netIncome": null,
     "eps": null,
     "cash": null,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "3480",
@@ -297,7 +297,7 @@
     "netIncome": 7452754000.0,
     "eps": 351.47,
     "cash": 17249876000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "3419",
@@ -327,6 +327,6 @@
     "netIncome": 14072000.0,
     "eps": 12.01,
     "cash": 338806000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   }
 ]

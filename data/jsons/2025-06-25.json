@@ -27,7 +27,7 @@
     "netIncome": -741194000.0,
     "eps": -9.18,
     "cash": 854546000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "167A",
@@ -57,7 +57,7 @@
     "netIncome": 9387000000.0,
     "eps": 234.2,
     "cash": 29674000000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "4231",
@@ -87,7 +87,7 @@
     "netIncome": 3777543000.0,
     "eps": 170.83,
     "cash": 14229029000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "6155",
@@ -117,7 +117,7 @@
     "netIncome": -644000000.0,
     "eps": -59.95,
     "cash": 4175000000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "8367",
@@ -147,7 +147,7 @@
     "netIncome": 13510000000.0,
     "eps": 429.02,
     "cash": 676630000000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "9503",
@@ -165,19 +165,19 @@
     "depreciation": 10468000000.0,
     "ebitda": 479345000000.0,
     "ebitdaMargin": 11.052172748172689,
-    "marketCapitalization": 19675230856.835396,
+    "marketCapitalization": 1967523085683.5398,
     "per": 4.06,
-    "ev": 528878230856.83545,
-    "evPerEbitda": 1.103335240498671,
+    "ev": 2476726085683.54,
+    "evPerEbitda": 5.166896672925638,
     "pbr": 0.6433571825683772,
     "bps": 2752.01,
     "equity": 2762304000000.0,
     "debt": 1450635000000.0,
-    "outstandingShares": 11112651,
+    "outstandingShares": 1111265100,
     "netIncome": 451137000000.0,
     "eps": 436.09,
     "cash": 941432000000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "5285",
@@ -207,7 +207,7 @@
     "netIncome": 1968379000.0,
     "eps": 203.58,
     "cash": 2122036000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "8596",
@@ -237,7 +237,7 @@
     "netIncome": 3805000000.0,
     "eps": 158.17,
     "cash": 4907000000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "4274",
@@ -267,7 +267,7 @@
     "netIncome": null,
     "eps": null,
     "cash": null,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "4527",
@@ -297,7 +297,7 @@
     "netIncome": 30951000000.0,
     "eps": 135.44,
     "cash": 73221000000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "4094",
@@ -327,7 +327,7 @@
     "netIncome": 2357304000.0,
     "eps": 121.17,
     "cash": 10218395000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "4687",
@@ -357,7 +357,7 @@
     "netIncome": 3433822000.0,
     "eps": 72.86,
     "cash": 15250091000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "2218",
@@ -387,7 +387,7 @@
     "netIncome": null,
     "eps": null,
     "cash": null,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "1939",
@@ -417,7 +417,7 @@
     "netIncome": 5202000000.0,
     "eps": 109.46,
     "cash": 16308000000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "7955",
@@ -447,7 +447,7 @@
     "netIncome": 1719000000.0,
     "eps": 47.67,
     "cash": 18767000000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "4705",
@@ -477,7 +477,7 @@
     "netIncome": -75274000.0,
     "eps": -20.9,
     "cash": 2140452000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "8707",
@@ -507,7 +507,7 @@
     "netIncome": 6725000000.0,
     "eps": 286.34,
     "cash": 7719000000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "9301",
@@ -537,7 +537,7 @@
     "netIncome": 32222000000.0,
     "eps": 85.92,
     "cash": 61006000000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "5969",
@@ -567,7 +567,7 @@
     "netIncome": 79781000.0,
     "eps": 41.38,
     "cash": 1961297000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "8163",
@@ -597,7 +597,7 @@
     "netIncome": 1025941000.0,
     "eps": 20.65,
     "cash": 12567643000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "6367",
@@ -627,7 +627,7 @@
     "netIncome": 275448000000.0,
     "eps": 903.65,
     "cash": 658105000000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "5603",
@@ -657,7 +657,7 @@
     "netIncome": 873000000.0,
     "eps": 244.22,
     "cash": 3158000000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "2288",
@@ -687,7 +687,7 @@
     "netIncome": 5557000000.0,
     "eps": 222.06,
     "cash": 8983000000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "6919",
@@ -717,7 +717,7 @@
     "netIncome": 401552000.0,
     "eps": 55.23,
     "cash": 5070744000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "1960",
@@ -747,7 +747,7 @@
     "netIncome": 1802000000.0,
     "eps": 113.86,
     "cash": 8819000000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "4462",
@@ -777,7 +777,7 @@
     "netIncome": 2465418000.0,
     "eps": 173.43,
     "cash": 5757440000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "7702",
@@ -807,7 +807,7 @@
     "netIncome": 7000000.0,
     "eps": 3.65,
     "cash": 5507000000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "5480",
@@ -837,7 +837,7 @@
     "netIncome": 11625000000.0,
     "eps": 819.46,
     "cash": 9369000000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "9643",
@@ -867,7 +867,7 @@
     "netIncome": null,
     "eps": null,
     "cash": null,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "9272",
@@ -897,7 +897,7 @@
     "netIncome": 250944000.0,
     "eps": 24.37,
     "cash": 3772327000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "7189",
@@ -927,7 +927,7 @@
     "netIncome": 31515000000.0,
     "eps": 221.37,
     "cash": 1669283000000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "6157",
@@ -957,7 +957,7 @@
     "netIncome": 1264700000.0,
     "eps": 50.4,
     "cash": 9768215000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "8152",
@@ -987,7 +987,7 @@
     "netIncome": 2586595000.0,
     "eps": 1334.37,
     "cash": 8978283000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "4272",
@@ -1017,7 +1017,7 @@
     "netIncome": 17578000000.0,
     "eps": 107.16,
     "cash": 57926000000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "4360",
@@ -1047,7 +1047,7 @@
     "netIncome": -895000000.0,
     "eps": -110.77,
     "cash": 2767000000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "5951",
@@ -1077,7 +1077,7 @@
     "netIncome": null,
     "eps": null,
     "cash": null,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "8558",
@@ -1107,7 +1107,7 @@
     "netIncome": 4517000000.0,
     "eps": 113.01,
     "cash": 167076000000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "8864",
@@ -1137,7 +1137,7 @@
     "netIncome": 2627525000.0,
     "eps": 51.24,
     "cash": 7159544000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "4635",
@@ -1167,7 +1167,7 @@
     "netIncome": 1186000000.0,
     "eps": 444.91,
     "cash": 3695000000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "6333",
@@ -1197,7 +1197,7 @@
     "netIncome": 4083439000.0,
     "eps": 219.27,
     "cash": 11998609000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "5602",
@@ -1227,7 +1227,7 @@
     "netIncome": 7023000000.0,
     "eps": 569.5,
     "cash": 15663000000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "4549",
@@ -1257,7 +1257,7 @@
     "netIncome": 2228000000.0,
     "eps": 64.27,
     "cash": 7640000000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "4496",
@@ -1287,7 +1287,7 @@
     "netIncome": 90628000.0,
     "eps": 12.78,
     "cash": 1864160000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "9616",
@@ -1317,7 +1317,7 @@
     "netIncome": 14562000000.0,
     "eps": 160.15,
     "cash": 25349000000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "6557",
@@ -1347,7 +1347,7 @@
     "netIncome": 421875000.0,
     "eps": 64.36,
     "cash": 2346970000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "9799",
@@ -1377,7 +1377,7 @@
     "netIncome": null,
     "eps": null,
     "cash": null,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "9119",
@@ -1407,7 +1407,7 @@
     "netIncome": 18376000000.0,
     "eps": 173.6,
     "cash": 11593000000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "4409",
@@ -1437,7 +1437,7 @@
     "netIncome": 1546000000.0,
     "eps": 73.42,
     "cash": 5704000000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "9900",
@@ -1467,7 +1467,7 @@
     "netIncome": 1356062000.0,
     "eps": 44.93,
     "cash": 6335572000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "6254",
@@ -1497,7 +1497,7 @@
     "netIncome": 10199642000.0,
     "eps": 263.64,
     "cash": 16539650000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "2374",
@@ -1527,7 +1527,7 @@
     "netIncome": 1487309000.0,
     "eps": 59.73,
     "cash": 7186572000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "2425",
@@ -1557,7 +1557,7 @@
     "netIncome": 374023000.0,
     "eps": 98.6,
     "cash": 1843945000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "5122",
@@ -1587,7 +1587,7 @@
     "netIncome": 6704000000.0,
     "eps": 383.35,
     "cash": 38932000000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "9502",
@@ -1617,7 +1617,7 @@
     "netIncome": 209137000000.0,
     "eps": 267.4,
     "cash": 292467000000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "3143",
@@ -1647,7 +1647,7 @@
     "netIncome": 916372000.0,
     "eps": 305.73,
     "cash": 2858922000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "6140",
@@ -1677,7 +1677,7 @@
     "netIncome": 2668000000.0,
     "eps": 48.36,
     "cash": 14810000000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "1812",
@@ -1707,7 +1707,7 @@
     "netIncome": 126454000000.0,
     "eps": 266.49,
     "cash": 349540000000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "6727",
@@ -1737,7 +1737,7 @@
     "netIncome": 5224744000.0,
     "eps": 36.97,
     "cash": 24364228000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "2307",
@@ -1767,7 +1767,7 @@
     "netIncome": 1316766000.0,
     "eps": 93.17,
     "cash": 2683140000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "4078",
@@ -1797,7 +1797,7 @@
     "netIncome": 5148000000.0,
     "eps": 278.91,
     "cash": 16153000000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "4092",
@@ -1827,7 +1827,7 @@
     "netIncome": 2559000000.0,
     "eps": 290.62,
     "cash": 7628000000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "1815",
@@ -1857,7 +1857,7 @@
     "netIncome": 3436000000.0,
     "eps": 242.75,
     "cash": 16529000000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "6622",
@@ -1887,7 +1887,7 @@
     "netIncome": 12922000000.0,
     "eps": 493.31,
     "cash": 28855000000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "7476",
@@ -1917,7 +1917,7 @@
     "netIncome": 8229000000.0,
     "eps": 114.72,
     "cash": 19031000000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "2749",
@@ -1947,7 +1947,7 @@
     "netIncome": 3920895000.0,
     "eps": 45.91,
     "cash": 20743470000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "6849",
@@ -1977,7 +1977,7 @@
     "netIncome": 14098000000.0,
     "eps": 84.88,
     "cash": 43061000000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "7932",
@@ -2007,7 +2007,7 @@
     "netIncome": 2517000000.0,
     "eps": 854.46,
     "cash": 8760000000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "5386",
@@ -2037,7 +2037,7 @@
     "netIncome": null,
     "eps": null,
     "cash": null,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "4362",
@@ -2067,7 +2067,7 @@
     "netIncome": 3968548000.0,
     "eps": 172.06,
     "cash": 12638852000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "9639",
@@ -2097,7 +2097,7 @@
     "netIncome": 5502000000.0,
     "eps": 247.57,
     "cash": 4262000000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "5208",
@@ -2127,7 +2127,7 @@
     "netIncome": 3969679000.0,
     "eps": 119.39,
     "cash": 16371091000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "9304",
@@ -2157,7 +2157,7 @@
     "netIncome": 4981000000.0,
     "eps": 337.22,
     "cash": 8521000000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "9986",
@@ -2187,7 +2187,7 @@
     "netIncome": 793000000.0,
     "eps": 133.38,
     "cash": 6691000000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "1934",
@@ -2217,7 +2217,7 @@
     "netIncome": 11987000000.0,
     "eps": 169.92,
     "cash": 47688000000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "7235",
@@ -2247,7 +2247,7 @@
     "netIncome": 1453351000.0,
     "eps": 151.12,
     "cash": 6697189000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "8219",
@@ -2277,7 +2277,7 @@
     "netIncome": 9386000000.0,
     "eps": 190.32,
     "cash": 66109000000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "3622",
@@ -2307,7 +2307,7 @@
     "netIncome": 200193000.0,
     "eps": 28.6,
     "cash": 1442789000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "8617",
@@ -2337,7 +2337,7 @@
     "netIncome": null,
     "eps": null,
     "cash": null,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "8075",
@@ -2367,7 +2367,7 @@
     "netIncome": 8446000000.0,
     "eps": 324.24,
     "cash": 21380000000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "9307",
@@ -2397,7 +2397,7 @@
     "netIncome": 917299000.0,
     "eps": 56.11,
     "cash": 5214045000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "6342",
@@ -2427,7 +2427,7 @@
     "netIncome": 576746000.0,
     "eps": 412.67,
     "cash": 4162897000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "8136",
@@ -2457,7 +2457,7 @@
     "netIncome": 41962000000.0,
     "eps": 168.3,
     "cash": 102293000000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "2221",
@@ -2487,7 +2487,7 @@
     "netIncome": 2909027000.0,
     "eps": 279.63,
     "cash": 4059479000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "1723",
@@ -2517,7 +2517,7 @@
     "netIncome": 6414000000.0,
     "eps": 402.83,
     "cash": 10746000000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "6190",
@@ -2547,7 +2547,7 @@
     "netIncome": -448933000.0,
     "eps": -110.99,
     "cash": 1149390000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "6258",
@@ -2577,7 +2577,7 @@
     "netIncome": 4729164000.0,
     "eps": 154.33,
     "cash": 12882428000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "2445",
@@ -2607,7 +2607,7 @@
     "netIncome": 1210000000.0,
     "eps": 25.61,
     "cash": 8524000000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "3773",
@@ -2637,7 +2637,7 @@
     "netIncome": 1408637000.0,
     "eps": 90.4,
     "cash": 4105900000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "1961",
@@ -2667,7 +2667,7 @@
     "netIncome": 17203000000.0,
     "eps": 325.32,
     "cash": 43848000000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "9849",
@@ -2697,7 +2697,7 @@
     "netIncome": 28016000.0,
     "eps": 41.45,
     "cash": 807832000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "3817",
@@ -2727,7 +2727,7 @@
     "netIncome": 3437000000.0,
     "eps": 267.19,
     "cash": 19738000000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "9003",
@@ -2757,7 +2757,7 @@
     "netIncome": 22397000000.0,
     "eps": 228.84,
     "cash": 16008000000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "8836",
@@ -2787,7 +2787,7 @@
     "netIncome": 9000000.0,
     "eps": -1.64,
     "cash": 462000000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "8421",
@@ -2817,7 +2817,7 @@
     "netIncome": 42972000000.0,
     "eps": 4630.7,
     "cash": 18351168000000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "9048",
@@ -2847,7 +2847,7 @@
     "netIncome": 37525000000.0,
     "eps": 167.69,
     "cash": 56493000000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "1793",
@@ -2877,7 +2877,7 @@
     "netIncome": null,
     "eps": null,
     "cash": null,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "3136",
@@ -2907,7 +2907,7 @@
     "netIncome": null,
     "eps": null,
     "cash": null,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "6724",
@@ -2937,7 +2937,7 @@
     "netIncome": 55177000000.0,
     "eps": 168.75,
     "cash": 267000000000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "3231",
@@ -2967,7 +2967,7 @@
     "netIncome": 74951000000.0,
     "eps": 86.69,
     "cash": 35894000000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "3591",
@@ -2997,7 +2997,7 @@
     "netIncome": 6989000000.0,
     "eps": 129.16,
     "cash": 23419000000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "9767",
@@ -3027,7 +3027,7 @@
     "netIncome": 289898000.0,
     "eps": 155.55,
     "cash": 2735505000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "6229",
@@ -3057,7 +3057,7 @@
     "netIncome": 553410000.0,
     "eps": 121.72,
     "cash": 2055771000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "5869",
@@ -3087,7 +3087,7 @@
     "netIncome": null,
     "eps": null,
     "cash": null,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "8138",
@@ -3117,7 +3117,7 @@
     "netIncome": 629354000.0,
     "eps": 497.66,
     "cash": 1429080000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "3104",
@@ -3147,7 +3147,7 @@
     "netIncome": 4477000000.0,
     "eps": 405.82,
     "cash": 8048000000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "7222",
@@ -3177,7 +3177,7 @@
     "netIncome": 3033000000.0,
     "eps": 22.39,
     "cash": 93056000000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "4193",
@@ -3207,7 +3207,7 @@
     "netIncome": 331666000.0,
     "eps": 61.6,
     "cash": 2625143000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "9850",
@@ -3237,7 +3237,7 @@
     "netIncome": 655857000.0,
     "eps": 28.38,
     "cash": 5070733000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "3803",
@@ -3267,7 +3267,7 @@
     "netIncome": -28452000.0,
     "eps": -18.14,
     "cash": 275439000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "8071",
@@ -3297,7 +3297,7 @@
     "netIncome": 642226000.0,
     "eps": 296.54,
     "cash": 3254189000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "9508",
@@ -3327,7 +3327,7 @@
     "netIncome": 130515000000.0,
     "eps": 260.14,
     "cash": 349668000000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "9468",
@@ -3357,7 +3357,7 @@
     "netIncome": 9938000000.0,
     "eps": 52.47,
     "cash": 129674000000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "7600",
@@ -3387,7 +3387,7 @@
     "netIncome": -469056000.0,
     "eps": -17.54,
     "cash": 3182342000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "9012",
@@ -3417,7 +3417,7 @@
     "netIncome": 115730000.0,
     "eps": 77.82,
     "cash": 1077750000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "5844",
@@ -3447,7 +3447,7 @@
     "netIncome": 36554000000.0,
     "eps": 125.03,
     "cash": 1322262000000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "6186",
@@ -3477,7 +3477,7 @@
     "netIncome": -96945000.0,
     "eps": -17.58,
     "cash": 978297000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "6245",
@@ -3507,7 +3507,7 @@
     "netIncome": 905898000.0,
     "eps": 59.91,
     "cash": 11252531000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "3583",
@@ -3537,7 +3537,7 @@
     "netIncome": 580136000.0,
     "eps": 209.05,
     "cash": 2750379000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "4112",
@@ -3567,7 +3567,7 @@
     "netIncome": 4577000000.0,
     "eps": 200.04,
     "cash": 7602000000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "1949",
@@ -3597,7 +3597,7 @@
     "netIncome": 13139000000.0,
     "eps": 363.52,
     "cash": 64658000000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "3058",
@@ -3627,7 +3627,7 @@
     "netIncome": 178124000.0,
     "eps": 24.41,
     "cash": 2415863000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "2877",
@@ -3657,7 +3657,7 @@
     "netIncome": 439957000.0,
     "eps": 31.8,
     "cash": 3500280000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "1976",
@@ -3687,7 +3687,7 @@
     "netIncome": 8660000000.0,
     "eps": 174.68,
     "cash": 33449000000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "6918",
@@ -3717,7 +3717,7 @@
     "netIncome": null,
     "eps": null,
     "cash": null,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "7459",
@@ -3747,7 +3747,7 @@
     "netIncome": 51530000000.0,
     "eps": 193.2,
     "cash": 259337000000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "3771",
@@ -3777,7 +3777,7 @@
     "netIncome": 2197791000.0,
     "eps": 132.29,
     "cash": 8203626000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "7694",
@@ -3807,7 +3807,7 @@
     "netIncome": -98093000.0,
     "eps": -16.61,
     "cash": 2932258000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "2933",
@@ -3837,7 +3837,7 @@
     "netIncome": 2700973000.0,
     "eps": 113.36,
     "cash": 8707529000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "6373",
@@ -3867,7 +3867,7 @@
     "netIncome": 1231000000.0,
     "eps": 116.65,
     "cash": 8702000000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "8897",
@@ -3897,7 +3897,7 @@
     "netIncome": 8298000000.0,
     "eps": 62.13,
     "cash": 47008000000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "6820",
@@ -3927,7 +3927,7 @@
     "netIncome": 2951000000.0,
     "eps": 205.63,
     "cash": 24348000000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "5021",
@@ -3957,7 +3957,7 @@
     "netIncome": 58928000000.0,
     "eps": 672.78,
     "cash": 34905000000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "3845",
@@ -3987,7 +3987,7 @@
     "netIncome": 252959000.0,
     "eps": 14.31,
     "cash": 475313000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "7345",
@@ -4017,7 +4017,7 @@
     "netIncome": -9735000.0,
     "eps": -3.01,
     "cash": 495287000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "2117",
@@ -4047,7 +4047,7 @@
     "netIncome": 5565000000.0,
     "eps": 170.05,
     "cash": 15445000000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "7122",
@@ -4077,7 +4077,7 @@
     "netIncome": 560000000.0,
     "eps": 81.48,
     "cash": 6291000000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "5986",
@@ -4107,7 +4107,7 @@
     "netIncome": 330608000.0,
     "eps": 14.7,
     "cash": 4799923000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "9600",
@@ -4137,7 +4137,7 @@
     "netIncome": 2259963000.0,
     "eps": 147.22,
     "cash": 4736320000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "6810",
@@ -4167,7 +4167,7 @@
     "netIncome": 4196000000.0,
     "eps": 93.12,
     "cash": 33072000000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "6384",
@@ -4197,7 +4197,7 @@
     "netIncome": 561931000.0,
     "eps": 91.17,
     "cash": 4813428000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "4491",
@@ -4227,7 +4227,7 @@
     "netIncome": 397887000.0,
     "eps": 193.53,
     "cash": 3303448000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "4960",
@@ -4257,7 +4257,7 @@
     "netIncome": null,
     "eps": null,
     "cash": null,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "3132",
@@ -4287,7 +4287,7 @@
     "netIncome": 26833000000.0,
     "eps": 140.93,
     "cash": 48452000000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "2286",
@@ -4317,7 +4317,7 @@
     "netIncome": 1055000000.0,
     "eps": 123.42,
     "cash": 3146000000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "2483",
@@ -4347,7 +4347,7 @@
     "netIncome": 723716000.0,
     "eps": 216.18,
     "cash": 4580793000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "7871",
@@ -4377,7 +4377,7 @@
     "netIncome": 1531000000.0,
     "eps": 73.8,
     "cash": 14184000000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "5984",
@@ -4407,7 +4407,7 @@
     "netIncome": 984449000.0,
     "eps": 70.82,
     "cash": 8061031000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "7014",
@@ -4437,7 +4437,7 @@
     "netIncome": 26532000000.0,
     "eps": 375.33,
     "cash": 90140000000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "5541",
@@ -4467,7 +4467,7 @@
     "netIncome": -1675000000.0,
     "eps": -85.52,
     "cash": 24975000000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "4098",
@@ -4497,7 +4497,7 @@
     "netIncome": 233000000.0,
     "eps": 67.48,
     "cash": 825000000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "5757",
@@ -4527,7 +4527,7 @@
     "netIncome": 5802000000.0,
     "eps": 616.11,
     "cash": 3696000000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "2207",
@@ -4557,7 +4557,7 @@
     "netIncome": 4719000000.0,
     "eps": 278.83,
     "cash": 7194000000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "4620",
@@ -4587,7 +4587,7 @@
     "netIncome": 611337000.0,
     "eps": 16.94,
     "cash": 12441029000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "1443",
@@ -4617,7 +4617,7 @@
     "netIncome": 491949000.0,
     "eps": 30.3,
     "cash": 1364173000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "9355",
@@ -4647,7 +4647,7 @@
     "netIncome": 526841000.0,
     "eps": 205.03,
     "cash": 371151000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "5713",
@@ -4677,7 +4677,7 @@
     "netIncome": 16487000000.0,
     "eps": 59.99,
     "cash": 159712000000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "3896",
@@ -4707,7 +4707,7 @@
     "netIncome": 284062000.0,
     "eps": 3.56,
     "cash": 739355000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "8393",
@@ -4737,7 +4737,7 @@
     "netIncome": 9784000000.0,
     "eps": 571.33,
     "cash": 828250000000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "2594",
@@ -4767,7 +4767,7 @@
     "netIncome": 358000000.0,
     "eps": 15.99,
     "cash": 5080000000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "9083",
@@ -4797,7 +4797,7 @@
     "netIncome": 2471000000.0,
     "eps": 409.89,
     "cash": 5919000000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "8074",
@@ -4827,7 +4827,7 @@
     "netIncome": 10316000000.0,
     "eps": 485.49,
     "cash": 43709000000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "8157",
@@ -4857,7 +4857,7 @@
     "netIncome": 4895000000.0,
     "eps": 263.32,
     "cash": 38703000000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "9742",
@@ -4887,7 +4887,7 @@
     "netIncome": 2436000000.0,
     "eps": 117.13,
     "cash": 7991000000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "7701",
@@ -4917,7 +4917,7 @@
     "netIncome": 53774000000.0,
     "eps": 183.55,
     "cash": 137190000000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "7949",
@@ -4947,7 +4947,7 @@
     "netIncome": null,
     "eps": null,
     "cash": null,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "336A",
@@ -4977,7 +4977,7 @@
     "netIncome": -1544000000.0,
     "eps": -81.8,
     "cash": 8383000000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "3569",
@@ -5007,7 +5007,7 @@
     "netIncome": 13964000000.0,
     "eps": 237.01,
     "cash": 40317000000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "247A",
@@ -5037,7 +5037,7 @@
     "netIncome": null,
     "eps": null,
     "cash": null,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "6973",
@@ -5067,7 +5067,7 @@
     "netIncome": 1719233000.0,
     "eps": 571.54,
     "cash": 3488262000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "7867",
@@ -5097,7 +5097,7 @@
     "netIncome": 16350000000.0,
     "eps": 182.14,
     "cash": 56067000000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "6857",
@@ -5127,7 +5127,7 @@
     "netIncome": 161177000000.0,
     "eps": 218.01,
     "cash": 262544000000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "2782",
@@ -5157,7 +5157,7 @@
     "netIncome": null,
     "eps": null,
     "cash": null,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "6744",
@@ -5187,7 +5187,7 @@
     "netIncome": 10660000000.0,
     "eps": 187.86,
     "cash": 42637000000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "4617",
@@ -5217,7 +5217,7 @@
     "netIncome": 15525000000.0,
     "eps": 276.78,
     "cash": 32174000000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "7294",
@@ -5247,7 +5247,7 @@
     "netIncome": -14307000000.0,
     "eps": -551.45,
     "cash": 25289000000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "4771",
@@ -5277,7 +5277,7 @@
     "netIncome": 1814337000.0,
     "eps": 123.4,
     "cash": 5834981000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "9820",
@@ -5307,7 +5307,7 @@
     "netIncome": 264994000.0,
     "eps": 246.19,
     "cash": 2007270000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "2349",
@@ -5337,7 +5337,7 @@
     "netIncome": 2367179000.0,
     "eps": 216.66,
     "cash": 15489827000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "6625",
@@ -5367,7 +5367,7 @@
     "netIncome": 65779000.0,
     "eps": 0.61,
     "cash": 3182967000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "5609",
@@ -5397,7 +5397,7 @@
     "netIncome": 236000000.0,
     "eps": 49.06,
     "cash": 586000000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "7278",
@@ -5427,7 +5427,7 @@
     "netIncome": 12744000000.0,
     "eps": 304.13,
     "cash": 68160000000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "3407",
@@ -5457,7 +5457,7 @@
     "netIncome": 140404000000.0,
     "eps": 97.94,
     "cash": 390035000000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "4043",
@@ -5487,7 +5487,7 @@
     "netIncome": 23278000000.0,
     "eps": 325.08,
     "cash": 74926000000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "5923",
@@ -5517,7 +5517,7 @@
     "netIncome": null,
     "eps": null,
     "cash": null,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "1820",
@@ -5547,7 +5547,7 @@
     "netIncome": 17579000000.0,
     "eps": 444.46,
     "cash": 43403000000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "2998",
@@ -5577,7 +5577,7 @@
     "netIncome": 1351354000.0,
     "eps": 218.17,
     "cash": 15499520000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "6286",
@@ -5607,7 +5607,7 @@
     "netIncome": 1045444000.0,
     "eps": 161.75,
     "cash": 6935998000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "6823",
@@ -5637,7 +5637,7 @@
     "netIncome": 2859770000.0,
     "eps": 232.19,
     "cash": 5848615000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "9377",
@@ -5667,7 +5667,7 @@
     "netIncome": 973519000.0,
     "eps": 74.49,
     "cash": 3361588000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "2264",
@@ -5697,7 +5697,7 @@
     "netIncome": 4652000000.0,
     "eps": 64.53,
     "cash": 28559000000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "1814",
@@ -5727,7 +5727,7 @@
     "netIncome": 2060000000.0,
     "eps": 197.47,
     "cash": 4458000000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "9306",
@@ -5757,7 +5757,7 @@
     "netIncome": 1495378000.0,
     "eps": 197.66,
     "cash": 6346666000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "7280",
@@ -5787,7 +5787,7 @@
     "netIncome": 13621000000.0,
     "eps": 216.46,
     "cash": 97142000000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "5715",
@@ -5817,7 +5817,7 @@
     "netIncome": 18762000000.0,
     "eps": 510.64,
     "cash": 24391000000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "6994",
@@ -5847,7 +5847,7 @@
     "netIncome": 1239458000.0,
     "eps": 47.3,
     "cash": 5929507000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "3153",
@@ -5877,7 +5877,7 @@
     "netIncome": 4034000000.0,
     "eps": 188.74,
     "cash": 14874000000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "8593",
@@ -5907,7 +5907,7 @@
     "netIncome": 135641000000.0,
     "eps": 93.98,
     "cash": 290805000000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "6754",
@@ -5937,7 +5937,7 @@
     "netIncome": 9257000000.0,
     "eps": 70.42,
     "cash": 50094000000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "7687",
@@ -5967,7 +5967,7 @@
     "netIncome": null,
     "eps": null,
     "cash": null,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "1966",
@@ -5997,7 +5997,7 @@
     "netIncome": 2261439000.0,
     "eps": 362.01,
     "cash": 4926682000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "2332",
@@ -6027,7 +6027,7 @@
     "netIncome": 767591000.0,
     "eps": 143.26,
     "cash": 3531256000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "3692",
@@ -6057,7 +6057,7 @@
     "netIncome": 687022000.0,
     "eps": 86.86,
     "cash": 2162980000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "9268",
@@ -6087,7 +6087,7 @@
     "netIncome": -34000000.0,
     "eps": -7.35,
     "cash": 12970000000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "6396",
@@ -6117,7 +6117,7 @@
     "netIncome": null,
     "eps": null,
     "cash": null,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "1860",
@@ -6147,7 +6147,7 @@
     "netIncome": 26208000000.0,
     "eps": 83.59,
     "cash": 86131000000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "3825",
@@ -6177,7 +6177,7 @@
     "netIncome": -593000000.0,
     "eps": -4.92,
     "cash": 5103000000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "1867",
@@ -6207,7 +6207,7 @@
     "netIncome": 1942970000.0,
     "eps": 297.06,
     "cash": 6215437000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "6964",
@@ -6237,7 +6237,7 @@
     "netIncome": 569572000.0,
     "eps": 64.19,
     "cash": 4891829000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "9936",
@@ -6267,7 +6267,7 @@
     "netIncome": 8071000000.0,
     "eps": 142.88,
     "cash": 38120000000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "4023",
@@ -6297,7 +6297,7 @@
     "netIncome": 7800000000.0,
     "eps": 149.48,
     "cash": 21500000000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "7084",
@@ -6327,7 +6327,7 @@
     "netIncome": 151558000.0,
     "eps": 46.88,
     "cash": 4670912000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "8086",
@@ -6357,7 +6357,7 @@
     "netIncome": 6669000000.0,
     "eps": 27.78,
     "cash": 101661000000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "9987",
@@ -6387,7 +6387,7 @@
     "netIncome": 34503000000.0,
     "eps": 454.58,
     "cash": 118567000000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "2764",
@@ -6417,7 +6417,7 @@
     "netIncome": 1530727000.0,
     "eps": 21.16,
     "cash": 6645161000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "4718",
@@ -6447,7 +6447,7 @@
     "netIncome": 2338913000.0,
     "eps": 127.05,
     "cash": 7166960000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "5408",
@@ -6477,7 +6477,7 @@
     "netIncome": 5695000000.0,
     "eps": 105.14,
     "cash": 15326000000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "6864",
@@ -6507,7 +6507,7 @@
     "netIncome": 257905000.0,
     "eps": 64.21,
     "cash": 3680771000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "4417",
@@ -6537,7 +6537,7 @@
     "netIncome": 1010077000.0,
     "eps": 67.03,
     "cash": 1379536000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "7271",
@@ -6567,7 +6567,7 @@
     "netIncome": 742000000.0,
     "eps": 72.04,
     "cash": 7068000000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "9033",
@@ -6597,7 +6597,7 @@
     "netIncome": 1478000000.0,
     "eps": 45.42,
     "cash": 4019000000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "7466",
@@ -6627,7 +6627,7 @@
     "netIncome": 2504631000.0,
     "eps": 247.94,
     "cash": 7757355000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "6648",
@@ -6657,7 +6657,7 @@
     "netIncome": null,
     "eps": null,
     "cash": null,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "9366",
@@ -6687,7 +6687,7 @@
     "netIncome": 473400000.0,
     "eps": 81.9,
     "cash": 3803639000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "1878",
@@ -6717,7 +6717,7 @@
     "netIncome": 93734000000.0,
     "eps": 1426.08,
     "cash": 223573000000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "6794",
@@ -6747,7 +6747,7 @@
     "netIncome": 5810000000.0,
     "eps": 174.98,
     "cash": 20771000000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "9036",
@@ -6777,7 +6777,7 @@
     "netIncome": 119667000.0,
     "eps": 18.67,
     "cash": 4468595000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "9644",
@@ -6807,7 +6807,7 @@
     "netIncome": 1100390000.0,
     "eps": 30.76,
     "cash": 7665407000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "8070",
@@ -6837,7 +6837,7 @@
     "netIncome": 2164000000.0,
     "eps": 83.07,
     "cash": 10662000000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "1959",
@@ -6867,7 +6867,7 @@
     "netIncome": 29056000000.0,
     "eps": 408.36,
     "cash": 70437000000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "6272",
@@ -6897,7 +6897,7 @@
     "netIncome": 3889835000.0,
     "eps": 144.53,
     "cash": 15777876000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "9310",
@@ -6927,7 +6927,7 @@
     "netIncome": 6437000000.0,
     "eps": 95.75,
     "cash": 26841000000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "9501",
@@ -6957,7 +6957,7 @@
     "netIncome": 161846000000.0,
     "eps": 32.68,
     "cash": 926455000000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "6928",
@@ -6987,7 +6987,7 @@
     "netIncome": 447931000.0,
     "eps": 68.34,
     "cash": 4445869000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "6941",
@@ -7017,7 +7017,7 @@
     "netIncome": 5212771000.0,
     "eps": 259.47,
     "cash": 12794544000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "1420",
@@ -7047,7 +7047,7 @@
     "netIncome": 673078000.0,
     "eps": 60.21,
     "cash": 9232054000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "6230",
@@ -7077,7 +7077,7 @@
     "netIncome": 1137057000.0,
     "eps": 274.03,
     "cash": 1453074000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "3294",
@@ -7107,7 +7107,7 @@
     "netIncome": null,
     "eps": null,
     "cash": null,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "5909",
@@ -7137,7 +7137,7 @@
     "netIncome": 1103000000.0,
     "eps": 37.8,
     "cash": 13234000000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "7105",
@@ -7167,7 +7167,7 @@
     "netIncome": 8692000000.0,
     "eps": 81.04,
     "cash": 16602000000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "4042",
@@ -7197,7 +7197,7 @@
     "netIncome": 71485000000.0,
     "eps": 182.11,
     "cash": 138849000000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "9017",
@@ -7227,7 +7227,7 @@
     "netIncome": 1086996000.0,
     "eps": 282.98,
     "cash": 2585877000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "9303",
@@ -7257,7 +7257,7 @@
     "netIncome": 21134000000.0,
     "eps": 257.12,
     "cash": 44950000000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "3559",
@@ -7287,7 +7287,7 @@
     "netIncome": null,
     "eps": null,
     "cash": null,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "254A",
@@ -7317,7 +7317,7 @@
     "netIncome": 668000000.0,
     "eps": 83.01,
     "cash": 3328000000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "7003",
@@ -7347,7 +7347,7 @@
     "netIncome": 39160000000.0,
     "eps": 385.25,
     "cash": 33376000000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "7217",
@@ -7377,7 +7377,7 @@
     "netIncome": 247681000.0,
     "eps": 24.66,
     "cash": 1272479000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "7537",
@@ -7407,7 +7407,7 @@
     "netIncome": 4417000000.0,
     "eps": 163.3,
     "cash": 23532000000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "8511",
@@ -7437,7 +7437,7 @@
     "netIncome": 10375000000.0,
     "eps": 124.61,
     "cash": 1435287000000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "5922",
@@ -7467,7 +7467,7 @@
     "netIncome": 1915468000.0,
     "eps": 1616.33,
     "cash": 7423599000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "1811",
@@ -7497,7 +7497,7 @@
     "netIncome": 3504000000.0,
     "eps": 489.39,
     "cash": 12538000000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "9076",
@@ -7527,7 +7527,7 @@
     "netIncome": 20376000000.0,
     "eps": 107.26,
     "cash": 77354000000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "3442",
@@ -7557,7 +7557,7 @@
     "netIncome": 383454000.0,
     "eps": 315.11,
     "cash": 1169468000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "4102",
@@ -7587,7 +7587,7 @@
     "netIncome": 169817000.0,
     "eps": 65.46,
     "cash": 1670889000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "9423",
@@ -7617,7 +7617,7 @@
     "netIncome": null,
     "eps": null,
     "cash": null,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "6262",
@@ -7647,7 +7647,7 @@
     "netIncome": 1117648000.0,
     "eps": 38.89,
     "cash": 8333367000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "6768",
@@ -7677,7 +7677,7 @@
     "netIncome": 2768000000.0,
     "eps": 33.86,
     "cash": 19479000000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "6364",
@@ -7707,7 +7707,7 @@
     "netIncome": 4825182000.0,
     "eps": 173.8,
     "cash": 18915664000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "9507",
@@ -7737,7 +7737,7 @@
     "netIncome": 68505000000.0,
     "eps": 332.2,
     "cash": 130142000000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "9537",
@@ -7767,7 +7767,7 @@
     "netIncome": 2019100000.0,
     "eps": 419.98,
     "cash": 6646044000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "4736",
@@ -7797,7 +7797,7 @@
     "netIncome": null,
     "eps": null,
     "cash": null,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "7246",
@@ -7827,7 +7827,7 @@
     "netIncome": 7408000000.0,
     "eps": 60.99,
     "cash": 26251000000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "5258",
@@ -7857,7 +7857,7 @@
     "netIncome": -682434000.0,
     "eps": -18.46,
     "cash": 14069217000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "5985",
@@ -7887,7 +7887,7 @@
     "netIncome": -769000000.0,
     "eps": -25.53,
     "cash": 9195000000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "4093",
@@ -7917,7 +7917,7 @@
     "netIncome": 1417778000.0,
     "eps": 37.03,
     "cash": 9495192000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "5202",
@@ -7947,7 +7947,7 @@
     "netIncome": -13831000000.0,
     "eps": -173.2,
     "cash": 62978000000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "7958",
@@ -7977,7 +7977,7 @@
     "netIncome": 3710169000.0,
     "eps": 182.67,
     "cash": 28452130000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "8560",
@@ -8007,7 +8007,7 @@
     "netIncome": 1418000000.0,
     "eps": 134.99,
     "cash": 75061000000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "7875",
@@ -8037,7 +8037,7 @@
     "netIncome": 1253000000.0,
     "eps": 150.13,
     "cash": 6686000000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "4990",
@@ -8067,7 +8067,7 @@
     "netIncome": 411843000.0,
     "eps": 38.67,
     "cash": 3072426000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "3034",
@@ -8097,7 +8097,7 @@
     "netIncome": 7476000000.0,
     "eps": 137.97,
     "cash": 26378000000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "5988",
@@ -8127,7 +8127,7 @@
     "netIncome": 1852000000.0,
     "eps": 52.67,
     "cash": 30236000000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "6330",
@@ -8157,7 +8157,7 @@
     "netIncome": 2053000000.0,
     "eps": 34.49,
     "cash": 72509000000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "8218",
@@ -8187,7 +8187,7 @@
     "netIncome": 13719000000.0,
     "eps": 289.12,
     "cash": 16216000000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "3182",
@@ -8217,7 +8217,7 @@
     "netIncome": 3464000000.0,
     "eps": 103.13,
     "cash": 18955000000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "6501",
@@ -8247,7 +8247,7 @@
     "netIncome": 615724000000.0,
     "eps": 133.72,
     "cash": 866242000000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "3289",
@@ -8277,7 +8277,7 @@
     "netIncome": 78392000000.0,
     "eps": 108.69,
     "cash": 157468000000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "4021",
@@ -8307,7 +8307,7 @@
     "netIncome": 42950000000.0,
     "eps": 313.26,
     "cash": 27454000000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "4028",
@@ -8337,7 +8337,7 @@
     "netIncome": 8462000000.0,
     "eps": 219.98,
     "cash": 24948000000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "8802",
@@ -8367,7 +8367,7 @@
     "netIncome": 206865000000.0,
     "eps": 151.04,
     "cash": 256881000000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "1945",
@@ -8397,7 +8397,7 @@
     "netIncome": 2900000000.0,
     "eps": 86.65,
     "cash": 7648000000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "9274",
@@ -8427,7 +8427,7 @@
     "netIncome": 7992000000.0,
     "eps": 118.0,
     "cash": 11316000000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "2916",
@@ -8457,7 +8457,7 @@
     "netIncome": 326430000.0,
     "eps": 28.08,
     "cash": 3016470000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "3924",
@@ -8487,7 +8487,7 @@
     "netIncome": 1025166000.0,
     "eps": 57.0,
     "cash": 3616429000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "9956",
@@ -8517,7 +8517,7 @@
     "netIncome": 14853000000.0,
     "eps": 257.62,
     "cash": 21998000000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "3926",
@@ -8547,7 +8547,7 @@
     "netIncome": -120685000.0,
     "eps": -3.89,
     "cash": 2207825000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "7686",
@@ -8577,7 +8577,7 @@
     "netIncome": 536000000.0,
     "eps": 18.36,
     "cash": 2809000000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "8769",
@@ -8607,7 +8607,7 @@
     "netIncome": 744364000.0,
     "eps": 46.13,
     "cash": 1725786000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "7119",
@@ -8637,7 +8637,7 @@
     "netIncome": 623000000.0,
     "eps": 56.24,
     "cash": 2394000000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "2359",
@@ -8667,7 +8667,7 @@
     "netIncome": 2242340000.0,
     "eps": 156.07,
     "cash": 7586071000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "3137",
@@ -8697,7 +8697,7 @@
     "netIncome": null,
     "eps": null,
     "cash": null,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "6958",
@@ -8727,7 +8727,7 @@
     "netIncome": 3903000000.0,
     "eps": 53.19,
     "cash": 22193000000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "9434",
@@ -8757,7 +8757,7 @@
     "netIncome": 526133000000.0,
     "eps": 10.84,
     "cash": 33011000000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "5253",
@@ -8787,7 +8787,7 @@
     "netIncome": null,
     "eps": null,
     "cash": null,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "195A",
@@ -8817,7 +8817,7 @@
     "netIncome": 112934000.0,
     "eps": 37.15,
     "cash": 543999000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "4914",
@@ -8847,7 +8847,7 @@
     "netIncome": 13651000000.0,
     "eps": 683.89,
     "cash": 35585000000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "9605",
@@ -8877,7 +8877,7 @@
     "netIncome": 29189000000.0,
     "eps": 253.96,
     "cash": 88987000000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "6069",
@@ -8907,7 +8907,7 @@
     "netIncome": 600742000.0,
     "eps": 75.59,
     "cash": 2376969000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "9880",
@@ -8937,7 +8937,7 @@
     "netIncome": 1304346000.0,
     "eps": 89.14,
     "cash": 6340058000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "9517",
@@ -8967,7 +8967,7 @@
     "netIncome": 2118000000.0,
     "eps": 28.65,
     "cash": 33613000000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "5535",
@@ -8997,7 +8997,7 @@
     "netIncome": 1386821000.0,
     "eps": 23.52,
     "cash": 6869213000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "4288",
@@ -9027,7 +9027,7 @@
     "netIncome": null,
     "eps": null,
     "cash": null,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "3238",
@@ -9057,7 +9057,7 @@
     "netIncome": 497346000.0,
     "eps": 51.9,
     "cash": 978251000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "2980",
@@ -9087,7 +9087,7 @@
     "netIncome": 1846647000.0,
     "eps": 104.87,
     "cash": 4334560000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "3753",
@@ -9117,7 +9117,7 @@
     "netIncome": -282772000.0,
     "eps": -29.91,
     "cash": 375721000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "6337",
@@ -9147,7 +9147,7 @@
     "netIncome": 427000000.0,
     "eps": 77.25,
     "cash": 4063000000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "1866",
@@ -9177,7 +9177,7 @@
     "netIncome": 3392000000.0,
     "eps": 562.2,
     "cash": 18027000000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "5288",
@@ -9207,7 +9207,7 @@
     "netIncome": 1837000000.0,
     "eps": 61.61,
     "cash": 19698000000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "3109",
@@ -9237,7 +9237,7 @@
     "netIncome": 914000000.0,
     "eps": 72.75,
     "cash": 5816000000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "8306",
@@ -9267,7 +9267,7 @@
     "netIncome": 1941477000000.0,
     "eps": 159.47,
     "cash": 109095437000000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "2181",
@@ -9297,7 +9297,7 @@
     "netIncome": 35871000000.0,
     "eps": 16.04,
     "cash": 82818000000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "5706",
@@ -9327,7 +9327,7 @@
     "netIncome": 67505000000.0,
     "eps": 1130.95,
     "cash": 44465000000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "5017",
@@ -9357,7 +9357,7 @@
     "netIncome": -5755000000.0,
     "eps": -74.79,
     "cash": 8588000000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "9735",
@@ -9387,7 +9387,7 @@
     "netIncome": 125306000000.0,
     "eps": 259.97,
     "cash": 408404000000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "9843",
@@ -9417,7 +9417,7 @@
     "netIncome": 82546000000.0,
     "eps": 730.42,
     "cash": 136001000000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "4275",
@@ -9447,7 +9447,7 @@
     "netIncome": 2570000000.0,
     "eps": 109.07,
     "cash": 4768000000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "3787",
@@ -9477,7 +9477,7 @@
     "netIncome": null,
     "eps": null,
     "cash": null,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "2673",
@@ -9507,7 +9507,7 @@
     "netIncome": 90483000.0,
     "eps": 8.94,
     "cash": 33207000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "5284",
@@ -9537,7 +9537,7 @@
     "netIncome": 2441337000.0,
     "eps": 393.61,
     "cash": 5238534000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "5381",
@@ -9567,7 +9567,7 @@
     "netIncome": 911878000.0,
     "eps": 64.04,
     "cash": 2314571000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "5393",
@@ -9597,7 +9597,7 @@
     "netIncome": 32184000000.0,
     "eps": 491.36,
     "cash": 58611000000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "5121",
@@ -9627,7 +9627,7 @@
     "netIncome": 3888092000.0,
     "eps": 198.22,
     "cash": 10877895000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "4552",
@@ -9657,7 +9657,7 @@
     "netIncome": -4695000000.0,
     "eps": -38.43,
     "cash": 13196000000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "1938",
@@ -9687,7 +9687,7 @@
     "netIncome": 4733323000.0,
     "eps": 191.24,
     "cash": 8304766000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "3937",
@@ -9717,7 +9717,7 @@
     "netIncome": 858398000.0,
     "eps": 71.11,
     "cash": 4860452000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "7438",
@@ -9747,7 +9747,7 @@
     "netIncome": 3275000000.0,
     "eps": 128.02,
     "cash": 15476000000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "9887",
@@ -9777,7 +9777,7 @@
     "netIncome": 2185996000.0,
     "eps": 114.67,
     "cash": 13767291000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "2393",
@@ -9807,7 +9807,7 @@
     "netIncome": 1790950000.0,
     "eps": 115.35,
     "cash": 740611000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "4088",
@@ -9837,7 +9837,7 @@
     "netIncome": 49074000000.0,
     "eps": 214.44,
     "cash": 70609000000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "6113",
@@ -9867,7 +9867,7 @@
     "netIncome": 32386000000.0,
     "eps": 98.72,
     "cash": 104841000000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "4228",
@@ -9897,7 +9897,7 @@
     "netIncome": -6281000000.0,
     "eps": -138.28,
     "cash": 9128000000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "5644",
@@ -9927,7 +9927,7 @@
     "netIncome": 2346000000.0,
     "eps": 679.15,
     "cash": 9734000000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "7749",
@@ -9957,7 +9957,7 @@
     "netIncome": 3013544000.0,
     "eps": 204.55,
     "cash": 17059317000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "9087",
@@ -9987,7 +9987,7 @@
     "netIncome": 155002000.0,
     "eps": 77.13,
     "cash": 1798017000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "3096",
@@ -10017,7 +10017,7 @@
     "netIncome": 1049738000.0,
     "eps": 111.51,
     "cash": 4651161000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "8801",
@@ -10047,7 +10047,7 @@
     "netIncome": 246066000000.0,
     "eps": 89.22,
     "cash": 163272000000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "6360",
@@ -10077,7 +10077,7 @@
     "netIncome": null,
     "eps": null,
     "cash": null,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "6675",
@@ -10107,7 +10107,7 @@
     "netIncome": 3502000000.0,
     "eps": 603.48,
     "cash": 10291000000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "8365",
@@ -10137,7 +10137,7 @@
     "netIncome": 981000000.0,
     "eps": 177.35,
     "cash": 29795000000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "2344",
@@ -10167,7 +10167,7 @@
     "netIncome": 1362443000.0,
     "eps": 113.7,
     "cash": 5605393000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "3929",
@@ -10197,7 +10197,7 @@
     "netIncome": 177989000.0,
     "eps": 16.54,
     "cash": 1411601000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "7057",
@@ -10227,7 +10227,7 @@
     "netIncome": 240052000.0,
     "eps": 65.04,
     "cash": 2567799000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "6614",
@@ -10257,7 +10257,7 @@
     "netIncome": null,
     "eps": null,
     "cash": null,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "6804",
@@ -10287,7 +10287,7 @@
     "netIncome": 10037000000.0,
     "eps": 181.88,
     "cash": 46769000000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "6370",
@@ -10317,7 +10317,7 @@
     "netIncome": 20305000000.0,
     "eps": 180.66,
     "cash": 62951000000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "1909",
@@ -10347,7 +10347,7 @@
     "netIncome": 4204018000.0,
     "eps": 590.69,
     "cash": 9502542000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "5411",
@@ -10377,7 +10377,7 @@
     "netIncome": 91867000000.0,
     "eps": 138.24,
     "cash": 172841000000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "1885",
@@ -10407,7 +10407,7 @@
     "netIncome": 15154000000.0,
     "eps": 187.94,
     "cash": 41583000000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "7202",
@@ -10437,7 +10437,7 @@
     "netIncome": 140062000000.0,
     "eps": 190.75,
     "cash": 358711000000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "8129",
@@ -10467,7 +10467,7 @@
     "netIncome": 19856000000.0,
     "eps": 284.22,
     "cash": 78226000000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "5970",
@@ -10497,7 +10497,7 @@
     "netIncome": 13153000000.0,
     "eps": 289.39,
     "cash": 31201000000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "5660",
@@ -10527,7 +10527,7 @@
     "netIncome": 1034000000.0,
     "eps": 175.04,
     "cash": 3330000000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "3600",
@@ -10557,7 +10557,7 @@
     "netIncome": -121601000.0,
     "eps": -78.34,
     "cash": 1777999000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "7883",
@@ -10587,7 +10587,7 @@
     "netIncome": 335714000.0,
     "eps": 21.44,
     "cash": 2321016000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "2137",
@@ -10617,7 +10617,7 @@
     "netIncome": null,
     "eps": null,
     "cash": null,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "5210",
@@ -10647,7 +10647,7 @@
     "netIncome": 2324000000.0,
     "eps": 271.54,
     "cash": 10791000000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "6013",
@@ -10677,7 +10677,7 @@
     "netIncome": 10594000000.0,
     "eps": 132.24,
     "cash": 38073000000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "5905",
@@ -10707,7 +10707,7 @@
     "netIncome": -313823000.0,
     "eps": -249.91,
     "cash": 1896368000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "6485",
@@ -10737,7 +10737,7 @@
     "netIncome": 2379000000.0,
     "eps": 113.58,
     "cash": 10123000000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "5016",
@@ -10767,7 +10767,7 @@
     "netIncome": 68271000000.0,
     "eps": 73.53,
     "cash": 58316000000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "6523",
@@ -10797,7 +10797,7 @@
     "netIncome": 10485000000.0,
     "eps": 82.58,
     "cash": 39592000000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "160A",
@@ -10827,7 +10827,7 @@
     "netIncome": null,
     "eps": null,
     "cash": null,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "287A",
@@ -10857,7 +10857,7 @@
     "netIncome": 3914000000.0,
     "eps": 92.04,
     "cash": 15476000000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "3372",
@@ -10887,7 +10887,7 @@
     "netIncome": 378022000.0,
     "eps": 27.6,
     "cash": 1403968000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "1375",
@@ -10917,7 +10917,7 @@
     "netIncome": 1502000000.0,
     "eps": 37.65,
     "cash": 3903000000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "6616",
@@ -10947,7 +10947,7 @@
     "netIncome": -2358567000.0,
     "eps": -214.62,
     "cash": 9231881000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "1721",
@@ -10977,7 +10977,7 @@
     "netIncome": 30953000000.0,
     "eps": 253.01,
     "cash": 38146000000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "9223",
@@ -11007,7 +11007,7 @@
     "netIncome": -24765000.0,
     "eps": -1.99,
     "cash": 3182773000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "8097",
@@ -11037,7 +11037,7 @@
     "netIncome": 9268000000.0,
     "eps": 136.93,
     "cash": 40288000000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "4069",
@@ -11067,7 +11067,7 @@
     "netIncome": -21219000.0,
     "eps": -5.02,
     "cash": 1706176000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "6357",
@@ -11097,7 +11097,7 @@
     "netIncome": 2924964000.0,
     "eps": 158.68,
     "cash": 21813365000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "3979",
@@ -11127,7 +11127,7 @@
     "netIncome": 458072000.0,
     "eps": 66.2,
     "cash": 3405101000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "8518",
@@ -11157,7 +11157,7 @@
     "netIncome": 489000000.0,
     "eps": 18.94,
     "cash": 3047000000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "6424",
@@ -11187,7 +11187,7 @@
     "netIncome": 1001137000.0,
     "eps": 227.6,
     "cash": 2829879000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "6951",
@@ -11217,7 +11217,7 @@
     "netIncome": 18688000000.0,
     "eps": 365.55,
     "cash": 34605000000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "5186",
@@ -11247,7 +11247,7 @@
     "netIncome": 12200000000.0,
     "eps": 436.73,
     "cash": 35061000000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "9896",
@@ -11277,7 +11277,7 @@
     "netIncome": 4347000000.0,
     "eps": 148.18,
     "cash": 50319000000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "3401",
@@ -11307,7 +11307,7 @@
     "netIncome": 28347000000.0,
     "eps": 147.15,
     "cash": 107538000000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "3397",
@@ -11337,7 +11337,7 @@
     "netIncome": 1874000000.0,
     "eps": 16.81,
     "cash": 82271000000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "6736",
@@ -11367,7 +11367,7 @@
     "netIncome": 17228604000.0,
     "eps": 772.65,
     "cash": 1986385000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "8107",
@@ -11397,7 +11397,7 @@
     "netIncome": -46439000.0,
     "eps": -0.19,
     "cash": 204091000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "3910",
@@ -11427,7 +11427,7 @@
     "netIncome": -117414000.0,
     "eps": -21.85,
     "cash": 606324000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "1301",
@@ -11457,7 +11457,7 @@
     "netIncome": 8006000000.0,
     "eps": 567.48,
     "cash": 7514000000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "8898",
@@ -11487,7 +11487,7 @@
     "netIncome": null,
     "eps": null,
     "cash": null,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "6674",
@@ -11517,7 +11517,7 @@
     "netIncome": 33900000000.0,
     "eps": 303.25,
     "cash": 56681000000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "6963",
@@ -11547,7 +11547,7 @@
     "netIncome": -50040000000.0,
     "eps": -129.78,
     "cash": 234966000000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "1946",
@@ -11577,7 +11577,7 @@
     "netIncome": 10650000000.0,
     "eps": 115.66,
     "cash": 40299000000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "7090",
@@ -11607,7 +11607,7 @@
     "netIncome": -301000000.0,
     "eps": -202.46,
     "cash": 1321767000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "1975",
@@ -11637,7 +11637,7 @@
     "netIncome": 6229000000.0,
     "eps": 241.95,
     "cash": 18389000000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "6545",
@@ -11667,7 +11667,7 @@
     "netIncome": 255060000.0,
     "eps": 46.62,
     "cash": 2299844000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "4901",
@@ -11697,7 +11697,7 @@
     "netIncome": 260951000000.0,
     "eps": 216.46,
     "cash": 172111000000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "9856",
@@ -11727,7 +11727,7 @@
     "netIncome": 6529000000.0,
     "eps": 189.99,
     "cash": 13258000000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "7129",
@@ -11757,7 +11757,7 @@
     "netIncome": 299868000.0,
     "eps": 113.05,
     "cash": 1532696000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "5858",
@@ -11787,7 +11787,7 @@
     "netIncome": 389156000.0,
     "eps": 188.57,
     "cash": 1064582000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "9069",
@@ -11817,7 +11817,7 @@
     "netIncome": 20563000000.0,
     "eps": 109.17,
     "cash": 67306000000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "8132",
@@ -11847,7 +11847,7 @@
     "netIncome": 3155000000.0,
     "eps": 289.93,
     "cash": 11705000000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "8089",
@@ -11877,7 +11877,7 @@
     "netIncome": 3001000000.0,
     "eps": 242.53,
     "cash": 29078000000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "4502",
@@ -11907,7 +11907,7 @@
     "netIncome": 107928000000.0,
     "eps": 67.23,
     "cash": 385113000000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "7367",
@@ -11937,7 +11937,7 @@
     "netIncome": 552506000.0,
     "eps": 24.57,
     "cash": 1570942000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "2413",
@@ -11967,7 +11967,7 @@
     "netIncome": 40484000000.0,
     "eps": 59.6,
     "cash": 134933000000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "4100",
@@ -11997,7 +11997,7 @@
     "netIncome": -3540000000.0,
     "eps": -616.44,
     "cash": 7837000000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "8214",
@@ -12027,7 +12027,7 @@
     "netIncome": 9573000000.0,
     "eps": 113.89,
     "cash": 34880000000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "9853",
@@ -12057,7 +12057,7 @@
     "netIncome": -71471000.0,
     "eps": -12.52,
     "cash": 1962116000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "7695",
@@ -12087,7 +12087,7 @@
     "netIncome": 90800000.0,
     "eps": 38.97,
     "cash": 832654000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "5029",
@@ -12117,7 +12117,7 @@
     "netIncome": 115432000.0,
     "eps": 42.13,
     "cash": 833354000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "8869",
@@ -12147,7 +12147,7 @@
     "netIncome": 2897000000.0,
     "eps": 123.57,
     "cash": 22122000000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "8737",
@@ -12177,7 +12177,7 @@
     "netIncome": 2657588000.0,
     "eps": 86.6,
     "cash": 18567926000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "1890",
@@ -12207,7 +12207,7 @@
     "netIncome": 8534000000.0,
     "eps": 88.49,
     "cash": 21154000000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "9960",
@@ -12237,7 +12237,7 @@
     "netIncome": 11192000000.0,
     "eps": 272.06,
     "cash": 13046000000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "2148",
@@ -12267,7 +12267,7 @@
     "netIncome": 1496566000.0,
     "eps": 76.72,
     "cash": 6562002000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "4651",
@@ -12297,7 +12297,7 @@
     "netIncome": 1482000000.0,
     "eps": 31.03,
     "cash": 4686000000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "7111",
@@ -12327,7 +12327,7 @@
     "netIncome": 42000000.0,
     "eps": 0.39,
     "cash": 1671000000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "7040",
@@ -12357,7 +12357,7 @@
     "netIncome": 835466000.0,
     "eps": 136.44,
     "cash": 10413003000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "9513",
@@ -12387,7 +12387,7 @@
     "netIncome": 102530000000.0,
     "eps": 505.64,
     "cash": 373085000000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "4827",
@@ -12417,6 +12417,6 @@
     "netIncome": 857171000.0,
     "eps": 199.68,
     "cash": 3902394000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   }
 ]

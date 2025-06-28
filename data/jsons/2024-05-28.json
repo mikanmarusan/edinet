@@ -27,7 +27,7 @@
     "netIncome": null,
     "eps": null,
     "cash": null,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-28"
   },
   {
     "secCode": "3612",
@@ -57,7 +57,7 @@
     "netIncome": 6764000000.0,
     "eps": 187.37,
     "cash": 20848000000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-28"
   },
   {
     "secCode": "5271",
@@ -87,7 +87,7 @@
     "netIncome": 603557000.0,
     "eps": 465.85,
     "cash": 1238452000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-28"
   },
   {
     "secCode": "6224",
@@ -117,7 +117,7 @@
     "netIncome": 847458000.0,
     "eps": 62.19,
     "cash": 1402334000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-28"
   },
   {
     "secCode": "2300",
@@ -147,7 +147,7 @@
     "netIncome": null,
     "eps": null,
     "cash": null,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-28"
   },
   {
     "secCode": "9993",
@@ -177,7 +177,7 @@
     "netIncome": 451000000.0,
     "eps": 41.89,
     "cash": 5613000000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-28"
   },
   {
     "secCode": "3181",
@@ -207,7 +207,7 @@
     "netIncome": null,
     "eps": null,
     "cash": null,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-28"
   },
   {
     "secCode": "9948",
@@ -237,7 +237,7 @@
     "netIncome": 11766000000.0,
     "eps": 214.03,
     "cash": 74731000000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-28"
   },
   {
     "secCode": "6572",
@@ -267,7 +267,7 @@
     "netIncome": 166023000.0,
     "eps": 2.67,
     "cash": 11516731000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-28"
   },
   {
     "secCode": "8289",
@@ -297,7 +297,7 @@
     "netIncome": -477000000.0,
     "eps": -20.79,
     "cash": 2401000000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-28"
   },
   {
     "secCode": "3550",
@@ -327,6 +327,6 @@
     "netIncome": 540108000.0,
     "eps": 41.9,
     "cash": 1913143000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-28"
   }
 ]

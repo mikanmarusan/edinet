@@ -27,7 +27,7 @@
     "netIncome": null,
     "eps": null,
     "cash": null,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "6481",
@@ -57,7 +57,7 @@
     "netIncome": 10439000000.0,
     "eps": 85.17,
     "cash": 138293000000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   },
   {
     "secCode": "9749",
@@ -87,6 +87,6 @@
     "netIncome": 21147000000.0,
     "eps": 334.23,
     "cash": 34306000000.0,
-    "retrievedDate": "2025-06-27"
+    "retrievedDate": "2025-06-29"
   }
 ]
