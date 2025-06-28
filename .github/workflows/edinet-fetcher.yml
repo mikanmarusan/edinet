@@ -1,0 +1,59 @@
+name: EDINET Fetcher
+
+on:
+  schedule:
+    # 毎日12:00 JST (03:00 UTC) に実行
+    - cron: '0 3 * * *'
+  # 手動実行も可能にする
+  workflow_dispatch:
+
+jobs:
+  run-scripts:
+    runs-on: ubuntu-latest
+    
+    steps:
+    # リポジトリのコードをチェックアウト
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      with:
+        # デフォルトのGITHUB_TOKENではなく、PAT(Personal Access Token)を使用
+        token: ${{ secrets.GITHUB_TOKEN }}
+    
+    # Pythonのセットアップ（3.7以上）
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.11'  # 3.7以上の安定版を使用
+    
+    # 依存関係のインストール
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+    
+    # 1つ目のスクリプトを実行（環境変数を使用）
+    - name: Fetch financial documents from EDINET
+      env:
+        EDINET_API_KEY: ${{ secrets.EDINET_API_KEY }}
+      run: python bin/fetch_edinet_financial_documents.py --date $(date -d "yesterday" '+%Y-%m-%d') --outputdir data/jsons --api-key $EDINET_API_KEY
+    
+    # 2つ目のスクリプトを実行
+    - name: Consolidate documents
+      run: python bin/consolidate_documents.py --inputdir data/jsons/ --output data/edinet.json
+    
+    # Gitの設定
+    - name: Configure Git
+      run: |
+        git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
+        git config --local user.name "github-actions[bot]"
+    
+    # 生成されたファイルをコミット
+    - name: Commit generated files
+      run: |
+        git add .
+        git commit -m "Auto-generated files from daily script run - $(date '+%Y-%m-%d %H:%M:%S')" || echo "No changes to commit"
+    
+    # mainブランチにプッシュ
+    - name: Push changes
+      run: |
+        git push origin main
