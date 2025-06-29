@@ -41,8 +41,8 @@ function displayData(data) {
         row.id = `row-${item.secCode}`;
         
         row.innerHTML = `
-            <td class="sec-code fixed-column">${item.secCode || '-'}</td>
-            <td class="company-name fixed-column">${item.filerName || '-'}</td>
+            <td class="sec-code fixed-column">${item.yahooURL ? `<a href="${item.yahooURL}" target="_blank" rel="noopener noreferrer">${item.secCode}</a>` : item.secCode || '-'}</td>
+            <td class="company-name fixed-column">${item.docPdfURL ? `<a href="${item.docPdfURL}" target="_blank" rel="noopener noreferrer">${item.filerName}</a>` : item.filerName || '-'}</td>
             <td>${item.periodEnd || '-'}</td>
             <td class="number-cell">${formatStockPrice(item.stockPrice)}</td>
             <td class="number-cell">${formatNumber(item.netSales)}</td>

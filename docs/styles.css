@@ -101,21 +101,33 @@ th, td {
     padding: 0.75rem;
     text-align: left;
     border-bottom: 1px solid #e0e0e0;
+    border-right: 1px solid #e0e0e0;
+}
+
+th:last-child,
+td:last-child {
+    border-right: none;
 }
 
 th {
     font-weight: 600;
     font-size: 14px;
     white-space: nowrap;
+    text-align: center;
+}
+
+/* ゼブラストライプ */
+tbody tr:nth-child(even) {
+    background-color: #f8f9fa;
 }
 
 tbody tr:hover {
-    background-color: #f8f9fa;
+    background-color: #e9ecef;
 }
 
 tbody tr:hover td:nth-child(1),
 tbody tr:hover td:nth-child(2) {
-    background-color: #f8f9fa;
+    background-color: #e9ecef;
 }
 
 tbody tr.highlight {
@@ -129,7 +141,7 @@ tbody tr.highlight {
 }
 
 td {
-    font-size: 14px;
+    font-size: 13px;
 }
 
 .characteristic-cell {
@@ -170,6 +182,23 @@ td {
 
 .company-name {
     font-weight: 500;
+}
+
+/* リンクのスタイル */
+.sec-code a,
+.company-name a {
+    color: inherit;
+    text-decoration: none;
+}
+
+.sec-code a:hover {
+    color: #3498db;
+    text-decoration: underline;
+}
+
+.company-name a:hover {
+    color: #3498db;
+    text-decoration: underline;
 }
 
 /* 固定列のスタイル */
