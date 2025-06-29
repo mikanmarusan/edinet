@@ -2,6 +2,7 @@
 
 ## 概要
 `/docs`ディレクトリ配下のWebビューアは、`data/edinet.json`の財務データを閲覧・検索するためのツールです。
+タイトル: **上場企業有価証券報告書 from EDINET**
 GitHub Pagesでの公開を前提とし、シンプルな3ファイル構成（HTML/CSS/JS）で実装されています。
 
 ## ファイル構成
@@ -9,7 +10,8 @@ GitHub Pagesでの公開を前提とし、シンプルな3ファイル構成（H
 docs/
 ├── index.html    # メインHTML（構造）
 ├── styles.css    # スタイルシート
-└── script.js     # JavaScript（機能実装）
+├── script.js     # JavaScript（機能実装）
+└── data.json     # 表示用データ（edinet.jsonのコピー）
 ```
 
 ## 実装上の重要ポイント
@@ -39,6 +41,35 @@ docs/
 - 仮想スクロールは実装せず、ブラウザのネイティブ性能に依存
 - テーブルコンテナ内でのスクロールで対応
 
+## 表示項目（2025年6月29日更新）
+
+### カラム定義（全18列）
+1. **証券コード** (secCode) - 固定列、幅100px
+2. **企業名称** (filerName) - 固定列、幅200px
+3. **決算期** (periodEnd)
+4. **決算期末株価（円）** (stockPrice) - 整数表示
+5. **売上高（百万円）** (netSales)
+6. **期末従業員数（人）** (employees) - 千単位区切り
+7. **営業利益（百万円）** (operatingIncome)
+8. **営業利益率（%）** (operatingIncomeRate) - 小数点1桁
+9. **EBITDA（百万円）** (ebitda)
+10. **EDITDAマージン（%）** (ebitdaMargin) - 小数点1桁
+11. **時価総額（百万円）** (marketCapitalization)
+12. **PER（倍）** (per) - 小数点1桁
+13. **企業価値（百万円）** (ev)
+14. **EV/EBITDA（倍）** (evPerEbitda) - 小数点1桁
+15. **PBR（倍）** (pbr) - 小数点1桁
+16. **純資産合計（百万円）** (equity)
+17. **ネット有利子負債（百万円）** (debt)
+18. **最終更新日** (retrievedDate)
+
+### 固定列の実装（2025年6月29日追加）
+証券コードと企業名称の2列を固定し、残りは横スクロール可能：
+- **CSS**: `position: sticky`と`left`プロパティで実装
+- **固定列の幅**: 証券コード100px、企業名称200px
+- **影効果**: 2列目の右側に`linear-gradient`で視覚的な区切り
+- **z-index管理**: ヘッダー固定列は`z-index: 11`、通常固定列は`z-index: 10`
+
 ## 機能実装の詳細
 
 ### 証券コード検索
@@ -61,6 +92,15 @@ targetRow.classList.add('highlight');
 - テーブルコンテナのスクロールを監視
 - `tableContainer.scrollTop > 300`で表示切り替え
 - `scrollTo()`でスムーズスクロール
+
+### 数値フォーマット関数（2025年6月29日追加）
+```javascript
+formatNumber(value)        // 百万円単位、千単位区切り
+formatPercentage(value)    // パーセント表示、小数点1桁
+formatRatio(value)         // 倍率表示、小数点1桁
+formatStockPrice(value)    // 株価表示、整数、千単位区切り
+formatEmployees(value)     // 従業員数表示、千単位区切り
+```
 
 ## トラブルシューティング
 
@@ -90,3 +130,12 @@ python3 -m http.server 8080
 2. Source: Deploy from a branch
 3. Branch: main, Folder: /docs
 4. 公開URL: https://[username].github.io/edinet/
+
+## 更新履歴
+
+### 2025年6月29日
+- タイトルを「上場企業有価証券報告書 from EDINET」に変更
+- 表示カラムを18列に拡張（財務指標・倍率・従業員数等を追加）
+- 証券コードと企業名称の2列を固定列として実装
+- 数値フォーマット関数を追加（パーセント、倍率、株価等）
+- 横スクロール対応により多数の財務指標を一覧表示可能に

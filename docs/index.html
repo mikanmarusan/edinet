@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EDINET財務データビューア</title>
+    <title>上場企業有価証券報告書 from EDINET</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <header style="position: fixed !important; top: 0 !important; left: 0 !important; width: 100% !important; z-index: 9999 !important;">
-        <h1>EDINET財務データビューア</h1>
+        <h1>上場企業有価証券報告書 from EDINET</h1>
         <div class="search-container">
             <input type="text" id="search-input" placeholder="証券コードで検索...">
             <button id="search-button">検索</button>
@@ -22,18 +22,23 @@
                 <thead>
                     <tr>
                         <th>証券コード</th>
-                        <th>会社名</th>
+                        <th>企業名称</th>
                         <th>決算期</th>
-                        <th>事業内容</th>
+                        <th>決算期末株価<br>(円)</th>
                         <th>売上高<br>(百万円)</th>
+                        <th>期末従業員数<br>(人)</th>
                         <th>営業利益<br>(百万円)</th>
-                        <th>減価償却費<br>(百万円)</th>
+                        <th>営業利益率<br>(%)</th>
+                        <th>EBITDA<br>(百万円)</th>
+                        <th>EDITDAマージン<br>(%)</th>
                         <th>時価総額<br>(百万円)</th>
-                        <th>EV<br>(百万円)</th>
-                        <th>株主資本<br>(百万円)</th>
-                        <th>有利子負債<br>(百万円)</th>
-                        <th>当期純利益<br>(百万円)</th>
-                        <th>現金<br>(百万円)</th>
+                        <th>PER<br>(倍)</th>
+                        <th>企業価値<br>(百万円)</th>
+                        <th>EV/EBITDA<br>(倍)</th>
+                        <th>PBR<br>(倍)</th>
+                        <th>純資産合計<br>(百万円)</th>
+                        <th>ネット有利子負債<br>(百万円)</th>
+                        <th>最終更新日</th>
                     </tr>
                 </thead>
                 <tbody id="data-tbody">
