@@ -41,21 +41,24 @@ function displayData(data) {
         row.id = `row-${item.secCode}`;
         
         row.innerHTML = `
-            <td class="sec-code">${item.secCode || '-'}</td>
-            <td class="company-name">${item.filerName || '-'}</td>
+            <td class="sec-code fixed-column">${item.secCode || '-'}</td>
+            <td class="company-name fixed-column">${item.filerName || '-'}</td>
             <td>${item.periodEnd || '-'}</td>
-            <td class="characteristic-cell" title="${escapeHtml(item.characteristic || '')}" data-full-text="${escapeHtml(item.characteristic || '')}">
-                ${truncateText(item.characteristic, 20)}
-            </td>
+            <td class="number-cell">${formatStockPrice(item.stockPrice)}</td>
             <td class="number-cell">${formatNumber(item.netSales)}</td>
+            <td class="number-cell">${formatEmployees(item.employees)}</td>
             <td class="number-cell">${formatNumber(item.operatingIncome)}</td>
-            <td class="number-cell">${formatNumber(item.depreciation)}</td>
+            <td class="number-cell">${formatPercentage(item.operatingIncomeRate)}</td>
+            <td class="number-cell">${formatNumber(item.ebitda)}</td>
+            <td class="number-cell">${formatPercentage(item.ebitdaMargin)}</td>
             <td class="number-cell">${formatNumber(item.marketCapitalization)}</td>
+            <td class="number-cell">${formatRatio(item.per)}</td>
             <td class="number-cell">${formatNumber(item.ev)}</td>
+            <td class="number-cell">${formatRatio(item.evPerEbitda)}</td>
+            <td class="number-cell">${formatRatio(item.pbr)}</td>
             <td class="number-cell">${formatNumber(item.equity)}</td>
             <td class="number-cell">${formatNumber(item.debt)}</td>
-            <td class="number-cell">${formatNumber(item.netIncome)}</td>
-            <td class="number-cell">${formatNumber(item.cash)}</td>
+            <td>${item.retrievedDate || '-'}</td>
         `;
         
         tbody.appendChild(row);
@@ -69,6 +72,38 @@ function formatNumber(value) {
     }
     const millionValue = Math.round(value / 1000000);
     return millionValue.toLocaleString('ja-JP');
+}
+
+// パーセンテージをフォーマット（小数点1桁）
+function formatPercentage(value) {
+    if (value === null || value === undefined) {
+        return '-';
+    }
+    return value.toFixed(1);
+}
+
+// 倍率をフォーマット（小数点1桁）
+function formatRatio(value) {
+    if (value === null || value === undefined) {
+        return '-';
+    }
+    return value.toFixed(1);
+}
+
+// 株価をフォーマット（整数、円単位）
+function formatStockPrice(value) {
+    if (value === null || value === undefined) {
+        return '-';
+    }
+    return Math.round(value).toLocaleString('ja-JP');
+}
+
+// 従業員数をフォーマット（整数、千単位区切り）
+function formatEmployees(value) {
+    if (value === null || value === undefined) {
+        return '-';
+    }
+    return value.toLocaleString('ja-JP');
 }
 
 // テキストを指定文字数で切り詰め

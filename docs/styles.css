@@ -84,7 +84,7 @@ main {
 }
 
 table {
-    width: 100%;
+    width: max-content;
     border-collapse: collapse;
 }
 
@@ -110,6 +110,11 @@ th {
 }
 
 tbody tr:hover {
+    background-color: #f8f9fa;
+}
+
+tbody tr:hover td:nth-child(1),
+tbody tr:hover td:nth-child(2) {
     background-color: #f8f9fa;
 }
 
@@ -165,6 +170,56 @@ td {
 
 .company-name {
     font-weight: 500;
+}
+
+/* 固定列のスタイル */
+th:nth-child(1),
+td:nth-child(1),
+th:nth-child(2),
+td:nth-child(2) {
+    position: sticky;
+    background-color: white;
+    z-index: 10;
+}
+
+th:nth-child(1),
+td:nth-child(1) {
+    left: 0;
+    min-width: 100px;
+    max-width: 100px;
+}
+
+th:nth-child(2),
+td:nth-child(2) {
+    left: 100px;
+    min-width: 200px;
+    max-width: 200px;
+}
+
+/* 固定列のヘッダー */
+thead th:nth-child(1),
+thead th:nth-child(2) {
+    background-color: #34495e;
+    z-index: 11;
+}
+
+/* 固定列に影を追加 */
+td:nth-child(2)::after,
+th:nth-child(2)::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: -5px;
+    bottom: 0;
+    width: 5px;
+    background: linear-gradient(to right, rgba(0,0,0,0.1), transparent);
+    pointer-events: none;
+}
+
+/* その他の列の最小幅 */
+th:not(:nth-child(1)):not(:nth-child(2)),
+td:not(:nth-child(1)):not(:nth-child(2)) {
+    min-width: 120px;
 }
 
 @media (max-width: 768px) {
