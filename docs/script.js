@@ -41,9 +41,9 @@ function displayData(data) {
         row.id = `row-${item.secCode}`;
         
         row.innerHTML = `
-            <td class="sec-code fixed-column">${item.yahooURL ? `<a href="${item.yahooURL}" target="_blank" rel="noopener noreferrer">${item.secCode}</a>` : item.secCode || '-'}</td>
-            <td class="company-name fixed-column">${item.docPdfURL ? `<a href="${item.docPdfURL}" target="_blank" rel="noopener noreferrer">${item.filerName}</a>` : item.filerName || '-'}</td>
-            <td>${item.periodEnd || '-'}</td>
+            <td class="sec-code fixed-column">${item.yahooURL ? `<a href="${encodeURI(item.yahooURL)}" target="_blank" rel="noopener noreferrer">${escapeHtml(item.secCode)}</a>` : escapeHtml(item.secCode) || '-'}</td>
+            <td class="company-name fixed-column">${item.docPdfURL ? `<a href="${encodeURI(item.docPdfURL)}" target="_blank" rel="noopener noreferrer">${escapeHtml(item.filerName)}</a>` : escapeHtml(item.filerName) || '-'}</td>
+            <td>${escapeHtml(item.periodEnd) || '-'}</td>
             <td class="number-cell">${formatStockPrice(item.stockPrice)}</td>
             <td class="number-cell">${formatNumber(item.netSales)}</td>
             <td class="number-cell">${formatEmployees(item.employees)}</td>
@@ -58,7 +58,7 @@ function displayData(data) {
             <td class="number-cell">${formatRatio(item.pbr)}</td>
             <td class="number-cell">${formatNumber(item.equity)}</td>
             <td class="number-cell">${formatNumber(item.debt)}</td>
-            <td>${item.retrievedDate || '-'}</td>
+            <td>${escapeHtml(item.retrievedDate) || '-'}</td>
         `;
         
         tbody.appendChild(row);
