@@ -53,7 +53,7 @@ docs/
 7. **営業利益（百万円）** (operatingIncome)
 8. **営業利益率（%）** (operatingIncomeRate) - 小数点1桁
 9. **EBITDA（百万円）** (ebitda)
-10. **EDITDAマージン（%）** (ebitdaMargin) - 小数点1桁
+10. **EBITDAマージン（%）** (ebitdaMargin) - 小数点1桁
 11. **時価総額（百万円）** (marketCapitalization)
 12. **PER（倍）** (per) - 小数点1桁
 13. **企業価値（百万円）** (ev)

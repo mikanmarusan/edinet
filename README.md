@@ -91,7 +91,11 @@ Consolidates multiple daily JSON files into a single file.
 
 | Field | Description | Type |
 |-------|-------------|------|
+| docID | EDINET document ID | String |
 | secCode | 4-digit securities code | String |
+| filerName | Company name | String |
+| docPdfURL | Securities report PDF URL | String |
+| yahooURL | Yahoo Finance URL | String |
 | periodEnd | Fiscal period end (YYYY年M月期) | String |
 | characteristic | Company characteristics | String |
 | stockPrice | Stock price at fiscal year end | Number |
@@ -99,6 +103,7 @@ Consolidates multiple daily JSON files into a single file.
 | employees | Number of employees | Number |
 | operatingIncome | Operating income | Number |
 | operatingIncomeRate | Operating income rate (%) | Number |
+| depreciation | Depreciation | Number |
 | marketCapitalization | Market capitalization | Number |
 | per | Price-to-earnings ratio | Number |
 | pbr | Price-to-book ratio | Number |
