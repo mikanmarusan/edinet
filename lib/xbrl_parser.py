@@ -13,7 +13,7 @@ import sys
 from datetime import datetime
 from typing import Dict, Any, Optional, List
 
-from .edinet_common import XBRL_NAMESPACES, XBRL_PATTERNS, XBRLParsingError, format_period_end
+from .edinet_common import XBRL_NAMESPACES, XBRL_PATTERNS, XBRLParsingError, format_period_end, get_stock_exchange_code
 
 
 class XBRLExtractor:
@@ -577,7 +577,7 @@ class XBRLParser:
             "filerName": filer_name,
             "docID": doc_id,
             "docPdfURL": f"https://disclosure2dl.edinet-fsa.go.jp/searchdocument/pdf/{doc_id}.pdf",
-            "yahooURL": f"https://finance.yahoo.co.jp/quote/{sec_code}.T",
+            "yahooURL": f"https://finance.yahoo.co.jp/quote/{sec_code}.{get_stock_exchange_code(sec_code)}",
             "periodEnd": format_period_end(period_end),
             "characteristic": self._extract_characteristic(root),
             "stockPrice": self._extract_stock_price(root),

@@ -8,6 +8,7 @@ Shared utilities, configurations, and logging setup for EDINET tools.
 import logging
 import sys
 import os
+import yaml
 from datetime import datetime
 from typing import Optional, Dict, Any
 
@@ -577,3 +578,41 @@ class EdinetAPIError(EdinetError):
 class XBRLParsingError(EdinetError):
     """Exception for XBRL parsing-related errors"""
     pass
+
+
+# Cache for stock exchange mapping
+_stock_exchange_mapping_cache = None
+
+
+def get_stock_exchange_code(sec_code: str) -> str:
+    """
+    Get the stock exchange code for a given security code
+    
+    Args:
+        sec_code: Securities code (4-digit)
+        
+    Returns:
+        Stock exchange code: 'T' (Tokyo), 'N' (Nagoya), 'F' (Fukuoka), or 'S' (Sapporo)
+    """
+    global _stock_exchange_mapping_cache
+    
+    # Load mapping from YAML file if not cached
+    if _stock_exchange_mapping_cache is None:
+        try:
+            # Get the path to the config file
+            current_dir = os.path.dirname(os.path.abspath(__file__))
+            project_root = os.path.dirname(current_dir)
+            config_path = os.path.join(project_root, 'config', 'stock_exchange_mapping.yml')
+            
+            # Load the YAML file
+            with open(config_path, 'r', encoding='utf-8') as f:
+                data = yaml.safe_load(f)
+                _stock_exchange_mapping_cache = data.get('stock_exchanges', {})
+        except Exception as e:
+            # If loading fails, use empty mapping (all will default to Tokyo)
+            print(f"Warning: Could not load stock exchange mapping: {e}")
+            _stock_exchange_mapping_cache = {}
+    
+    # Look up the security code in the mapping
+    # Return the mapped exchange code, or 'T' (Tokyo) as default
+    return _stock_exchange_mapping_cache.get(sec_code, 'T')
