@@ -69,6 +69,8 @@ Extract the following financial data from XBRL:
 | eps | Earnings per share (diluted preferred) | 20.0 |
 | cash | Cash and cash equivalents at end of period | 5000000000 |
 | retrievedDate | Data retrieval date | "2025-06-10" |
+| docPdfURL | Direct URL to EDINET PDF document | "https://disclosure2dl.edinet-fsa.go.jp/searchdocument/pdf/{docID}.pdf" |
+| yahooURL | Yahoo Finance URL with stock exchange suffix | "https://finance.yahoo.co.jp/quote/{secCode}.{exchangeCode}" |
 
 #### 2.1.3.1 Security Code Filtering
 When `--sec-codes` option is specified:
@@ -98,6 +100,10 @@ When `--sec-codes` option is specified:
 [
   {
     "secCode": "4384",
+    "filerName": "ラクスル株式会社",
+    "docID": "S100TZ9X",
+    "docPdfURL": "https://disclosure2dl.edinet-fsa.go.jp/searchdocument/pdf/S100TZ9X.pdf",
+    "yahooURL": "https://finance.yahoo.co.jp/quote/4384.T",
     "periodEnd": "2024年7月期",
     "retrievedDate": "2025-06-10",
     "characteristic": "印刷・物流プラットフォーム事業を展開",
@@ -269,6 +275,48 @@ The system implements sophisticated data extraction algorithms:
 - Valid range: 1,000 to 100,000,000,000 shares
 - Priority: CurrentYear contexts over historical data
 - Fallback: Dynamic search when standard patterns fail
+
+#### 3.4.4 Stock Exchange Code Determination
+
+**Purpose:**
+Generate appropriate Yahoo Finance URLs by determining the stock exchange where each security is listed.
+
+**Implementation:**
+- **Configuration File**: `config/stock_exchange_mapping.yml` contains security code to exchange mappings
+- **Function**: `get_stock_exchange_code(sec_code)` in `lib/edinet_common.py`
+- **Caching**: Mapping is loaded once and cached to avoid repeated file I/O
+
+**Exchange Codes:**
+- **T**: Tokyo Stock Exchange (東京証券取引所) - Default
+- **N**: Nagoya Stock Exchange (名古屋証券取引所)
+- **F**: Fukuoka Stock Exchange (福岡証券取引所)
+- **S**: Sapporo Stock Exchange (札幌証券取引所)
+
+**Yahoo Finance URL Format:**
+```
+https://finance.yahoo.co.jp/quote/{secCode}.{exchangeCode}
+```
+
+**Processing Logic:**
+1. Load stock exchange mapping from YAML configuration file
+2. Look up security code in the mapping
+3. Return mapped exchange code if found
+4. Return 'T' (Tokyo) as default for unmapped codes
+5. Handle errors gracefully (missing file, invalid YAML) by defaulting to Tokyo
+
+**Configuration File Format:**
+```yaml
+stock_exchanges:
+  "1738": "N"  # Nagoya
+  "1771": "F"  # Fukuoka
+  "1449": "S"  # Sapporo
+  # ... additional mappings
+```
+
+**Error Handling:**
+- Missing configuration file: Log warning and default all codes to Tokyo
+- Invalid YAML format: Log warning and default all codes to Tokyo
+- Empty mapping: Default all codes to Tokyo
 
 ## 4. Non-Functional Requirements
 
