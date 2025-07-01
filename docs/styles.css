@@ -1,3 +1,9 @@
+:root {
+    --column-sec-code-width: 100px;
+    --column-company-name-width: 200px;
+    --tooltip-width: 300px;
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -163,7 +169,7 @@ td {
     padding: 0.5rem;
     border-radius: 4px;
     white-space: normal;
-    width: 300px;
+    width: var(--tooltip-width);
     z-index: 1000;
     box-shadow: 0 4px 8px rgba(0,0,0,0.2);
     font-size: 12px;
@@ -214,15 +220,15 @@ td:nth-child(2) {
 th:nth-child(1),
 td:nth-child(1) {
     left: 0;
-    min-width: 100px;
-    max-width: 100px;
+    min-width: var(--column-sec-code-width);
+    max-width: var(--column-sec-code-width);
 }
 
 th:nth-child(2),
 td:nth-child(2) {
-    left: 100px;
-    min-width: 200px;
-    max-width: 200px;
+    left: var(--column-sec-code-width);
+    min-width: var(--column-company-name-width);
+    max-width: var(--column-company-name-width);
 }
 
 /* 固定列のヘッダー */
