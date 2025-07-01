@@ -1,3 +1,7 @@
+// 定数定義
+const SCROLL_THRESHOLD = 300;  // トップへ戻るボタンの表示閾値（ピクセル）
+const MILLION = 1000000;       // 百万円単位への変換
+
 let allData = [];
 
 // ページ読み込み時の処理
@@ -70,7 +74,7 @@ function formatNumber(value) {
     if (value === null || value === undefined) {
         return '-';
     }
-    const millionValue = Math.round(value / 1000000);
+    const millionValue = Math.round(value / MILLION);
     return millionValue.toLocaleString('ja-JP');
 }
 
@@ -191,7 +195,7 @@ function setupBackToTopButton() {
     
     // テーブルコンテナのスクロールを監視
     tableContainer.addEventListener('scroll', () => {
-        if (tableContainer.scrollTop > 300) {
+        if (tableContainer.scrollTop > SCROLL_THRESHOLD) {
             backToTopButton.classList.add('visible');
         } else {
             backToTopButton.classList.remove('visible');
