@@ -100,6 +100,34 @@ python bin/consolidate_documents.py --inputdir data/jsons --output data/edinet.j
 ## 開発時の注意
 新機能追加やバグ修正の際は、必ず`.ai-rules/`配下の関連ドキュメントを参照してください。
 
+## Issue対応時のブランチ作成ルール
+
+### 必須：開発用ブランチの作成
+Issueを解決する作業を行う場合は、**必ず開発用のブランチを作成**してから作業を開始してください：
+
+```bash
+# ブランチ名の形式: fix/issue-{番号}-{簡潔な説明}
+# 例：Issue #40（マジックナンバーの修正）の場合
+git checkout -b fix/issue-40-magic-numbers
+
+# 例：Issue #32（ドキュメント更新）の場合
+git checkout -b fix/issue-32-update-docs
+```
+
+### ブランチ命名規則
+- **fix/**: バグ修正や問題解決
+- **feat/**: 新機能追加
+- **docs/**: ドキュメントのみの変更
+- **refactor/**: コードのリファクタリング
+- **test/**: テストコードの追加・修正
+
+### ワークフロー
+1. mainブランチから最新の状態を取得
+2. 開発用ブランチを作成
+3. 作業実施とコミット
+4. テスト実行と確認
+5. Pull Requestを作成してmainブランチにマージ
+
 ## コミット前の必須事項
 
 ### テスト実行
