@@ -9,6 +9,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     await loadData();
     setupSearchEvents();
     setupBackToTopButton();
+    setupExportButton();
 });
 
 // データの読み込み
@@ -209,4 +210,83 @@ function setupBackToTopButton() {
             behavior: 'smooth'
         });
     });
+}
+
+// エクスポートボタンの設定
+function setupExportButton() {
+    const exportButton = document.getElementById('export-button');
+    if (!exportButton) return;
+    
+    exportButton.addEventListener('click', exportToExcel);
+}
+
+// Excelエクスポート機能
+function exportToExcel() {
+    if (!allData || allData.length === 0) {
+        alert('エクスポートするデータがありません');
+        return;
+    }
+    
+    // エクスポート用データの準備
+    const exportData = allData.map(item => ({
+        '証券コード': item.secCode || '',
+        '企業名称': item.filerName || '',
+        '有価証券報告書URL': item.docPdfURL || '',
+        'Yahoo!ファイナンスURL': item.yahooURL || '',
+        '決算期': item.periodEnd || '',
+        '決算期末株価(円)': item.stockPrice || '',
+        '売上高(百万円)': item.netSales ? Math.round(item.netSales / MILLION) : '',
+        '期末従業員数(人)': item.employees || '',
+        '営業利益(百万円)': item.operatingIncome ? Math.round(item.operatingIncome / MILLION) : '',
+        '営業利益率(%)': item.operatingIncomeRate || '',
+        'EBITDA(百万円)': item.ebitda ? Math.round(item.ebitda / MILLION) : '',
+        'EBITDAマージン(%)': item.ebitdaMargin || '',
+        '時価総額(百万円)': item.marketCapitalization ? Math.round(item.marketCapitalization / MILLION) : '',
+        'PER(倍)': item.per || '',
+        '企業価値(百万円)': item.ev ? Math.round(item.ev / MILLION) : '',
+        'EV/EBITDA(倍)': item.evPerEbitda || '',
+        'PBR(倍)': item.pbr || '',
+        '純資産合計(百万円)': item.equity ? Math.round(item.equity / MILLION) : '',
+        'ネット有利子負債(百万円)': item.debt ? Math.round(item.debt / MILLION) : '',
+        '最終更新日': item.retrievedDate || ''
+    }));
+    
+    // ワークシート作成
+    const ws = XLSX.utils.json_to_sheet(exportData);
+    
+    // カラム幅の設定
+    ws['!cols'] = [
+        {wch: 10},  // 証券コード
+        {wch: 30},  // 企業名称
+        {wch: 50},  // 有価証券報告書URL
+        {wch: 40},  // Yahoo!ファイナンスURL
+        {wch: 12},  // 決算期
+        {wch: 15},  // 決算期末株価
+        {wch: 15},  // 売上高
+        {wch: 15},  // 期末従業員数
+        {wch: 15},  // 営業利益
+        {wch: 12},  // 営業利益率
+        {wch: 15},  // EBITDA
+        {wch: 15},  // EBITDAマージン
+        {wch: 15},  // 時価総額
+        {wch: 10},  // PER
+        {wch: 15},  // 企業価値
+        {wch: 12},  // EV/EBITDA
+        {wch: 10},  // PBR
+        {wch: 15},  // 純資産合計
+        {wch: 20},  // ネット有利子負債
+        {wch: 12}   // 最終更新日
+    ];
+    
+    // ワークブック作成
+    const wb = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, "財務データ");
+    
+    // ファイル名生成（現在日付）
+    const today = new Date();
+    const dateStr = today.toISOString().slice(0, 10).replace(/-/g, '');
+    const fileName = `edinet_data_${dateStr}.xlsx`;
+    
+    // ダウンロード実行
+    XLSX.writeFile(wb, fileName);
 }

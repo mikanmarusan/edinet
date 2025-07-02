@@ -66,6 +66,21 @@ h1 {
     background-color: #2980b9;
 }
 
+#export-button {
+    padding: 0.5rem 1rem;
+    background-color: #27ae60;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s;
+}
+
+#export-button:hover {
+    background-color: #229954;
+}
+
 main {
     padding: 2rem;
     margin-top: 70px; /* ヘッダーの高さ分のマージン */
