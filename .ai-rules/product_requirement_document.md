@@ -343,9 +343,80 @@ stock_exchanges:
 - **Missing Fields**: Handle cases where XBRL data is incomplete
 - **Data Consistency**: Ensure consistent data types across output files
 
-## 5. System Integration
+## 5. 機能仕様
 
-### 5.1 File System Organization
+### 5.1 Webビューア機能
+
+#### 5.1.1 概要
+`/docs`ディレクトリ配下のWebビューアは、`data/edinet.json`の財務データを閲覧・検索・エクスポートするためのツールです。GitHub Pagesでの公開を前提とし、シンプルな3ファイル構成（HTML/CSS/JS）で実装されています。
+
+#### 5.1.2 主要機能
+- **データ表示**: 約4,000社の財務データをテーブル形式で表示
+- **検索機能**: 証券コードによる部分一致検索
+- **固定ヘッダー**: タイトルとテーブル列名を画面上部に固定
+- **固定列**: 証券コードと企業名称の2列を左側に固定
+- **事業内容の省略表示**: 20文字で省略、ホバーで全文表示
+- **トップへ戻るボタン**: 300px以上スクロール時に表示
+- **数値フォーマット**: 金額は百万円単位、null値は「-」表示
+
+### 5.2 データエクスポート機能
+
+#### 5.2.1 Excel形式でのエクスポート
+
+**概要:**
+クライアントサイドでExcelファイル（.xlsx形式）を生成し、全財務データをダウンロード可能にする機能です。SheetJSライブラリを使用してブラウザ上でファイル生成を行います。
+
+**使用方法:**
+- 検索ボックスの右側にある「Excelエクスポート」ボタンをクリック
+- 自動的にExcelファイルのダウンロードが開始
+
+**出力ファイル仕様:**
+- **ファイル形式**: .xlsx（Excel 2007以降）
+- **ファイル名**: `edinet_data_YYYYMMDD.xlsx`（実行日付付き）
+- **シート名**: 「財務データ」
+- **文字エンコーディング**: UTF-8（日本語対応）
+
+**カラム構成:**
+Webビューアと同一の20カラムをエクスポート：
+1. 証券コード
+2. 企業名称
+3. 有価証券報告書URL（docPdfURL）
+4. Yahoo!ファイナンスURL（yahooURL）
+5. 決算期
+6. 決算期末株価（円）
+7. 売上高（百万円）
+8. 期末従業員数（人）
+9. 営業利益（百万円）
+10. 営業利益率（%）
+11. EBITDA（百万円）
+12. EBITDAマージン（%）
+13. 時価総額（百万円）
+14. PER（倍）
+15. 企業価値（百万円）
+16. EV/EBITDA（倍）
+17. PBR（倍）
+18. 純資産合計（百万円）
+19. ネット有利子負債（百万円）
+20. 最終更新日
+
+**Excel固有の機能:**
+- **カラム幅の自動調整**: 各列のデータ長に応じた最適な幅設定
+- **日本語フォント対応**: UTF-8エンコーディングによる日本語文字の正確な表示
+- **URLのハイパーリンク**: 有価証券報告書URLとYahoo!ファイナンスURLは直接クリック可能
+- **数値フォーマット**: 金額は整数表示、パーセントと倍率は小数点1桁まで表示
+
+**データスコープ:**
+- 全財務データ（約4,000件）を一括エクスポート
+- フィルタリングやページネーションなしの完全データセット
+
+**技術実装:**
+- **ライブラリ**: SheetJS (XLSX.js)
+- **処理方式**: クライアントサイド処理（サーバー負荷なし）
+- **メモリ使用**: ブラウザ内でのデータ処理のため、大量データ時は注意が必要
+
+## 6. System Integration
+
+### 6.1 File System Organization
 ```
 project/
 ├── fetch_edinet_financial_documents.py
@@ -364,7 +435,7 @@ project/
     └── edinet.json
 ```
 
-### 5.2 Workflow
+### 6.2 Workflow
 1. Execute fetch_edinet_financial_documents.py with specific date parameter
 2. fetch_edinet_financial_documents.py retrieves securities reports from EDINET API
 3. Parse XBRL data and extract financial metrics
@@ -373,19 +444,19 @@ project/
 6. consolidate_documents.py processes all files in specified input directory
 7. Generate consolidated output at specified output path
 
-### 5.3 Data Flow
+### 6.3 Data Flow
 ```
 EDINET API → XBRL Data → fetch_edinet_financial_documents.py → Daily JSON Files → consolidate_documents.py → Consolidated JSON
 ```
 
-## 6. Constraints and Assumptions
+## 7. Constraints and Assumptions
 
-### 6.1 External Dependencies
+### 7.1 External Dependencies
 - EDINET API availability and stability
 - XBRL data format consistency across different companies
 - Network connectivity for API access
 
-#### 6.1.1 EDINET Data Scope
+#### 7.1.1 EDINET Data Scope
 **Available from XBRL:**
 - secCode, filerName, docID, periodEnd
 - netSales, employees, operatingIncome, equity, netIncome, cash
@@ -399,44 +470,44 @@ EDINET API → XBRL Data → fetch_edinet_financial_documents.py → Daily JSON 
 - Dynamic search algorithms improve data extraction success rates
 - Missing fields are set to null in JSON output
 
-### 6.2 Data Limitations
+### 7.2 Data Limitations
 - Financial data availability depends on companies' reporting schedules
 - XBRL tag variations between different companies
 - Historical data limited to available securities reports
 
-### 6.3 Technical Constraints
+### 7.3 Technical Constraints
 - Python environment required for execution
 - File system access for data storage
 - Internet connectivity for API access
 
-## 7. Future Considerations
+## 8. Future Considerations
 
-### 7.1 Scalability
+### 8.1 Scalability
 - Consider database storage for large datasets
 - Implement parallel processing for faster data extraction
 - Add data caching mechanisms
 
-### 7.2 Enhancement Opportunities
+### 8.2 Enhancement Opportunities
 - Web-based user interface
 - Real-time data updates
 - Advanced financial analysis features
 - Data visualization capabilities
 
-## 8. Acceptance Criteria
+## 9. Acceptance Criteria
 
-### 8.1 fetch_edinet_financial_documents.py Success Criteria
+### 9.1 fetch_edinet_financial_documents.py Success Criteria
 - Successfully retrieves securities reports for specified date
 - Extracts all available financial metrics from XBRL data
 - Generates properly formatted JSON output
 - Handles errors gracefully without stopping execution
 
-### 8.2 consolidate_documents.py Success Criteria
+### 9.2 consolidate_documents.py Success Criteria
 - Processes all JSON files in input directory
 - Correctly identifies and handles duplicate companies
 - Generates consolidated JSON file with latest data
 - Maintains data integrity throughout processing
 
-### 8.3 Overall System Success Criteria
+### 9.3 Overall System Success Criteria
 - Both tools execute without fatal errors
 - Generated JSON files are valid and web-accessible
 - Financial data accuracy meets business requirements
