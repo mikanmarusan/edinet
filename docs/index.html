@@ -19,27 +19,27 @@
     <main>
         <div id="loading">データを読み込んでいます...</div>
         <div id="table-container" style="display: none;">
-            <table id="data-table">
-                <thead>
+            <table id="data-table" role="table" aria-label="財務データ一覧">
+                <thead role="rowgroup">
                     <tr>
-                        <th>証券コード</th>
-                        <th>企業名称</th>
-                        <th>決算期</th>
-                        <th>決算期末株価<br>(円)</th>
-                        <th>売上高<br>(百万円)</th>
-                        <th>期末従業員数<br>(人)</th>
-                        <th>営業利益<br>(百万円)</th>
-                        <th>営業利益率<br>(%)</th>
-                        <th>EBITDA<br>(百万円)</th>
-                        <th>EDITDAマージン<br>(%)</th>
-                        <th>時価総額<br>(百万円)</th>
-                        <th>PER<br>(倍)</th>
-                        <th>企業価値<br>(百万円)</th>
-                        <th>EV/EBITDA<br>(倍)</th>
-                        <th>PBR<br>(倍)</th>
-                        <th>純資産合計<br>(百万円)</th>
-                        <th>ネット有利子負債<br>(百万円)</th>
-                        <th>最終更新日</th>
+                        <th scope="col" class="sortable" data-sort="secCode">証券コード</th>
+                        <th scope="col">企業名称</th>
+                        <th scope="col">決算期</th>
+                        <th scope="col" aria-label="決算期末株価（円）">決算期末株価<br>(円)</th>
+                        <th scope="col" class="sortable" data-sort="netSales" aria-label="売上高（百万円）">売上高<br>(百万円)</th>
+                        <th scope="col" class="sortable" data-sort="employees" aria-label="期末従業員数（人）">期末従業員数<br>(人)</th>
+                        <th scope="col" class="sortable" data-sort="operatingIncome" aria-label="営業利益（百万円）">営業利益<br>(百万円)</th>
+                        <th scope="col" aria-label="営業利益率（パーセント）">営業利益率<br>(%)</th>
+                        <th scope="col" class="sortable" data-sort="ebitda" aria-label="EBITDA（百万円）">EBITDA<br>(百万円)</th>
+                        <th scope="col" aria-label="EBITDAマージン（パーセント）">EBITDAマージン<br>(%)</th>
+                        <th scope="col" class="sortable" data-sort="marketCapitalization" aria-label="時価総額（百万円）">時価総額<br>(百万円)</th>
+                        <th scope="col" aria-label="PER（倍）">PER<br>(倍)</th>
+                        <th scope="col" class="sortable" data-sort="ev" aria-label="企業価値（百万円）">企業価値<br>(百万円)</th>
+                        <th scope="col" aria-label="EV/EBITDA（倍）">EV/EBITDA<br>(倍)</th>
+                        <th scope="col" aria-label="PBR（倍）">PBR<br>(倍)</th>
+                        <th scope="col" aria-label="純資産合計（百万円）">純資産合計<br>(百万円)</th>
+                        <th scope="col" aria-label="ネット有利子負債（百万円）">ネット有利子負債<br>(百万円)</th>
+                        <th scope="col">最終更新日</th>
                     </tr>
                 </thead>
                 <tbody id="data-tbody">
