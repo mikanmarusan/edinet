@@ -154,3 +154,55 @@ python -m pytest tests/test_stock_exchange_mapping.py -v
 5. git commit
 
 この手順を守ることで、コードの品質と安定性を保つことができます。
+
+## Issueフォーマット
+
+### 必須：Issue作成時のフォーマット
+すべてのIssueは以下のフォーマットに従って作成してください。Agentic Coding Tool（Claude Code等）がIssueを作成する際も**必ずこのフォーマットを使用**すること：
+
+```markdown
+#### Goal
+[このIssueで達成したい目的を明確に記載]
+
+#### Return Format
+[期待される成果物の形式（コード修正、ドキュメント更新、新機能実装など）]
+
+#### Warnings
+[作業時の注意点、既知の制約事項、影響範囲など。なければ「なし」と記載]
+
+#### Additional Context
+[関連するIssue番号、参考資料、背景情報など。なければ「なし」と記載]
+```
+
+### フォーマット各項目の説明
+
+- **Goal**: Issueの目的を簡潔に説明。何を解決したいのか、何を実現したいのかを明確にする
+- **Return Format**: 完了条件を明確にするため、期待される成果物を具体的に記載
+- **Warnings**: 作業時に注意すべき点、他の機能への影響、パフォーマンスへの考慮事項など
+- **Additional Context**: 関連Issue、参考URL、スクリーンショット、技術的背景など補足情報
+
+### 例
+
+```markdown
+#### Goal
+EDINETデータ取得時のレート制限エラーを適切にハンドリングし、リトライ機能を実装する
+
+#### Return Format
+- lib/edinet_common.pyにリトライロジックを追加
+- エラーログの改善
+- テストコードの追加
+
+#### Warnings
+- EDINET APIの1秒1リクエスト制限を厳守すること
+- 既存の処理フローを崩さないよう注意
+
+#### Additional Context
+- 関連: Issue #15（API制限に関する議論）
+- 参考: EDINET API仕様書のレート制限セクション
+```
+
+### Agentic Coding Toolへの指示
+Claude CodeやGitHub Copilot等のAIツールでIssueを作成する場合：
+1. 必ず上記のフォーマットを使用すること
+2. 各項目は省略せず、該当なしの場合も「なし」と明記すること
+3. Goalは具体的かつ測定可能な内容にすること
