@@ -1,8 +1,11 @@
 // 定数定義
 const SCROLL_THRESHOLD = 300;  // トップへ戻るボタンの表示閾値（ピクセル）
 const MILLION = 1000000;       // 百万円単位への変換
+const DEBOUNCE_DELAY = 300;    // 検索デバウンス遅延（ミリ秒）
 
 let allData = [];
+let searchTimeout = null;      // デバウンス用タイマー
+let currentSort = { column: null, direction: 'asc' };  // ソート状態管理
 
 // ページ読み込み時の処理
 document.addEventListener('DOMContentLoaded', async () => {
@@ -10,6 +13,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     setupSearchEvents();
     setupBackToTopButton();
     setupExportButton();
+    setupSortableHeaders();
 });
 
 // データの読み込み
@@ -126,20 +130,38 @@ function escapeHtml(text) {
     return div.innerHTML;
 }
 
+// デバウンス関数
+function debounce(func, delay) {
+    return function (...args) {
+        clearTimeout(searchTimeout);
+        searchTimeout = setTimeout(() => func.apply(this, args), delay);
+    };
+}
+
 // 検索機能のセットアップ
 function setupSearchEvents() {
     const searchInput = document.getElementById('search-input');
     const searchButton = document.getElementById('search-button');
     
-    // 検索ボタンクリック時
-    searchButton.addEventListener('click', performSearch);
+    // デバウンス付きの検索関数
+    const debouncedSearch = debounce(performSearch, DEBOUNCE_DELAY);
     
-    // Enterキーでも検索実行
+    // 検索ボタンクリック時（即座に実行）
+    searchButton.addEventListener('click', () => {
+        clearTimeout(searchTimeout);
+        performSearch();
+    });
+    
+    // Enterキーでも検索実行（即座に実行）
     searchInput.addEventListener('keypress', (e) => {
         if (e.key === 'Enter') {
+            clearTimeout(searchTimeout);
             performSearch();
         }
     });
+    
+    // 入力時はデバウンス付きで実行
+    searchInput.addEventListener('input', debouncedSearch);
 }
 
 // 検索実行
@@ -218,6 +240,93 @@ function setupExportButton() {
     if (!exportButton) return;
     
     exportButton.addEventListener('click', exportToExcel);
+}
+
+// ソート機能のセットアップ
+function setupSortableHeaders() {
+    const sortableHeaders = document.querySelectorAll('.sortable');
+    
+    sortableHeaders.forEach(header => {
+        header.addEventListener('click', () => {
+            const sortColumn = header.dataset.sort;
+            handleSort(sortColumn);
+        });
+    });
+}
+
+// ソート処理
+function handleSort(column) {
+    // 同じ列をクリックした場合は方向を変更
+    if (currentSort.column === column) {
+        if (currentSort.direction === 'asc') {
+            currentSort.direction = 'desc';
+        } else if (currentSort.direction === 'desc') {
+            // デフォルト（証券コード昇順）にリセット
+            currentSort.column = 'secCode';
+            currentSort.direction = 'asc';
+        }
+    } else {
+        // 新しい列をクリックした場合は昇順から開始
+        currentSort.column = column;
+        currentSort.direction = 'asc';
+    }
+    
+    // データをソート
+    const sortedData = sortData(allData, currentSort.column, currentSort.direction);
+    
+    // 表示を更新
+    displayData(sortedData);
+    
+    // ソート状態を視覚的に更新
+    updateSortIndicators();
+}
+
+// データのソート
+function sortData(data, column, direction) {
+    return [...data].sort((a, b) => {
+        let aValue = a[column];
+        let bValue = b[column];
+        
+        // null値は最後にソート
+        if (aValue === null || aValue === undefined) {
+            return 1;
+        }
+        if (bValue === null || bValue === undefined) {
+            return -1;
+        }
+        
+        // 数値の場合
+        if (typeof aValue === 'number' && typeof bValue === 'number') {
+            return direction === 'asc' ? aValue - bValue : bValue - aValue;
+        }
+        
+        // 文字列の場合
+        const aStr = String(aValue).toLowerCase();
+        const bStr = String(bValue).toLowerCase();
+        
+        if (direction === 'asc') {
+            return aStr < bStr ? -1 : aStr > bStr ? 1 : 0;
+        } else {
+            return aStr > bStr ? -1 : aStr < bStr ? 1 : 0;
+        }
+    });
+}
+
+// ソート状態の視覚的更新
+function updateSortIndicators() {
+    // 全てのソート表示をクリア
+    document.querySelectorAll('.sortable').forEach(header => {
+        header.classList.remove('sort-asc', 'sort-desc', 'sort-active');
+    });
+    
+    // 現在のソート列にインジケータを追加
+    if (currentSort.column) {
+        const activeHeader = document.querySelector(`[data-sort="${currentSort.column}"]`);
+        if (activeHeader) {
+            activeHeader.classList.add('sort-active');
+            activeHeader.classList.add(currentSort.direction === 'asc' ? 'sort-asc' : 'sort-desc');
+        }
+    }
 }
 
 // Excelエクスポート機能
