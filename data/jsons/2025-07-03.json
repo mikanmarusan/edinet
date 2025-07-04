@@ -1,0 +1,32 @@
+[
+  {
+    "secCode": "4750",
+    "filerName": "株式会社ダイサン",
+    "docID": "S100WASN",
+    "docPdfURL": "https://disclosure2dl.edinet-fsa.go.jp/searchdocument/pdf/S100WASN.pdf",
+    "yahooURL": "https://finance.yahoo.co.jp/quote/4750.T",
+    "periodEnd": "2025年4月期",
+    "characteristic": "（企業結合等関係） 共通支配下の取引等 当社は、2024年７月５日開催の第50期定時株主総会において、当社の完全子会社で非連結子会社であったＤＲＣ株式会社を吸収合併することを決議し、2024年７月10日付で吸収合併いたしました。",
+    "stockPrice": 556.782,
+    "netSales": 10837533000.0,
+    "employees": 490,
+    "operatingIncome": 370802000.0,
+    "operatingIncomeRate": 3.421461323347297,
+    "depreciation": 275640000.0,
+    "ebitda": 646442000.0,
+    "ebitdaMargin": 5.964844582249484,
+    "marketCapitalization": 670977988.2,
+    "per": 10.65,
+    "ev": -1165940011.8,
+    "evPerEbitda": -1.803626639048824,
+    "pbr": 0.641446527113743,
+    "bps": 868.01,
+    "equity": 5379533000.0,
+    "debt": 382821000.0,
+    "outstandingShares": 1205100,
+    "netIncome": 335244000.0,
+    "eps": 52.28,
+    "cash": 2219739000.0,
+    "retrievedDate": "2025-07-04"
+  }
+]
