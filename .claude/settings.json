@@ -4,7 +4,11 @@
       "Bash(rm -rf /)",
       "Bash(rm -rf ~)",
       "Bash(rm -rf ~/*)",
-      "Bash(rm -rf /*)"
+      "Bash(rm -rf /*)",
+      "Bash(git config *)",
+      "Bash(gh repo delete:*)",
+      "Bash(brew install *)",
+      "Bash(chmod 777 *)"
     ]
   }
 }
