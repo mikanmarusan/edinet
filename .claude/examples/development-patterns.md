@@ -3,7 +3,7 @@
 ## よくある作業パターン
 
 ### 新機能追加時のテンプレート
-1. 要件を.ai-rules/に文書化
+1. 要件を.claude/に文書化
 2. lib/に共通機能を実装
 3. bin/にエントリーポイント作成
 4. CLAUDE.mdとREADME更新
@@ -92,7 +92,7 @@ GitHub Actionsによる自動実行：
 ### Documentation Updates
 
 - Keep README.md user-focused
-- Add technical details to .ai-rules/ files
+- Add technical details to .claude/ files
 - Update CLAUDE.md for AI-specific guidance
 - Include examples where helpful
 

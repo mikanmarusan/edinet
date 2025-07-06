@@ -15,7 +15,7 @@ edinet/
 ├── data/                  # データディレクトリ
 │   ├── jsons/            # 日次JSONファイル (YYYY-MM-DD.json)
 │   └── edinet.json       # 統合済み最新データ
-├── .ai-rules/            # AI向け詳細ルール
+├── .claude/              # AI向け詳細ルール
 ├── .github/workflows/    # GitHub Actions定義
 └── requirements.txt      # Python依存関係
 ```

@@ -120,7 +120,7 @@ formatEmployees(value)     // 従業員数表示、千単位区切り
 
 ## ローカルテスト手順
 ```bash
-cd /Users/chiaki/Development/github.com/mikanmarusan/edinet
+cd ~/Development/github.com/mikanmarusan/edinet
 python3 -m http.server 8080
 # ブラウザで http://localhost:8080/docs/ にアクセス
 ```
