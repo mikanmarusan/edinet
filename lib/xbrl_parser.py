@@ -606,15 +606,18 @@ class XBRLParser:
     def _extract_characteristic(self, root: ET.Element) -> Optional[str]:
         """Extract first sentence of company characteristics/business description"""
         # Try standard patterns first
-        full_text = self.data_extractor.extract_text_value(root, self.data_extractor.patterns['characteristic'], max_length=1000)
+        full_text = self.data_extractor.extract_text_value(root, self.data_extractor.patterns['characteristic'], max_length=3000)
         if full_text:
-            # Extract first sentence
-            return self._extract_first_sentence(full_text)
+            # Validate the text is actually a business description
+            if self._is_valid_business_description(full_text):
+                return self._extract_first_sentence(full_text)
         
         # Fallback: Dynamic search for business description
         full_text = self._dynamic_search_business_description(root)
         if full_text:
-            return self._extract_first_sentence(full_text)
+            # Validate the text is actually a business description
+            if self._is_valid_business_description(full_text):
+                return self._extract_first_sentence(full_text)
         
         return None
     
@@ -2049,25 +2052,36 @@ class XBRLParser:
         # Clean up the text
         text = text.strip()
         
+        # Split by line breaks first to ensure we get only the first line
+        lines = text.split('\n')
+        first_line = lines[0].strip() if lines else text
+        
+        # If the first line is empty or too short, try the next non-empty line
+        for line in lines:
+            line = line.strip()
+            if line and len(line) >= 10:  # At least 10 characters
+                first_line = line
+                break
+        
         # Look for sentence-ending punctuation: 。、！？.!?
         # Japanese text typically uses 。 as sentence ending
         sentence_endings = ['。', '！', '？', '.', '!', '?']
         
-        # Find the first sentence ending
-        first_ending_pos = len(text)  # Default to full text if no ending found
+        # Find the first sentence ending in the first line
+        first_ending_pos = len(first_line)  # Default to full line if no ending found
         
         for ending in sentence_endings:
-            pos = text.find(ending)
+            pos = first_line.find(ending)
             if pos != -1 and pos < first_ending_pos:
                 first_ending_pos = pos
         
         # Extract first sentence including the punctuation
-        if first_ending_pos < len(text):
-            first_sentence = text[:first_ending_pos + 1].strip()
+        if first_ending_pos < len(first_line):
+            first_sentence = first_line[:first_ending_pos + 1].strip()
         else:
-            # No sentence ending found, take first 100 characters and add ...
-            first_sentence = text[:100].strip()
-            if len(text) > 100:
+            # No sentence ending found, take first 100 characters of first line and add ...
+            first_sentence = first_line[:100].strip()
+            if len(first_line) > 100:
                 first_sentence += "..."
         
         return first_sentence
@@ -2135,6 +2149,9 @@ class XBRLParser:
         
         # Keywords indicating business description-related data
         business_keywords = [
+            # EDINET official terms (highest priority)
+            'DescriptionOfBusinessTextBlock', 'DescriptionOfBusiness',
+            
             # Japanese terms (romanized)
             'jigyou', 'jigyo', 'jigyounaiyo', 'jigyo_naiyo',
             'zigyou', 'zigyo', 'zigyounaiyo', 'zigyo_naiyo',
@@ -2145,21 +2162,11 @@ class XBRLParser:
             'segment', 'division', 'sector', 'industry',
             'field', 'area', 'domain', 'scope', 'activity',
             
-            # More specific business terms
-            'BusinessRisks', 'BusinessEnvironment', 'BusinessModel',
-            'BusinessStrategy', 'BusinessPlan', 'BusinessStatus',
-            'BusinessConditions', 'BusinessOutlook', 'BusinessResults',
-            'BusinessPerformance', 'BusinessTrends', 'BusinessPolicy',
-            
-            # Company description terms
-            'CompanyOverview', 'CorporateOverview', 'OrganizationOverview',
-            'CompanyInformation', 'CorporateInformation', 'CompanyData',
-            'CorporateData', 'CompanyDetails', 'CorporateDetails',
-            
-            # Report section terms
-            'ManagementDiscussion', 'ManagementAnalysis', 'ExecutiveSummary',
-            'CompanyDescription', 'CorporateDescription', 'AboutCompany',
-            'AboutCorporation', 'WhatWeDo', 'OurBusiness'
+            # More specific business terms (lower priority)
+            'BusinessModel', 'BusinessActivities', 'CoreBusiness',
+            'MainBusiness', 'PrincipalBusiness', 'BusinessContent',
+            'CompanyOverview', 'CorporateOverview', 'CompanyProfile',
+            'CorporateProfile', 'CompanyDescription', 'CorporateDescription'
         ]
         
         # Search through all elements for text content
@@ -2186,8 +2193,10 @@ class XBRLParser:
                             if 'NonConsolidatedMember' in context_ref:
                                 continue
                             
-                            priority = self._calculate_business_description_priority(local_name, context_ref, text_content)
-                            business_candidates.append((text_content, priority, local_name, context_ref))
+                            # Validate the text is actually a business description
+                            if self._is_valid_business_description(text_content):
+                                priority = self._calculate_business_description_priority(local_name, context_ref, text_content)
+                                business_candidates.append((text_content, priority, local_name, context_ref))
                             
                         break
         
@@ -2199,6 +2208,69 @@ class XBRLParser:
             return best_match[0]
         
         return None
+    
+    def _is_valid_business_description(self, text: str) -> bool:
+        """
+        Validate if the text is actually a business description
+        
+        Args:
+            text: Text to validate
+            
+        Returns:
+            True if the text appears to be a valid business description
+        """
+        if not text or len(text) < 10:
+            return False
+        
+        # Skip if text starts with accounting/merger terms
+        skip_patterns = [
+            '（企業結合',
+            '(企業結合',
+            '企業結合等関係',
+            '（連結）',
+            '(連結)',
+            '（単体）',
+            '(単体)',
+            '（注）',
+            '(注)',
+            '※',
+            '注記',
+            '重要な会計',
+            '会計処理',
+            '会計方針',
+            '財務諸表',
+            'セグメント情報',
+            '事業分離',
+            '組織再編',
+            '合併',
+            '買収',
+            '取得',
+            '譲渡',
+            '承継',
+            '株式交換',
+            '株式移転',
+            '会社分割'
+        ]
+        
+        # Check if text starts with any skip pattern
+        text_start = text[:50].strip()
+        for pattern in skip_patterns:
+            if text_start.startswith(pattern):
+                return False
+        
+        # Text should contain business-related keywords
+        business_keywords = [
+            '事業', '業務', '営業', '製造', '販売', '開発', 'サービス', 
+            '提供', '展開', '製品', '商品', '顧客', '市場', 'ソリューション',
+            'business', 'service', 'product', 'manufacturing', 'development',
+            'sales', 'customer', 'market', 'solution', 'operation'
+        ]
+        
+        # Check if text contains at least one business keyword
+        text_lower = text.lower()
+        has_business_keyword = any(keyword in text_lower for keyword in business_keywords)
+        
+        return has_business_keyword
     
     def _calculate_business_description_priority(self, tag_name: str, context_ref: str, text: str) -> int:
         """
@@ -2220,8 +2292,12 @@ class XBRLParser:
         elif 'Current' in context_ref:
             priority += 10
         
+        # Highest priority for EDINET official tags
+        if 'descriptionofbusinesstextblock' in tag_name.lower():
+            priority += 30
+        
         # Higher priority for exact business description tags
-        if any(term in tag_name.lower() for term in ['descriptionofbusiness', 'businessdescription', 'outlineofbusiness']):
+        elif any(term in tag_name.lower() for term in ['descriptionofbusiness', 'businessdescription', 'outlineofbusiness']):
             priority += 20
         elif any(term in tag_name.lower() for term in ['businessoverview', 'overviewofbusiness', 'businesssummary']):
             priority += 18
