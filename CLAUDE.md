@@ -74,13 +74,25 @@ python bin/consolidate_documents.py --inputdir data/jsons --output data/edinet.j
 
 ## Issue対応時の必須事項
 
-1. **ブランチ作成**: `fix/issue-{番号}-{簡潔な説明}`
-2. **テスト実行**: `python -m pytest tests/ -v`
-3. **Issueフォーマット**:
-   - Goal: 達成したい目的
-   - Return Format: 期待される成果物
-   - Warnings: 注意点（なければ「なし」）
-   - Additional Context: 関連情報（なければ「なし」）
+### 開発手順（必ず順番通りに実行）
+1. **ブランチ作成**: `git checkout -b fix/issue-{番号}-{簡潔な説明}`
+2. **実装**: コード変更を実施
+3. **テスト実行**: `python -m pytest tests/ -v`
+4. **コミット**: 適切なコミットメッセージで変更を記録
+   - 形式: `<type>: <description>`
+   - 例: `fix: improve company characteristic extraction logic`
+5. **PR作成**: 必要に応じてPull Requestを作成
+
+### Issueフォーマット
+- Goal: 達成したい目的
+- Return Format: 期待される成果物
+- Warnings: 注意点（なければ「なし」）
+- Additional Context: 関連情報（なければ「なし」）
+
+### 重要な注意事項
+- **mainブランチでの直接作業は厳禁**
+- 必ず機能ブランチを作成してから作業を開始すること
+- テストが通ることを確認してからコミットすること
 
 ## 開発時の注意
 
