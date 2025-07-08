@@ -184,7 +184,7 @@ The system generates JSON files with the following structure:
 ## Technical Documentation
 
 For developers and technical details, see:
-- `.ai-rules/` - Development guidelines
+- `.claude/` - Development guidelines
 - `CLAUDE.md` - AI assistant instructions
 
 ## License
