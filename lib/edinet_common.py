@@ -256,7 +256,11 @@ XBRL_PATTERNS = {
         './/jpcrp_cor:ConsolidatedNetInterestBearingDebt'
     ],
     'characteristic': [
-        # Primary business description patterns
+        # Primary business description patterns (EDINET official taxonomy)
+        './/jpcrp_cor:DescriptionOfBusinessTextBlock',
+        './/jppfs_cor:DescriptionOfBusinessTextBlock',
+        
+        # Standard business description patterns
         './/jpcrp_cor:DescriptionOfBusiness',
         './/jpcrp_cor:BusinessDescription',
         './/jpcrp_cor:OutlineOfBusiness',
