@@ -97,7 +97,12 @@ class FinancialDataExtractor:
                 for element in elements:
                     if element.text:
                         try:
-                            return float(element.text.replace(',', ''))
+                            value = float(element.text.replace(',', ''))
+                            # Check for unit scaling (e.g., thousands, millions)
+                            unit_ref = element.get('unitRef')
+                            if unit_ref:
+                                value = self._apply_unit_scaling(root, unit_ref, value)
+                            return value
                         except ValueError:
                             continue
         return None
@@ -143,7 +148,12 @@ class FinancialDataExtractor:
                 for element in consolidated_current_elements:
                     if element.text:
                         try:
-                            return float(element.text.replace(',', ''))
+                            value = float(element.text.replace(',', ''))
+                            # Check for unit scaling
+                            unit_ref = element.get('unitRef')
+                            if unit_ref:
+                                value = self._apply_unit_scaling(root, unit_ref, value)
+                            return value
                         except ValueError:
                             continue
                 
@@ -151,7 +161,12 @@ class FinancialDataExtractor:
                 for element in current_year_elements:
                     if element.text:
                         try:
-                            return float(element.text.replace(',', ''))
+                            value = float(element.text.replace(',', ''))
+                            # Check for unit scaling
+                            unit_ref = element.get('unitRef')
+                            if unit_ref:
+                                value = self._apply_unit_scaling(root, unit_ref, value)
+                            return value
                         except ValueError:
                             continue
                 
@@ -159,7 +174,12 @@ class FinancialDataExtractor:
                 for element in consolidated_elements:
                     if element.text:
                         try:
-                            return float(element.text.replace(',', ''))
+                            value = float(element.text.replace(',', ''))
+                            # Check for unit scaling
+                            unit_ref = element.get('unitRef')
+                            if unit_ref:
+                                value = self._apply_unit_scaling(root, unit_ref, value)
+                            return value
                         except ValueError:
                             continue
                 
@@ -167,7 +187,12 @@ class FinancialDataExtractor:
                 for element in other_elements:
                     if element.text:
                         try:
-                            return float(element.text.replace(',', ''))
+                            value = float(element.text.replace(',', ''))
+                            # Check for unit scaling
+                            unit_ref = element.get('unitRef')
+                            if unit_ref:
+                                value = self._apply_unit_scaling(root, unit_ref, value)
+                            return value
                         except ValueError:
                             continue
         return None
@@ -238,6 +263,93 @@ class FinancialDataExtractor:
         clean_text = re.sub(r'\s+', ' ', clean_text)
         
         return clean_text.strip()
+    
+    def _apply_unit_scaling(self, root: ET.Element, unit_ref: str, value: float) -> float:
+        """
+        Apply unit scaling to numeric values based on unit reference
+        
+        Args:
+            root: XBRL root element
+            unit_ref: Unit reference ID
+            value: Numeric value to scale
+            
+        Returns:
+            Scaled numeric value
+        """
+        # Find the unit element
+        unit_elements = root.findall(f".//xbrli:unit[@id='{unit_ref}']", self.namespaces)
+        
+        if not unit_elements:
+            return value
+        
+        unit_element = unit_elements[0]
+        
+        # Check for measure element which might contain scaling information
+        measure_elements = unit_element.findall('.//xbrli:measure', self.namespaces)
+        
+        for measure in measure_elements:
+            if measure.text:
+                measure_text = measure.text.lower()
+                
+                # Check for Japanese share units first
+                if '株' in measure_text:
+                    if '千株' in measure_text:
+                        print(f"Applying thousand shares (千株) scaling to {value}")
+                        return value * 1000
+                    elif '百万株' in measure_text:
+                        print(f"Applying million shares (百万株) scaling to {value}")
+                        return value * 1000000
+                    elif '万株' in measure_text:
+                        print(f"Applying ten thousand shares (万株) scaling to {value}")
+                        return value * 10000
+                    elif '億株' in measure_text:
+                        print(f"Applying hundred million shares (億株) scaling to {value}")
+                        return value * 100000000
+                    elif '単元株' in measure_text:
+                        # Unit shares (typically 100 shares per unit in Japan)
+                        print(f"Applying unit shares (単元株) scaling to {value}")
+                        return value * 100
+                
+                # Check for English share units
+                elif 'shares' in measure_text or 'stock' in measure_text:
+                    if 'thousand' in measure_text:
+                        print(f"Applying thousand shares scaling to {value}")
+                        return value * 1000
+                    elif 'million' in measure_text:
+                        print(f"Applying million shares scaling to {value}")
+                        return value * 1000000
+                    elif '000' in measure_text:
+                        # Sometimes written as "shares(000s)" or "shares in 000s"
+                        print(f"Applying thousand shares (000s) scaling to {value}")
+                        return value * 1000
+                
+                # Check for monetary units
+                elif '円' in measure_text:
+                    if '千円' in measure_text:
+                        print(f"Applying thousand yen (千円) scaling to {value}")
+                        return value * 1000
+                    elif '百万円' in measure_text:
+                        print(f"Applying million yen (百万円) scaling to {value}")
+                        return value * 1000000
+                    elif '万円' in measure_text:
+                        print(f"Applying ten thousand yen (万円) scaling to {value}")
+                        return value * 10000
+                    elif '億円' in measure_text:
+                        print(f"Applying hundred million yen (億円) scaling to {value}")
+                        return value * 100000000
+                    elif '兆円' in measure_text:
+                        print(f"Applying trillion yen (兆円) scaling to {value}")
+                        return value * 1000000000000
+                
+                # Check for English monetary units
+                elif 'thousand' in measure_text and ('yen' in measure_text or 'jpy' in measure_text):
+                    print(f"Applying thousand yen scaling to {value}")
+                    return value * 1000
+                elif 'million' in measure_text and ('yen' in measure_text or 'jpy' in measure_text):
+                    print(f"Applying million yen scaling to {value}")
+                    return value * 1000000
+        
+        return value
     
     def extract_operating_income_special(self, root: ET.Element) -> Optional[float]:
         """
@@ -662,7 +774,13 @@ class XBRLParser:
     
     def _extract_market_cap(self, root: ET.Element) -> Optional[float]:
         """Extract market capitalization"""
-        return self.data_extractor.extract_numeric_value(root, self.data_extractor.patterns['market_cap'])
+        # Try to extract directly from XBRL first
+        value = self.data_extractor.extract_numeric_value_with_context(root, self.data_extractor.patterns['market_cap'])
+        if value is not None:
+            return value
+        
+        # Fallback: Dynamic search for market cap tags
+        return self._dynamic_search_market_cap(root)
     
     def _extract_per(self, root: ET.Element) -> Optional[float]:
         """Extract price-to-earnings ratio"""
@@ -875,6 +993,11 @@ class XBRLParser:
                             # Try to parse as number
                             value_text = elem.text.replace(',', '').strip()
                             numeric_value = float(value_text)
+                            
+                            # Apply unit scaling
+                            unit_ref = elem.get('unitRef')
+                            if unit_ref:
+                                numeric_value = self.data_extractor._apply_unit_scaling(root, unit_ref, numeric_value)
                             
                             # Filter reasonable share counts (between 1,000 and 100 billion)
                             if 1_000 <= numeric_value <= 100_000_000_000:
@@ -2335,5 +2458,103 @@ class XBRLParser:
         english_business_indicators = ['business', 'service', 'product', 'company', 'group', 'operation', 'manufacturing', 'development']
         english_business_count = sum(1 for indicator in english_business_indicators if indicator.lower() in text.lower())
         priority += english_business_count * 2
+        
+        return priority
+    
+    def _dynamic_search_market_cap(self, root: ET.Element) -> Optional[float]:
+        """
+        Dynamic search for market capitalization when standard patterns fail
+        
+        Args:
+            root: XBRL root element
+            
+        Returns:
+            Market cap value or None
+        """
+        market_cap_candidates = []
+        
+        # Keywords indicating market cap data
+        market_cap_keywords = [
+            'MarketCapitalization', 'MarketCap', 'MarketValue', 'TotalMarketValue',
+            'SharesMarketValue', 'StockMarketValue', 'EquityMarketValue',
+            'MarketCapitalisation', 'TotalMarketCapitalization'
+        ]
+        
+        # Search through all elements
+        for elem in root.iter():
+            if elem.tag and elem.text:
+                tag_name = elem.tag
+                
+                # Remove namespace prefix for matching
+                local_name = tag_name.split('}')[-1] if '}' in tag_name else tag_name
+                
+                # Check if tag contains market cap keywords
+                for keyword in market_cap_keywords:
+                    if keyword.lower() in local_name.lower():
+                        try:
+                            # Try to parse as number
+                            value_text = elem.text.replace(',', '').strip()
+                            numeric_value = float(value_text)
+                            
+                            # Apply unit scaling
+                            unit_ref = elem.get('unitRef')
+                            if unit_ref:
+                                numeric_value = self.data_extractor._apply_unit_scaling(root, unit_ref, numeric_value)
+                            
+                            # Filter reasonable market cap values (between 100M and 100T yen)
+                            if 100_000_000 <= numeric_value <= 100_000_000_000_000:
+                                context_ref = elem.get('contextRef', '')
+                                
+                                # Skip NonConsolidatedMember contexts
+                                if 'NonConsolidatedMember' in context_ref:
+                                    continue
+                                
+                                priority = self._calculate_market_cap_priority(local_name, context_ref, numeric_value)
+                                market_cap_candidates.append((numeric_value, priority, local_name, context_ref))
+                                
+                        except (ValueError, AttributeError):
+                            continue
+                        break
+        
+        # Sort by priority and return the best match
+        if market_cap_candidates:
+            market_cap_candidates.sort(key=lambda x: x[1], reverse=True)
+            best_match = market_cap_candidates[0]
+            print(f"Dynamic market cap search found: {best_match[0]:,.0f} yen from tag '{best_match[2]}' (context: {best_match[3]})")
+            return best_match[0]
+        
+        return None
+    
+    def _calculate_market_cap_priority(self, tag_name: str, context_ref: str, value: float) -> int:
+        """
+        Calculate priority score for market cap candidate
+        
+        Args:
+            tag_name: Local tag name
+            context_ref: Context reference
+            value: Numeric value
+            
+        Returns:
+            Priority score (higher is better)
+        """
+        priority = 0
+        
+        # Higher priority for current year context
+        if 'CurrentYear' in context_ref:
+            priority += 20
+        elif 'Current' in context_ref:
+            priority += 15
+        
+        # Higher priority for exact market cap tags
+        if tag_name.lower() in ['marketcapitalization', 'marketcap', 'totalmarketcapitalization']:
+            priority += 15
+        elif 'marketcap' in tag_name.lower() or 'marketvalue' in tag_name.lower():
+            priority += 12
+        
+        # Prefer reasonable market cap values for Japanese companies
+        if 1_000_000_000_000 <= value <= 50_000_000_000_000:  # 1T to 50T yen
+            priority += 10
+        elif 100_000_000_000 <= value <= 100_000_000_000_000:  # 100B to 100T yen
+            priority += 5
         
         return priority

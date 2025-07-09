@@ -109,8 +109,21 @@ XBRL_PATTERNS = {
         './/jpcrp_cor:Depreciation'
     ],
     'market_cap': [
+        # Direct market capitalization patterns
         './/jpcrp_cor:MarketCapitalization',
-        './/jppfs_cor:MarketCapitalization'
+        './/jppfs_cor:MarketCapitalization',
+        './/jpcrp_cor:TotalMarketCapitalization',
+        './/jppfs_cor:TotalMarketCapitalization',
+        './/jpcrp_cor:MarketCapitalizationSummaryOfBusinessResults',
+        './/jppfs_cor:MarketCapitalizationSummaryOfBusinessResults',
+        './/jpcrp_cor:MarketCap',
+        './/jppfs_cor:MarketCap',
+        './/jpcrp_cor:MarketValue',
+        './/jppfs_cor:MarketValue',
+        './/jpcrp_cor:TotalMarketValue',
+        './/jppfs_cor:TotalMarketValue',
+        './/jpcrp_cor:SharesMarketValue',
+        './/jppfs_cor:SharesMarketValue'
     ],
     'per': [
         './/jpcrp_cor:PriceEarningsRatio',
@@ -321,6 +334,12 @@ XBRL_PATTERNS = {
         './/jpcrp_cor:NumberOfIssuedSharesAtTheEndOfFiscalYear',
         './/jppfs_cor:NumberOfIssuedSharesAtTheEndOfFiscalYear',
         
+        # Additional high-priority patterns for shares including treasury stock
+        './/jpcrp_cor:NumberOfIssuedAndOutstandingSharesAtEndOfFiscalYearIncludingTreasuryStock',
+        './/jppfs_cor:NumberOfIssuedAndOutstandingSharesAtEndOfFiscalYearIncludingTreasuryStock',
+        './/jpcrp_cor:TotalNumberOfIssuedSharesCommonStock',
+        './/jppfs_cor:TotalNumberOfIssuedSharesCommonStock',
+        
         # Standard issued shares patterns
         './/jpcrp_cor:NumberOfIssuedShares',
         './/jppfs_cor:NumberOfIssuedShares',
@@ -336,6 +355,8 @@ XBRL_PATTERNS = {
         './/jppfs_cor:CommonStockNumberOfSharesIssued',
         './/jpcrp_cor:CommonStockSharesIssued',
         './/jppfs_cor:CommonStockSharesIssued',
+        './/jpcrp_cor:IssuedSharesCommonStock',
+        './/jppfs_cor:IssuedSharesCommonStock',
         
         # Capital stock related patterns
         './/jpcrp_cor:CapitalStockNumberOfShares',
