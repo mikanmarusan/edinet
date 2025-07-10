@@ -70,6 +70,7 @@ Extracts financial data for a specific date.
 **Optional Parameters:**
 - `--verbose, -v`: Enable detailed logging
 - `--max-retries`: Maximum retry attempts (default: 3)
+- `--sec-codes`: Comma-separated list of security codes to filter (e.g., 7203,9984)
 
 **Output:** Creates `{outputdir}/{YYYY-MM-DD}.json`
 
