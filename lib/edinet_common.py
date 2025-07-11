@@ -318,27 +318,27 @@ XBRL_PATTERNS = {
         './/jppfs_cor:ActivitiesOfBusiness'
     ],
     'outstanding_shares': [
-        # Priority 1: Total issued shares from summary of business results (most authoritative)
+        # Priority 1: Total issued shares INCLUDING treasury stock (for market cap calculation)
+        './/jpcrp_cor:NumberOfIssuedAndOutstandingSharesAtEndOfFiscalYearIncludingTreasuryStock',
+        './/jppfs_cor:NumberOfIssuedAndOutstandingSharesAtEndOfFiscalYearIncludingTreasuryStock',
+        
+        # Priority 2: Total issued shares from summary of business results
         './/jpcrp_cor:TotalNumberOfIssuedSharesSummaryOfBusinessResults',
         './/jppfs_cor:TotalNumberOfIssuedSharesSummaryOfBusinessResults',
         
-        # Priority 2: Total issued shares (general patterns)
+        # Priority 3: Total issued shares (general patterns)
         './/jpcrp_cor:TotalNumberOfIssuedShares',
         './/jppfs_cor:TotalNumberOfIssuedShares',
         './/jpcrp_cor:TotalNumberOfSharesIssued',
         './/jppfs_cor:TotalNumberOfSharesIssued',
+        './/jpcrp_cor:TotalNumberOfIssuedSharesCommonStock',
+        './/jppfs_cor:TotalNumberOfIssuedSharesCommonStock',
         
-        # Issued shares at end of fiscal year (without treasury stock mention)
+        # Issued shares at end of fiscal year
         './/jpcrp_cor:NumberOfSharesIssuedAtTheEndOfFiscalYear',
         './/jppfs_cor:NumberOfSharesIssuedAtTheEndOfFiscalYear',
         './/jpcrp_cor:NumberOfIssuedSharesAtTheEndOfFiscalYear',
         './/jppfs_cor:NumberOfIssuedSharesAtTheEndOfFiscalYear',
-        
-        # Additional high-priority patterns for shares including treasury stock
-        './/jpcrp_cor:NumberOfIssuedAndOutstandingSharesAtEndOfFiscalYearIncludingTreasuryStock',
-        './/jppfs_cor:NumberOfIssuedAndOutstandingSharesAtEndOfFiscalYearIncludingTreasuryStock',
-        './/jpcrp_cor:TotalNumberOfIssuedSharesCommonStock',
-        './/jppfs_cor:TotalNumberOfIssuedSharesCommonStock',
         
         # Standard issued shares patterns
         './/jpcrp_cor:NumberOfIssuedShares',

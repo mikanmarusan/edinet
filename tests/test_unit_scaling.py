@@ -154,6 +154,28 @@ class TestXBRLParserUnitScaling(unittest.TestCase):
         
         # Should not scale normal shares
         self.assertEqual(value, 1000000.0)
+    
+    def test_toyota_total_shares_including_treasury(self):
+        """Test Toyota's total issued shares including treasury stock"""
+        # Toyota's actual total issued shares (including treasury stock) is approximately 16.3 billion
+        test_xml = '''<?xml version="1.0" encoding="UTF-8"?>
+<xbrl xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+      xmlns:xbrli="http://www.xbrl.org/2003/instance"
+      xmlns:jpcrp_cor="http://disclosure.edinet-fsa.go.jp/taxonomy/jpcrp/2024-11-01/jpcrp_cor">
+  <xbrli:unit id="shares_thousand">
+    <xbrli:measure>千株</xbrli:measure>
+  </xbrli:unit>
+  <jpcrp_cor:NumberOfIssuedAndOutstandingSharesAtEndOfFiscalYearIncludingTreasuryStock 
+      contextRef="CurrentYear" unitRef="shares_thousand">16314987.460</jpcrp_cor:NumberOfIssuedAndOutstandingSharesAtEndOfFiscalYearIncludingTreasuryStock>
+</xbrl>'''
+        
+        root = ET.fromstring(test_xml)
+        value = self.parser.data_extractor.extract_numeric_value_with_context(
+            root, ['.//jpcrp_cor:NumberOfIssuedAndOutstandingSharesAtEndOfFiscalYearIncludingTreasuryStock']
+        )
+        
+        # Should scale from thousand shares to actual shares
+        self.assertAlmostEqual(value, 16314987460.0, delta=1)
 
 
 if __name__ == '__main__':
