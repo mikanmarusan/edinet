@@ -27,7 +27,7 @@
     "netIncome": null,
     "eps": null,
     "cash": null,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "6194",
@@ -57,7 +57,7 @@
     "netIncome": 733542000.0,
     "eps": 29.09,
     "cash": 4362212000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "6316",
@@ -87,7 +87,7 @@
     "netIncome": 597000000.0,
     "eps": 141.36,
     "cash": 170000000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "3245",
@@ -117,7 +117,7 @@
     "netIncome": 3170000000.0,
     "eps": 72.44,
     "cash": 18710000000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "2926",
@@ -147,7 +147,7 @@
     "netIncome": null,
     "eps": null,
     "cash": null,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "7646",
@@ -177,7 +177,7 @@
     "netIncome": null,
     "eps": null,
     "cash": null,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "7681",
@@ -207,7 +207,7 @@
     "netIncome": 136057000.0,
     "eps": 22.96,
     "cash": 5554031000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "6284",
@@ -237,7 +237,7 @@
     "netIncome": 5779000000.0,
     "eps": 385.52,
     "cash": 28439000000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "7819",
@@ -246,7 +246,7 @@
     "docPdfURL": "https://disclosure2dl.edinet-fsa.go.jp/searchdocument/pdf/S100UYH7.pdf",
     "yahooURL": "https://finance.yahoo.co.jp/quote/7819.T",
     "periodEnd": "2024年9月期",
-    "characteristic": "(企業結合等関係)事業分離(子会社持分の譲渡)当社の連結子会社である粧美堂日用品（上海）有限公司（以下「上海粧美堂」）は、2023年10月11日開催の取締役会決議に基づき、2023年10月12日に上海粧美堂の子会社（当社の孫会社）である壹見健康科技（上海）有限公司（以下「壹見」）の持分の一部を譲渡する旨の出資持分譲渡契約を締結し、2024年１月２日に持分譲渡を行いました。",
+    "characteristic": "３ 【事業の内容】当社グループは、当社及び連結子会社５社で構成されており、化粧品、化粧雑貨、服飾雑貨、キャラクター雑貨（注）及びコンタクトレンズ関連等の商品を幅広く取扱っております。",
     "stockPrice": 539.028,
     "netSales": 20919562000.0,
     "employees": 237,
@@ -267,7 +267,7 @@
     "netIncome": 773966000.0,
     "eps": 58.59,
     "cash": 3725881000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "7361",
@@ -276,7 +276,7 @@
     "docPdfURL": "https://disclosure2dl.edinet-fsa.go.jp/searchdocument/pdf/S100UYSM.pdf",
     "yahooURL": "https://finance.yahoo.co.jp/quote/7361.T",
     "periodEnd": "2024年9月期",
-    "characteristic": "（企業結合等関係） （取得による企業結合） 当社は2023年12月28日開催の取締役会において、株式会社TARAの株式を取得して子会社化することについて決議をし、2024年２月１日付で株式を取得したことにより子会社化しました。",
+    "characteristic": "３【事業の内容】 当社グループは、純粋持株会社である当社と、事業を担う連結子会社７社の計８社で構成されており、エンジニア派遣に特化した技術者派遣事業及びITシステムに関わるコンサルティング・受託開発事業を主たる事業としております。",
     "stockPrice": 2008.7472,
     "netSales": 7165784000.0,
     "employees": 854,
@@ -297,7 +297,7 @@
     "netIncome": 404033000.0,
     "eps": 246.17,
     "cash": 1002516000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "9233",
@@ -306,7 +306,7 @@
     "docPdfURL": "https://disclosure2dl.edinet-fsa.go.jp/searchdocument/pdf/S100UZ06.pdf",
     "yahooURL": "https://finance.yahoo.co.jp/quote/9233.T",
     "periodEnd": "2024年9月期",
-    "characteristic": "業務提携先であり、関係を強化し事業の維持・発展により企業価値向上を図るため保有しております。",
+    "characteristic": "３【事業の内容】 当社グループは、当社、子会社17社及び関連会社４社で構成され、主に中央官庁、地方公共団体及び電力会社等の公益事業体各社を主要顧客とし国内外で営業展開しております。",
     "stockPrice": 1170.8814,
     "netSales": 40270804000.0,
     "employees": 1762,
@@ -327,7 +327,7 @@
     "netIncome": 1902159000.0,
     "eps": 104.73,
     "cash": 6697584000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "8944",
@@ -357,7 +357,7 @@
     "netIncome": -2099142000.0,
     "eps": -105.77,
     "cash": 5947938000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "3176",
@@ -387,6 +387,6 @@
     "netIncome": 5207011000.0,
     "eps": 179.91,
     "cash": 7367997000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   }
 ]

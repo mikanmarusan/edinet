@@ -27,7 +27,7 @@
     "netIncome": 788000000.0,
     "eps": 96.7,
     "cash": 2329000000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-12"
   },
   {
     "secCode": "3071",
@@ -36,7 +36,7 @@
     "docPdfURL": "https://disclosure2dl.edinet-fsa.go.jp/searchdocument/pdf/S100VOTD.pdf",
     "yahooURL": "https://finance.yahoo.co.jp/quote/3071.T",
     "periodEnd": "2025年1月期",
-    "characteristic": "（保有目的）当社インターネット通販事業における商品の仕入先の親会社であり、取引関係の維持・強化のため保有しております。",
+    "characteristic": "３ 【事業の内容】当社グループ（当社及び当社の関係会社）は、2025年１月31日現在、当社及び連結子会社１社によって構成され、家電・パソコン等のインターネット通販事業及び化粧品、健康食品を中心とした生活必需品の販売事業を行うビューティー＆ヘルスケア事業並びに各種販売支援事業、３ＰＬ事業及び不動産事業からなるその他事業を展開しております。",
     "stockPrice": 102.465,
     "netSales": 30296973000.0,
     "employees": 69,
@@ -57,7 +57,7 @@
     "netIncome": 4166000.0,
     "eps": 0.15,
     "cash": 895143000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-12"
   },
   {
     "secCode": "278A",
@@ -87,7 +87,7 @@
     "netIncome": -474800000.0,
     "eps": -56.73,
     "cash": 4145633000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-12"
   },
   {
     "secCode": "3931",
@@ -117,7 +117,7 @@
     "netIncome": 5519000.0,
     "eps": 3.06,
     "cash": 847242000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-12"
   },
   {
     "secCode": "2997",
@@ -147,7 +147,7 @@
     "netIncome": null,
     "eps": null,
     "cash": null,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-12"
   },
   {
     "secCode": "7614",
@@ -177,7 +177,7 @@
     "netIncome": 1098835000.0,
     "eps": 163.94,
     "cash": 9618352000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-12"
   },
   {
     "secCode": "325A",
@@ -207,7 +207,7 @@
     "netIncome": null,
     "eps": null,
     "cash": null,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-12"
   },
   {
     "secCode": "6977",
@@ -237,6 +237,6 @@
     "netIncome": -181411000.0,
     "eps": -146.63,
     "cash": 1471561000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-12"
   }
 ]

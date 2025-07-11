@@ -27,7 +27,7 @@
     "netIncome": 2660000000.0,
     "eps": 107.04,
     "cash": 5471000000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "2493",
@@ -57,14 +57,14 @@
     "netIncome": 135268000.0,
     "eps": 30.57,
     "cash": 1951638000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "4995",
     "filerName": "サンケイ化学株式会社",
     "docID": "S100VB1V",
     "docPdfURL": "https://disclosure2dl.edinet-fsa.go.jp/searchdocument/pdf/S100VB1V.pdf",
-    "yahooURL": "https://finance.yahoo.co.jp/quote/4995.T",
+    "yahooURL": "https://finance.yahoo.co.jp/quote/4995.F",
     "periodEnd": "2024年11月期",
     "characteristic": "３【事業の内容】 当社グループは、サンケイ化学株式会社（以下当社）及び、子会社２社、関連会社１社により構成されており、農薬の製造販売、ならびに農薬に関連した防除事業を主な事業内容としております。",
     "stockPrice": 1269.7972,
@@ -87,7 +87,7 @@
     "netIncome": 132770000.0,
     "eps": 146.29,
     "cash": 1903074000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "6217",
@@ -96,7 +96,7 @@
     "docPdfURL": "https://disclosure2dl.edinet-fsa.go.jp/searchdocument/pdf/S100VAUY.pdf",
     "yahooURL": "https://finance.yahoo.co.jp/quote/6217.T",
     "periodEnd": "2024年11月期",
-    "characteristic": "(セグメント情報等)【セグメント情報】１ 報告セグメントの概要当社グループの報告セグメントは、当社グループの構成単位のうち分離された財務諸表が入手可能であり、取締役会が、経営資源の配分の決定及び業績を評価するために、定期的に検討を行う対象となっているものである。",
+    "characteristic": "３ 【事業の内容】当社グループは当社、子会社９社及び関連会社１社で構成され、繊維機械及び工作用機器の製造、販売を主な事業内容としている。",
     "stockPrice": 352.4345,
     "netSales": 36445000000.0,
     "employees": 1111,
@@ -117,16 +117,16 @@
     "netIncome": 488000000.0,
     "eps": 76.45,
     "cash": 2907000000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "7227",
     "filerName": "アスカ株式会社",
     "docID": "S100VAYV",
     "docPdfURL": "https://disclosure2dl.edinet-fsa.go.jp/searchdocument/pdf/S100VAYV.pdf",
-    "yahooURL": "https://finance.yahoo.co.jp/quote/7227.T",
+    "yahooURL": "https://finance.yahoo.co.jp/quote/7227.N",
     "periodEnd": "2024年11月期",
-    "characteristic": "（セグメント情報等） 【セグメント情報】 １．報告セグメントの概要 当社グループの報告セグメントは、当社グループの構成単位のうち分離された財務情報が入手可能であり、取締役会が、経営資源の配分の決定及び業績を評価するために、定期的に検討を行う対象となっているものであります。",
+    "characteristic": "３【事業の内容】 当社グループ（当社及び当社の関係会社）は、当社（アスカ株式会社）、子会社８社及び関連会社１社により構成されており、自動車部品、制御システム及びロボットシステムの製造・販売を主な事業とし、モータースポーツ事業、賃貸及び太陽光事業、損害保険代理業も行っております。",
     "stockPrice": 1500.9792,
     "netSales": 45483156000.0,
     "employees": 719,
@@ -147,7 +147,7 @@
     "netIncome": 1275229000.0,
     "eps": 223.36,
     "cash": 1730517000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "7501",
@@ -177,7 +177,7 @@
     "netIncome": null,
     "eps": null,
     "cash": null,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "4197",
@@ -207,7 +207,7 @@
     "netIncome": null,
     "eps": null,
     "cash": null,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "7997",
@@ -237,7 +237,7 @@
     "netIncome": 209383000.0,
     "eps": 122.92,
     "cash": 757857000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "3454",
@@ -246,7 +246,7 @@
     "docPdfURL": "https://disclosure2dl.edinet-fsa.go.jp/searchdocument/pdf/S100V9VB.pdf",
     "yahooURL": "https://finance.yahoo.co.jp/quote/3454.T",
     "periodEnd": "2024年11月期",
-    "characteristic": "(セグメント情報等)【セグメント情報】１．報告セグメントの概要当社グループの報告セグメントは、当社グループの構成単位のうち分離された財務情報が入手可能であり、取締役会が、経営資源の配分の決定及び業績を評価するために、定期的に検討を行う対象となっているものであります。",
+    "characteristic": "３ 【事業の内容】当社グループは、当社、連結子会社23社及び持分法適用関連会社１社により構成されており、主には以下の事業を行っております。",
     "stockPrice": 1026.9584,
     "netSales": 16865791000.0,
     "employees": 160,
@@ -267,7 +267,7 @@
     "netIncome": 1416957000.0,
     "eps": 100.88,
     "cash": 4792802000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "3139",
@@ -297,7 +297,7 @@
     "netIncome": 3146000000.0,
     "eps": 314.59,
     "cash": 8520000000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "9313",
@@ -306,7 +306,7 @@
     "docPdfURL": "https://disclosure2dl.edinet-fsa.go.jp/searchdocument/pdf/S100V9VD.pdf",
     "yahooURL": "https://finance.yahoo.co.jp/quote/9313.T",
     "periodEnd": "2024年11月期",
-    "characteristic": "(セグメント情報等)【セグメント情報】１ 報告セグメントの概要当社の報告セグメントは、当社グループの構成単位のうち分離された財務情報が入手可能であり、取締役会が経営資源の配分の決定及び業績を評価するために定期的に検討を行う対象となっているものであります。",
+    "characteristic": "３ 【事業の内容】当社グループは、連結財務諸表提出会社(以下「当社」という。",
     "stockPrice": 814.7514999999999,
     "netSales": 4991423000.0,
     "employees": 108,
@@ -327,7 +327,7 @@
     "netIncome": 901758000.0,
     "eps": 152.29,
     "cash": 2196091000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "9720",
@@ -336,7 +336,7 @@
     "docPdfURL": "https://disclosure2dl.edinet-fsa.go.jp/searchdocument/pdf/S100VAN4.pdf",
     "yahooURL": "https://finance.yahoo.co.jp/quote/9720.T",
     "periodEnd": "2024年11月期",
-    "characteristic": "取引関係の円滑化を目的として保有しております。",
+    "characteristic": "３ 【事業の内容】当社は、ホテル及び料飲施設の運営や不動産賃貸業を主な事業内容としており、全てを当社のみで行っております。",
     "stockPrice": null,
     "netSales": null,
     "employees": null,
@@ -357,7 +357,7 @@
     "netIncome": null,
     "eps": null,
     "cash": null,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "9972",
@@ -387,7 +387,7 @@
     "netIncome": -324788000.0,
     "eps": -7.18,
     "cash": 4042913000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "7879",
@@ -396,7 +396,7 @@
     "docPdfURL": "https://disclosure2dl.edinet-fsa.go.jp/searchdocument/pdf/S100VAPG.pdf",
     "yahooURL": "https://finance.yahoo.co.jp/quote/7879.T",
     "periodEnd": "2024年11月期",
-    "characteristic": "(セグメント情報等)【セグメント情報】 １ 報告セグメントの概要当社の報告セグメントは、当社の構成単位のうち分離された財務情報が入手可能であり、取締役会が、経営資源の配分の決定及び業績を評価するために、定期的に検討を行う対象となっているものであります。",
+    "characteristic": "３ 【事業の内容】当社の企業集団は、当社、子会社７社及び関連会社１社で構成され、住宅建材（建材製品、繊維板、住宅関連工事）及び合板の製造販売を主な事業として行っております。",
     "stockPrice": null,
     "netSales": 67039445000.0,
     "employees": 1761,
@@ -417,7 +417,7 @@
     "netIncome": -4612224000.0,
     "eps": -291.77,
     "cash": 21739964000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "8923",
@@ -447,7 +447,7 @@
     "netIncome": 11985203000.0,
     "eps": 247.23,
     "cash": 34874164000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "3907",
@@ -477,7 +477,7 @@
     "netIncome": 87000000.0,
     "eps": 31.19,
     "cash": 1236000000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "3089",
@@ -486,7 +486,7 @@
     "docPdfURL": "https://disclosure2dl.edinet-fsa.go.jp/searchdocument/pdf/S100VBCN.pdf",
     "yahooURL": "https://finance.yahoo.co.jp/quote/3089.T",
     "periodEnd": "2024年11月期",
-    "characteristic": "(セグメント情報等)【セグメント情報】１ 報告セグメントの概要(1) 報告セグメントの決定方法当社グループの報告セグメントは、当社の構成単位のうち分離された財務情報が入手可能であり、取締役会が、経営資源の配分の決定および業績を評価するために、定期的に検討を行う対象となっているものです。",
+    "characteristic": "３ 【事業の内容】 (1) 事業の概要当社グループは、当社および連結子会社(株式会社ペリテック)の計２社で構成されており、エレクトロニクス事業、マリン・環境機器事業、ＳＩ(システムインテグレーター)事業およびサイエンス事業を主な事業としております。",
     "stockPrice": 926.3870000000001,
     "netSales": 3969934000.0,
     "employees": 83,
@@ -507,7 +507,7 @@
     "netIncome": 212418000.0,
     "eps": 120.31,
     "cash": 449332000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "138A",
@@ -537,7 +537,7 @@
     "netIncome": null,
     "eps": null,
     "cash": null,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "7360",
@@ -567,7 +567,7 @@
     "netIncome": null,
     "eps": null,
     "cash": null,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "9647",
@@ -576,7 +576,7 @@
     "docPdfURL": "https://disclosure2dl.edinet-fsa.go.jp/searchdocument/pdf/S100VAQU.pdf",
     "yahooURL": "https://finance.yahoo.co.jp/quote/9647.T",
     "periodEnd": "2024年11月期",
-    "characteristic": "(セグメント情報等)【セグメント情報】１ 報告セグメントの概要当社グループの報告セグメントは、当社グループの構成単位のうち分離された財務情報が入手可能であり、取締役会が経営資源の配分の決定及び業績を評価するために、定期的に検討を行う対象となっているものであります。",
+    "characteristic": "３ 【事業の内容】当社グループは、株式会社協和コンサルタンツ(当社)及び連結子会社３社により構成されており、建設コンサルタント事業(都市、港湾、空港等、建設事業全般における事業計画、企画、設計、測量、調査、施工計画、管理)を主要事業としているほか、情報処理事業ならびに不動産賃貸・管理事業を営んでおります。",
     "stockPrice": 4910.472,
     "netSales": 8061713000.0,
     "employees": 212,
@@ -597,7 +597,7 @@
     "netIncome": 512790000.0,
     "eps": 876.87,
     "cash": 3279540000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "6474",
@@ -606,7 +606,7 @@
     "docPdfURL": "https://disclosure2dl.edinet-fsa.go.jp/searchdocument/pdf/S100VB0C.pdf",
     "yahooURL": "https://finance.yahoo.co.jp/quote/6474.T",
     "periodEnd": "2024年11月期",
-    "characteristic": "３【事業等のリスク】 有価証券報告書に記載した事業の状況、経理の状況等に関する事項のうち、投資家の判断に重要な影響を及ぼす可能性のある事項には、以下のようなものがあります。",
+    "characteristic": "３【事業の内容】 当社グループは、当社、子会社52社および関連会社２社で構成され、機械工具、部品、その他の製造販売を主な事業としております。",
     "stockPrice": 3083.74,
     "netSales": 239892000000.0,
     "employees": 6943,
@@ -627,7 +627,7 @@
     "netIncome": 3351000000.0,
     "eps": 144.1,
     "cash": 31758000000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "7074",
@@ -657,7 +657,7 @@
     "netIncome": null,
     "eps": null,
     "cash": null,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "6558",
@@ -687,7 +687,7 @@
     "netIncome": 2778000.0,
     "eps": 0.99,
     "cash": 2178174000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "3266",
@@ -717,7 +717,7 @@
     "netIncome": 200000000.0,
     "eps": 5.33,
     "cash": 1837000000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "8095",
@@ -747,7 +747,7 @@
     "netIncome": -2525292000.0,
     "eps": -63.18,
     "cash": 5978381000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "5246",
@@ -756,7 +756,7 @@
     "docPdfURL": "https://disclosure2dl.edinet-fsa.go.jp/searchdocument/pdf/S100VB1D.pdf",
     "yahooURL": "https://finance.yahoo.co.jp/quote/5246.T",
     "periodEnd": "2024年11月期",
-    "characteristic": "(企業結合等関係) (取得による企業結合）１．企業結合の概要（1）被取得企業の名称及びその事業の内容被取得企業の名称 株式会社アドメディカ（以下、「アドメディカ」という。",
+    "characteristic": "３ 【事業の内容】 (1) 当社グループ概要・経営理念当社グループは、当社、国内の連結子会社３社（株式会社Liquid、株式会社アドメディカ、X PLACE株式会社）、持分法適用関連会社１社（株式会社IDEAL）及び持分法非適用関連会社１社（PT.",
     "stockPrice": null,
     "netSales": 2545724000.0,
     "employees": 87,
@@ -777,7 +777,7 @@
     "netIncome": -132915000.0,
     "eps": -5.66,
     "cash": 2746276000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "6634",
@@ -786,7 +786,7 @@
     "docPdfURL": "https://disclosure2dl.edinet-fsa.go.jp/searchdocument/pdf/S100VB26.pdf",
     "yahooURL": "https://finance.yahoo.co.jp/quote/6634.T",
     "periodEnd": "2024年11月期",
-    "characteristic": "(企業結合等関係) （取得による企業結合）１．株式取得及び簡易株式交換による取得（株式会社ケーエスピー）(1) 企業結合の概要① 被取得企業の名称及びその事業の内容 企業の名称 ：株式会社ケーエスピー（以下「ケーエスピー」） 事業の内容 ：物流業務並びにチェーン本部代行業務② 企業結合を行った主な理由 ケーエスピーは、クライアントの要望に幅広く応えることができる総合商社です。",
+    "characteristic": "３ 【事業の内容】 当社グループは、当社及び連結子会社６社の計７社で構成されております。",
     "stockPrice": null,
     "netSales": 2130262000.0,
     "employees": 34,
@@ -807,7 +807,7 @@
     "netIncome": -289693000.0,
     "eps": -9.07,
     "cash": 1145210000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "3547",
@@ -837,7 +837,7 @@
     "netIncome": 380372000.0,
     "eps": 41.39,
     "cash": 1875092000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "5527",
@@ -867,6 +867,6 @@
     "netIncome": 635566000.0,
     "eps": 153.95,
     "cash": 4315277000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   }
 ]

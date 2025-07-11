@@ -27,14 +27,14 @@
     "netIncome": 40729000.0,
     "eps": 5.08,
     "cash": 2224895000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-12"
   },
   {
     "secCode": "9040",
     "filerName": "大宝運輸株式会社",
     "docID": "S100VX27",
     "docPdfURL": "https://disclosure2dl.edinet-fsa.go.jp/searchdocument/pdf/S100VX27.pdf",
-    "yahooURL": "https://finance.yahoo.co.jp/quote/9040.T",
+    "yahooURL": "https://finance.yahoo.co.jp/quote/9040.N",
     "periodEnd": "2025年3月期",
     "characteristic": "３ 【事業の内容】当社の主たる事業は物流業であります。",
     "stockPrice": null,
@@ -57,7 +57,7 @@
     "netIncome": null,
     "eps": null,
     "cash": null,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-12"
   },
   {
     "secCode": "7283",
@@ -87,7 +87,7 @@
     "netIncome": 13946000000.0,
     "eps": 211.75,
     "cash": 84131000000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-12"
   },
   {
     "secCode": "6902",
@@ -96,7 +96,7 @@
     "docPdfURL": "https://disclosure2dl.edinet-fsa.go.jp/searchdocument/pdf/S100VWHL.pdf",
     "yahooURL": "https://finance.yahoo.co.jp/quote/6902.T",
     "periodEnd": "2025年3月期",
-    "characteristic": "６．企業結合 前連結会計年度（自 2023年４月１日 至 2024年３月31日） 当社は2023年８月１日よりBelua Beheer B.",
+    "characteristic": "３ 【事業の内容】連結会社は、当社（株式会社デンソー）及び子会社187社、関連会社65社により構成されています。",
     "stockPrice": 1844.6544000000001,
     "netSales": 7161777000000.0,
     "employees": 158056,
@@ -117,6 +117,6 @@
     "netIncome": 419081000000.0,
     "eps": 145.02,
     "cash": 986531000000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-12"
   }
 ]

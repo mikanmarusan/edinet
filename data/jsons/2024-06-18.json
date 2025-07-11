@@ -6,7 +6,7 @@
     "docPdfURL": "https://disclosure2dl.edinet-fsa.go.jp/searchdocument/pdf/S100TN0Z.pdf",
     "yahooURL": "https://finance.yahoo.co.jp/quote/8131.T",
     "periodEnd": "2024年3月期",
-    "characteristic": "（セグメント情報等） 【セグメント情報】 １．報告セグメントの概要 当社グループの報告セグメントは、当社グループの構成単位のうち分離された財務情報が入手可能であり、取締役会が経営資源の配分の決定及び業績を評価するために、定期的に検討を行う対象となっているものであります。",
+    "characteristic": "３【事業の内容】 当社グループは、当社、子会社43社及び関連会社15社で構成され、主な事業内容とグループ各社の当該事業における位置付けは次のとおりです。",
     "stockPrice": 1431.5490000000002,
     "netSales": 309085000000.0,
     "employees": 1753,
@@ -27,7 +27,7 @@
     "netIncome": 9107000000.0,
     "eps": 153.93,
     "cash": 30824000000.0,
-    "retrievedDate": "2025-06-28"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "6301",
@@ -57,7 +57,7 @@
     "netIncome": 393426000000.0,
     "eps": 415.93,
     "cash": 403178000000.0,
-    "retrievedDate": "2025-06-28"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "7381",
@@ -66,7 +66,7 @@
     "docPdfURL": "https://disclosure2dl.edinet-fsa.go.jp/searchdocument/pdf/S100TN26.pdf",
     "yahooURL": "https://finance.yahoo.co.jp/quote/7381.T",
     "periodEnd": "2024年3月期",
-    "characteristic": "（企業結合等関係） 当社は、2023年３月31日開催の取締役会において、当社の連結子会社である株式会社ＦＤアドバイザリー（以下「ＦＤアドバイザリー」という。",
+    "characteristic": "３【事業の内容】 当社グループ（当社及び当社の関係会社）は、当社及び11社の連結子会社で構成され、銀行業務を中心にリース業務、消費者金融に係る信用保証業務、クレジットカード業務、ECモール運営業務、債権回収管理業務、システム開発・運用管理業務、投資助言業務、コンサルティング業務、ファンド運営業務、事務受託業務等を行っております。",
     "stockPrice": 5068.282,
     "netSales": 77684000000.0,
     "employees": 1951,
@@ -87,7 +87,7 @@
     "netIncome": 9055000000.0,
     "eps": 378.23,
     "cash": 222547000000.0,
-    "retrievedDate": "2025-06-28"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "9619",
@@ -96,7 +96,7 @@
     "docPdfURL": "https://disclosure2dl.edinet-fsa.go.jp/searchdocument/pdf/S100TMUS.pdf",
     "yahooURL": "https://finance.yahoo.co.jp/quote/9619.T",
     "periodEnd": "2024年3月期",
-    "characteristic": "（セグメント情報等） 【セグメント情報】 １．報告セグメントの概要 当社の報告セグメントは、当社グループの構成単位のうち分離された財務情報が入手可能であり、取締役会が経営資源の配分の決定及び業績を評価するために、定期的に検討を行う対象となっているものであります。",
+    "characteristic": "３【事業の内容】 当連結会計年度において、当社グループ（当社及び当社の関係会社）は、マルイ工業株式会社及び日東エフシー株式会社の株式を取得し子会社化したことに伴い、マルイ工業株式会社、その子会社１社及びその孫会社１社並びに日東エフシー株式会社、その子会社８社及びその孫会社１社を連結の範囲に含めております。",
     "stockPrice": 1751.082,
     "netSales": 138253000000.0,
     "employees": 2031,
@@ -117,7 +117,7 @@
     "netIncome": 12253000000.0,
     "eps": 507.56,
     "cash": 8374000000.0,
-    "retrievedDate": "2025-06-28"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "7164",
@@ -147,7 +147,7 @@
     "netIncome": 28796000000.0,
     "eps": 419.08,
     "cash": 77647000000.0,
-    "retrievedDate": "2025-06-28"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "8410",
@@ -156,7 +156,7 @@
     "docPdfURL": "https://disclosure2dl.edinet-fsa.go.jp/searchdocument/pdf/S100TMDS.pdf",
     "yahooURL": "https://finance.yahoo.co.jp/quote/8410.T",
     "periodEnd": "2024年3月期",
-    "characteristic": "（企業結合等関係） （共通支配下の取引等）当社は、2023年４月６日開催の取締役会の決議に基づき、株式会社セブン・フィナンシャルサービスが所有する株式会社セブン・カードサービス（以下、「7CE」）の発行済株式870,000株（総株主等の議決権に対する割合：98.",
+    "characteristic": "３ 【事業の内容】 当社グループは、当社、連結子会社９社（FCTI, Inc.",
     "stockPrice": 295.66249999999997,
     "netSales": 133055000000.0,
     "employees": 1301,
@@ -177,7 +177,7 @@
     "netIncome": 31970000000.0,
     "eps": 27.25,
     "cash": 988721000000.0,
-    "retrievedDate": "2025-06-28"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "4249",
@@ -207,7 +207,7 @@
     "netIncome": 3022000000.0,
     "eps": 200.95,
     "cash": 19444000000.0,
-    "retrievedDate": "2025-06-28"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "7506",
@@ -216,7 +216,7 @@
     "docPdfURL": "https://disclosure2dl.edinet-fsa.go.jp/searchdocument/pdf/S100TMXO.pdf",
     "yahooURL": "https://finance.yahoo.co.jp/quote/7506.T",
     "periodEnd": "2024年3月期",
-    "characteristic": "３ 【事業等のリスク】当社の経営成績及び財政状況等に影響を及ぼす可能性のある事項には、以下のようなものがあります。",
+    "characteristic": "３ 【事業の内容】 当社グループは、当社と子会社４社及びその他の関係会社１社で構成されており、化粧品・浴用剤・雑貨品の小売業及び卸売業を主に営んでおります。",
     "stockPrice": null,
     "netSales": null,
     "employees": null,
@@ -237,7 +237,7 @@
     "netIncome": null,
     "eps": null,
     "cash": null,
-    "retrievedDate": "2025-06-28"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "5906",
@@ -267,7 +267,7 @@
     "netIncome": 713568000.0,
     "eps": 48.67,
     "cash": 2418418000.0,
-    "retrievedDate": "2025-06-28"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "4951",
@@ -276,7 +276,7 @@
     "docPdfURL": "https://disclosure2dl.edinet-fsa.go.jp/searchdocument/pdf/S100TN44.pdf",
     "yahooURL": "https://finance.yahoo.co.jp/quote/4951.T",
     "periodEnd": "2024年3月期",
-    "characteristic": "３【事業等のリスク】 有価証券報告書に記載した事業の状況、経理の状況等に関する事項のうち、経営者が連結会社の財政状態、経営成績及びキャッシュ・フローの状況に重要な影響を与える可能性があると認識している主要なリスクは、以下のようなものがあります。",
+    "characteristic": "３【事業の内容】 当社グループは、当社と子会社９社及び関連会社２社で構成され、主として生活日用品の製造、販売を行う「生活日用品事業」を営んでいます。",
     "stockPrice": 1545.7823,
     "netSales": 44472000000.0,
     "employees": 827,
@@ -297,7 +297,7 @@
     "netIncome": 1274000000.0,
     "eps": 57.23,
     "cash": 13576000000.0,
-    "retrievedDate": "2025-06-28"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "5204",
@@ -306,7 +306,7 @@
     "docPdfURL": "https://disclosure2dl.edinet-fsa.go.jp/searchdocument/pdf/S100TMSF.pdf",
     "yahooURL": "https://finance.yahoo.co.jp/quote/5204.T",
     "periodEnd": "2024年3月期",
-    "characteristic": "(企業結合等関係)前連結会計年度(2023年３月20日)該当事項はありません。",
+    "characteristic": "３ 【事業の内容】当社グループは、当社及び子会社の計21社で構成され、ガラスびん関連製品、ハウスウェア関連製品、紙容器関連製品、プラスチック容器関連製品、産業器材関連製品、その他の製品の製造販売事業及びそれに付帯する事業を行っております。",
     "stockPrice": 2766.5645000000004,
     "netSales": 57882000000.0,
     "employees": 1839,
@@ -327,7 +327,7 @@
     "netIncome": 4707000000.0,
     "eps": 1129.21,
     "cash": 3778000000.0,
-    "retrievedDate": "2025-06-28"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "9663",
@@ -336,7 +336,7 @@
     "docPdfURL": "https://disclosure2dl.edinet-fsa.go.jp/searchdocument/pdf/S100TN3C.pdf",
     "yahooURL": "https://finance.yahoo.co.jp/quote/9663.T",
     "periodEnd": "2024年3月期",
-    "characteristic": "不動産の開発から設計・建築まで行う会社であり、モジュール・システム建築事業領域での協業体制を図るため。",
+    "characteristic": "３ 【事業の内容】当社グループは株式会社ナガワ(当社)及び連結対象会社１社(NAGAWA OY CONSTRUCTION Co.",
     "stockPrice": 7916.558999999999,
     "netSales": 32576000000.0,
     "employees": 533,
@@ -357,7 +357,7 @@
     "netIncome": 3119000000.0,
     "eps": 198.41,
     "cash": 7166000000.0,
-    "retrievedDate": "2025-06-28"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "9640",
@@ -366,7 +366,7 @@
     "docPdfURL": "https://disclosure2dl.edinet-fsa.go.jp/searchdocument/pdf/S100TN4O.pdf",
     "yahooURL": "https://finance.yahoo.co.jp/quote/9640.T",
     "periodEnd": "2024年3月期",
-    "characteristic": "（セグメント情報等） 【セグメント情報】 1 報告セグメントの概要 (1）報告セグメントの決定方法 当社グループの報告セグメントは、当社グループの構成単位のうち分離された財務情報が入手可能であり、取締役会において経営資源の配分の決定及び業績を評価するために、定期的に検討を行う対象となっているものであります。",
+    "characteristic": "３【事業の内容】 当社グループは、当社と子会社3社（連結子会社2社、非連結子会社1社）の計4社により構成されており、その他の関係会社として株式会社クレディセゾン、株式会社メルコグループが存在します。",
     "stockPrice": 1958.298,
     "netSales": 23864278000.0,
     "employees": 757,
@@ -387,7 +387,7 @@
     "netIncome": 603182000.0,
     "eps": 37.23,
     "cash": 13364882000.0,
-    "retrievedDate": "2025-06-28"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "5930",
@@ -396,7 +396,7 @@
     "docPdfURL": "https://disclosure2dl.edinet-fsa.go.jp/searchdocument/pdf/S100TNC9.pdf",
     "yahooURL": "https://finance.yahoo.co.jp/quote/5930.T",
     "periodEnd": "2024年3月期",
-    "characteristic": "（企業結合等関係） 取得による企業結合 １．企業結合の概要 （1）被取得企業の名称及びその事業の内容 被取得企業の名称 DOORWORKS AUSTRALIA PTY LTD 事業の内容 ガレージドアの製造販売 （2）企業結合を行った主な理由 DOORWORKS AUSTRALIA PTY LTDは、オーストラリアのニューサウスウェールズ州シドニーで住宅向けガレージドアの製造・販売を行うシャッターメーカーである。",
+    "characteristic": "３【事業の内容】 当社グループ（当社及び当社の関係会社）は、当社、子会社35社及び関連会社４社で構成され、シャッター、住宅用建材及びビル用建材の製造販売とその保守点検・修理、住宅リフォームを主な事業内容としている。",
     "stockPrice": 1740.7788000000003,
     "netSales": 221076000000.0,
     "employees": 5290,
@@ -417,7 +417,7 @@
     "netIncome": 10582000000.0,
     "eps": 157.11,
     "cash": 39149000000.0,
-    "retrievedDate": "2025-06-28"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "9037",
@@ -447,7 +447,7 @@
     "netIncome": 8305000000.0,
     "eps": 442.57,
     "cash": 24143000000.0,
-    "retrievedDate": "2025-06-28"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "2768",
@@ -456,7 +456,7 @@
     "docPdfURL": "https://disclosure2dl.edinet-fsa.go.jp/searchdocument/pdf/S100TMUB.pdf",
     "yahooURL": "https://finance.yahoo.co.jp/quote/2768.T",
     "periodEnd": "2024年3月期",
-    "characteristic": "39 企業結合(1) DaiTanViet Joint Stock Companyの取得 ① 企業結合の概要当社グループは、当連結会計年度において、DaiTanViet Joint Stock Companyの全株式を取得し、同社に対する支配を獲得しました。",
+    "characteristic": "３ 【事業の内容】当社グループは、総合商社として、物品の売買及び貿易業をはじめ、国内及び海外における各種製品の製造・販売やサービスの提供、各種プロジェクトの企画・調整、各種事業分野への投資、並びに金融活動などグローバルに多角的な事業を行っております。",
     "stockPrice": 3968.5360000000005,
     "netSales": 2414649000000.0,
     "employees": 22819,
@@ -477,7 +477,7 @@
     "netIncome": 100765000000.0,
     "eps": 450.97,
     "cash": 196275000000.0,
-    "retrievedDate": "2025-06-28"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "7163",
@@ -507,7 +507,7 @@
     "netIncome": 24845000000.0,
     "eps": 164.78,
     "cash": 565133000000.0,
-    "retrievedDate": "2025-06-28"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "8035",
@@ -537,7 +537,7 @@
     "netIncome": 363963000000.0,
     "eps": 781.2,
     "cash": 461608000000.0,
-    "retrievedDate": "2025-06-28"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "3484",
@@ -567,7 +567,7 @@
     "netIncome": 666077000.0,
     "eps": 39.62,
     "cash": 3331233000.0,
-    "retrievedDate": "2025-06-28"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "7047",
@@ -576,7 +576,7 @@
     "docPdfURL": "https://disclosure2dl.edinet-fsa.go.jp/searchdocument/pdf/S100TMSZ.pdf",
     "yahooURL": "https://finance.yahoo.co.jp/quote/7047.T",
     "periodEnd": "2024年3月期",
-    "characteristic": "６．企業結合及び非支配持分の取得(1) 前連結会計年度(自 2022年４月１日 至 2023年３月31日) (企業結合に係る暫定的な会計処理の確定)当社は、2022年1月に実施した株式会社INEの企業結合について、前連結会計年度においては取得資産及び引受負債の公正価値等が確定していなかったため暫定的な会計処理を行っておりましたが、当連結会計年度に確定しております。",
+    "characteristic": "３ 【事業の内容】当社グループは、「社会的負債を、次世代の可能性に。",
     "stockPrice": 2222.805,
     "netSales": 16622000000.0,
     "employees": 521,
@@ -597,7 +597,7 @@
     "netIncome": 1456000000.0,
     "eps": 113.99,
     "cash": 3797000000.0,
-    "retrievedDate": "2025-06-28"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "3178",
@@ -627,7 +627,7 @@
     "netIncome": 938831000.0,
     "eps": 48.66,
     "cash": 7852493000.0,
-    "retrievedDate": "2025-06-28"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "6841",
@@ -657,7 +657,7 @@
     "netIncome": 61685000000.0,
     "eps": 234.83,
     "cash": 134428000000.0,
-    "retrievedDate": "2025-06-28"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "9878",
@@ -687,7 +687,7 @@
     "netIncome": 47650000.0,
     "eps": 21.63,
     "cash": 416479000.0,
-    "retrievedDate": "2025-06-28"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "4956",
@@ -696,7 +696,7 @@
     "docPdfURL": "https://disclosure2dl.edinet-fsa.go.jp/searchdocument/pdf/S100TMOP.pdf",
     "yahooURL": "https://finance.yahoo.co.jp/quote/4956.T",
     "periodEnd": "2024年3月期",
-    "characteristic": "（セグメント情報等） 【セグメント情報】 １ 報告セグメントの概要 当社の報告セグメントは、当社の構成単位のうち分離された財務情報が入手可能であり、取締役会が、経営資源の配分の決定および業績を評価するために、定期的に検討を行う対象となっているものであります。",
+    "characteristic": "３【事業の内容】 当社グループは、当社、子会社19社および関連会社１社で構成されており、ボンド事業、化成品事業および工事事業の３つの事業を基本に組織され、それぞれが国内および海外の包括的な戦略を立案し、事業活動を展開しております。",
     "stockPrice": 1567.728,
     "netSales": 132969000000.0,
     "employees": 1540,
@@ -717,7 +717,7 @@
     "netIncome": 7344000000.0,
     "eps": 108.87,
     "cash": 25627000000.0,
-    "retrievedDate": "2025-06-28"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "2220",
@@ -726,7 +726,7 @@
     "docPdfURL": "https://disclosure2dl.edinet-fsa.go.jp/searchdocument/pdf/S100TMYO.pdf",
     "yahooURL": "https://finance.yahoo.co.jp/quote/2220.T",
     "periodEnd": "2024年3月期",
-    "characteristic": "（保有目的、業務提携等の概要） 当グループにおける製品の販売先であり、主に国内米菓事業における販路の維持・強化および相互の取り組みによる将来的な企業価値向上のため、継続して保有しております。",
+    "characteristic": "３【事業の内容】 当グループ（当社及び当社の関係会社）は、当社（亀田製菓株式会社）、子会社17社及び関連会社３社で構成され、菓子の製造販売を主な事業内容とし、更に当該事業に関連する運送等の活動を展開しております。",
     "stockPrice": 4271.6939999999995,
     "netSales": 95534000000.0,
     "employees": 4040,
@@ -747,7 +747,7 @@
     "netIncome": 2257000000.0,
     "eps": 107.06,
     "cash": 7442000000.0,
-    "retrievedDate": "2025-06-28"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "7157",
@@ -777,6 +777,6 @@
     "netIncome": 5734000000.0,
     "eps": 75.97,
     "cash": 24423000000.0,
-    "retrievedDate": "2025-06-28"
+    "retrievedDate": "2025-07-11"
   }
 ]

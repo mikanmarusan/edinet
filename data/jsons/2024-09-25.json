@@ -6,7 +6,7 @@
     "docPdfURL": "https://disclosure2dl.edinet-fsa.go.jp/searchdocument/pdf/S100UDPV.pdf",
     "yahooURL": "https://finance.yahoo.co.jp/quote/5380.T",
     "periodEnd": "2024年6月期",
-    "characteristic": "(保有目的)当社の主要取引先であり、国内ハウスメーカーの最大手でるため、中長期的な企業価値向上を目的とした安定的な取引関係の維持・強化のため保有しております。",
+    "characteristic": "３【事業の内容】 当社は、粘土瓦の製造販売及び屋根工事の施工を主な事業としております。",
     "stockPrice": null,
     "netSales": null,
     "employees": null,
@@ -27,7 +27,7 @@
     "netIncome": null,
     "eps": null,
     "cash": null,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "1382",
@@ -36,7 +36,7 @@
     "docPdfURL": "https://disclosure2dl.edinet-fsa.go.jp/searchdocument/pdf/S100UCNU.pdf",
     "yahooURL": "https://finance.yahoo.co.jp/quote/1382.T",
     "periodEnd": "2024年6月期",
-    "characteristic": "（セグメント情報等） 【セグメント情報】 １．報告セグメントの概要 当社グループの報告セグメントは、当社グループの構成単位のうち分離された財務情報が入手可能であり、取締役会が、経営資源の配分の決定及び業績を評価するために、定期的に検討を行う対象となっているものであります。",
+    "characteristic": "３【事業の内容】 (1）当社グループの事業内容 当社は、「いちご」という農産物において、新しい品種の研究開発から始まり、苗の生産販売から収穫した果実の販売までの全てを行っており、１年365日、洋菓子メーカー等に対して国産いちごを供給しております。",
     "stockPrice": 2251.339,
     "netSales": 2519019000.0,
     "employees": 42,
@@ -57,7 +57,7 @@
     "netIncome": 20012000.0,
     "eps": 26.27,
     "cash": 351517000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "4847",
@@ -87,7 +87,7 @@
     "netIncome": null,
     "eps": null,
     "cash": null,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "9421",
@@ -96,7 +96,7 @@
     "docPdfURL": "https://disclosure2dl.edinet-fsa.go.jp/searchdocument/pdf/S100UEY3.pdf",
     "yahooURL": "https://finance.yahoo.co.jp/quote/9421.T",
     "periodEnd": "2024年6月期",
-    "characteristic": "（セグメント情報等） 【セグメント情報】 １．報告セグメントの概要 (1）報告セグメントの決定方法 当社の報告セグメントは、当社グループの構成単位のうち分離された財務情報が入手可能であり、取締役会が、経営資源の配分の決定及び業績を評価するために、定期的に検討を行う対象となっているものであります。",
+    "characteristic": "３【事業の内容】 当社グループ（当社及び当社の関係会社）は、当社と連結子会社６社（(株)ゲームスタジオ、(株)トライエース、(株)ウィットワン、(株)ウィットワン沖縄、(株)テックフラッグ、(株)ネプロクリエイト）の計７社で構成されており、ゲーム事業及びモバイル事業を主な事業として取り組んでおります。",
     "stockPrice": 592.0020000000001,
     "netSales": 9698124000.0,
     "employees": 887,
@@ -117,7 +117,7 @@
     "netIncome": 274855000.0,
     "eps": 51.93,
     "cash": 1693104000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "3097",
@@ -147,7 +147,7 @@
     "netIncome": 5639000000.0,
     "eps": 151.95,
     "cash": 11803000000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "4385",
@@ -177,7 +177,7 @@
     "netIncome": 13461000000.0,
     "eps": 79.01,
     "cash": 191998000000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "7320",
@@ -207,7 +207,7 @@
     "netIncome": 973305000.0,
     "eps": 193.85,
     "cash": 2804524000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "3958",
@@ -216,7 +216,7 @@
     "docPdfURL": "https://disclosure2dl.edinet-fsa.go.jp/searchdocument/pdf/S100UESF.pdf",
     "yahooURL": "https://finance.yahoo.co.jp/quote/3958.T",
     "periodEnd": "2024年6月期",
-    "characteristic": "(企業結合等関係)（連結子会社間の合併） 当社の連結子会社である世徳印刷科技（無錫）有限公司は、当社の連結子会社であった世徳印刷(無錫)有限公司を2023年12月14日付で吸収合併いたしました。",
+    "characteristic": "３ 【事業の内容】当社グループは、『Good Communication, Good Partner』という企業スローガンの下、コミュニケーションというフィールドでお客様が抱えるソリューション解決に取り組んでおります。",
     "stockPrice": 591.624,
     "netSales": 12953184000.0,
     "employees": 418,
@@ -237,7 +237,7 @@
     "netIncome": 396673000.0,
     "eps": 71.28,
     "cash": 1742918000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "4495",
@@ -267,6 +267,6 @@
     "netIncome": 463463000.0,
     "eps": 87.13,
     "cash": 1811066000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   }
 ]

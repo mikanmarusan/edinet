@@ -6,7 +6,7 @@
     "docPdfURL": "https://disclosure2dl.edinet-fsa.go.jp/searchdocument/pdf/S100VEQH.pdf",
     "yahooURL": "https://finance.yahoo.co.jp/quote/7422.T",
     "periodEnd": "2024年12月期",
-    "characteristic": "（保有目的）取引関係の維持・強化（定量的な保有効果）（注）２（株式数が増加した理由）取引先持株会を通じた株式の取得",
+    "characteristic": "３ 【事業の内容】当社の事業は、シューズ事業（卸売・小売）の単一セグメントとなっており、その内容は以下のとおりであります。",
     "stockPrice": null,
     "netSales": null,
     "employees": null,
@@ -27,7 +27,7 @@
     "netIncome": null,
     "eps": null,
     "cash": null,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "6481",
@@ -57,7 +57,7 @@
     "netIncome": 10439000000.0,
     "eps": 85.17,
     "cash": 138293000000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "9749",
@@ -66,7 +66,7 @@
     "docPdfURL": "https://disclosure2dl.edinet-fsa.go.jp/searchdocument/pdf/S100VCF7.pdf",
     "yahooURL": "https://finance.yahoo.co.jp/quote/9749.T",
     "periodEnd": "2024年12月期",
-    "characteristic": "(企業結合等関係)共通支配下の取引等（公開買付けによるサイバネット株式会社株式の取得等について） 当社は、当社の連結子会社であるサイバネット株式会社（証券コード：4312、株式会社東京証券取引所（以下「東 京証券取引所」といいます。",
+    "characteristic": "３ 【事業の内容】当社グループは、連結子会社32社、持分法適用非連結子会社２社、持分法適用関連会社１社で構成され、ＳＩ（システムインテグレーション）事業、ファシリティ事業を主な事業として行っております。",
     "stockPrice": 9849.758100000001,
     "netSales": 317482000000.0,
     "employees": 19689,
@@ -87,6 +87,6 @@
     "netIncome": 21147000000.0,
     "eps": 334.23,
     "cash": 34306000000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   }
 ]

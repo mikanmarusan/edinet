@@ -27,7 +27,7 @@
     "netIncome": null,
     "eps": null,
     "cash": null,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "9812",
@@ -57,7 +57,7 @@
     "netIncome": 111535000.0,
     "eps": 17.4,
     "cash": 474761000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "6505",
@@ -66,7 +66,7 @@
     "docPdfURL": "https://disclosure2dl.edinet-fsa.go.jp/searchdocument/pdf/S100UAMP.pdf",
     "yahooURL": "https://finance.yahoo.co.jp/quote/6505.T",
     "periodEnd": "2024年5月期",
-    "characteristic": "(セグメント情報等)【セグメント情報】 １．報告セグメントの概要（1）報告セグメントの決定方法当社グループの報告セグメントは、当社グループの構成単位のうち分離された財務情報が入手可能であり、取締役会が、経営資源の配分決定及び業績を評価するために、定期的に検討を行う対象となっているものであります。",
+    "characteristic": "３ 【事業の内容】当社グループは、当社及び連結子会社７社、非連結子会社３社、持分法適用関連会社２社、持分法非適用関連会社２社により構成され、交通・産業・ICTソリューション事業用の電気機械器具の製造及び販売並びにこれに付帯する工事を行っております。",
     "stockPrice": 1074.924,
     "netSales": 32140000000.0,
     "employees": 1147,
@@ -87,7 +87,7 @@
     "netIncome": 935000000.0,
     "eps": 99.53,
     "cash": 411000000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "7487",
@@ -96,7 +96,7 @@
     "docPdfURL": "https://disclosure2dl.edinet-fsa.go.jp/searchdocument/pdf/S100UA40.pdf",
     "yahooURL": "https://finance.yahoo.co.jp/quote/7487.T",
     "periodEnd": "2024年5月期",
-    "characteristic": "当社グループにおいて製品販売などの取引があり、事業活動の円滑化、取引関係の構築・維持・強化及び今後の事業提携などの長期的経営戦略遂行のため保有しています。",
+    "characteristic": "３【事業の内容】 当社の企業集団は、当社（小津産業株式会社）、子会社７社、関連会社１社およびその他の関係会社１社より構成されており、不織布製品の加工・販売を主たる事業としております。",
     "stockPrice": 1634.056,
     "netSales": 10125691000.0,
     "employees": 289,
@@ -117,7 +117,7 @@
     "netIncome": 546350000.0,
     "eps": 65.05,
     "cash": 7438806000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "7086",
@@ -147,7 +147,7 @@
     "netIncome": 744784000.0,
     "eps": 106.37,
     "cash": 1363083000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "6496",
@@ -156,7 +156,7 @@
     "docPdfURL": "https://disclosure2dl.edinet-fsa.go.jp/searchdocument/pdf/S100UAK2.pdf",
     "yahooURL": "https://finance.yahoo.co.jp/quote/6496.T",
     "periodEnd": "2024年5月期",
-    "characteristic": "(保有目的) 当社製品等の販売先であり、安定的かつ継続的な取引関係の維持・強化の為に保有しておりましたが、当事業年度で全株式を売却しております。",
+    "characteristic": "３【事業の内容】 当社グループ（当社及び当社の関係会社）は、当社及び子会社（非連結）２社で構成されており、協力企業とともに、主として船舶用、発電プラント用などの自動調節弁、バタフライ弁、遠隔操作装置を製造及び販売しております。",
     "stockPrice": null,
     "netSales": null,
     "employees": null,
@@ -177,14 +177,14 @@
     "netIncome": null,
     "eps": null,
     "cash": null,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "3824",
     "filerName": "メディアファイブ株式会社",
     "docID": "S100UAJD",
     "docPdfURL": "https://disclosure2dl.edinet-fsa.go.jp/searchdocument/pdf/S100UAJD.pdf",
-    "yahooURL": "https://finance.yahoo.co.jp/quote/3824.T",
+    "yahooURL": "https://finance.yahoo.co.jp/quote/3824.F",
     "periodEnd": "2024年5月期",
     "characteristic": "３【事業の内容】 当社グループは、当社及び子会社１社から構成されており、主に九州及び東京地域のコンピュータ会社及び一般企業等を対象として、ソフトウエア開発に関するＩＴエンジニアの提供及び業務受託を主事業としております。",
     "stockPrice": 605.178,
@@ -207,7 +207,7 @@
     "netIncome": 3557000.0,
     "eps": 3.78,
     "cash": 372836000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "2462",
@@ -237,7 +237,7 @@
     "netIncome": 2447744000.0,
     "eps": 127.55,
     "cash": 9439595000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "8155",
@@ -246,7 +246,7 @@
     "docPdfURL": "https://disclosure2dl.edinet-fsa.go.jp/searchdocument/pdf/S100UAL3.pdf",
     "yahooURL": "https://finance.yahoo.co.jp/quote/8155.T",
     "periodEnd": "2024年5月期",
-    "characteristic": "産商事業部の取引先の親会社であり、中長期的な取引関係の維持・強化のために保有しております。",
+    "characteristic": "３【事業の内容】 当社の企業集団は、当社、当社のその他の関係会社１社及びその他の関係会社の子会社で構成されております。",
     "stockPrice": null,
     "netSales": null,
     "employees": null,
@@ -267,7 +267,7 @@
     "netIncome": null,
     "eps": null,
     "cash": null,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "6044",
@@ -276,7 +276,7 @@
     "docPdfURL": "https://disclosure2dl.edinet-fsa.go.jp/searchdocument/pdf/S100UAIL.pdf",
     "yahooURL": "https://finance.yahoo.co.jp/quote/6044.T",
     "periodEnd": "2024年5月期",
-    "characteristic": "(企業結合等関係) 当社は、2023年11月15日開催の取締役会において、長沼冷暖房株式会社（以下「長沼冷暖房」）の全株式を取得し、子会社化することについて決議し、2023年11月15日付で株式譲渡契約を締結しました。",
+    "characteristic": "３ 【事業の内容】当社グループは、空調機器はもとより、厨房機器、電気設備及び給排水衛生設備等のあらゆる設備のメンテナンスを主な事業としており、国内(東京都江東区及び兵庫県姫路市)と中国上海市にそれぞれコールセンターを設置することで、緊急修理にも24時間365日対応しております。",
     "stockPrice": 1178.8739999999998,
     "netSales": 19430983000.0,
     "employees": 535,
@@ -297,7 +297,7 @@
     "netIncome": 467894000.0,
     "eps": 72.77,
     "cash": 1477144000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "1401",
@@ -327,14 +327,14 @@
     "netIncome": null,
     "eps": null,
     "cash": null,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "4834",
     "filerName": "キャリアバンク株式会社",
     "docID": "S100UATF",
     "docPdfURL": "https://disclosure2dl.edinet-fsa.go.jp/searchdocument/pdf/S100UATF.pdf",
-    "yahooURL": "https://finance.yahoo.co.jp/quote/4834.T",
+    "yahooURL": "https://finance.yahoo.co.jp/quote/4834.S",
     "periodEnd": "2024年5月期",
     "characteristic": "３【事業の内容】 当社グループは、当社（キャリアバンク株式会社）及び連結子会社２社、持分法適用関連会社３社により構成されており、一般労働者派遣及び有料職業紹介を主たる業務としております。",
     "stockPrice": 1418.5348,
@@ -357,7 +357,7 @@
     "netIncome": 125101000.0,
     "eps": 125.98,
     "cash": 1070772000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "3021",
@@ -387,7 +387,7 @@
     "netIncome": 432117000.0,
     "eps": 82.35,
     "cash": 1382395000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "4430",
@@ -417,7 +417,7 @@
     "netIncome": null,
     "eps": null,
     "cash": null,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "3501",
@@ -426,7 +426,7 @@
     "docPdfURL": "https://disclosure2dl.edinet-fsa.go.jp/searchdocument/pdf/S100UAEC.pdf",
     "yahooURL": "https://finance.yahoo.co.jp/quote/3501.T",
     "periodEnd": "2024年5月期",
-    "characteristic": "(セグメント情報等)【セグメント情報】１ 報告セグメントの概要当社の報告セグメントは、当社グループの構成単位のうち分離された財務情報が入手可能であり、取締役会が、経営資源の配分の決定及び実績を評価するために、定期的に検討を行う対象となっているものであります。",
+    "characteristic": "３ 【事業の内容】当社グループは、当社、連結子会社28社及び関連会社２社により構成され、インテリア製品、自動車車両内装材製品、機能性資材製品の製造及び販売を主な事業として取り組んでおります。",
     "stockPrice": 2485.736,
     "netSales": 103478000000.0,
     "employees": 2812,
@@ -447,7 +447,7 @@
     "netIncome": 874000000.0,
     "eps": 132.22,
     "cash": 8153000000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "9216",
@@ -477,7 +477,7 @@
     "netIncome": 1833227000.0,
     "eps": 127.46,
     "cash": 6095412000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "6083",
@@ -507,7 +507,7 @@
     "netIncome": 1233250000.0,
     "eps": 159.88,
     "cash": 6653088000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "5595",
@@ -537,7 +537,7 @@
     "netIncome": null,
     "eps": null,
     "cash": null,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "5932",
@@ -546,7 +546,7 @@
     "docPdfURL": "https://disclosure2dl.edinet-fsa.go.jp/searchdocument/pdf/S100UADF.pdf",
     "yahooURL": "https://finance.yahoo.co.jp/quote/5932.T",
     "periodEnd": "2024年5月期",
-    "characteristic": "(セグメント情報等)【セグメント情報】１ 報告セグメントの概要当社グループの報告セグメントは、当社の構成単位のうち分離された財務情報が入手可能であり、取締役会が経営資源の配分の決定及び業績を評価するために、定期的に検討を行う対象となっているものであります。",
+    "characteristic": "３【事業の内容】当社グループ（当社及び当社の関係会社）は、当社、連結子会社46社及び持分法適用関連会社６社から構成され、その主な事業内容と当社グループの当該事業における位置付け及びセグメントとの関連は、次のとおりであります。",
     "stockPrice": null,
     "netSales": 353027000000.0,
     "employees": 10289,
@@ -567,7 +567,7 @@
     "netIncome": -1019000000.0,
     "eps": -32.53,
     "cash": 23312000000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "6489",
@@ -597,7 +597,7 @@
     "netIncome": 3531000000.0,
     "eps": 196.65,
     "cash": 10459000000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "4829",
@@ -627,7 +627,7 @@
     "netIncome": 209266000.0,
     "eps": 5.43,
     "cash": 4388871000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "3349",
@@ -657,7 +657,7 @@
     "netIncome": 24454000000.0,
     "eps": 617.22,
     "cash": 52301000000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "4076",
@@ -687,6 +687,6 @@
     "netIncome": 461328000.0,
     "eps": 158.75,
     "cash": 2933565000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   }
 ]

@@ -6,7 +6,7 @@
     "docPdfURL": "https://disclosure2dl.edinet-fsa.go.jp/searchdocument/pdf/S100VMJ0.pdf",
     "yahooURL": "https://finance.yahoo.co.jp/quote/2590.T",
     "periodEnd": "2025年1月期",
-    "characteristic": "（企業結合等関係） 取得による企業結合 1.",
+    "characteristic": "３【事業の内容】 当社グループは、当社及び子会社21社、持分法適用関連会社6社、非連結持分法非適用子会社1社、持分法非適用関連会社1社により構成されております。",
     "stockPrice": 3366.4139999999998,
     "netSales": 237189000000.0,
     "employees": 5555,
@@ -27,7 +27,7 @@
     "netIncome": 3804000000.0,
     "eps": 120.66,
     "cash": 29642000000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-12"
   },
   {
     "secCode": "7865",
@@ -57,6 +57,6 @@
     "netIncome": 331625000.0,
     "eps": 75.81,
     "cash": 1417853000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-12"
   }
 ]

@@ -27,7 +27,7 @@
     "netIncome": 133275000.0,
     "eps": 165.75,
     "cash": 1043896000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "7219",
@@ -57,7 +57,7 @@
     "netIncome": 347746000.0,
     "eps": 245.77,
     "cash": 1522462000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "3440",
@@ -66,7 +66,7 @@
     "docPdfURL": "https://disclosure2dl.edinet-fsa.go.jp/searchdocument/pdf/S100UUER.pdf",
     "yahooURL": "https://finance.yahoo.co.jp/quote/3440.T",
     "periodEnd": "2024年8月期",
-    "characteristic": "（企業結合等関係） (連結子会社による事業譲受) １．事業譲受の概要 (1) 譲受先企業の名称及びその事業の内容 譲受先企業の名称 株式会社Japonline 譲受事業の内容 システム開発・保守運用事業及びシステムコンサルティング事業 (2) 事業譲受を行った主な理由 当社の連結子会社であるカナエテ株式会社のものづくりＷＥＢサービス「カナエテ」の成長を更に加速させ、当社グループの持続的な成長と企業価値の向上を図るためであります。",
+    "characteristic": "３【事業の内容】 当連結会計年度末において、当社グループ（当社及び当社の関係会社）は、当社（日創プロニティ株式会社）、連結子会社９社及び非連結子会社１社並び関連会社２社により構成されております。",
     "stockPrice": 1120.575,
     "netSales": 17694365000.0,
     "employees": 564,
@@ -87,7 +87,7 @@
     "netIncome": 1094600000.0,
     "eps": 167.25,
     "cash": 5524306000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "7818",
@@ -117,7 +117,7 @@
     "netIncome": 3763601000.0,
     "eps": 129.4,
     "cash": 5846780000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "6048",
@@ -147,7 +147,7 @@
     "netIncome": -310591000.0,
     "eps": -21.05,
     "cash": 2376748000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "7581",
@@ -156,7 +156,7 @@
     "docPdfURL": "https://disclosure2dl.edinet-fsa.go.jp/searchdocument/pdf/S100UUP3.pdf",
     "yahooURL": "https://finance.yahoo.co.jp/quote/7581.T",
     "periodEnd": "2024年8月期",
-    "characteristic": "(セグメント情報等)【セグメント情報】1．報告セグメントの概要当社の報告セグメントは、当社の構成単位のうち分離された財務情報が入手可能であり、取締役会が、経営資源の配分の決定及び業績を評価するために、定期的に検討を行う対象となっているものであります。",
+    "characteristic": "3 【事業の内容】当社グループは、当社(株式会社サイゼリヤ)及び子会社9社で構成され、外食事業を基幹事業としております。",
     "stockPrice": 5045.022,
     "netSales": 224542000000.0,
     "employees": 4504,
@@ -177,7 +177,7 @@
     "netIncome": 8149000000.0,
     "eps": 164.87,
     "cash": 386000000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "4439",
@@ -207,7 +207,7 @@
     "netIncome": 1552954000.0,
     "eps": 102.32,
     "cash": 6323403000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "3498",
@@ -216,7 +216,7 @@
     "docPdfURL": "https://disclosure2dl.edinet-fsa.go.jp/searchdocument/pdf/S100UV32.pdf",
     "yahooURL": "https://finance.yahoo.co.jp/quote/3498.T",
     "periodEnd": "2024年8月期",
-    "characteristic": "（企業結合等関係） 共通支配下の取引 (連結子会社間の合併) 当社の連結子会社である霞ヶ関パートナーズ株式会社とKC Technologies株式会社は、2023年９月30日付で以下のとおり合併いたしました。",
+    "characteristic": "３【事業の内容】 当社グループは、「その課題を、価値へ。",
     "stockPrice": 14681.820000000002,
     "netSales": 65685513000.0,
     "employees": 436,
@@ -237,7 +237,7 @@
     "netIncome": 5020003000.0,
     "eps": 531.95,
     "cash": 11056990000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "5578",
@@ -267,7 +267,7 @@
     "netIncome": 275669000.0,
     "eps": 78.03,
     "cash": 2329879000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "2449",
@@ -297,7 +297,7 @@
     "netIncome": 226653000.0,
     "eps": 51.43,
     "cash": 4415680000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "156A",
@@ -327,7 +327,7 @@
     "netIncome": 709632000.0,
     "eps": 71.23,
     "cash": 1122606000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "3991",
@@ -357,7 +357,7 @@
     "netIncome": 1036414000.0,
     "eps": 109.13,
     "cash": 4521960000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "9560",
@@ -387,7 +387,7 @@
     "netIncome": null,
     "eps": null,
     "cash": null,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "9264",
@@ -417,7 +417,7 @@
     "netIncome": 195761000.0,
     "eps": 42.34,
     "cash": 1626679000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "7352",
@@ -426,7 +426,7 @@
     "docPdfURL": "https://disclosure2dl.edinet-fsa.go.jp/searchdocument/pdf/S100UV55.pdf",
     "yahooURL": "https://finance.yahoo.co.jp/quote/7352.T",
     "periodEnd": "2024年8月期",
-    "characteristic": "(企業結合等関係)（取得による企業結合）(1) 企業結合の概要① 被取得企業の名称及びその事業の内容被取得企業の名称 株式会社MapleSystems事業内容 エンジニアマッチングサービス② 企業結合を行った主な理由当社は「BREAK THE RULES」を経営ビジョンに掲げ、「テクノロジー×HR（Human Resources）」をテーマに、ITエンジニアに特化した事業を行っております。",
+    "characteristic": "３ 【事業の内容】当社グループは、当社および連結子会社である株式会社Branding Engineer、株式会社Branding Career、株式会社Digital Arrow Partners、株式会社ジンアース、株式会社MapleSystems、株式会社Growth One、株式会社2Hundred、株式会社UPTORY、TSR株式会社、株式会社DeProp、株式会社enableX、株式会社M＆A承継機構の計13社で構成されております。",
     "stockPrice": 802.766,
     "netSales": 14290882000.0,
     "employees": 526,
@@ -447,7 +447,7 @@
     "netIncome": 188863000.0,
     "eps": 3.98,
     "cash": 3698236000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "8904",
@@ -456,7 +456,7 @@
     "docPdfURL": "https://disclosure2dl.edinet-fsa.go.jp/searchdocument/pdf/S100UV48.pdf",
     "yahooURL": "https://finance.yahoo.co.jp/quote/8904.T",
     "periodEnd": "2024年8月期",
-    "characteristic": "（セグメント情報等） 【セグメント情報】 １．報告セグメントの概要 当社グループの報告セグメントは、当社グループの構成単位のうち分離された財務情報が入手可能であり、取締役会が経営資源の配分の決定及び業績を評価するために、定期的に検討を行う対象となっているものであります。",
+    "characteristic": "３【事業の内容】 当社グループは、当社及び連結子会社12社（サンヨーベストホーム株式会社、株式会社巨勢工務店、ジェイテクノ株式会社、株式会社宇戸平工務店、五朋建設株式会社、株式会社サンヨー不動産、株式会社プラスワン、株式会社ＤｒｅａｍＴｏｗｎ、株式会社ドリームホーム、株式会社アバンティア不動産、株式会社ネクスト－ライフ－デザイン、株式会社プロバンクホーム）で構成されており、戸建住宅事業、マンション事業、一般請負工事事業、不動産流通事業、その他の事業を行っております。",
     "stockPrice": 801.8399999999999,
     "netSales": 71021500000.0,
     "employees": 593,
@@ -477,7 +477,7 @@
     "netIncome": 589107000.0,
     "eps": 41.12,
     "cash": 14038055000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "5580",
@@ -507,7 +507,7 @@
     "netIncome": null,
     "eps": null,
     "cash": null,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "3046",
@@ -537,7 +537,7 @@
     "netIncome": 4671000000.0,
     "eps": 190.97,
     "cash": 18673000000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "9331",
@@ -546,7 +546,7 @@
     "docPdfURL": "https://disclosure2dl.edinet-fsa.go.jp/searchdocument/pdf/S100USR6.pdf",
     "yahooURL": "https://finance.yahoo.co.jp/quote/9331.T",
     "periodEnd": "2024年8月期",
-    "characteristic": "(企業結合等関係)(株式取得による会社等の買収)当社は、2024年４月25日開催の取締役会において、グラムス株式会社（以下「グラムス」）の株式を取得し完全子会社化することを決議し、本株式取得は2024年６月１日を効力発生日として、手続きを完了しております。",
+    "characteristic": "３ 【事業の内容】 当社グループは、当連結会計年度末時点で当社及び連結子会社１社（グラムス株式会社）により構成されております。",
     "stockPrice": null,
     "netSales": 4440248000.0,
     "employees": 398,
@@ -567,7 +567,7 @@
     "netIncome": -217905000.0,
     "eps": -113.47,
     "cash": 1606886000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "1434",
@@ -597,7 +597,7 @@
     "netIncome": 1012359000.0,
     "eps": 146.63,
     "cash": 2350632000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "9979",
@@ -606,7 +606,7 @@
     "docPdfURL": "https://disclosure2dl.edinet-fsa.go.jp/searchdocument/pdf/S100USWG.pdf",
     "yahooURL": "https://finance.yahoo.co.jp/quote/9979.T",
     "periodEnd": "2024年8月期",
-    "characteristic": "(セグメント情報等)【セグメント情報】１．報告セグメントの概要当社グループの報告セグメントは、当社の構成単位のうち分離された財務情報が入手可能であり、取締役会が、経営資源の配分の決定及び業績を評価するために、定期的に検討を行う対象となっているものであります。",
+    "characteristic": "３ 【事業の内容】当社(連結財務諸表提出会社)グループは、当社及び連結子会社４社で構成され、飲食店舗チェーンを展開する飲食事業を主な内容とし、さらにこれに関連する卸売・ロジスティクス事業、不動産事業、フランチャイズ事業、その他事業等の事業活動を展開しております。",
     "stockPrice": 1099.415,
     "netSales": 50586000000.0,
     "employees": 1594,
@@ -627,7 +627,7 @@
     "netIncome": 1333000000.0,
     "eps": 63.55,
     "cash": 9001000000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "6668",
@@ -657,7 +657,7 @@
     "netIncome": 1213000000.0,
     "eps": 141.83,
     "cash": 6148000000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "3174",
@@ -687,7 +687,7 @@
     "netIncome": -459062000.0,
     "eps": -180.39,
     "cash": 981220000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "7351",
@@ -717,7 +717,7 @@
     "netIncome": 11532000.0,
     "eps": 1.26,
     "cash": 3275145000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "4176",
@@ -726,7 +726,7 @@
     "docPdfURL": "https://disclosure2dl.edinet-fsa.go.jp/searchdocument/pdf/S100UUTP.pdf",
     "yahooURL": "https://finance.yahoo.co.jp/quote/4176.T",
     "periodEnd": "2024年8月期",
-    "characteristic": "（企業結合等関係） （連結子会社の吸収合併） 当社は、2023年10月13日開催の取締役会において、当社連結子会社である株式会社ココナラリーガルコネクトを吸収合併することを決議し、2023年12月１日付で吸収合併を行いました。",
+    "characteristic": "３【事業の内容】 当社は、「一人ひとりが『自分のストーリー』を生きていく世の中をつくる」を経営ビジョンとしており、個人の知識・スキル・経験を可視化し、必要とする全ての人に結びつけ、個人をエンパワーメントするプラットフォームとして、個人の知識・スキル・経験に基づくサービス・役務を売買するスキルのマーケットプレイス「ココナラスキルマーケット」を中心とした事業を展開しております。",
     "stockPrice": 330.09999999999997,
     "netSales": 6588712000.0,
     "employees": 265,
@@ -747,7 +747,7 @@
     "netIncome": 243716000.0,
     "eps": 10.0,
     "cash": 3905323000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "4440",
@@ -756,7 +756,7 @@
     "docPdfURL": "https://disclosure2dl.edinet-fsa.go.jp/searchdocument/pdf/S100UUYP.pdf",
     "yahooURL": "https://finance.yahoo.co.jp/quote/4440.T",
     "periodEnd": "2024年8月期",
-    "characteristic": "（企業結合等関係） 取得による企業結合 株式会社イーガーの株式取得 １.",
+    "characteristic": "３【事業の内容】 当社グループの事業構成は、「ソフトウェア開発事業」、「サービスデザイン事業」、「センシング事業」および「その他事業」の４つとなっております。",
     "stockPrice": 801.2128,
     "netSales": 3477560000.0,
     "employees": 288,
@@ -777,7 +777,7 @@
     "netIncome": 275081000.0,
     "eps": 67.67,
     "cash": 1572064000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "3987",
@@ -807,6 +807,6 @@
     "netIncome": -69151000.0,
     "eps": -13.13,
     "cash": 582791000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   }
 ]

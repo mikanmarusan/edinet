@@ -6,7 +6,7 @@
     "docPdfURL": "https://disclosure2dl.edinet-fsa.go.jp/searchdocument/pdf/S100U4OI.pdf",
     "yahooURL": "https://finance.yahoo.co.jp/quote/3361.T",
     "periodEnd": "2024年4月期",
-    "characteristic": "(セグメント情報等)【セグメント情報】１．報告セグメントの概要当社の報告セグメントは、当社の構成単位のうち分離された財務情報が入手可能であり、取締役会が、経営資源の配分の決定及び業績を評価するために、定期的に検討を行う対象となっているものであります。",
+    "characteristic": "３ 【事業の内容】当社グループは、当社、連結子会社５社及び関連会社２社により構成されており、エネルギー事業及びウォーター事業を中心に行っております。",
     "stockPrice": 759.2473,
     "netSales": 27102201000.0,
     "employees": 455,
@@ -27,7 +27,7 @@
     "netIncome": 2178369000.0,
     "eps": 107.39,
     "cash": 5711883000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "9468",
@@ -36,7 +36,7 @@
     "docPdfURL": "https://disclosure2dl.edinet-fsa.go.jp/searchdocument/pdf/S100U4MI.pdf",
     "yahooURL": "https://finance.yahoo.co.jp/quote/9468.T",
     "periodEnd": "2024年3月期",
-    "characteristic": "（企業結合等関係） 取得による企業結合 １．企業結合の概要 （１）被取得企業の名称及びその事業の内容 被取得企業の名称 ㈱アクワイア 事業の内容 家庭用ゲームソフト開発及び販売事業 （２）企業結合を行った主な理由 当社グループは、中期経営計画の重点強化領域であるゲーム事業の企画開発力の強化について、検討を重ねてまいりました。",
+    "characteristic": "３【事業の内容】 当社グループは、当社並びに連結子会社50社及び持分法適用会社13社から構成されており、出版・IP創出事業、アニメ・実写映像事業、ゲーム事業、Webサービス事業、教育・EdTech事業、その他事業を事業領域としています。",
     "stockPrice": 2651.286,
     "netSales": 258109000000.0,
     "employees": 6269,
@@ -57,7 +57,7 @@
     "netIncome": 11384000000.0,
     "eps": 83.4,
     "cash": 79841000000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "5032",
@@ -87,7 +87,7 @@
     "netIncome": null,
     "eps": null,
     "cash": null,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "8273",
@@ -96,7 +96,7 @@
     "docPdfURL": "https://disclosure2dl.edinet-fsa.go.jp/searchdocument/pdf/S100U4PZ.pdf",
     "yahooURL": "https://finance.yahoo.co.jp/quote/8273.T",
     "periodEnd": "2024年2月期",
-    "characteristic": "（セグメント情報等）【セグメント情報】１．報告セグメントの概要当社グループの報告セグメントは、当社グループの構成単位のうち分離された財務情報が入手可能であり、経営者が経営資源の配分を決定及び業績を評価するために、定期的に検討を行う対象となっているものです。",
+    "characteristic": "３ 【事業の内容】当社グループ（当社及び当社の関係会社）は、当社、連結子会社15社、関連会社３社及び非連結子会社１社で構成され、小売事業、小売周辺事業及びその他の事業を展開しています。",
     "stockPrice": 3466.2870000000003,
     "netSales": 471166000000.0,
     "employees": 4400,
@@ -117,7 +117,7 @@
     "netIncome": 20485000000.0,
     "eps": 286.47,
     "cash": 11997000000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "7050",
@@ -147,7 +147,7 @@
     "netIncome": 488129000.0,
     "eps": 109.67,
     "cash": 5184229000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "9444",
@@ -177,7 +177,7 @@
     "netIncome": 431571000.0,
     "eps": 66.75,
     "cash": 1081637000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "9627",
@@ -186,7 +186,7 @@
     "docPdfURL": "https://disclosure2dl.edinet-fsa.go.jp/searchdocument/pdf/S100U4ZX.pdf",
     "yahooURL": "https://finance.yahoo.co.jp/quote/9627.T",
     "periodEnd": "2024年4月期",
-    "characteristic": "退職給付信託に拠出しており、議決権行使の指図権は留保 資本・業務提携を通じて当社グループの効率的な事業展開を図るため保有",
+    "characteristic": "３【事業の内容】 当社グループ（当社及び当社の関係会社）は当社（株式会社アインホールディングス）、子会社31社及び関連会社３社により構成されており、「第５ 経理の状況 １．（1）連結財務諸表 注記事項」に掲げるセグメント情報と同一区分であり、当社グループの事業内容及び当社と関係会社の当該事業に係る位置づけは次のとおりであります。",
     "stockPrice": 5973.375999999999,
     "netSales": 399824000000.0,
     "employees": 11474,
@@ -207,6 +207,6 @@
     "netIncome": 11401000000.0,
     "eps": 324.64,
     "cash": 48381000000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   }
 ]

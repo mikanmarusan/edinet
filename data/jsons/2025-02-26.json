@@ -6,7 +6,7 @@
     "docPdfURL": "https://disclosure2dl.edinet-fsa.go.jp/searchdocument/pdf/S100VAH5.pdf",
     "yahooURL": "https://finance.yahoo.co.jp/quote/5942.T",
     "periodEnd": "2024年11月期",
-    "characteristic": "(セグメント情報等) 【セグメント情報】１ 報告セグメントの概要当社の報告セグメントは、当社グループの構成単位のうち分離された財務情報が入手可能であり、取締役会が、経営資源の配分の決定および業績を評価するために、定期的に検討を行う対象となっているものです。",
+    "characteristic": "３ 【事業の内容】当社の企業集団は、当社、子会社19社および関連会社３社で構成されております。",
     "stockPrice": 506.4,
     "netSales": 28639102000.0,
     "employees": 1312,
@@ -27,7 +27,7 @@
     "netIncome": 622693000.0,
     "eps": 31.65,
     "cash": 4822622000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "3377",
@@ -57,7 +57,7 @@
     "netIncome": 187339000.0,
     "eps": 13.41,
     "cash": 2071250000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "4992",
@@ -66,7 +66,7 @@
     "docPdfURL": "https://disclosure2dl.edinet-fsa.go.jp/searchdocument/pdf/S100VAKZ.pdf",
     "yahooURL": "https://finance.yahoo.co.jp/quote/4992.T",
     "periodEnd": "2024年11月期",
-    "characteristic": "（セグメント情報等） 【セグメント情報】 １．報告セグメントの概要 当社グループの報告セグメントは、分離された財務情報が入手可能であり、当社の取締役会が、経営資源の配分の決定および業績を評価するために、定期的に検討を行う対象となっているものであります。",
+    "characteristic": "３【事業の内容】 当社グループは、当社、連結子会社５社（北興産業㈱、美瑛白土工業㈱、ホクコーパツクス㈱、村田長㈱、張家港北興化工有限公司）および非連結子会社１社（HOKKO CHEMICAL AMERICA CORPORATION）により構成されており、農薬ならびにファインケミカル製品の製造・販売を主たる事業として行っています。",
     "stockPrice": 1274.09,
     "netSales": 46195000000.0,
     "employees": 747,
@@ -87,14 +87,14 @@
     "netIncome": 4006000000.0,
     "eps": 148.15,
     "cash": 9707000000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "6076",
     "filerName": "株式会社アメイズ",
     "docID": "S100VAHA",
     "docPdfURL": "https://disclosure2dl.edinet-fsa.go.jp/searchdocument/pdf/S100VAHA.pdf",
-    "yahooURL": "https://finance.yahoo.co.jp/quote/6076.T",
+    "yahooURL": "https://finance.yahoo.co.jp/quote/6076.F",
     "periodEnd": "2024年11月期",
     "characteristic": "３ 【事業の内容】当社は、宿泊のためのホテル施設の営業及びそれに付帯するレストラン等の運営による飲食の提供を主として行っており、九州地区を中心に「HOTEL AZ」を展開しております。",
     "stockPrice": null,
@@ -117,6 +117,6 @@
     "netIncome": null,
     "eps": null,
     "cash": null,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   }
 ]

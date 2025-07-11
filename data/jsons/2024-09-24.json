@@ -27,7 +27,7 @@
     "netIncome": 243248000.0,
     "eps": 41.14,
     "cash": 1788506000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "5903",
@@ -57,7 +57,7 @@
     "netIncome": 661288000.0,
     "eps": 116.78,
     "cash": 3208555000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "6156",
@@ -87,7 +87,7 @@
     "netIncome": null,
     "eps": null,
     "cash": null,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "5256",
@@ -117,7 +117,7 @@
     "netIncome": null,
     "eps": null,
     "cash": null,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "4845",
@@ -147,7 +147,7 @@
     "netIncome": -2887886000.0,
     "eps": -166.53,
     "cash": 6817385000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "7585",
@@ -156,7 +156,7 @@
     "docPdfURL": "https://disclosure2dl.edinet-fsa.go.jp/searchdocument/pdf/S100UEWH.pdf",
     "yahooURL": "https://finance.yahoo.co.jp/quote/7585.T",
     "periodEnd": "2024年6月期",
-    "characteristic": "当社の事業は、当該企業が開発した業態のフランチャイズが中心であり、当社における経営計画の実現には、当該企業との良好な関係の維持・強化を前提としており、そのため当該企業の株式保有は必要不可欠と考えております。",
+    "characteristic": "３【事業の内容】 当社は、他の会社のフランチャイジーとして、料理飲食業を主に営んでおります。",
     "stockPrice": null,
     "netSales": 2316922000.0,
     "employees": 194,
@@ -177,6 +177,6 @@
     "netIncome": -628051000.0,
     "eps": -164.77,
     "cash": 575061000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   }
 ]

@@ -6,7 +6,7 @@
     "docPdfURL": "https://disclosure2dl.edinet-fsa.go.jp/searchdocument/pdf/S100UG24.pdf",
     "yahooURL": "https://finance.yahoo.co.jp/quote/5987.T",
     "periodEnd": "2024年6月期",
-    "characteristic": "(セグメント情報等)【セグメント情報】１．報告セグメントの概要当社グループの報告セグメントは、当社グループの構成単位のうち分離された財務情報が入手可能であり、取締役会が、経営資源の配分の決定及び業績を評価するために、定期的に検討を行う対象となっているものであります。",
+    "characteristic": "３ 【事業の内容】当社グループ(当社及び当社の関係会社)は、株式会社オーネックス(以下、「当社」という。",
     "stockPrice": null,
     "netSales": 4967499000.0,
     "employees": 247,
@@ -27,7 +27,7 @@
     "netIncome": -377470000.0,
     "eps": -227.97,
     "cash": 2707562000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "6340",
@@ -36,7 +36,7 @@
     "docPdfURL": "https://disclosure2dl.edinet-fsa.go.jp/searchdocument/pdf/S100UFKR.pdf",
     "yahooURL": "https://finance.yahoo.co.jp/quote/6340.T",
     "periodEnd": "2024年6月期",
-    "characteristic": "（企業結合等関係） 取得による企業結合 １．企業結合の概要 (1）被取得企業の名称および事業の内容 被取得企業の名称 綜和機電㈱ 事業の内容 半導体製造、検査装置の設計製作および販売 (2）企業結合を行った主な理由 綜和機電㈱ではＩＣパッケージを検査するテストハンドラ、ＩＣパッケージにレーザマークするレーザマークハンドラを製造販売しており、近年は特にパワー半導体関連装置を主体に事業展開しております。",
+    "characteristic": "３【事業の内容】 当社グループは、当社および子会社17社で構成され、パッケージングプラント事業、メカトロシステム事業、農業用設備事業にかかる製品の製造販売を主要な事業としております。",
     "stockPrice": 3570.754,
     "netSales": 115434000000.0,
     "employees": 3248,
@@ -57,7 +57,7 @@
     "netIncome": 9781000000.0,
     "eps": 353.54,
     "cash": 46894000000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "7500",
@@ -66,7 +66,7 @@
     "docPdfURL": "https://disclosure2dl.edinet-fsa.go.jp/searchdocument/pdf/S100UFT7.pdf",
     "yahooURL": "https://finance.yahoo.co.jp/quote/7500.T",
     "periodEnd": "2024年6月期",
-    "characteristic": "社内ITインフラ環境の整備および強化を目的としたサービス提供を受けることで今後の事業発展における安定的なシステム環境を確保するため(株式数が増加した理由)上記保有目的による新規株式の取得",
+    "characteristic": "３ 【事業の内容】当社は、制御・情報機器システム、計測器、理化学機器、産業機器・その他の商品販売と、それら商品販売に伴うエンジニアリング、ソフトウエア製作、計装工事、保守サービスを一括して行っております。",
     "stockPrice": null,
     "netSales": null,
     "employees": null,
@@ -87,7 +87,7 @@
     "netIncome": null,
     "eps": null,
     "cash": null,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "1764",
@@ -117,7 +117,7 @@
     "netIncome": null,
     "eps": null,
     "cash": null,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "3446",
@@ -147,7 +147,7 @@
     "netIncome": 199591000.0,
     "eps": 33.96,
     "cash": 610230000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "1431",
@@ -156,7 +156,7 @@
     "docPdfURL": "https://disclosure2dl.edinet-fsa.go.jp/searchdocument/pdf/S100UGCI.pdf",
     "yahooURL": "https://finance.yahoo.co.jp/quote/1431.T",
     "periodEnd": "2024年6月期",
-    "characteristic": "(企業結合等関係) 取得による企業結合 (1)企業結合の概要 ①被取得企業の名称及びその事業内容 被取得企業の名称 幸の国木材工業株式会社 事業の内容 製材加工販売等 ②企業結合を行った主な理由当社グループは、「デジタルマーケティングをコアコンピタンスとするHouse Tech Company」として、「サステナブル＆テクノロジーで住まいにイノベーションを起こす」というミッションを掲げております。",
+    "characteristic": "３ 【事業の内容】当社グループは、当社及び連結子会社４社の計５社で構成されております。",
     "stockPrice": 709.464,
     "netSales": 15435172000.0,
     "employees": 308,
@@ -177,7 +177,7 @@
     "netIncome": 387574000.0,
     "eps": 17.22,
     "cash": 3778388000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "7377",
@@ -186,7 +186,7 @@
     "docPdfURL": "https://disclosure2dl.edinet-fsa.go.jp/searchdocument/pdf/S100UE7Z.pdf",
     "yahooURL": "https://finance.yahoo.co.jp/quote/7377.T",
     "periodEnd": "2024年6月期",
-    "characteristic": "(企業結合等関係)取得による企業結合 当社の連結子会社である大日本ダイヤコンサルタント株式会社は、2024年２月20日開催の取締役会において、株式会社ウエルアップの全株式を取得し、子会社化することについて決議し、同日付で株式譲渡契約を締結いたしました。",
+    "characteristic": "３ 【事業の内容】当社グループは、当社、大日本ダイヤコンサルタント株式会社（連結子会社）、Nippon Engineering-Vietnam Co.",
     "stockPrice": 1620.1616999999999,
     "netSales": 34131911000.0,
     "employees": 1453,
@@ -207,7 +207,7 @@
     "netIncome": 1557407000.0,
     "eps": 192.19,
     "cash": 2116895000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "1788",
@@ -237,7 +237,7 @@
     "netIncome": 132314000.0,
     "eps": 214.43,
     "cash": 1294831000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "9344",
@@ -267,7 +267,7 @@
     "netIncome": 502669000.0,
     "eps": 99.22,
     "cash": 3023373000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "4068",
@@ -276,7 +276,7 @@
     "docPdfURL": "https://disclosure2dl.edinet-fsa.go.jp/searchdocument/pdf/S100UGGR.pdf",
     "yahooURL": "https://finance.yahoo.co.jp/quote/4068.T",
     "periodEnd": "2024年6月期",
-    "characteristic": "（企業結合等関係） （取得による企業結合） １．企業結合の概要 (1) 被取得企業の名称及びその事業の内容 被取得企業の名称 株式会社アヴァンセ・アジル 事業の内容 人材派遣業 (2) 企業結合を行った主な理由 当社は、「ICT で世の中をもっと便利に」という経営理念の下、超スマート社会の実現に必要なモバイ ル（５G、６G）・IoT・IT 等のインフラを創り支えることで、世の中をより便利にすることを目指しております。",
+    "characteristic": "３【事業の内容】 当社グループはインフラテック事業（インフラ（infrastructure）とテクノロジー（Technology）をかけ合わせた造語となります。",
     "stockPrice": 1201.5810000000001,
     "netSales": 6822403000.0,
     "employees": 568,
@@ -297,7 +297,7 @@
     "netIncome": 13158000.0,
     "eps": 6.99,
     "cash": 970857000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "3597",
@@ -327,7 +327,7 @@
     "netIncome": 2015867000.0,
     "eps": 699.34,
     "cash": 11012240000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "9159",
@@ -357,7 +357,7 @@
     "netIncome": null,
     "eps": null,
     "cash": null,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "1716",
@@ -387,7 +387,7 @@
     "netIncome": 1973240000.0,
     "eps": 174.38,
     "cash": 9463504000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "3271",
@@ -417,7 +417,7 @@
     "netIncome": 2714925000.0,
     "eps": 95.91,
     "cash": 4438379000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "5994",
@@ -426,7 +426,7 @@
     "docPdfURL": "https://disclosure2dl.edinet-fsa.go.jp/searchdocument/pdf/S100UGJZ.pdf",
     "yahooURL": "https://finance.yahoo.co.jp/quote/5994.T",
     "periodEnd": "2024年3月期",
-    "characteristic": "自動車焼結事業の主要な取引先であり、安定的な取引の維持と営業取引関係の強化を目的に保有しております。",
+    "characteristic": "３ 【事業の内容】当社の企業集団は、当社及び製造子会社６社で構成され、自動車焼結製品、鉄道焼結製品、油圧機器製品の製造販売を主な事業内容としており、関連当事者（その他の関係会社）であるトヨタ自動車㈱には継続的に自動車焼結製品を販売しております。",
     "stockPrice": null,
     "netSales": 42390968000.0,
     "employees": 2098,
@@ -447,7 +447,7 @@
     "netIncome": -593463000.0,
     "eps": -135.62,
     "cash": 3865107000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "4052",
@@ -477,7 +477,7 @@
     "netIncome": -7884000.0,
     "eps": -1.35,
     "cash": 578443000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "5125",
@@ -507,7 +507,7 @@
     "netIncome": null,
     "eps": null,
     "cash": null,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "9219",
@@ -537,7 +537,7 @@
     "netIncome": 88195000.0,
     "eps": 15.74,
     "cash": 1772349000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "6031",
@@ -567,7 +567,7 @@
     "netIncome": 312357000.0,
     "eps": 15.12,
     "cash": 1144385000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "7369",
@@ -576,7 +576,7 @@
     "docPdfURL": "https://disclosure2dl.edinet-fsa.go.jp/searchdocument/pdf/S100UGIO.pdf",
     "yahooURL": "https://finance.yahoo.co.jp/quote/7369.T",
     "periodEnd": "2024年6月期",
-    "characteristic": "（企業結合等関係） 取得による企業結合 １．株式会社フジ土木設計の株式取得 （１）企業結合の概要 ① 被取得企業の名称及び事業の内容 被取得企業の名称 株式会社フジ土木設計 事業の内容 建設コンサルタント業、測量業 ② 企業結合を行った主な理由 株式会社フジ土木設計は1980年に有限会社フジ土木設計として設立（1991年に株式会社フジ土木設計に改組）され、測量・設計・補償・土木インフラ調査等を幅広く手掛け、調査段階から維持管理まで一貫したマネジメントサービスを提供し、北海道を中心に地域の安全安心を支え、地域と共に歩んできております。",
+    "characteristic": "３【事業の内容】 当社グループは、当社、連結子会社21社（2024年６月30日時点）により構成されております。",
     "stockPrice": null,
     "netSales": 10347883000.0,
     "employees": 589,
@@ -597,7 +597,7 @@
     "netIncome": -87891000.0,
     "eps": -56.19,
     "cash": 1351071000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "7409",
@@ -627,7 +627,7 @@
     "netIncome": null,
     "eps": null,
     "cash": null,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "3986",
@@ -657,7 +657,7 @@
     "netIncome": null,
     "eps": null,
     "cash": null,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "246A",
@@ -687,7 +687,7 @@
     "netIncome": null,
     "eps": null,
     "cash": null,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "9273",
@@ -717,7 +717,7 @@
     "netIncome": 2946337000.0,
     "eps": 74.14,
     "cash": 13195373000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "9340",
@@ -747,7 +747,7 @@
     "netIncome": 386406000.0,
     "eps": 77.94,
     "cash": 1899993000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "3082",
@@ -777,7 +777,7 @@
     "netIncome": 256555000.0,
     "eps": 23.98,
     "cash": 2983497000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "3632",
@@ -786,7 +786,7 @@
     "docPdfURL": "https://disclosure2dl.edinet-fsa.go.jp/searchdocument/pdf/S100UFY3.pdf",
     "yahooURL": "https://finance.yahoo.co.jp/quote/3632.T",
     "periodEnd": "2024年6月期",
-    "characteristic": "（セグメント情報等） 【セグメント情報】 １．報告セグメントの概要 当社の報告セグメントは、当社の構成単位のうち分離された財務情報が入手可能であり、取締役会が、経営資源の配分の決定及び業績を評価するために、定期的に検討を行う対象となっているものであります。",
+    "characteristic": "３【事業の内容】 当社グループは、当社及び当社の連結子会社26社の計27社で構成され、ゲーム・アニメ事業、メタバース事業、DX事業、コマース事業、投資事業を展開しております。",
     "stockPrice": 526.9593,
     "netSales": 61309000000.0,
     "employees": 1580,
@@ -807,7 +807,7 @@
     "netIncome": 4630000000.0,
     "eps": 26.79,
     "cash": 77288000000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "9162",
@@ -816,7 +816,7 @@
     "docPdfURL": "https://disclosure2dl.edinet-fsa.go.jp/searchdocument/pdf/S100UGJ2.pdf",
     "yahooURL": "https://finance.yahoo.co.jp/quote/9162.T",
     "periodEnd": "2024年6月期",
-    "characteristic": "３【事業等のリスク】 本書に記載した当社の事業の状況、経理の状況等に関する事項のうち、投資者の判断に重要な影響を及ぼす可能性のある事項には、以下のようなものがあります。",
+    "characteristic": "３【事業の内容】 当社は「世界を照らす。",
     "stockPrice": null,
     "netSales": null,
     "employees": null,
@@ -837,7 +837,7 @@
     "netIncome": null,
     "eps": null,
     "cash": null,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "3628",
@@ -867,7 +867,7 @@
     "netIncome": -807185000.0,
     "eps": -63.7,
     "cash": 1424737000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "8945",
@@ -876,7 +876,7 @@
     "docPdfURL": "https://disclosure2dl.edinet-fsa.go.jp/searchdocument/pdf/S100UG7Y.pdf",
     "yahooURL": "https://finance.yahoo.co.jp/quote/8945.T",
     "periodEnd": "2024年6月期",
-    "characteristic": "（保有目的）当社が展開するサービスにおいて補完関係を持ち、今後のサービス拡充においても協業関係の維持を目的として継続保有しております。",
+    "characteristic": "３【事業の内容】 当社グループは、当社及び連結子会社４社により構成されております。",
     "stockPrice": 979.4720000000001,
     "netSales": 8371365000.0,
     "employees": 643,
@@ -897,7 +897,7 @@
     "netIncome": 1775416000.0,
     "eps": 188.36,
     "cash": 7316454000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "7707",
@@ -927,6 +927,6 @@
     "netIncome": -1121480000.0,
     "eps": -40.59,
     "cash": 1895220000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   }
 ]

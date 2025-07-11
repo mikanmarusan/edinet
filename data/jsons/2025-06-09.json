@@ -6,7 +6,7 @@
     "docPdfURL": "https://disclosure2dl.edinet-fsa.go.jp/searchdocument/pdf/S100VWD2.pdf",
     "yahooURL": "https://finance.yahoo.co.jp/quote/6201.T",
     "periodEnd": "2025年3月期",
-    "characteristic": "４．セグメント情報当社グループの報告セグメントは、当社グループの構成単位のうち分離された財務情報が入手可能であり、取締役会が、経営資源の配分の決定および業績を評価するため、定期的に検討を行う対象となっているものであります。",
+    "characteristic": "３ 【事業の内容】提出会社(以下、「当社」という。",
     "stockPrice": 12708.7168,
     "netSales": 4084984000000.0,
     "employees": 79454,
@@ -27,6 +27,6 @@
     "netIncome": 262312000000.0,
     "eps": 856.96,
     "cash": 378455000000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-12"
   }
 ]

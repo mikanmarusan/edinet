@@ -27,7 +27,7 @@
     "netIncome": -818087000.0,
     "eps": -67.73,
     "cash": 1478384000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "1873",
@@ -36,7 +36,7 @@
     "docPdfURL": "https://disclosure2dl.edinet-fsa.go.jp/searchdocument/pdf/S100U317.pdf",
     "yahooURL": "https://finance.yahoo.co.jp/quote/1873.T",
     "periodEnd": "2024年4月期",
-    "characteristic": "(セグメント情報等)【セグメント情報】 １ 報告セグメントの概要当社グループの報告セグメントは、当社グループの構成単位のうち分離された財務情報が入手可能であり、取締役会が経営資源の配分の決定及び業績を評価するために、定期的に検討を行う対象となっているものであります。",
+    "characteristic": "３ 【事業の内容】当社グループは、当社、連結子会社４社を中心にして構成されており、住宅の請負建築、宅地の造成・販売を中心とした住宅事業及びホテル・レジャー施設の経営を行うホテル事業など、住の生活産業とサービス産業に関連した事業を行なっております。",
     "stockPrice": null,
     "netSales": 12890000000.0,
     "employees": 1039,
@@ -57,7 +57,7 @@
     "netIncome": -1244000000.0,
     "eps": -31.11,
     "cash": 5457000000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "7623",
@@ -66,7 +66,7 @@
     "docPdfURL": "https://disclosure2dl.edinet-fsa.go.jp/searchdocument/pdf/S100U3L2.pdf",
     "yahooURL": "https://finance.yahoo.co.jp/quote/7623.T",
     "periodEnd": "2024年4月期",
-    "characteristic": "(セグメント情報等)【セグメント情報】１ 報告セグメントの概要(1) 報告セグメントの決定方法当社グループの報告セグメントは、当社グループの構成単位のうち分離された財務情報が入手可能であり、取締役会が、経営資源の配分の決定及び業績を評価するために、定期的に検討を行う対象となっているものであります。",
+    "characteristic": "３ 【事業の内容】当社グループ(当社及び当社の関係会社)は、サンオータス(当社)、連結子会社３社で構成されております。",
     "stockPrice": 591.373,
     "netSales": 16634146000.0,
     "employees": 220,
@@ -87,7 +87,7 @@
     "netIncome": 261332000.0,
     "eps": 81.01,
     "cash": 1309061000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "7901",
@@ -117,7 +117,7 @@
     "netIncome": null,
     "eps": null,
     "cash": null,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "7777",
@@ -147,7 +147,7 @@
     "netIncome": -255505000.0,
     "eps": -3.49,
     "cash": 1363538000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "3524",
@@ -156,7 +156,7 @@
     "docPdfURL": "https://disclosure2dl.edinet-fsa.go.jp/searchdocument/pdf/S100U3M8.pdf",
     "yahooURL": "https://finance.yahoo.co.jp/quote/3524.T",
     "periodEnd": "2024年4月期",
-    "characteristic": "(セグメント情報等)【セグメント情報】１ 報告セグメントの概要当社グループの報告セグメントは、当社グループの構成単位のうち分離された財務諸表が入手可能であり、当社取締役会等において、経営資源の配分の決定及び業績を評価するために、定期的に検討を行う対象となっているものであります。",
+    "characteristic": "３ 【事業の内容】当社グループは、当社、子会社14社で構成され、漁業用・陸上用無結節網及び綟網・ロープ等の製造・販売並びに漁労関係省力機械器具等の商品、水産物の仕入販売を主な事業としております。",
     "stockPrice": 1476.1599999999999,
     "netSales": 20899648000.0,
     "employees": 914,
@@ -177,7 +177,7 @@
     "netIncome": 546899000.0,
     "eps": 210.88,
     "cash": 1034831000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "3161",
@@ -207,6 +207,6 @@
     "netIncome": 187650000.0,
     "eps": 33.04,
     "cash": 2590066000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   }
 ]

@@ -6,7 +6,7 @@
     "docPdfURL": "https://disclosure2dl.edinet-fsa.go.jp/searchdocument/pdf/S100V4KH.pdf",
     "yahooURL": "https://finance.yahoo.co.jp/quote/7856.T",
     "periodEnd": "2024年10月期",
-    "characteristic": "（セグメント情報等） 【セグメント情報】 １．報告セグメントの概要 当社グループの報告セグメントは、当社グループの構成単位のうち分離された財務情報が入手可能であり、取締役会等が経営資源の配分の決定及び業績を評価するために、定期的に検討を行う対象となっているものであります。",
+    "characteristic": "３【事業の内容】 当社グループは、当社及び子会社16社で構成され、合成樹脂加工製品関連の原糸、クロス及びラミクロス等の製造・販売及び機械製品関連の製造・販売を主な内容として事業活動を展開しております。",
     "stockPrice": 1450.0990000000002,
     "netSales": 33118244000.0,
     "employees": 1299,
@@ -27,7 +27,7 @@
     "netIncome": 1518253000.0,
     "eps": 109.03,
     "cash": 4859601000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "9678",
@@ -57,6 +57,6 @@
     "netIncome": 9013000000.0,
     "eps": 253.72,
     "cash": 50586000000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   }
 ]

@@ -27,7 +27,7 @@
     "netIncome": 4876915000.0,
     "eps": 175.01,
     "cash": 12863043000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "7420",
@@ -36,7 +36,7 @@
     "docPdfURL": "https://disclosure2dl.edinet-fsa.go.jp/searchdocument/pdf/S100U9G8.pdf",
     "yahooURL": "https://finance.yahoo.co.jp/quote/7420.T",
     "periodEnd": "2024年5月期",
-    "characteristic": "(セグメント情報等)【セグメント情報】１．報告セグメントの概要(1) 報告セグメントの決定方法当社グループの報告セグメントは、当社グループの構成単位のうち分離された財務情報が入手可能であり、経営資源の配分の決定及び業績を評価するために、最高経営意思決定機関が定期的に検討を行う対象となっているものであります。",
+    "characteristic": "３ 【事業の内容】当社グループは、当社及び子会社17社（連結子会社16社）で構成されております。",
     "stockPrice": 2061.7110000000002,
     "netSales": 148113000000.0,
     "employees": 793,
@@ -57,7 +57,7 @@
     "netIncome": 2156000000.0,
     "eps": 148.86,
     "cash": 9243000000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "3160",
@@ -66,7 +66,7 @@
     "docPdfURL": "https://disclosure2dl.edinet-fsa.go.jp/searchdocument/pdf/S100U99X.pdf",
     "yahooURL": "https://finance.yahoo.co.jp/quote/3160.T",
     "periodEnd": "2024年5月期",
-    "characteristic": "１【経営方針、経営環境及び対処すべき課題等】 当社グループの経営方針、経営環境及び対処すべき課題等は、以下のとおりであります。",
+    "characteristic": "３【事業の内容】 当社グループ（当社及び当社の関係会社）は、当社及び連結子会社１社により構成されており、業務用食品の卸売業、小売業、及び水産品の卸売業を行っております。",
     "stockPrice": 610.0862,
     "netSales": 70505597000.0,
     "employees": 549,
@@ -87,6 +87,6 @@
     "netIncome": 760455000.0,
     "eps": 51.79,
     "cash": 1711550000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   }
 ]

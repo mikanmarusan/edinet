@@ -6,7 +6,7 @@
     "docPdfURL": "https://disclosure2dl.edinet-fsa.go.jp/searchdocument/pdf/S100UEAA.pdf",
     "yahooURL": "https://finance.yahoo.co.jp/quote/2904.T",
     "periodEnd": "2024年6月期",
-    "characteristic": "（保有目的）当社グループにおける商品及び製品の販売先であり、取引関係の維持・強化のため保有しています。",
+    "characteristic": "３ 【事業の内容】当社グループは、当社、連結子会社１社及び関連会社１社で構成され、その事業は、食品の製造販売を主な事業の内容として、当事業に関する物流、サービス等の事業を展開しています。",
     "stockPrice": 765.87,
     "netSales": 34487406000.0,
     "employees": 928,
@@ -27,7 +27,7 @@
     "netIncome": 957478000.0,
     "eps": 52.1,
     "cash": 3183952000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "3191",
@@ -36,7 +36,7 @@
     "docPdfURL": "https://disclosure2dl.edinet-fsa.go.jp/searchdocument/pdf/S100UDP6.pdf",
     "yahooURL": "https://finance.yahoo.co.jp/quote/3191.T",
     "periodEnd": "2024年6月期",
-    "characteristic": "主要取引金融機関であり、設備投資案件や運転資金等の調達提案、取引企業の紹介、営業に関する各種情報提供など、同社グループとの円滑で良好な取引関係の維持、強化を図るため保有しておりましたが、保有の合理性を検証した結果、当事業年度において、全株式を売却いたしました。",
+    "characteristic": "３ 【事業の内容】当社は、主に「住まい」に関する関連商品（資材・プロ用品、インテリア・リビング、ガーデン・ファーム）の販売およびリフォーム工事の設計・施工・関連商品の販売ならびに「生活」に関する関連商品（デイリー・日用品、ペット・レジャー）の販売、また、これらに付帯するサービスを提供する専門店として、一般消費者からプロ顧客まで幅広く対応した、豊富な品揃えとロープライスを実践するホームセンター事業、住宅リフォーム事業を営んでおります。",
     "stockPrice": null,
     "netSales": null,
     "employees": null,
@@ -57,7 +57,7 @@
     "netIncome": null,
     "eps": null,
     "cash": null,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "3836",
@@ -87,7 +87,7 @@
     "netIncome": 2850922000.0,
     "eps": 76.62,
     "cash": 11976585000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "4398",
@@ -117,7 +117,7 @@
     "netIncome": null,
     "eps": null,
     "cash": null,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "3984",
@@ -147,6 +147,6 @@
     "netIncome": null,
     "eps": null,
     "cash": null,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   }
 ]

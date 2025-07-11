@@ -6,7 +6,7 @@
     "docPdfURL": "https://disclosure2dl.edinet-fsa.go.jp/searchdocument/pdf/S100U9TI.pdf",
     "yahooURL": "https://finance.yahoo.co.jp/quote/1377.T",
     "periodEnd": "2024年5月期",
-    "characteristic": "（企業結合等関係） （取得による企業結合） Sana Seeds B.",
+    "characteristic": "３【事業の内容】 当社グループ（当社および当社の関係会社）は、当社、子会社35社および関連会社３社により構成されており、園芸商材（野菜種子、花種子、球根、苗木、農園芸資材）の販売業務を営んでおります。",
     "stockPrice": 3374.6328000000003,
     "netSales": 88677000000.0,
     "employees": 2948,
@@ -27,7 +27,7 @@
     "netIncome": 16162000000.0,
     "eps": 365.22,
     "cash": 20264000000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "4825",
@@ -57,7 +57,7 @@
     "netIncome": 2437821000.0,
     "eps": 220.28,
     "cash": 14311060000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "8940",
@@ -87,7 +87,7 @@
     "netIncome": 414164000.0,
     "eps": 50.04,
     "cash": 4690001000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "1887",
@@ -117,7 +117,7 @@
     "netIncome": -7191000000.0,
     "eps": -86.21,
     "cash": 21947000000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "9265",
@@ -147,6 +147,6 @@
     "netIncome": 580000000.0,
     "eps": 227.96,
     "cash": 5300000000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   }
 ]

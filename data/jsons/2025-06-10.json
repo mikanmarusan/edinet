@@ -4,7 +4,7 @@
     "filerName": "株式会社ヤマナカ",
     "docID": "S100VWD9",
     "docPdfURL": "https://disclosure2dl.edinet-fsa.go.jp/searchdocument/pdf/S100VWD9.pdf",
-    "yahooURL": "https://finance.yahoo.co.jp/quote/8190.T",
+    "yahooURL": "https://finance.yahoo.co.jp/quote/8190.N",
     "periodEnd": "2025年3月期",
     "characteristic": "３ 【事業の内容】当社グループは、当社(株式会社ヤマナカ)及び、子会社２社、関連会社２社で構成され、小売事業及びそれに附随する小売周辺事業として、外食事業、食品製造及び加工販売、不動産の賃貸借、店舗設備等のメンテナンス及び商品配送代行事業を行っております。",
     "stockPrice": 570.594,
@@ -27,7 +27,7 @@
     "netIncome": 296000000.0,
     "eps": 15.59,
     "cash": 4205000000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-12"
   },
   {
     "secCode": "6995",
@@ -36,7 +36,7 @@
     "docPdfURL": "https://disclosure2dl.edinet-fsa.go.jp/searchdocument/pdf/S100VWO0.pdf",
     "yahooURL": "https://finance.yahoo.co.jp/quote/6995.T",
     "periodEnd": "2025年3月期",
-    "characteristic": "自動車用スイッチ、キーセット及びステアリングロック等の製造及び販売に関するトウカイリカインドネシア㈱の設立並びにその事業活動継続のため株式を保有しています。",
+    "characteristic": "３【事業の内容】 当社グループは、HMI製品、スマートシステム、シートベルト、シフトレバー等、主に自動車用部品のメーカーであり、国内においては当社、連結子会社10社及び持分法適用関連会社２社が、海外においては各地に設立した連結子会社28社及び持分法適用関連会社３社が、それぞれ生産・販売を担当しております。",
     "stockPrice": 2232.712,
     "netSales": 617660000000.0,
     "employees": 20157,
@@ -57,7 +57,7 @@
     "netIncome": 29599000000.0,
     "eps": 328.34,
     "cash": 74609000000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-12"
   },
   {
     "secCode": "3116",
@@ -66,7 +66,7 @@
     "docPdfURL": "https://disclosure2dl.edinet-fsa.go.jp/searchdocument/pdf/S100VWKM.pdf",
     "yahooURL": "https://finance.yahoo.co.jp/quote/3116.T",
     "periodEnd": "2025年3月期",
-    "characteristic": "７．企業結合 前連結会計年度（自 2023年4月1日 至 2024年3月31日） （トヨタ車体精工株式会社の株式取得による企業結合） 当社は、2022年12月27日開催の取締役会においてトヨタ車体株式会社からトヨタ車体精工株式会社（以下、トヨタ車体精工）の株式を追加取得する事を決議し、2023年10月１日付で子会社化いたしました。",
+    "characteristic": "３【事業の内容】 当社グループは、当社を関連会社とするトヨタ自動車㈱、当社、連結子会社69社及び持分法適用関連会社20社で構 成され、自動車部品及び繊維製品の製造・販売を主な内容とし、事業活動を展開しております。",
     "stockPrice": 1984.956,
     "netSales": 1954218000000.0,
     "employees": 45004,
@@ -87,14 +87,14 @@
     "netIncome": 16719000000.0,
     "eps": 93.63,
     "cash": 249721000000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-12"
   },
   {
     "secCode": "8190",
     "filerName": "株式会社ヤマナカ",
     "docID": "S100VWD9",
     "docPdfURL": "https://disclosure2dl.edinet-fsa.go.jp/searchdocument/pdf/S100VWD9.pdf",
-    "yahooURL": "https://finance.yahoo.co.jp/quote/8190.T",
+    "yahooURL": "https://finance.yahoo.co.jp/quote/8190.N",
     "periodEnd": "2025年3月期",
     "characteristic": "３ 【事業の内容】当社グループは、当社(株式会社ヤマナカ)及び、子会社２社、関連会社２社で構成され、小売事業及びそれに附随する小売周辺事業として、外食事業、食品製造及び加工販売、不動産の賃貸借、店舗設備等のメンテナンス及び商品配送代行事業を行っております。",
     "stockPrice": 570.594,
@@ -117,7 +117,7 @@
     "netIncome": 296000000.0,
     "eps": 15.59,
     "cash": 4205000000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-12"
   },
   {
     "secCode": "9436",
@@ -147,6 +147,6 @@
     "netIncome": 12668000000.0,
     "eps": 260.52,
     "cash": 3506000000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-12"
   }
 ]

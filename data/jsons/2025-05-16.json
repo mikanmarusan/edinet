@@ -27,7 +27,7 @@
     "netIncome": -47631000.0,
     "eps": -3.96,
     "cash": 2044249000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-12"
   },
   {
     "secCode": "8276",
@@ -57,7 +57,7 @@
     "netIncome": 10727000000.0,
     "eps": 209.08,
     "cash": 22881000000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-12"
   },
   {
     "secCode": "6279",
@@ -66,7 +66,7 @@
     "docPdfURL": "https://disclosure2dl.edinet-fsa.go.jp/searchdocument/pdf/S100VRJK.pdf",
     "yahooURL": "https://finance.yahoo.co.jp/quote/6279.T",
     "periodEnd": "2025年2月期",
-    "characteristic": "（企業結合等関係） 取得による企業結合 １．企業結合の概要 (1) 被取得企業の名称及びその事業の内容 被取得企業の名称 DELTA S.",
+    "characteristic": "３【事業の内容】 当社の企業集団は、当社、子会社11社及び関連会社１社で構成されております。",
     "stockPrice": null,
     "netSales": 19950779000.0,
     "employees": 597,
@@ -87,7 +87,7 @@
     "netIncome": -788076000.0,
     "eps": -29.78,
     "cash": 9732630000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-12"
   },
   {
     "secCode": "7450",
@@ -117,6 +117,6 @@
     "netIncome": null,
     "eps": null,
     "cash": null,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-12"
   }
 ]

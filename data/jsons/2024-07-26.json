@@ -27,7 +27,7 @@
     "netIncome": 1972000000.0,
     "eps": 162.1,
     "cash": 10570000000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "3180",
@@ -57,7 +57,7 @@
     "netIncome": 1084000000.0,
     "eps": 85.78,
     "cash": 3506000000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "5971",
@@ -66,7 +66,7 @@
     "docPdfURL": "https://disclosure2dl.edinet-fsa.go.jp/searchdocument/pdf/S100U3AZ.pdf",
     "yahooURL": "https://finance.yahoo.co.jp/quote/5971.T",
     "periodEnd": "2024年4月期",
-    "characteristic": "同社は、自動車・建設機械用部品を中心に製造する鉄鋼メーカーであり、当社グループの販売先のひとつであります。",
+    "characteristic": "３【事業の内容】 当社グループは、株式会社共和工業所（当社）、子会社である株式会社共和ワークスタイル、関連会社である株式会社ネツレン小松並びにその他の関係会社である有限会社ワイ・エム・ジィにより構成されております。",
     "stockPrice": 6197.873,
     "netSales": 10972526000.0,
     "employees": 287,
@@ -87,7 +87,7 @@
     "netIncome": 1443260000.0,
     "eps": 1063.1,
     "cash": 5150833000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "1436",
@@ -117,7 +117,7 @@
     "netIncome": 330434000.0,
     "eps": 80.53,
     "cash": 1503212000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "6630",
@@ -147,7 +147,7 @@
     "netIncome": 398330000.0,
     "eps": 7.24,
     "cash": 16151530000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "3134",
@@ -177,7 +177,7 @@
     "netIncome": 1121626000.0,
     "eps": 70.42,
     "cash": 4021675000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "3843",
@@ -186,7 +186,7 @@
     "docPdfURL": "https://disclosure2dl.edinet-fsa.go.jp/searchdocument/pdf/S100U3VL.pdf",
     "yahooURL": "https://finance.yahoo.co.jp/quote/3843.T",
     "periodEnd": "2024年4月期",
-    "characteristic": "（企業結合等関係） 共通支配下の取引等 当社は、2023年12月８日開催の臨時取締役会において、2024年２月１日を効力発生日とする、当社の連結子会社である株式会社ドリーム・トレイン・インターネットを存続会社、同じく当社の連結子会社であるトーンライフスタイル株式会社を消滅会社とする吸収合併（以下、「本合併」）を行うことを決議し、2024年２月１日付で合併いたしました。",
+    "characteristic": "３【事業の内容】 当社グループは、「Being The NET Frontier！",
     "stockPrice": 1429.8266,
     "netSales": 53037592000.0,
     "employees": 884,
@@ -207,7 +207,7 @@
     "netIncome": 3566009000.0,
     "eps": 176.74,
     "cash": 18722373000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "4268",
@@ -237,7 +237,7 @@
     "netIncome": null,
     "eps": null,
     "cash": null,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "2156",
@@ -267,7 +267,7 @@
     "netIncome": -74247000.0,
     "eps": -19.55,
     "cash": 541878000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "3903",
@@ -276,7 +276,7 @@
     "docPdfURL": "https://disclosure2dl.edinet-fsa.go.jp/searchdocument/pdf/S100U3ME.pdf",
     "yahooURL": "https://finance.yahoo.co.jp/quote/3903.T",
     "periodEnd": "2024年4月期",
-    "characteristic": "(セグメント情報等)【セグメント情報】１．報告セグメントの概要当社の報告セグメントは、当社グループの構成単位のうち分離された財務情報が入手可能なものであり、取締役会が、経営資源の配分の決定及び業績を評価するために、定期的に検討を行う対象となっているものであります。",
+    "characteristic": "３ 【事業の内容】当社グループの主な事業内容とグループを構成している主要各社の位置づけは以下のとおりであります。",
     "stockPrice": null,
     "netSales": 12066565000.0,
     "employees": 689,
@@ -297,6 +297,6 @@
     "netIncome": -5934026000.0,
     "eps": -150.03,
     "cash": 4778622000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   }
 ]

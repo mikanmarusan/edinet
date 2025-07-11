@@ -27,7 +27,7 @@
     "netIncome": null,
     "eps": null,
     "cash": null,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-12"
   },
   {
     "secCode": "8227",
@@ -36,7 +36,7 @@
     "docPdfURL": "https://disclosure2dl.edinet-fsa.go.jp/searchdocument/pdf/S100VRWR.pdf",
     "yahooURL": "https://finance.yahoo.co.jp/quote/8227.T",
     "periodEnd": "2025年2月期",
-    "characteristic": "取引関係の強化を保有目的としています。",
+    "characteristic": "３【事業の内容】 当社の企業集団（当社及び当社子会社）は、株式会社しまむら（当社）、及び子会社１社で構成され、衣料品を主としたソフトグッズの販売を行うチェーンストア群としての事業展開をしています。",
     "stockPrice": 8946.331,
     "netSales": 665358000000.0,
     "employees": 3253,
@@ -57,7 +57,7 @@
     "netIncome": 41885000000.0,
     "eps": 569.83,
     "cash": 206200000000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-12"
   },
   {
     "secCode": "9787",
@@ -87,6 +87,6 @@
     "netIncome": 11524000000.0,
     "eps": 239.16,
     "cash": 71204000000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-12"
   }
 ]

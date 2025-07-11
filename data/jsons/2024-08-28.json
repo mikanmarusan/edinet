@@ -27,7 +27,7 @@
     "netIncome": -138505000.0,
     "eps": -18.46,
     "cash": 506331000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "198A",
@@ -57,7 +57,7 @@
     "netIncome": null,
     "eps": null,
     "cash": null,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "7434",
@@ -87,7 +87,7 @@
     "netIncome": null,
     "eps": null,
     "cash": null,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "3892",
@@ -96,7 +96,7 @@
     "docPdfURL": "https://disclosure2dl.edinet-fsa.go.jp/searchdocument/pdf/S100UACY.pdf",
     "yahooURL": "https://finance.yahoo.co.jp/quote/3892.T",
     "periodEnd": "2024年5月期",
-    "characteristic": "板紙製品及び美粧段ボール製品の販売先であり、取引関係を維持・強化するために保有しております。",
+    "characteristic": "３【事業の内容】 当社の企業集団(当社及び当社の関係会社)は当社(株式会社岡山製紙)と王子ホールディングス株式会社(その他の関係会社)から構成されており、当社は中芯原紙・紙管原紙を主体とした板紙と美粧段ボールの製造、販売を主たる事業としております。",
     "stockPrice": null,
     "netSales": null,
     "employees": null,
@@ -117,7 +117,7 @@
     "netIncome": null,
     "eps": null,
     "cash": null,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "1376",
@@ -147,7 +147,7 @@
     "netIncome": 1177699000.0,
     "eps": 103.28,
     "cash": 3265897000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "9651",
@@ -156,7 +156,7 @@
     "docPdfURL": "https://disclosure2dl.edinet-fsa.go.jp/searchdocument/pdf/S100UA1Z.pdf",
     "yahooURL": "https://finance.yahoo.co.jp/quote/9651.T",
     "periodEnd": "2024年5月期",
-    "characteristic": "社会インフラ分野のシステム開発を中心に、グローバルな協業・連携を推し進めていくため、継続保有をしております。",
+    "characteristic": "３【事業の内容】 当社グループ（当社及び当社の関係会社）は当社、連結子会社１社で構成され、システム開発、情報サービスを主たる業務としております。",
     "stockPrice": 1066.1516,
     "netSales": 9468657000.0,
     "employees": 698,
@@ -177,7 +177,7 @@
     "netIncome": 730514000.0,
     "eps": 75.56,
     "cash": 4582033000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "7713",
@@ -186,7 +186,7 @@
     "docPdfURL": "https://disclosure2dl.edinet-fsa.go.jp/searchdocument/pdf/S100U9F3.pdf",
     "yahooURL": "https://finance.yahoo.co.jp/quote/7713.T",
     "periodEnd": "2024年5月期",
-    "characteristic": "（セグメント情報等） 【セグメント情報】 １．報告セグメントの概要 当社グループの報告セグメントは、当社グループの構成単位のうち分離された財務情報が入手可能であり、取締役会が、経営資源の配分の決定及び業績を評価するために、定期的に検討を行う対象としているものです。",
+    "characteristic": "３【事業の内容】 当社グループ（当社及び当社の関係会社）は、シグマ光機株式会社（当社）、子会社４社及び関連会社２社により構成されており、事業は光学基本機器製品、自動応用製品及び光学素子・薄膜製品で構成される「光学要素部品」と、光学モジュール・光学ユニット製品や光学機器・装置等で構成される「光学システム製品」の開発、生産、販売及び主にこれらに付随する保守、サービス等であります。",
     "stockPrice": 1549.5691000000002,
     "netSales": 11213162000.0,
     "employees": 526,
@@ -207,7 +207,7 @@
     "netIncome": 687223000.0,
     "eps": 97.03,
     "cash": 3904310000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "5967",
@@ -216,7 +216,7 @@
     "docPdfURL": "https://disclosure2dl.edinet-fsa.go.jp/searchdocument/pdf/S100UAHW.pdf",
     "yahooURL": "https://finance.yahoo.co.jp/quote/5967.T",
     "periodEnd": "2024年5月期",
-    "characteristic": "（セグメント情報等） 【セグメント情報】 １ 報告セグメントの概要 当社の報告セグメントは、当社の構成単位のうち分離された財務諸表が入手可能であり、取締役会が、経営資源の配分の決定及び業績を評価するために、定期的に検討を行う対象となっているものであります。",
+    "characteristic": "３【事業の内容】 当社グループは、当社と子会社３社で構成されており、その主な事業内容は、作業工具類及び機器類の製造並びに販売であります。",
     "stockPrice": 1078.824,
     "netSales": 7578756000.0,
     "employees": 155,
@@ -237,7 +237,7 @@
     "netIncome": 942667000.0,
     "eps": 85.35,
     "cash": 2248514000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "1419",
@@ -267,7 +267,7 @@
     "netIncome": 8752000000.0,
     "eps": 301.94,
     "cash": 26105000000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "5885",
@@ -297,7 +297,7 @@
     "netIncome": null,
     "eps": null,
     "cash": null,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "3236",
@@ -327,7 +327,7 @@
     "netIncome": null,
     "eps": null,
     "cash": null,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "4443",
@@ -357,7 +357,7 @@
     "netIncome": 953000000.0,
     "eps": 7.47,
     "cash": 24729000000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "6047",
@@ -366,7 +366,7 @@
     "docPdfURL": "https://disclosure2dl.edinet-fsa.go.jp/searchdocument/pdf/S100UAGU.pdf",
     "yahooURL": "https://finance.yahoo.co.jp/quote/6047.T",
     "periodEnd": "2024年5月期",
-    "characteristic": "（企業結合等関係） 事業分離 （子会社株式の譲渡） １．株式譲渡の概要 （1）譲渡先企業の名称 株式会社Brave group （2）譲渡した子会社の名称及び事業の内容 名称 株式会社Smarprise 事業内容 メディア事業、広告代理事業、エンターテインメント事業 （3）株式譲渡を行った主な理由 当社の連結子会社である株式会社ゲームエイト（以下、ゲームエイト社）と、株式会社Smarprise（以下、Smarprise社）が隣接する事業領域を展開していたことから、両社が保有するノウハウや顧客接点を双方の事業へ活用することで、さらなる成長の実現を目的に、当社グループはゲームエイト社を通じて2019年にSmarprise社の全株式を取得いたしました。",
+    "characteristic": "３【事業の内容】 当社グループは「情報を世界中の人に最適に届ける」を企業理念に掲げ、インターネット上に存在する膨大な量の情報の中から、ユーザーの興味・関心にあわせてパーソナライズ化された情報を配信する情報キュレーションサービスその他メディアの開発及び運営と、これらのメディアを通じたメディア事業を展開しております。",
     "stockPrice": null,
     "netSales": 7344000000.0,
     "employees": 206,
@@ -387,7 +387,7 @@
     "netIncome": -1186000000.0,
     "eps": -49.33,
     "cash": 5090000000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "4885",
@@ -417,7 +417,7 @@
     "netIncome": 31570000.0,
     "eps": 15.75,
     "cash": 880950000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "192A",
@@ -447,7 +447,7 @@
     "netIncome": null,
     "eps": null,
     "cash": null,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "8886",
@@ -477,6 +477,6 @@
     "netIncome": -2367676000.0,
     "eps": -1623.83,
     "cash": 3072238000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   }
 ]

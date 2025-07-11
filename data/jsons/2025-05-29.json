@@ -27,7 +27,7 @@
     "netIncome": null,
     "eps": null,
     "cash": null,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-12"
   },
   {
     "secCode": "7427",
@@ -57,7 +57,7 @@
     "netIncome": 1001758000.0,
     "eps": 166.38,
     "cash": 4221255000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-12"
   },
   {
     "secCode": "3080",
@@ -87,7 +87,7 @@
     "netIncome": 345589000.0,
     "eps": 26.97,
     "cash": 3796018000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-12"
   },
   {
     "secCode": "7719",
@@ -96,7 +96,7 @@
     "docPdfURL": "https://disclosure2dl.edinet-fsa.go.jp/searchdocument/pdf/S100VU9R.pdf",
     "yahooURL": "https://finance.yahoo.co.jp/quote/7719.T",
     "periodEnd": "2025年2月期",
-    "characteristic": "(セグメント情報等)【セグメント情報】１ 報告セグメントの概要当社グループの報告セグメントは、当社グループの構成単位のうち分離された財務情報が入手可能であり、経営陣が経営資源の配分の決定等のために、定期的に検討を行う対象となっているものであります。",
+    "characteristic": "３ 【事業の内容】当社グループは、当社及び子会社２社より構成されており、試験機事業、エンジニアリング事業及びその他の事業を営んでまいりました。",
     "stockPrice": 173.07920000000001,
     "netSales": 3483885000.0,
     "employees": 127,
@@ -117,7 +117,7 @@
     "netIncome": 62941000.0,
     "eps": 8.68,
     "cash": 474578000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-12"
   },
   {
     "secCode": "2670",
@@ -147,7 +147,7 @@
     "netIncome": 45358000000.0,
     "eps": 183.18,
     "cash": 197600000000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-12"
   },
   {
     "secCode": "3030",
@@ -177,7 +177,7 @@
     "netIncome": null,
     "eps": null,
     "cash": null,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-12"
   },
   {
     "secCode": "3826",
@@ -207,7 +207,7 @@
     "netIncome": 583408000.0,
     "eps": 53.44,
     "cash": 2459289000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-12"
   },
   {
     "secCode": "9238",
@@ -237,7 +237,7 @@
     "netIncome": null,
     "eps": null,
     "cash": null,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-12"
   },
   {
     "secCode": "7689",
@@ -267,7 +267,7 @@
     "netIncome": null,
     "eps": null,
     "cash": null,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-12"
   },
   {
     "secCode": "7908",
@@ -276,7 +276,7 @@
     "docPdfURL": "https://disclosure2dl.edinet-fsa.go.jp/searchdocument/pdf/S100VU5M.pdf",
     "yahooURL": "https://finance.yahoo.co.jp/quote/7908.T",
     "periodEnd": "2025年3月期",
-    "characteristic": "(セグメント情報等) 【セグメント情報】１ 報告セグメントの概要当社グループの報告セグメントは、当社グループの構成単位のうち分離された財務情報が入手可能であり、当社の最高経営意思決定機関である取締役会が、経営資源の配分の決定及び業績を評価するために、定期的に検討を行う対象となっているものであります。",
+    "characteristic": "３ 【事業の内容】当社グループは、当社、子会社３社(全て在外子会社)で構成されており、日本、北米、東アジア及び欧州にセグメント分けしております。",
     "stockPrice": 285.0572,
     "netSales": 11294000000.0,
     "employees": 432,
@@ -297,7 +297,7 @@
     "netIncome": 989000000.0,
     "eps": 21.53,
     "cash": 12490000000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-12"
   },
   {
     "secCode": "8247",
@@ -306,7 +306,7 @@
     "docPdfURL": "https://disclosure2dl.edinet-fsa.go.jp/searchdocument/pdf/S100VUHE.pdf",
     "yahooURL": "https://finance.yahoo.co.jp/quote/8247.T",
     "periodEnd": "2025年2月期",
-    "characteristic": "百貨店業営業部門等における取引関係の維持・強化を図るため。",
+    "characteristic": "３【事業の内容】 当社企業グループは（当社、連結子会社７社、持分法適用関連会社１社（2025年２月28日現在）により構成）、 百貨店業・その他事業を行っている。",
     "stockPrice": 426.0353,
     "netSales": 16434068000.0,
     "employees": 682,
@@ -327,7 +327,7 @@
     "netIncome": 192548000.0,
     "eps": 34.33,
     "cash": 1897357000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-12"
   },
   {
     "secCode": "4645",
@@ -336,7 +336,7 @@
     "docPdfURL": "https://disclosure2dl.edinet-fsa.go.jp/searchdocument/pdf/S100VUAH.pdf",
     "yahooURL": "https://finance.yahoo.co.jp/quote/4645.T",
     "periodEnd": "2025年2月期",
-    "characteristic": "（企業結合等関係）取得による企業結合１.",
+    "characteristic": "３【事業の内容】当社グループは、教育サービス事業、介護福祉サービス事業の２つを主要なビジネスセグメントとして事業展開をおこなっております。",
     "stockPrice": 426.49600000000004,
     "netSales": 18459134000.0,
     "employees": 942,
@@ -357,7 +357,7 @@
     "netIncome": 317294000.0,
     "eps": 35.84,
     "cash": 3406577000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-12"
   },
   {
     "secCode": "6506",
@@ -366,7 +366,7 @@
     "docPdfURL": "https://disclosure2dl.edinet-fsa.go.jp/searchdocument/pdf/S100VUHZ.pdf",
     "yahooURL": "https://finance.yahoo.co.jp/quote/6506.T",
     "periodEnd": "2025年2月期",
-    "characteristic": "５．セグメント情報 (1）報告セグメントの概要 当社グループの事業セグメントは、当社グループの構成単位のうち分離された財務情報が入手可能であり、当社の取締役会が、経営資源の配分の決定および業績を評価するために、定期的に検討を行う対象となっているものです。",
+    "characteristic": "３【事業の内容】 当社グループは、当社を中核として子会社71社および関連会社13社（2025年2月28日現在）により構成され、「モーションコントロール」、「ロボット」、「システムエンジニアリング」および「その他」の各セグメントにおいて様々な分野で製造、販売、据付、保守およびエンジニアリング等の事業展開を行っております。",
     "stockPrice": 4029.111,
     "netSales": 537682000000.0,
     "employees": 12833,
@@ -387,16 +387,16 @@
     "netIncome": 56987000000.0,
     "eps": 218.38,
     "cash": 59028000000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-12"
   },
   {
     "secCode": "7485",
     "filerName": "岡谷鋼機株式会社",
     "docID": "S100VTLU",
     "docPdfURL": "https://disclosure2dl.edinet-fsa.go.jp/searchdocument/pdf/S100VTLU.pdf",
-    "yahooURL": "https://finance.yahoo.co.jp/quote/7485.T",
+    "yahooURL": "https://finance.yahoo.co.jp/quote/7485.N",
     "periodEnd": "2025年2月期",
-    "characteristic": "(セグメント情報等) 【セグメント情報】１.",
+    "characteristic": "３ 【事業の内容】当企業集団は商社である当社を中心として、鉄鋼、情報・電機、産業資材、生活産業の多様な商品の売買・製造等、国内及び海外において多角的な事業活動を展開しております。",
     "stockPrice": 7034.299999999999,
     "netSales": 1121764000000.0,
     "employees": 6477,
@@ -417,7 +417,7 @@
     "netIncome": 27070000000.0,
     "eps": 1406.86,
     "cash": 14815000000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-12"
   },
   {
     "secCode": "5982",
@@ -447,7 +447,7 @@
     "netIncome": 4647183000.0,
     "eps": 294.43,
     "cash": 23847011000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-12"
   },
   {
     "secCode": "6521",
@@ -477,7 +477,7 @@
     "netIncome": -2703613000.0,
     "eps": -243.91,
     "cash": 2239942000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-12"
   },
   {
     "secCode": "3996",
@@ -507,7 +507,7 @@
     "netIncome": null,
     "eps": null,
     "cash": null,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-12"
   },
   {
     "secCode": "8011",
@@ -537,7 +537,7 @@
     "netIncome": 4007000000.0,
     "eps": 351.48,
     "cash": 19534000000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-12"
   },
   {
     "secCode": "2726",
@@ -546,7 +546,7 @@
     "docPdfURL": "https://disclosure2dl.edinet-fsa.go.jp/searchdocument/pdf/S100VU6M.pdf",
     "yahooURL": "https://finance.yahoo.co.jp/quote/2726.T",
     "periodEnd": "2025年2月期",
-    "characteristic": "(セグメント情報等)【セグメント情報】１．報告セグメントの概要当社グループでは、衣料品販売を主たる事業とし、雑貨販売も展開しており、それぞれ包括的な戦略を立案し、事業活動を展開しております。",
+    "characteristic": "３ 【事業の内容】当社グループは、当社を持株会社として、子会社12社及び関連会社２社にて構成されており、一般消費者を対象とした店頭での衣料の販売を主力事業として、雑貨の販売及びその他の事業を展開しております。",
     "stockPrice": 3084.222,
     "netSales": 207825000000.0,
     "employees": 4279,
@@ -567,7 +567,7 @@
     "netIncome": 11848000000.0,
     "eps": 136.47,
     "cash": 85715000000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-12"
   },
   {
     "secCode": "5018",
@@ -576,7 +576,7 @@
     "docPdfURL": "https://disclosure2dl.edinet-fsa.go.jp/searchdocument/pdf/S100VTZK.pdf",
     "yahooURL": "https://finance.yahoo.co.jp/quote/5018.T",
     "periodEnd": "2025年2月期",
-    "characteristic": "(セグメント情報等)【セグメント情報】１．報告セグメントの概要当社の報告セグメントは、当社の構成単位のうち分離された財務情報が入手可能であり、取締役会が、経営資源の配分の決定および業績を評価するために、定期的に検討を行う対象となっているものであります。",
+    "characteristic": "３ 【事業の内容】当社グループは、当社(株式会社ＭＯＲＥＳＣＯ)、連結子会社15社および、持分法適用関連会社１社により構成されており、化学品(特殊潤滑油、合成潤滑油、素材、ホットメルト接着剤、エネルギーデバイス材料)の製造・販売を主な事業としており、主要製品は以下のとおりであります。",
     "stockPrice": 1193.076,
     "netSales": 34374000000.0,
     "employees": 795,
@@ -597,7 +597,7 @@
     "netIncome": 1013000000.0,
     "eps": 110.47,
     "cash": 5508000000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-12"
   },
   {
     "secCode": "6897",
@@ -627,14 +627,14 @@
     "netIncome": 164031000.0,
     "eps": 17.44,
     "cash": 1989568000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-12"
   },
   {
     "secCode": "3260",
     "filerName": "株式会社エスポア",
     "docID": "S100VUFP",
     "docPdfURL": "https://disclosure2dl.edinet-fsa.go.jp/searchdocument/pdf/S100VUFP.pdf",
-    "yahooURL": "https://finance.yahoo.co.jp/quote/3260.T",
+    "yahooURL": "https://finance.yahoo.co.jp/quote/3260.N",
     "periodEnd": "2025年2月期",
     "characteristic": "３【事業の内容】 当社グループは、不動産のコーディネート＆マネジメントに特化した企画開発・販売事業を行っております。",
     "stockPrice": null,
@@ -657,7 +657,7 @@
     "netIncome": -247449000.0,
     "eps": -137.57,
     "cash": 326527000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-12"
   },
   {
     "secCode": "9842",
@@ -666,7 +666,7 @@
     "docPdfURL": "https://disclosure2dl.edinet-fsa.go.jp/searchdocument/pdf/S100VUIS.pdf",
     "yahooURL": "https://finance.yahoo.co.jp/quote/9842.T",
     "periodEnd": "2025年2月期",
-    "characteristic": "３【事業等のリスク】 当社グループでは、発生しうるリスクの未然防止及び発生したリスクの低減をするための管理体制を整備し、業務の円滑な運営に資することを目的としてリスク管理規程を制定しております。",
+    "characteristic": "３【事業の内容】 当社グループ（当社及び当社の関係会社）はアークランズ株式会社（当社）、子会社14社及び関連会社５社により構成されております。",
     "stockPrice": 1620.6235000000001,
     "netSales": 315727000000.0,
     "employees": 3762,
@@ -687,7 +687,7 @@
     "netIncome": 10126000000.0,
     "eps": 162.55,
     "cash": 18044000000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-12"
   },
   {
     "secCode": "2936",
@@ -717,7 +717,7 @@
     "netIncome": null,
     "eps": null,
     "cash": null,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-12"
   },
   {
     "secCode": "8273",
@@ -726,7 +726,7 @@
     "docPdfURL": "https://disclosure2dl.edinet-fsa.go.jp/searchdocument/pdf/S100VUA6.pdf",
     "yahooURL": "https://finance.yahoo.co.jp/quote/8273.T",
     "periodEnd": "2025年2月期",
-    "characteristic": "（セグメント情報等）【セグメント情報】１．報告セグメントの概要当社グループの報告セグメントは、当社グループの構成単位のうち分離された財務情報が入手可能であり、経営者が経営資源の配分を決定及び業績を評価するために、定期的に検討を行う対象となっているものです。",
+    "characteristic": "３ 【事業の内容】当社グループ（当社及び当社の関係会社）は、当社、連結子会社16社、関連会社３社で構成され、小売事業、小売周辺事業及びその他の事業を展開しています。",
     "stockPrice": 3065.4399999999996,
     "netSales": 524142000000.0,
     "employees": 4938,
@@ -747,7 +747,7 @@
     "netIncome": 11919000000.0,
     "eps": 166.6,
     "cash": 15717000000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-12"
   },
   {
     "secCode": "2338",
@@ -777,7 +777,7 @@
     "netIncome": -317243000.0,
     "eps": -7.13,
     "cash": 136130000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-12"
   },
   {
     "secCode": "9993",
@@ -786,7 +786,7 @@
     "docPdfURL": "https://disclosure2dl.edinet-fsa.go.jp/searchdocument/pdf/S100VUJT.pdf",
     "yahooURL": "https://finance.yahoo.co.jp/quote/9993.T",
     "periodEnd": "2025年2月期",
-    "characteristic": "（セグメント情報等） 【セグメント情報】 １．報告セグメントの概要 当社グループの報告セグメントは、当社グループの構成単位のうち分離された財務情報が入手可能であり、取締役会が経営資源の配分の決定及び業績を評価するために、定期的に検討を行う対象となっているものであります。",
+    "characteristic": "３【事業の内容】 当社グループ（当社及び当社の関係会社）は、株式会社ヤマザワ（当社）及び子会社４社並びに関連会社２社で構成されており、各種商品の小売及び関連する製品の製造販売を主な事業内容とし、更に各事業に関するその他のサービス等の事業を展開しております。",
     "stockPrice": null,
     "netSales": 102558000000.0,
     "employees": 1268,
@@ -807,7 +807,7 @@
     "netIncome": -2617000000.0,
     "eps": -242.84,
     "cash": 5333000000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-12"
   },
   {
     "secCode": "4745",
@@ -837,7 +837,7 @@
     "netIncome": 1039066000.0,
     "eps": 19.14,
     "cash": 7747243000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-12"
   },
   {
     "secCode": "7049",
@@ -867,7 +867,7 @@
     "netIncome": 426572000.0,
     "eps": 49.76,
     "cash": 2312580000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-12"
   },
   {
     "secCode": "6183",
@@ -897,7 +897,7 @@
     "netIncome": 8003000000.0,
     "eps": 108.12,
     "cash": 6992000000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-12"
   },
   {
     "secCode": "9168",
@@ -927,7 +927,7 @@
     "netIncome": 1418334000.0,
     "eps": 56.62,
     "cash": 2459288000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-12"
   },
   {
     "secCode": "3627",
@@ -936,7 +936,7 @@
     "docPdfURL": "https://disclosure2dl.edinet-fsa.go.jp/searchdocument/pdf/S100VUJU.pdf",
     "yahooURL": "https://finance.yahoo.co.jp/quote/3627.T",
     "periodEnd": "2025年2月期",
-    "characteristic": "(企業結合等関係)(取得による企業結合) 当社は、2024年12月26日開催の取締役会において、株式会社Retoolの株式を取得、子会社化することについて決議し、同日付で株式譲渡契約を締結、2024年12月27日付で株式を取得いたしました。",
+    "characteristic": "３ 【事業の内容】当社グループは、テクミラホールディングス株式会社(当社)及び連結子会社９社、関連会社１社で構成されており、知育・教育、健康、FinTech、キャラクターを活用したライフデザインサービスとソリューションを提供する「ライフデザイン事業」、AIチャットボット及びクラウドアドレス帳サービスなどのSaaSや、AWS等を活用したTechソリューションを提供する「AI＆クラウド事業」、通信デバイスの開発・製造や、デバイス活用におけるプラットフォーム・アプリケーション開発を通じてモノとインターネットを融合した価値を提供する「IoT＆デバイス事業」を推進しております。",
     "stockPrice": null,
     "netSales": 11165530000.0,
     "employees": 546,
@@ -957,7 +957,7 @@
     "netIncome": -140530000.0,
     "eps": -11.85,
     "cash": 2957158000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-12"
   },
   {
     "secCode": "5025",
@@ -987,7 +987,7 @@
     "netIncome": null,
     "eps": null,
     "cash": null,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-12"
   },
   {
     "secCode": "3223",
@@ -1017,7 +1017,7 @@
     "netIncome": null,
     "eps": null,
     "cash": null,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-12"
   },
   {
     "secCode": "3562",
@@ -1047,7 +1047,7 @@
     "netIncome": 574387000.0,
     "eps": 84.48,
     "cash": 2890288000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-12"
   },
   {
     "secCode": "8267",
@@ -1056,7 +1056,7 @@
     "docPdfURL": "https://disclosure2dl.edinet-fsa.go.jp/searchdocument/pdf/S100VTF8.pdf",
     "yahooURL": "https://finance.yahoo.co.jp/quote/8267.T",
     "periodEnd": "2025年2月期",
-    "characteristic": "(企業結合等関係）取得による企業結合（Post and Telecommunication Finance Company Limited） 当社の連結子会社であるイオンフィナンシャルサービス㈱(以下、「イオンフィナンシャルサービス」という。",
+    "characteristic": "３ 【事業の内容】 当社グループ(イオン)は、当社(純粋持株会社)及び306社の連結子会社、26社の持分法適用関連会社により構成され、小売事業を中心として、総合金融、ディベロッパー、サービス・専門店等の各事業を複合的に展開しています。",
     "stockPrice": 3680.7704999999996,
     "netSales": 8829564000000.0,
     "employees": 34898,
@@ -1077,7 +1077,7 @@
     "netIncome": 28783000000.0,
     "eps": 33.55,
     "cash": 19718000000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-12"
   },
   {
     "secCode": "3396",
@@ -1107,7 +1107,7 @@
     "netIncome": 136000000.0,
     "eps": 19.13,
     "cash": 6407000000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-12"
   },
   {
     "secCode": "323A",
@@ -1137,7 +1137,7 @@
     "netIncome": null,
     "eps": null,
     "cash": null,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-12"
   },
   {
     "secCode": "6182",
@@ -1146,7 +1146,7 @@
     "docPdfURL": "https://disclosure2dl.edinet-fsa.go.jp/searchdocument/pdf/S100VULF.pdf",
     "yahooURL": "https://finance.yahoo.co.jp/quote/6182.T",
     "periodEnd": "2025年2月期",
-    "characteristic": "（セグメント情報等） 【セグメント情報】 １．報告セグメントの概要 当社の報告セグメントは、当社の構成単位のうち分離された財務情報が入手可能であり、取締役会が経営資源の配分の決定及び業績を評価するために、定期的に検討を行う対象となっているものであります。",
+    "characteristic": "３【事業の内容】 当社グループは、株式会社メタリアル（当社）と100％子会社の株式会社ロゼッタ、株式会社グローヴァ、Xtra株式会社、株式会社T-4PO Construction、株式会社シグナンス、株式会社MATRIX、株式会社CLASSⅢ、当社が55％の株式を保有する子会社の株式会社STUDIO55（＊）、当社がすべての持分を有するRPAコンサルティング合同会社、当社が20％の持分を有するVoicePing株式会社の11社から構成されております。",
     "stockPrice": 642.4824,
     "netSales": 4084762000.0,
     "employees": 229,
@@ -1167,7 +1167,7 @@
     "netIncome": 299068000.0,
     "eps": 27.48,
     "cash": 2903833000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-12"
   },
   {
     "secCode": "6173",
@@ -1176,7 +1176,7 @@
     "docPdfURL": "https://disclosure2dl.edinet-fsa.go.jp/searchdocument/pdf/S100VUCO.pdf",
     "yahooURL": "https://finance.yahoo.co.jp/quote/6173.T",
     "periodEnd": "2025年2月期",
-    "characteristic": "(企業結合等関係)（共通支配下の取引）子会社株式の追加取得 当社は、2024年７月31日開催の取締役会において、連結子会社である株式会社生活救急車の株式を追加取得することを決議し、2024年7月31日付で完全子会社化いたしました。",
+    "characteristic": "３ 【事業の内容】 (1) 事業の概要当社グループは、当社と連結子会社１社で構成されており、「時代と共に歩み、お客様から学び、従業員と共に成長します」という経営理念のもと、生活に欠かせない「水」から「住」へをテーマに、皆さまの住環境の充実や生活の質の向上に貢献することをミッションとして、事業を行っております。",
     "stockPrice": null,
     "netSales": 3462536000.0,
     "employees": 64,
@@ -1197,7 +1197,7 @@
     "netIncome": -346761000.0,
     "eps": -93.9,
     "cash": 523508000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-12"
   },
   {
     "secCode": "4429",
@@ -1227,7 +1227,7 @@
     "netIncome": 355518000.0,
     "eps": 78.64,
     "cash": 3296981000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-12"
   },
   {
     "secCode": "9602",
@@ -1236,7 +1236,7 @@
     "docPdfURL": "https://disclosure2dl.edinet-fsa.go.jp/searchdocument/pdf/S100VTOG.pdf",
     "yahooURL": "https://finance.yahoo.co.jp/quote/9602.T",
     "periodEnd": "2025年2月期",
-    "characteristic": "(企業結合等関係)（共通支配下の取引等）子会社株式の追加取得当社グループは「TOHO VISION 2032 東宝グループ 経営戦略」の具体的な施策である「中期経営計画2025」において、不動産関連投資等の成長投資のほか、大型のM&A投資にも積極的に取り組んでいく方針を示しております。",
+    "characteristic": "３ 【事業の内容】当社の企業集団は、当社、子会社５７社、関連会社１０社（うち連結子会社４７社、持分法適用関連会社４社）で構成され、映画事業、演劇事業、不動産事業及びその他の事業に携わっております。",
     "stockPrice": 7082.05,
     "netSales": 313171000000.0,
     "employees": 3873,
@@ -1257,7 +1257,7 @@
     "netIncome": 43357000000.0,
     "eps": 254.75,
     "cash": 76608000000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-12"
   },
   {
     "secCode": "135A",
@@ -1287,7 +1287,7 @@
     "netIncome": null,
     "eps": null,
     "cash": null,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-12"
   },
   {
     "secCode": "7807",
@@ -1317,7 +1317,7 @@
     "netIncome": 616203000.0,
     "eps": 143.41,
     "cash": 1540553000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-12"
   },
   {
     "secCode": "339A",
@@ -1347,7 +1347,7 @@
     "netIncome": 584000000.0,
     "eps": 82.67,
     "cash": 905000000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-12"
   },
   {
     "secCode": "6543",
@@ -1377,7 +1377,7 @@
     "netIncome": 248661000.0,
     "eps": 64.59,
     "cash": 1716326000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-12"
   },
   {
     "secCode": "8289",
@@ -1407,7 +1407,7 @@
     "netIncome": -67000000.0,
     "eps": -2.94,
     "cash": 3724000000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-12"
   },
   {
     "secCode": "304A",
@@ -1437,7 +1437,7 @@
     "netIncome": null,
     "eps": null,
     "cash": null,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-12"
   },
   {
     "secCode": "6555",
@@ -1467,7 +1467,7 @@
     "netIncome": -276099000.0,
     "eps": -68.46,
     "cash": 578930000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-12"
   },
   {
     "secCode": "3387",
@@ -1497,6 +1497,6 @@
     "netIncome": 5590000000.0,
     "eps": 26.57,
     "cash": 21474000000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-12"
   }
 ]

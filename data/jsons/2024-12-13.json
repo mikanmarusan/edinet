@@ -6,7 +6,7 @@
     "docPdfURL": "https://disclosure2dl.edinet-fsa.go.jp/searchdocument/pdf/S100UXSI.pdf",
     "yahooURL": "https://finance.yahoo.co.jp/quote/9476.T",
     "periodEnd": "2024年9月期",
-    "characteristic": "(企業結合等関係)（連結子会社の吸収合併） 当社は、2023年12月18日開催の取締役会において、当社の連結子会社である株式会社ＣＫＤを吸収合併することを決議し、2024年３月１日付で吸収合併を行いました。",
+    "characteristic": "３ 【事業の内容】 当社グループは、当社及び子会社４社で構成され、企業経営全般及びその他分野に関する書籍、雑誌の出版・販売を行う「出版事業」と主に広告請負代理等を行う「出版付帯事業」からなっております。",
     "stockPrice": null,
     "netSales": 3100472000.0,
     "employees": 87,
@@ -27,7 +27,7 @@
     "netIncome": -172252000.0,
     "eps": -45.34,
     "cash": 1752502000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "4479",
@@ -57,7 +57,7 @@
     "netIncome": null,
     "eps": null,
     "cash": null,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "4751",
@@ -66,7 +66,7 @@
     "docPdfURL": "https://disclosure2dl.edinet-fsa.go.jp/searchdocument/pdf/S100UXZA.pdf",
     "yahooURL": "https://finance.yahoo.co.jp/quote/4751.T",
     "periodEnd": "2024年9月期",
-    "characteristic": "(企業結合等関係)（取得による企業結合）当社は、2024年６月26日開催の取締役会において、㈱ニトロプラス（以下ニトロプラス）の株式を取得し、連結子会社化することを決議し、2024年６月26日付で株式譲渡契約書を締結いたしました。",
+    "characteristic": "３ 【事業の内容】(1) 事業の概要 当社グループ（当社及び当社の関係会社）は2024年９月30日現在、当社（㈱サイバーエージェント）、連結子会社89社（うち６組合）及び関連会社９社によって構成されております。",
     "stockPrice": 936.5796,
     "netSales": 802996000000.0,
     "employees": 7720,
@@ -87,6 +87,6 @@
     "netIncome": 16246000000.0,
     "eps": 29.48,
     "cash": 211135000000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   }
 ]

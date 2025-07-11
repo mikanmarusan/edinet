@@ -27,7 +27,7 @@
     "netIncome": 1676448000.0,
     "eps": 77.81,
     "cash": 5237825000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "4728",
@@ -36,7 +36,7 @@
     "docPdfURL": "https://disclosure2dl.edinet-fsa.go.jp/searchdocument/pdf/S100UV4Z.pdf",
     "yahooURL": "https://finance.yahoo.co.jp/quote/4728.T",
     "periodEnd": "2024年8月期",
-    "characteristic": "(セグメント情報等)【セグメント情報】１ 報告セグメントの概要当社グループの報告セグメントは、当社グループの構成単位のうち、分離された財務情報が入手可能であり、取締役会が経営資源の分配の決定及び業績を評価するために、定期的に検討を行う対象となっているものです。",
+    "characteristic": "３ 【事業の内容】当社グループは、当社及び連結子会社３社並びに関連会社１社により構成されております。",
     "stockPrice": null,
     "netSales": 4615576000.0,
     "employees": 653,
@@ -57,7 +57,7 @@
     "netIncome": -260924000.0,
     "eps": -34.42,
     "cash": 1278578000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "5026",
@@ -66,7 +66,7 @@
     "docPdfURL": "https://disclosure2dl.edinet-fsa.go.jp/searchdocument/pdf/S100UVBA.pdf",
     "yahooURL": "https://finance.yahoo.co.jp/quote/5026.T",
     "periodEnd": "2024年8月期",
-    "characteristic": "(企業結合等関係) 取得による企業結合当社は、2023年７月27日開催の取締役会において、株式会社ゼロフィールド株の株式を取得し、子会社化することについて決議し、2023年９月１日付で株式を取得しました。",
+    "characteristic": "３ 【事業の内容】 当社グループは、当社、連結子会社(株式会社ゼロフィールド、株式会社BEX、株式会社シンプルプラン及び株式会社所司一門将棋センター)の計５社で構成されており、具体的には、(1)（＊１）AIソリューションセグメントと(2)GPUサーバーセグメントでそれぞれ事業を展開しております。",
     "stockPrice": 935.2366000000001,
     "netSales": 4410537000.0,
     "employees": 465,
@@ -87,7 +87,7 @@
     "netIncome": 76228000.0,
     "eps": 10.18,
     "cash": 1453916000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "9978",
@@ -117,7 +117,7 @@
     "netIncome": 42832000.0,
     "eps": 0.77,
     "cash": 1525737000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "9418",
@@ -126,7 +126,7 @@
     "docPdfURL": "https://disclosure2dl.edinet-fsa.go.jp/searchdocument/pdf/S100UV9Z.pdf",
     "yahooURL": "https://finance.yahoo.co.jp/quote/9418.T",
     "periodEnd": "2024年8月期",
-    "characteristic": "(セグメント情報等)【セグメント情報】１．報告セグメントの概要(1) 報告セグメントの決定方法当社グループの報告セグメントは、当社グループの構成単位のうち分離された財務情報が入手可能であり、取締役会が経営資源の配分の決定及び業績を評価するために、定期的に検討を行う対象となっているものであります。",
+    "characteristic": "３【事業の内容】当社グループ（当社及び当社の関係会社）は、当社、連結子会社26社及び持分法適用関連会社２社で構成されており、親会社は、㈱UNO-HOLDINGSです。",
     "stockPrice": 5660.5504,
     "netSales": 326754000000.0,
     "employees": 5344,
@@ -147,7 +147,7 @@
     "netIncome": 15357000000.0,
     "eps": 255.44,
     "cash": 124000000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "7928",
@@ -156,7 +156,7 @@
     "docPdfURL": "https://disclosure2dl.edinet-fsa.go.jp/searchdocument/pdf/S100UV4R.pdf",
     "yahooURL": "https://finance.yahoo.co.jp/quote/7928.T",
     "periodEnd": "2024年8月期",
-    "characteristic": "（セグメント情報等） 【セグメント情報】 １．報告セグメントの概要 当社の報告セグメントは、当社の構成単位のうち分離された財務情報が入手可能であり、取締役会が経営資源の配分の決定及び業績を評価するために、定期的に検討を行う対象となっているものであります。",
+    "characteristic": "３【事業の内容】 当社グループ（当社及び当社の関係会社）は、当社（旭化学工業株式会社）及び子会社２社（旭日塑料制品（昆山）有限公司及びAsahi Plus Co.",
     "stockPrice": 601.099,
     "netSales": 8340336000.0,
     "employees": 482,
@@ -177,7 +177,7 @@
     "netIncome": 93766000.0,
     "eps": 29.98,
     "cash": 1331252000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "2157",
@@ -207,16 +207,16 @@
     "netIncome": 6735312000.0,
     "eps": 75.86,
     "cash": 6750659000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "6025",
     "filerName": "日本ＰＣサービス株式会社",
     "docID": "S100UVBV",
     "docPdfURL": "https://disclosure2dl.edinet-fsa.go.jp/searchdocument/pdf/S100UVBV.pdf",
-    "yahooURL": "https://finance.yahoo.co.jp/quote/6025.T",
+    "yahooURL": "https://finance.yahoo.co.jp/quote/6025.N",
     "periodEnd": "2024年8月期",
-    "characteristic": "（企業結合等関係） （連結子会社間の吸収合併） 当社は、2023年９月28日開催の取締役会において、連結子会社である株式会社スマホスピタルを存続会社、同じく連結子会社である株式会社Axis及びスマホステーション株式会社を消滅会社とする吸収合併を行うことを決議し、2023年12月１日付で合併いたしました。",
+    "characteristic": "３【事業の内容】 当社グループの事業は、パソコンやスマートフォン・タブレット端末・ゲーム機、デジタル家電等のネットワーク対応機器に関する設定設置やトラブルに対し、訪問や持込み、または電話で対応、解決するサービスの提供を行っております。",
     "stockPrice": 644.1396,
     "netSales": 6264823000.0,
     "employees": 365,
@@ -237,7 +237,7 @@
     "netIncome": 106516000.0,
     "eps": 61.23,
     "cash": 666561000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "7373",
@@ -267,7 +267,7 @@
     "netIncome": 1425848000.0,
     "eps": 90.69,
     "cash": 5536334000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "3536",
@@ -276,7 +276,7 @@
     "docPdfURL": "https://disclosure2dl.edinet-fsa.go.jp/searchdocument/pdf/S100UUR4.pdf",
     "yahooURL": "https://finance.yahoo.co.jp/quote/3536.T",
     "periodEnd": "2024年8月期",
-    "characteristic": "（セグメント情報等） 【セグメント情報】 １．報告セグメントの概要 当社の報告セグメントは、当社グループの構成単位のうち分離された財務諸表が入手可能であり、代表取締役社長が、経営資源の配分の決定及び業績を評価するために、定期的に検討を行う対象となっているものであります。",
+    "characteristic": "３【事業の内容】 当社グループ（当社及び当社の関係会社）は、提出会社及び子会社６社により構成されており、化粧品、生活雑貨、スポーツギア、アウトドアギア、酒類等の小売業（実店舗）及び生活雑貨、国内外の化粧品、香水、酒類等の無店舗小売業（ＥＣ）並び酒類、化粧品、ファッション雑貨等の輸入卸売、酒類製造事業、不動産賃貸事業からなる総合ライフスタイルカンパニーであります。",
     "stockPrice": 132.458,
     "netSales": 11718715000.0,
     "employees": 141,
@@ -297,7 +297,7 @@
     "netIncome": 31372000.0,
     "eps": 1.03,
     "cash": 1341582000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "3541",
@@ -327,7 +327,7 @@
     "netIncome": null,
     "eps": null,
     "cash": null,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "9983",
@@ -357,7 +357,7 @@
     "netIncome": 371999000000.0,
     "eps": 1210.81,
     "cash": 290279000000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "2404",
@@ -366,7 +366,7 @@
     "docPdfURL": "https://disclosure2dl.edinet-fsa.go.jp/searchdocument/pdf/S100UVFQ.pdf",
     "yahooURL": "https://finance.yahoo.co.jp/quote/2404.T",
     "periodEnd": "2024年8月期",
-    "characteristic": "(企業結合等関係)会社分割による持株会社体制への移行当社は、2022年11月29日開催の定時株主総会の決議を経て、2023年９月１日付で当社を分割会社、当社100％子会社である株式会社 TETSUJIN FOOD SERVICEを承継会社とする吸収分割を実施し、持株会社体制へ移行しました。",
+    "characteristic": "３ 【事業の内容】 当社グループの事業内容について当社グループ（当社及び当社の関係会社）は、当社（株式会社鉄人化ホールディングス）、連結子会社11社により構成されており、カラオケルーム運営事業を主たる事業とする他、飲食事業、美容事業、メディア・コンテンツ企画事業を主な事業としております。",
     "stockPrice": 4.806,
     "netSales": 7069182000.0,
     "employees": 384,
@@ -387,7 +387,7 @@
     "netIncome": 4019000.0,
     "eps": 0.3,
     "cash": 738605000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "4433",
@@ -417,7 +417,7 @@
     "netIncome": 204000000.0,
     "eps": -2.44,
     "cash": 13859000000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "276A",
@@ -447,7 +447,7 @@
     "netIncome": 288477000.0,
     "eps": 84.29,
     "cash": 262425000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "244A",
@@ -477,7 +477,7 @@
     "netIncome": 417459000.0,
     "eps": 153.89,
     "cash": 1113514000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "190A",
@@ -507,7 +507,7 @@
     "netIncome": null,
     "eps": null,
     "cash": null,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "9252",
@@ -537,7 +537,7 @@
     "netIncome": 825430000.0,
     "eps": 270.35,
     "cash": 2524334000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "2736",
@@ -567,7 +567,7 @@
     "netIncome": 139052000.0,
     "eps": 112.07,
     "cash": 1192815000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "4370",
@@ -597,7 +597,7 @@
     "netIncome": null,
     "eps": null,
     "cash": null,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "9241",
@@ -627,7 +627,7 @@
     "netIncome": 2366000.0,
     "eps": 2.74,
     "cash": 438646000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "3647",
@@ -657,7 +657,7 @@
     "netIncome": -742621000.0,
     "eps": -42.24,
     "cash": 330853000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "3823",
@@ -666,7 +666,7 @@
     "docPdfURL": "https://disclosure2dl.edinet-fsa.go.jp/searchdocument/pdf/S100UVHX.pdf",
     "yahooURL": "https://finance.yahoo.co.jp/quote/3823.T",
     "periodEnd": "2024年8月期",
-    "characteristic": "（セグメント情報等） 【セグメント情報】 １．報告セグメントの概要 当社の報告セグメントは、当社の構成単位のうち分離された財務情報が入手可能であり、取締役会が、経営資源の配分の決定及び業績を評価するために、定期的に検討を行う対象となっているものであります。",
+    "characteristic": "３【事業の内容】 当社グループ（当社及び当社の関係会社）は、当社及び連結子会社９社により構成されており、ソリューション事業、飲食関連事業及び教育関連事業を主たる事業としております。",
     "stockPrice": null,
     "netSales": 747636000.0,
     "employees": 31,
@@ -687,7 +687,7 @@
     "netIncome": -961644000.0,
     "eps": -17.6,
     "cash": 595684000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "3697",
@@ -717,7 +717,7 @@
     "netIncome": 5127000000.0,
     "eps": 291.17,
     "cash": 20844000000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "5129",
@@ -747,7 +747,7 @@
     "netIncome": null,
     "eps": null,
     "cash": null,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "245A",
@@ -777,6 +777,6 @@
     "netIncome": null,
     "eps": null,
     "cash": null,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   }
 ]

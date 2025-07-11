@@ -6,7 +6,7 @@
     "docPdfURL": "https://disclosure2dl.edinet-fsa.go.jp/searchdocument/pdf/S100UKGY.pdf",
     "yahooURL": "https://finance.yahoo.co.jp/quote/6267.T",
     "periodEnd": "2024年7月期",
-    "characteristic": "(セグメント情報等)【セグメント情報】１．報告セグメントの概要当社グループの報告セグメントは、当社グループの構成単位のうち分離された財務情報が入手可能であり、取締役会が経営資源の配分の決定及び業績を評価するために、定期的に検討を行う対象となっているものであります。",
+    "characteristic": "３ 【事業の内容】当社グループは、当社、連結子会社３社、持分法非適用関連会社１社及びその他の関係会社１社で構成されており、「包装機械」「生産機械」の各セグメントにおいて設計・製造・販売・保守サービス等の事業展開を行っております。",
     "stockPrice": 2853.6200000000003,
     "netSales": 9853840000.0,
     "employees": 208,
@@ -27,7 +27,7 @@
     "netIncome": 721008000.0,
     "eps": 407.66,
     "cash": 2857340000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "211A",
@@ -57,7 +57,7 @@
     "netIncome": null,
     "eps": null,
     "cash": null,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "3441",
@@ -87,7 +87,7 @@
     "netIncome": 312749000.0,
     "eps": 68.41,
     "cash": 2551731000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "3816",
@@ -96,7 +96,7 @@
     "docPdfURL": "https://disclosure2dl.edinet-fsa.go.jp/searchdocument/pdf/S100UL4Y.pdf",
     "yahooURL": "https://finance.yahoo.co.jp/quote/3816.T",
     "periodEnd": "2024年7月期",
-    "characteristic": "（保有目的） 当社の主要顧客であり、同社のパッケージ「SMILE」シリーズに原本開発から長きに渡り関与させて頂いており、これまでの多くの実績から得たノウハウを活かした開発を進めるなど、取引関係の維持・強化を目的として保有しております。",
+    "characteristic": "３【事業の内容】 当社グループは、当社及び連結子会社３社により構成されており、情報システムの構築・稼働までを事業領域とする「ソフトウェア開発関連事業」と、SaaS型ソフトウェアサービス等を事業領域とする「サービスインテグレーション事業」を主な事業としております。",
     "stockPrice": 1112.454,
     "netSales": 3291339000.0,
     "employees": 187,
@@ -117,7 +117,7 @@
     "netIncome": 342183000.0,
     "eps": 88.29,
     "cash": 3675434000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "5572",
@@ -147,7 +147,7 @@
     "netIncome": null,
     "eps": null,
     "cash": 2116037000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "4014",
@@ -177,7 +177,7 @@
     "netIncome": null,
     "eps": null,
     "cash": null,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "3930",
@@ -207,7 +207,7 @@
     "netIncome": null,
     "eps": null,
     "cash": null,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "6535",
@@ -237,7 +237,7 @@
     "netIncome": 2420000000.0,
     "eps": 41.99,
     "cash": 18602000000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "4936",
@@ -267,7 +267,7 @@
     "netIncome": 794348000.0,
     "eps": 32.0,
     "cash": 4489982000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "2353",
@@ -297,7 +297,7 @@
     "netIncome": 5104882000.0,
     "eps": 16.03,
     "cash": 16375776000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "5131",
@@ -327,7 +327,7 @@
     "netIncome": null,
     "eps": null,
     "cash": null,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "1444",
@@ -336,7 +336,7 @@
     "docPdfURL": "https://disclosure2dl.edinet-fsa.go.jp/searchdocument/pdf/S100UL6W.pdf",
     "yahooURL": "https://finance.yahoo.co.jp/quote/1444.T",
     "periodEnd": "2024年7月期",
-    "characteristic": "（企業結合等関係） 当社は、2023年12月20日開催の取締役会において、株式会社ささきの全株式を取得し、子会社化することについて決議し、同日付で株式譲渡契約を締結するとともに、2024年６月３日付で株式の取得が完了いたしました。",
+    "characteristic": "３【事業の内容】 当社グループ（当社及び当社の関係会社）は、当社、子会社３社及び関連会社２社で構成され、リフォーム事業及び不動産事業を主な事業内容としております。",
     "stockPrice": 2665.736,
     "netSales": 4678961000.0,
     "employees": 92,
@@ -357,7 +357,7 @@
     "netIncome": 25154000.0,
     "eps": 23.12,
     "cash": 1335646000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "2978",
@@ -387,7 +387,7 @@
     "netIncome": 215658000.0,
     "eps": 18.26,
     "cash": 1871872000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "9235",
@@ -396,7 +396,7 @@
     "docPdfURL": "https://disclosure2dl.edinet-fsa.go.jp/searchdocument/pdf/S100UL5C.pdf",
     "yahooURL": "https://finance.yahoo.co.jp/quote/9235.T",
     "periodEnd": "2024年7月期",
-    "characteristic": "(企業結合等関係)（取得による企業結合）当社は、2024年２月６日開催の取締役会において、株式会社グルプス、株式会社オルリンクス製薬の２社の株式を取得して、完全子会社とすることを決議いたしました。",
+    "characteristic": "３ 【事業の内容】 当社グループは、当社と連結子会社４社（株式会社グルプス、株式会社オルリンクス製薬、株式会社売れる越境EC社、株式会社売れるD2C業界M&A社）により構成されております。",
     "stockPrice": null,
     "netSales": 756715000.0,
     "employees": 47,
@@ -417,6 +417,6 @@
     "netIncome": -326733000.0,
     "eps": -97.48,
     "cash": 278019000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   }
 ]

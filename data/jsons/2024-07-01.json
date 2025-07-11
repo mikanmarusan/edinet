@@ -6,7 +6,7 @@
     "docPdfURL": "https://disclosure2dl.edinet-fsa.go.jp/searchdocument/pdf/S100TYEA.pdf",
     "yahooURL": "https://finance.yahoo.co.jp/quote/9078.T",
     "periodEnd": "2024年3月期",
-    "characteristic": "（企業結合等関係） 取得による企業結合 １ 企業結合の概要 (1) 被取得企業の名称およびその事業の内容 被取得企業の名称 株式会社エムアンドエスコーポレーション 事業の内容 一般貨物自動車運送事業／電気工事業／家電製品設置業 (2) 企業結合を行った主な理由 対象会社は、関東エリアで家電製品の配送や設置工事業務を強みとして、物流サービスの展開を 行っております。",
+    "characteristic": "３【事業の内容】 有価証券報告書提出会社（以下、「当社」という。",
     "stockPrice": 888.9262,
     "netSales": 49687000000.0,
     "employees": 2134,
@@ -27,7 +27,7 @@
     "netIncome": 835000000.0,
     "eps": 77.03,
     "cash": 3475000000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "3079",
@@ -57,7 +57,7 @@
     "netIncome": null,
     "eps": null,
     "cash": null,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "7746",
@@ -66,7 +66,7 @@
     "docPdfURL": "https://disclosure2dl.edinet-fsa.go.jp/searchdocument/pdf/S100TY24.pdf",
     "yahooURL": "https://finance.yahoo.co.jp/quote/7746.T",
     "periodEnd": "2024年3月期",
-    "characteristic": "(セグメント情報等)【セグメント情報】 １ 報告セグメントの概要当社の報告セグメントは、当社の構成単位のうち分離された財務情報が入手可能であり、取締役会が、経営資源の配分の決定及び業績を評価するために、定期的に検討を行う対象となっているものであります。",
+    "characteristic": "３ 【事業の内容】当社グループは、当社、連結子会社(新潟岡本硝子株式会社、二光光学株式会社、蘇州岡本貿易有限公司、岡本光学科技股份有限公司、JAPAN 3D DEVICES株式会社）の計６社で構成され、特殊ガラス及び薄膜製品の製造販売を主な事業の内容としております。",
     "stockPrice": 137.0064,
     "netSales": 4583458000.0,
     "employees": 232,
@@ -87,7 +87,7 @@
     "netIncome": 101944000.0,
     "eps": 4.38,
     "cash": 1665328000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "5915",
@@ -96,7 +96,7 @@
     "docPdfURL": "https://disclosure2dl.edinet-fsa.go.jp/searchdocument/pdf/S100TYOA.pdf",
     "yahooURL": "https://finance.yahoo.co.jp/quote/5915.T",
     "periodEnd": "2024年3月期",
-    "characteristic": "(セグメント情報等)【セグメント情報】１ 報告セグメントの概要 当社の報告セグメントは、当社の構成単位のうち分離された財務情報が入手可能であり、取締役会が、経営資源の配分の決定及び業績を評価するために、定期的に検討を行う対象となっているものであります。",
+    "characteristic": "３ 【事業の内容】当社グループは、当社、子会社５社により構成され、橋梁・鉄骨・鉄塔その他鋼構造物の設計・製作及び現場組立・架設・補修が主な事業であり、これ以外に建設機械・運搬機械等各種機械の設計・製造・据付・販売、建築工事の企画・設計・施工・監理及びコンサルティング業務、風力発電等による環境事業、印刷業務、不動産賃貸業等を行っております。",
     "stockPrice": 2137.4595,
     "netSales": 55384000000.0,
     "employees": 632,
@@ -117,7 +117,7 @@
     "netIncome": 625000000.0,
     "eps": 134.01,
     "cash": 6594000000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "1807",
@@ -147,7 +147,7 @@
     "netIncome": 1202609000.0,
     "eps": 195.52,
     "cash": 126400000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "5253",
@@ -177,7 +177,7 @@
     "netIncome": null,
     "eps": null,
     "cash": null,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "4650",
@@ -207,7 +207,7 @@
     "netIncome": 117941000.0,
     "eps": 13.17,
     "cash": 858375000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "4484",
@@ -237,16 +237,16 @@
     "netIncome": 111117000.0,
     "eps": 6.95,
     "cash": 1924211000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "3136",
     "filerName": "株式会社エコノス",
     "docID": "S100TY7L",
     "docPdfURL": "https://disclosure2dl.edinet-fsa.go.jp/searchdocument/pdf/S100TY7L.pdf",
-    "yahooURL": "https://finance.yahoo.co.jp/quote/3136.T",
+    "yahooURL": "https://finance.yahoo.co.jp/quote/3136.S",
     "periodEnd": "2024年3月期",
-    "characteristic": "フランチャイズ関係の円滑化定量的保有効果の合理的な検証は困難であります。",
+    "characteristic": "３ 【事業の内容】当社は、「今後の地球環境の大きな変化を食い止めるためには、多くの人が地球環境保護へ関心を向けて実際に行動を起こすことが重要であり、その底辺を広げるための場所と方法を提供することで、エコロジー（環境）とエコノミー（経済）とを両立させ、地球環境と地域経済が将来にわたって持続することが可能な社会を実現する」という経営ミッションのもと、店舗でのリユース品の販売と買取を行う「リユース事業」を主な事業として取り組んでおります。",
     "stockPrice": null,
     "netSales": 3976791000.0,
     "employees": 175,
@@ -267,7 +267,7 @@
     "netIncome": -151864000.0,
     "eps": -172.66,
     "cash": 279405000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "7078",
@@ -297,16 +297,16 @@
     "netIncome": 313567000.0,
     "eps": 30.94,
     "cash": 2208876000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "2467",
     "filerName": "株式会社バルクホールディングス",
     "docID": "S100TYXQ",
     "docPdfURL": "https://disclosure2dl.edinet-fsa.go.jp/searchdocument/pdf/S100TYXQ.pdf",
-    "yahooURL": "https://finance.yahoo.co.jp/quote/2467.T",
+    "yahooURL": "https://finance.yahoo.co.jp/quote/2467.N",
     "periodEnd": "2024年3月期",
-    "characteristic": "（セグメント情報等） 【セグメント情報】 １ 報告セグメントの概要 (1）報告セグメントの決定方法等 当社グループの報告セグメントは、当社グループの構成単位のうち分離された財務情報が入手可能であり、取締役会が、経営資源の配分の決定及び業績を評価するために、定期的な検討を行う対象となっているものであります。",
+    "characteristic": "３【事業の内容】 当社グループ（当社及び当社の関係会社）は、純粋持株会社である当社（株式会社バルクホールディングス）、連結子会社５社（株式会社バルク、株式会社CEL、株式会社サイバージムジャパン、Strategic Cyber Holdings LLC、株式会社MSS）及び関連会社１社で構成されており、セキュリティ事業を主たる事業としております。",
     "stockPrice": null,
     "netSales": 2212041000.0,
     "employees": 91,
@@ -327,7 +327,7 @@
     "netIncome": -309592000.0,
     "eps": -24.53,
     "cash": 215061000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "8070",
@@ -357,7 +357,7 @@
     "netIncome": -1584000000.0,
     "eps": -60.96,
     "cash": 158000000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "6366",
@@ -387,6 +387,6 @@
     "netIncome": -15831000000.0,
     "eps": -69.22,
     "cash": 249000000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   }
 ]

@@ -6,7 +6,7 @@
     "docPdfURL": "https://disclosure2dl.edinet-fsa.go.jp/searchdocument/pdf/S100V55P.pdf",
     "yahooURL": "https://finance.yahoo.co.jp/quote/4627.T",
     "periodEnd": "2024年10月期",
-    "characteristic": "（セグメント情報等） 【セグメント情報】 １．報告セグメントの概要 当社グループの報告セグメントは、当社の構成単位のうち分離された財務情報が入手可能であり、取締役会が、経営資源の分配の決定及び業績を評価するために定期的に検討を行う対象となっているものであります。",
+    "characteristic": "３【事業の内容】 当社グループは、ナトコ株式会社（当社）及び子会社７社により構成されており、塗料、ファインケミカル製品及び再生溶剤の製造・販売を主な事業としております。",
     "stockPrice": 1392.6,
     "netSales": 20753062000.0,
     "employees": 415,
@@ -27,7 +27,7 @@
     "netIncome": 955975000.0,
     "eps": 126.6,
     "cash": 6550074000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "7804",
@@ -57,7 +57,7 @@
     "netIncome": null,
     "eps": null,
     "cash": null,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "7983",
@@ -66,7 +66,7 @@
     "docPdfURL": "https://disclosure2dl.edinet-fsa.go.jp/searchdocument/pdf/S100V4X0.pdf",
     "yahooURL": "https://finance.yahoo.co.jp/quote/7983.T",
     "periodEnd": "2024年10月期",
-    "characteristic": "（セグメント情報等） 【セグメント情報】 １．報告セグメントの概要 (1）報告セグメントの決定方法 当社の報告セグメントは、事業の構成単位のうち分離された財務情報が入手可能であり、取締役会が、経営資源の配分の決定及び業績を評価するために、定期的に検討を行う対象となっているものであります。",
+    "characteristic": "３【事業の内容】 当社グループは当社及び子会社［㈱ミロク製作所、㈱南国ミロク、㈱ミロク工芸、ミロク機械㈱、MIROKU MACHINE TOOL,INC.",
     "stockPrice": null,
     "netSales": 10918396000.0,
     "employees": 636,
@@ -87,7 +87,7 @@
     "netIncome": -2294180000.0,
     "eps": -777.67,
     "cash": 1299638000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "9565",
@@ -117,7 +117,7 @@
     "netIncome": -19210000.0,
     "eps": -7.02,
     "cash": 359299000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "5218",
@@ -147,7 +147,7 @@
     "netIncome": 1568205000.0,
     "eps": 64.36,
     "cash": 13595485000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "215A",
@@ -177,7 +177,7 @@
     "netIncome": null,
     "eps": null,
     "cash": null,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "5585",
@@ -207,7 +207,7 @@
     "netIncome": null,
     "eps": null,
     "cash": null,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "4441",
@@ -237,7 +237,7 @@
     "netIncome": null,
     "eps": null,
     "cash": null,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "4378",
@@ -267,7 +267,7 @@
     "netIncome": null,
     "eps": null,
     "cash": null,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "3480",
@@ -297,14 +297,14 @@
     "netIncome": 7452754000.0,
     "eps": 351.47,
     "cash": 17249876000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "3419",
     "filerName": "アートグリーン株式会社",
     "docID": "S100V5A9",
     "docPdfURL": "https://disclosure2dl.edinet-fsa.go.jp/searchdocument/pdf/S100V5A9.pdf",
-    "yahooURL": "https://finance.yahoo.co.jp/quote/3419.T",
+    "yahooURL": "https://finance.yahoo.co.jp/quote/3419.N",
     "periodEnd": "2024年10月期",
     "characteristic": "３ 【事業の内容】当社グループは、当社、連結子会社（合同会社日本プリザーブドフラワー協会及びパーフェクトフラワーボンド合同会社）及び非連結子会社（Ｐｌａｎｔ Ｈｕｎｔ合同会社）の計４社で構成されており、胡蝶蘭を中心とした生花の卸売業を主な業務としております。",
     "stockPrice": 1892.7759999999998,
@@ -327,6 +327,6 @@
     "netIncome": 14072000.0,
     "eps": 12.01,
     "cash": 338806000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   }
 ]

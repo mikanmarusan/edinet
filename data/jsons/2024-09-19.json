@@ -27,7 +27,7 @@
     "netIncome": 1239000000.0,
     "eps": 220.74,
     "cash": 7115000000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "9346",
@@ -57,7 +57,7 @@
     "netIncome": null,
     "eps": null,
     "cash": null,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "4826",
@@ -66,7 +66,7 @@
     "docPdfURL": "https://disclosure2dl.edinet-fsa.go.jp/searchdocument/pdf/S100UE8X.pdf",
     "yahooURL": "https://finance.yahoo.co.jp/quote/4826.T",
     "periodEnd": "2024年6月期",
-    "characteristic": "（企業結合等関係） （取得による企業結合） 当社は、2023年６月５日開催の取締役会において、日伸ソフトウエア株式会社（以下、日伸ソフトウエアという。",
+    "characteristic": "３【事業の内容】 当社グループ（当社及び当社の関係会社）が行っている事業である「システム開発及びシステム開発に関連するサービス（システム開発等）」の売上品目別の概要は、以下のとおりであります。",
     "stockPrice": 459.43500000000006,
     "netSales": 25733333000.0,
     "employees": 1620,
@@ -87,7 +87,7 @@
     "netIncome": 948329000.0,
     "eps": 16.35,
     "cash": 8958242000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "7962",
@@ -117,6 +117,6 @@
     "netIncome": -318068000.0,
     "eps": -11.16,
     "cash": 5689466000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   }
 ]

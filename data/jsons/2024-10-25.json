@@ -27,7 +27,7 @@
     "netIncome": 105069000.0,
     "eps": 84.33,
     "cash": 1108429000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "7126",
@@ -57,7 +57,7 @@
     "netIncome": null,
     "eps": null,
     "cash": null,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "6778",
@@ -87,7 +87,7 @@
     "netIncome": -143286000.0,
     "eps": -15.69,
     "cash": 6455131000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "3854",
@@ -117,7 +117,7 @@
     "netIncome": 2887564000.0,
     "eps": 115.36,
     "cash": 6663216000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "3172",
@@ -147,7 +147,7 @@
     "netIncome": 319000000.0,
     "eps": 75.08,
     "cash": 2932000000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "4384",
@@ -156,7 +156,7 @@
     "docPdfURL": "https://disclosure2dl.edinet-fsa.go.jp/searchdocument/pdf/S100UK9Z.pdf",
     "yahooURL": "https://finance.yahoo.co.jp/quote/4384.T",
     "periodEnd": "2024年7月期",
-    "characteristic": "（企業結合等関係） （連結子会社の吸収合併） 当社は、2023年５月18日開催の取締役会において、当社を吸収合併存続会社、当社の完全子会社である株式会社ダンボールワンを吸収合併消滅会社とする吸収合併をすることを決議し、同日付で合併契約を締結し、同年８月１日付で吸収合併（以下「本合併」といいます。",
+    "characteristic": "３【事業の内容】 当社グループは「仕組みを変えれば、世界はもっと良くなる」というビジョンの基、デジタル化が進んでいない伝統的な業界にインターネットを用いて新しい仕組みを創り、既存のビジネス慣習を変えていくことで、当社グループの主な顧客である国内の企業・個人事業主の経営をより良くすることを目指し、事業を展開しております。",
     "stockPrice": 1078.4048,
     "netSales": 51121000000.0,
     "employees": 626,
@@ -177,7 +177,7 @@
     "netIncome": 2118000000.0,
     "eps": 34.52,
     "cash": 915000000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "3421",
@@ -207,6 +207,6 @@
     "netIncome": 2441649000.0,
     "eps": 148.91,
     "cash": 16103103000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   }
 ]

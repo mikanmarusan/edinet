@@ -6,7 +6,7 @@
     "docPdfURL": "https://disclosure2dl.edinet-fsa.go.jp/searchdocument/pdf/S100UY5A.pdf",
     "yahooURL": "https://finance.yahoo.co.jp/quote/9795.T",
     "periodEnd": "2024年9月期",
-    "characteristic": "主要取引金融機関としての取引の円滑化を図るため",
+    "characteristic": "３ 【事業の内容】当社は、学習塾・学童保育の経営及び教材の制作・編集、印刷・製本を行っています。",
     "stockPrice": null,
     "netSales": null,
     "employees": null,
@@ -27,7 +27,7 @@
     "netIncome": null,
     "eps": null,
     "cash": null,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "4051",
@@ -57,7 +57,7 @@
     "netIncome": 1013389000.0,
     "eps": 121.53,
     "cash": 5060458000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "3769",
@@ -87,6 +87,6 @@
     "netIncome": 18705445000.0,
     "eps": 243.85,
     "cash": 174053848000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   }
 ]

@@ -6,7 +6,7 @@
     "docPdfURL": "https://disclosure2dl.edinet-fsa.go.jp/searchdocument/pdf/S100ULAQ.pdf",
     "yahooURL": "https://finance.yahoo.co.jp/quote/6091.T",
     "periodEnd": "2024年7月期",
-    "characteristic": "(セグメント情報等)【セグメント情報】１．報告セグメントの概要当社グループの報告セグメントは、当社グループの構成単位のうち分離された財務情報が入手可能であり、取締役会が、経営資源の配分の決定および経営成績を評価するために、定期的に検討を行う対象となっているものであります。",
+    "characteristic": "３ 【事業の内容】当社は純粋持株会社として、総合建設コンサルタント事業、スポーツ施設運営事業、水族館運営事業、その他事業を行う子会社の株式を保有することにより、当該会社の経営管理およびそれに附帯または関連する業務を行っております。",
     "stockPrice": 605.055,
     "netSales": 15725320000.0,
     "employees": 780,
@@ -27,7 +27,7 @@
     "netIncome": 768062000.0,
     "eps": 52.25,
     "cash": 9134177000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "7110",
@@ -36,7 +36,7 @@
     "docPdfURL": "https://disclosure2dl.edinet-fsa.go.jp/searchdocument/pdf/S100UL42.pdf",
     "yahooURL": "https://finance.yahoo.co.jp/quote/7110.T",
     "periodEnd": "2024年7月期",
-    "characteristic": "(企業結合等関係) １．企業結合の概要 (1) 被取得企業の名称及びその事業の内容被取得企業の名称：株式会社foufou事業の内容 ：アパレルD2Cブランド「foufou」事業 (2) 企業結合を行った主な理由当社は、「北欧、暮らしの道具店」を通じてライフカルチャープラットフォーム事業を展開して、ビジネスラインとしてD2Cドメインとブランドソリューションドメインを有しております。",
+    "characteristic": "３ 【事業の内容】当社グループは、「フィットする暮らし、つくろう」というミッションを掲げ、当社グループが提案する世界観（ライフカルチャー）に共感する人たちのWell-beingを実現することに貢献します。",
     "stockPrice": 1417.913,
     "netSales": 7012802000.0,
     "employees": 100,
@@ -57,14 +57,14 @@
     "netIncome": 785757000.0,
     "eps": 106.61,
     "cash": 4195709000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "6225",
     "filerName": "株式会社エコム",
     "docID": "S100ULL0",
     "docPdfURL": "https://disclosure2dl.edinet-fsa.go.jp/searchdocument/pdf/S100ULL0.pdf",
-    "yahooURL": "https://finance.yahoo.co.jp/quote/6225.T",
+    "yahooURL": "https://finance.yahoo.co.jp/quote/6225.N",
     "periodEnd": "2024年7月期",
     "characteristic": "３【事業の内容】 当社は工業炉の設計から稼働後の保守サービスまで全工程を一貫して行う、「熱技術総合エンジニアリング企業」です。",
     "stockPrice": null,
@@ -87,7 +87,7 @@
     "netIncome": null,
     "eps": null,
     "cash": null,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "9262",
@@ -117,7 +117,7 @@
     "netIncome": null,
     "eps": null,
     "cash": null,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "3418",
@@ -147,7 +147,7 @@
     "netIncome": 538220000.0,
     "eps": 60.77,
     "cash": 1809182000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "3458",
@@ -177,7 +177,7 @@
     "netIncome": 4341000000.0,
     "eps": 148.11,
     "cash": 24306000000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "3497",
@@ -207,7 +207,7 @@
     "netIncome": null,
     "eps": null,
     "cash": null,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "4194",
@@ -237,7 +237,7 @@
     "netIncome": 12990000000.0,
     "eps": 313.74,
     "cash": 58107000000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "4934",
@@ -246,7 +246,7 @@
     "docPdfURL": "https://disclosure2dl.edinet-fsa.go.jp/searchdocument/pdf/S100ULPV.pdf",
     "yahooURL": "https://finance.yahoo.co.jp/quote/4934.T",
     "periodEnd": "2024年7月期",
-    "characteristic": "（企業結合等関係） 前連結会計年度（2023年７月31日） （取得による企業結合） １．企業結合の概要 (1) 被取得企業の名称及びその事業の内容 被取得企業の名称：株式会社ベネクス 事業の内容 ：リカバリーウェアの開発・製造・販売、リカバリーに関する研究、啓発活動、サービス及 び商品開発 (2) 企業結合を行った主な理由 株式会社ベネクスは、リカバリーウェアの製造・販売のパイオニアとして長い間事業を手掛けております。",
+    "characteristic": "３【事業の内容】 当社グループは、当社と連結子会社２社、非連結子会社１社で構成されており、アンチエイジング事業及びリカバリー事業を展開しております。",
     "stockPrice": null,
     "netSales": 20359000000.0,
     "employees": 229,
@@ -267,7 +267,7 @@
     "netIncome": -1483000000.0,
     "eps": -170.1,
     "cash": 4753000000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "3988",
@@ -297,7 +297,7 @@
     "netIncome": 471616000.0,
     "eps": 45.11,
     "cash": 3372130000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "7682",
@@ -306,7 +306,7 @@
     "docPdfURL": "https://disclosure2dl.edinet-fsa.go.jp/searchdocument/pdf/S100UL5I.pdf",
     "yahooURL": "https://finance.yahoo.co.jp/quote/7682.T",
     "periodEnd": "2024年7月期",
-    "characteristic": "１ 【経営方針、経営環境及び対処すべき課題等】文中の将来に関する事項は、本書提出日現在において、当社が判断したものであります。",
+    "characteristic": "３ 【事業の内容】 当社は、東海地方を中心に中国料理専門店の店舗展開を行っております。",
     "stockPrice": null,
     "netSales": null,
     "employees": null,
@@ -327,7 +327,7 @@
     "netIncome": null,
     "eps": null,
     "cash": null,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "9240",
@@ -357,7 +357,7 @@
     "netIncome": 155328000.0,
     "eps": 28.94,
     "cash": 957828000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "4446",
@@ -366,7 +366,7 @@
     "docPdfURL": "https://disclosure2dl.edinet-fsa.go.jp/searchdocument/pdf/S100ULQY.pdf",
     "yahooURL": "https://finance.yahoo.co.jp/quote/4446.T",
     "periodEnd": "2024年7月期",
-    "characteristic": "（企業結合等関係） （共通支配下の取引等） 会社分割による持株会社体制への移行 当社は、2024年２月26日開催の当社臨時株主総会の承認可決により、2024年３月１日付で当社を分割会社、当社の100％子会社である株式会社Link-U Technologiesを承継会社とする吸収分割を実施し、持株会社体制へ移行いたしました。",
+    "characteristic": "３【事業の内容】 (1）事業の概況 当社グループは、「あらゆる価値を解放し、ココロ震える体験を世界に。",
     "stockPrice": 567.834,
     "netSales": 3662056000.0,
     "employees": 192,
@@ -387,7 +387,7 @@
     "netIncome": 229747000.0,
     "eps": 16.15,
     "cash": 1900086000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "6577",
@@ -417,6 +417,6 @@
     "netIncome": 248621000.0,
     "eps": 162.07,
     "cash": 1699048000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   }
 ]

@@ -27,7 +27,7 @@
     "netIncome": 217705000000.0,
     "eps": 335.84,
     "cash": 390307000000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-12"
   },
   {
     "secCode": "9692",
@@ -36,7 +36,7 @@
     "docPdfURL": "https://disclosure2dl.edinet-fsa.go.jp/searchdocument/pdf/S100VNBN.pdf",
     "yahooURL": "https://finance.yahoo.co.jp/quote/9692.T",
     "periodEnd": "2025年1月期",
-    "characteristic": "定量的な保有効果については営業秘密等の 観点から記載が困難ですが、開発等の取引 を行っており、信頼関係の構築・維持強化 の必要性や事業上の取引状況等に基づき保 有意義、同社との取引関係等により当社が 実際に得た利益等の保有に伴う便益等が資 本コストに見合っているかといった経済合 理性の検証等を行い、保有の合理性がある と判断しております。",
+    "characteristic": "３【事業の内容】 当社グループは、㈱シーイーシー(当社)、連結子会社７社より構成されております。",
     "stockPrice": 1897.4752,
     "netSales": 56208000000.0,
     "employees": 2270,
@@ -57,6 +57,6 @@
     "netIncome": 4040000000.0,
     "eps": 122.26,
     "cash": 25472000000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-12"
   }
 ]

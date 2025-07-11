@@ -6,7 +6,7 @@
     "docPdfURL": "https://disclosure2dl.edinet-fsa.go.jp/searchdocument/pdf/S100V4W1.pdf",
     "yahooURL": "https://finance.yahoo.co.jp/quote/7265.T",
     "periodEnd": "2024年10月期",
-    "characteristic": "フィルター部門の自動車用フィルター等の取引を行っており、事業上の関係を勘案し、同社との良好的な関係維持・強化のため継続して保有しております。",
+    "characteristic": "３ 【事業の内容】当社の企業集団は、当社、子会社(㈱ビック・イースト)及び関連会社(フジパック㈱)の計３社で構成されており、フィルター部門及び燃焼機器部門の製造・販売を主な事業として取り組んでおります。",
     "stockPrice": null,
     "netSales": null,
     "employees": null,
@@ -27,7 +27,7 @@
     "netIncome": null,
     "eps": null,
     "cash": null,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "1840",
@@ -36,7 +36,7 @@
     "docPdfURL": "https://disclosure2dl.edinet-fsa.go.jp/searchdocument/pdf/S100V551.pdf",
     "yahooURL": "https://finance.yahoo.co.jp/quote/1840.T",
     "periodEnd": "2024年10月期",
-    "characteristic": "（セグメント情報等） 【セグメント情報】 １．報告セグメントの概要 当社グループの報告セグメントは、当社グループの構成単位のうち分離された財務情報が入手可能であり、取締役会が、経営資源の配分の決定及び業績を評価するために、定期的に検討を行う対象となっているものであります。",
+    "characteristic": "３【事業の内容】 当社グループ（当社及び当社の関係会社）は、当社（株式会社土屋ホールディングス）及び連結子会社４社により構成されており、注文・提案住宅等の施工・販売、リフォーム、分譲マンション、不動産賃貸、中古住宅・住宅用土地の売買、仲介業務を主たる業務としております。",
     "stockPrice": 206.0086,
     "netSales": 33278708000.0,
     "employees": 718,
@@ -57,7 +57,7 @@
     "netIncome": 758488000.0,
     "eps": 30.34,
     "cash": 6643019000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "2198",
@@ -87,7 +87,7 @@
     "netIncome": 1702027000.0,
     "eps": 59.35,
     "cash": 6635741000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "9236",
@@ -117,7 +117,7 @@
     "netIncome": null,
     "eps": null,
     "cash": null,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "7378",
@@ -147,7 +147,7 @@
     "netIncome": 142160000.0,
     "eps": 19.6,
     "cash": 1596471000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "8917",
@@ -177,6 +177,6 @@
     "netIncome": 2496400000.0,
     "eps": 178.64,
     "cash": 18925830000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   }
 ]

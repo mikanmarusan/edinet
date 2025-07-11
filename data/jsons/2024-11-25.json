@@ -6,7 +6,7 @@
     "docPdfURL": "https://disclosure2dl.edinet-fsa.go.jp/searchdocument/pdf/S100UTSJ.pdf",
     "yahooURL": "https://finance.yahoo.co.jp/quote/7453.T",
     "periodEnd": "2024年8月期",
-    "characteristic": "（セグメント情報等） 【セグメント情報】 １．報告セグメントの概要 当社グループの報告セグメントは、当社グループの構成単位のうち分離された財務情報が入手可能であり、取締役会が経営資源の配分の決定及び業績を評価するために、定期的に検討を行う対象となっているものであります。",
+    "characteristic": "３【事業の内容】 当社グループは、当社と子会社29社で構成されており、自社ブランド商品である「無印良品」及び「ＭＵＪＩ」の販売を主たる業務としております。",
     "stockPrice": 2734.5895,
     "netSales": 661677000000.0,
     "employees": 12071,
@@ -27,7 +27,7 @@
     "netIncome": 41566000000.0,
     "eps": 156.71,
     "cash": 125527000000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "8127",
@@ -57,7 +57,7 @@
     "netIncome": 352867000.0,
     "eps": 17.17,
     "cash": 7455520000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "6264",
@@ -66,7 +66,7 @@
     "docPdfURL": "https://disclosure2dl.edinet-fsa.go.jp/searchdocument/pdf/S100UU4I.pdf",
     "yahooURL": "https://finance.yahoo.co.jp/quote/6264.T",
     "periodEnd": "2024年8月期",
-    "characteristic": "１【経営方針、経営環境及び対処すべき課題等】 当社の経営方針、経営環境及び対処すべき課題等は、以下のとおりであります。",
+    "characteristic": "３【事業の内容】 （１）事業の内容 （事業の内容） 当社の事業の内容は、半導体・ＦＰＤ（※１）等の製造装置に使用される真空チャンバーや電極等の真空部品の製造を行う精密部品事業の単一セグメントであります。",
     "stockPrice": null,
     "netSales": null,
     "employees": null,
@@ -87,7 +87,7 @@
     "netIncome": null,
     "eps": null,
     "cash": null,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "6522",
@@ -117,7 +117,7 @@
     "netIncome": -389744000.0,
     "eps": -54.81,
     "cash": 467291000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "3560",
@@ -147,6 +147,6 @@
     "netIncome": null,
     "eps": null,
     "cash": null,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   }
 ]

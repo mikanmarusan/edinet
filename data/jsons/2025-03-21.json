@@ -6,7 +6,7 @@
     "docPdfURL": "https://disclosure2dl.edinet-fsa.go.jp/searchdocument/pdf/S100VFIF.pdf",
     "yahooURL": "https://finance.yahoo.co.jp/quote/8113.T",
     "periodEnd": "2024年12月期",
-    "characteristic": "6．セグメント情報 (1）報告セグメントの概要 当社グループの報告セグメントは、当社グループの構成単位のうち分離された財務情報が入手可能であり、当社グループの最高経営意思決定機関である取締役会が、経営資源の配分の決定及び業績を評価するために、定期的に検討を行う対象として決定しております。",
+    "characteristic": "3【事業の内容】 当社グループは、当社、子会社50社及び関連会社8社で構成されており、ウェルネスケア関連商品、フェミニンケア関連商品、ベビーケア関連商品、ペットケア関連商品等の製造・販売を主な事業としております。",
     "stockPrice": 1304.1209999999999,
     "netSales": 988981000000.0,
     "employees": 16464,
@@ -27,7 +27,7 @@
     "netIncome": 81842000000.0,
     "eps": 46.41,
     "cash": 261054000000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "5819",
@@ -36,7 +36,7 @@
     "docPdfURL": "https://disclosure2dl.edinet-fsa.go.jp/searchdocument/pdf/S100VF3U.pdf",
     "yahooURL": "https://finance.yahoo.co.jp/quote/5819.T",
     "periodEnd": "2024年12月期",
-    "characteristic": "（セグメント情報等） 【セグメント情報】 １．報告セグメントの概要 当社グループの報告セグメントは、当社グループの構成単位のうち分離された財務情報が入手可能であり、取締役会が、経営資源の配分の決定及び業績を評価するために、定期的に検討を行う対象となっているものであります。",
+    "characteristic": "３【事業の内容】 当社グループは放送・通信用ケーブル・ハーネス・コネクタ・機器（パッシブ・電子）及びその付帯器具を製造、販売しております。",
     "stockPrice": 1442.4479999999999,
     "netSales": 12383109000.0,
     "employees": 260,
@@ -57,7 +57,7 @@
     "netIncome": 1039699000.0,
     "eps": 152.64,
     "cash": 9893495000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "7036",
@@ -87,7 +87,7 @@
     "netIncome": null,
     "eps": null,
     "cash": null,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "3633",
@@ -117,7 +117,7 @@
     "netIncome": 591632000.0,
     "eps": 112.12,
     "cash": 4917059000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "3788",
@@ -147,7 +147,7 @@
     "netIncome": 854560000.0,
     "eps": 74.22,
     "cash": 8449291000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "6858",
@@ -177,7 +177,7 @@
     "netIncome": 1459000000.0,
     "eps": 136.4,
     "cash": 4240000000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "7915",
@@ -207,14 +207,14 @@
     "netIncome": 3862000000.0,
     "eps": 80.15,
     "cash": 50970000000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "3047",
     "filerName": "株式会社ＴＲＵＣＫ－ＯＮＥ",
     "docID": "S100VFQ2",
     "docPdfURL": "https://disclosure2dl.edinet-fsa.go.jp/searchdocument/pdf/S100VFQ2.pdf",
-    "yahooURL": "https://finance.yahoo.co.jp/quote/3047.T",
+    "yahooURL": "https://finance.yahoo.co.jp/quote/3047.F",
     "periodEnd": "2024年12月期",
     "characteristic": "３【事業の内容】 当社グループは、当社、子会社３社で構成され、商用車関連事業と運送関連事業を展開しております。",
     "stockPrice": 381.292,
@@ -237,7 +237,7 @@
     "netIncome": 240700000.0,
     "eps": 100.34,
     "cash": 585337000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "6265",
@@ -246,7 +246,7 @@
     "docPdfURL": "https://disclosure2dl.edinet-fsa.go.jp/searchdocument/pdf/S100VFQM.pdf",
     "yahooURL": "https://finance.yahoo.co.jp/quote/6265.T",
     "periodEnd": "2024年12月期",
-    "characteristic": "(セグメント情報等)【セグメント情報】 １ 報告セグメントの概要当社グループの報告セグメントは、当社グループの構成単位のうち分離された財務情報が入手可能であり、取締役会が、経営資源の配分の決定及び業績を評価するために、定期的に検討を行う対象となっているものであります。",
+    "characteristic": "３ 【事業の内容】当社グループは、当社、連結子会社(CONVUM KOREA CO.",
     "stockPrice": 2039.4240000000002,
     "netSales": 1850703000.0,
     "employees": 88,
@@ -267,7 +267,7 @@
     "netIncome": 248000000.0,
     "eps": 159.33,
     "cash": 2659706000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "4013",
@@ -276,7 +276,7 @@
     "docPdfURL": "https://disclosure2dl.edinet-fsa.go.jp/searchdocument/pdf/S100VFMC.pdf",
     "yahooURL": "https://finance.yahoo.co.jp/quote/4013.T",
     "periodEnd": "2024年12月期",
-    "characteristic": "(セグメント情報等) 【セグメント情報】１ 報告セグメントの概要当社グループの報告セグメントは、当社グループの構成単位のうち分離された財務情報が入手可能であり、当社の取締役会が、経営資源の配分の決定及び業績を評価するために、定期的に検討を行う対象となっているものであります。",
+    "characteristic": "３ 【事業の内容】(1)事業の概要当社グループは、当社と勤次郎ベトナム有限会社（連結子会社）の２社で構成されており、「想像から創造へ」のもと「CSR＆イノベーション」を企業理念として、コアコンピタンス（競争優位の源泉）を強化しております。",
     "stockPrice": 408.28000000000003,
     "netSales": 4376654000.0,
     "employees": 308,
@@ -297,7 +297,7 @@
     "netIncome": 461849000.0,
     "eps": 23.6,
     "cash": 4231349000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "6171",
@@ -327,7 +327,7 @@
     "netIncome": 362559000.0,
     "eps": 25.5,
     "cash": 2090637000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "6326",
@@ -357,7 +357,7 @@
     "netIncome": 230437000000.0,
     "eps": 197.61,
     "cash": 295130000000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "4784",
@@ -366,7 +366,7 @@
     "docPdfURL": "https://disclosure2dl.edinet-fsa.go.jp/searchdocument/pdf/S100VFTX.pdf",
     "yahooURL": "https://finance.yahoo.co.jp/quote/4784.T",
     "periodEnd": "2024年12月期",
-    "characteristic": "（企業結合等関係）（共通支配下の取引等） 連結子会社間の合併 当社の連結子会社であるGMO NIKKO株式会社とGMOアドマーケティング株式会社は、2023年11月６日開催の当社及び各社取締役会において2024年１月１日を効力発生日として、GMO NIKKO株式会社を吸収合併存続会社とし、GMOアドマーケティング株式会社を吸収合併消滅会社とする吸収合併をいたしました。",
+    "characteristic": "(セグメント情報等)【セグメント情報】１．報告セグメントの概要（1）報告セグメントの決定方法当社グループの報告セグメントは、当社の構成単位のうち分離された財務情報が入手可能であり、取締役会が経営資源の配分の決定及び業績を評価するために、定期的に検討を行う対象となっているものであります。",
     "stockPrice": null,
     "netSales": 12997730000.0,
     "employees": 453,
@@ -387,7 +387,7 @@
     "netIncome": -4845000.0,
     "eps": -0.3,
     "cash": 4024538000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   },
   {
     "secCode": "4452",
@@ -417,6 +417,6 @@
     "netIncome": 107767000000.0,
     "eps": 231.94,
     "cash": 357713000000.0,
-    "retrievedDate": "2025-06-29"
+    "retrievedDate": "2025-07-11"
   }
 ]
