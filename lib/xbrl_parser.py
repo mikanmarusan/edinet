@@ -80,6 +80,22 @@ class FinancialDataExtractor:
         self.namespaces = XBRL_NAMESPACES
         self.patterns = XBRL_PATTERNS
     
+    def _has_consolidated_data(self, root: ET.Element) -> bool:
+        """
+        Check if the XBRL document contains consolidated financial data
+        
+        Args:
+            root: XBRL root element
+            
+        Returns:
+            True if consolidated data exists, False otherwise
+        """
+        for elem in root.iter():
+            context_ref = elem.get('contextRef', '')
+            if 'Consolidated' in context_ref and 'NonConsolidatedMember' not in context_ref:
+                return True
+        return False
+    
     def extract_numeric_value(self, root: ET.Element, patterns: List[str]) -> Optional[float]:
         """
         Extract numeric value from XBRL using multiple patterns
@@ -110,6 +126,7 @@ class FinancialDataExtractor:
     def extract_numeric_value_with_context(self, root: ET.Element, patterns: List[str]) -> Optional[float]:
         """
         Extract numeric value with priority for consolidated current year context
+        When no consolidated data exists, falls back to non-consolidated current year data
         
         Args:
             root: XBRL root element
@@ -118,20 +135,31 @@ class FinancialDataExtractor:
         Returns:
             Extracted numeric value or None
         """
+        # Check if consolidated data exists
+        has_consolidated = self._has_consolidated_data(root)
+        
         for pattern in patterns:
             elements = root.findall(pattern, self.namespaces)
             if elements:
-                # Separate elements by priority, excluding NonConsolidatedMember
+                # Separate elements by priority
                 consolidated_current_elements = []
                 current_year_elements = []
                 consolidated_elements = []
+                non_consolidated_current_elements = []
                 other_elements = []
                 
                 for element in elements:
                     context_ref = element.get('contextRef', '')
                     
-                    # Skip NonConsolidatedMember contexts (individual company data)
+                    # Handle NonConsolidatedMember based on whether consolidated data exists
                     if 'NonConsolidatedMember' in context_ref:
+                        # Skip if consolidated data exists
+                        if has_consolidated:
+                            continue
+                        # Include if no consolidated data and it's current year
+                        elif 'CurrentYear' in context_ref:
+                            non_consolidated_current_elements.append(element)
+                        # Skip past years
                         continue
                     
                     # Prioritize consolidated data
@@ -156,6 +184,20 @@ class FinancialDataExtractor:
                             return value
                         except ValueError:
                             continue
+                
+                # Try non-consolidated current year if no consolidated data exists
+                if not has_consolidated:
+                    for element in non_consolidated_current_elements:
+                        if element.text:
+                            try:
+                                value = float(element.text.replace(',', ''))
+                                # Check for unit scaling
+                                unit_ref = element.get('unitRef')
+                                if unit_ref:
+                                    value = self._apply_unit_scaling(root, unit_ref, value)
+                                return value
+                            except ValueError:
+                                continue
                 
                 # Try current year elements
                 for element in current_year_elements:
@@ -346,6 +388,9 @@ class FinancialDataExtractor:
         Returns:
             Operating income value or None
         """
+        # Check if consolidated data exists
+        has_consolidated = self._has_consolidated_data(root)
+        
         # Collect operating income elements
         operating_income_elements = []
         for elem in root.iter():
@@ -358,13 +403,21 @@ class FinancialDataExtractor:
             consolidated_current_elements = []
             current_year_elements = []
             consolidated_elements = []
+            non_consolidated_current_elements = []
             other_elements = []
             
             for element in operating_income_elements:
                 context_ref = element.get('contextRef', '')
                 
-                # Skip NonConsolidatedMember contexts (individual company data)
+                # Handle NonConsolidatedMember based on whether consolidated data exists
                 if 'NonConsolidatedMember' in context_ref:
+                    # Skip if consolidated data exists
+                    if has_consolidated:
+                        continue
+                    # Include only current year if no consolidated data
+                    elif 'CurrentYear' in context_ref:
+                        non_consolidated_current_elements.append(element)
+                    # Skip past years
                     continue
                 
                 if 'Consolidated' in context_ref and 'CurrentYear' in context_ref:
@@ -383,6 +436,15 @@ class FinancialDataExtractor:
                         return float(element.text.replace(',', ''))
                     except ValueError:
                         continue
+            
+            # Try non-consolidated current year if no consolidated data exists
+            if not has_consolidated:
+                for element in non_consolidated_current_elements:
+                    if element.text:
+                        try:
+                            return float(element.text.replace(',', ''))
+                        except ValueError:
+                            continue
             
             # Try current year elements
             for element in current_year_elements:
@@ -697,6 +759,22 @@ class XBRLParser:
             "retrievedDate": datetime.now().strftime("%Y-%m-%d")
         }
     
+    def _has_consolidated_data(self, root: ET.Element) -> bool:
+        """
+        Check if the XBRL document contains consolidated financial data
+        
+        Args:
+            root: XBRL root element
+            
+        Returns:
+            True if consolidated data exists, False otherwise
+        """
+        for elem in root.iter():
+            context_ref = elem.get('contextRef', '')
+            if 'Consolidated' in context_ref and 'NonConsolidatedMember' not in context_ref:
+                return True
+        return False
+    
     def _extract_characteristic(self, root: ET.Element) -> Optional[str]:
         """Extract first sentence of company characteristics/business description"""
         # Try standard patterns first
@@ -784,6 +862,8 @@ class XBRLParser:
         Returns:
             PER value or None
         """
+        # Check if consolidated data exists
+        has_consolidated = self._has_consolidated_data(root)
         per_candidates = []
         
         # Keywords indicating PER-related data
@@ -812,9 +892,14 @@ class XBRLParser:
                             if 0 <= numeric_value <= 1000:
                                 context_ref = elem.get('contextRef', '')
                                 
-                                # Skip NonConsolidatedMember contexts (individual company data)
+                                # Handle NonConsolidatedMember based on whether consolidated data exists
                                 if 'NonConsolidatedMember' in context_ref:
-                                    continue
+                                    # Skip if consolidated data exists
+                                    if has_consolidated:
+                                        continue
+                                    # Include only current year if no consolidated data
+                                    elif 'CurrentYear' not in context_ref:
+                                        continue
                                 
                                 priority = self._calculate_per_priority(local_name, context_ref, numeric_value)
                                 per_candidates.append((numeric_value, priority, local_name, context_ref))
@@ -949,6 +1034,8 @@ class XBRLParser:
         Returns:
             Share count value or None
         """
+        # Check if consolidated data exists
+        has_consolidated = self._has_consolidated_data(root)
         share_candidates = []
         
         # Keywords indicating share-related data
@@ -984,9 +1071,14 @@ class XBRLParser:
                             if 1_000 <= numeric_value <= 100_000_000_000:
                                 context_ref = elem.get('contextRef', '')
                                 
-                                # Skip NonConsolidatedMember contexts (individual company data)
+                                # Handle NonConsolidatedMember based on whether consolidated data exists
                                 if 'NonConsolidatedMember' in context_ref:
-                                    continue
+                                    # Skip if consolidated data exists
+                                    if has_consolidated:
+                                        continue
+                                    # Include only current year if no consolidated data
+                                    elif 'CurrentYear' not in context_ref:
+                                        continue
                                 
                                 priority = self._calculate_share_priority(local_name, context_ref, numeric_value)
                                 share_candidates.append((numeric_value, priority, local_name, context_ref))
@@ -1071,12 +1163,15 @@ class XBRLParser:
         Returns:
             Net sales value or None
         """
+        # Check if consolidated data exists
+        has_consolidated = self._has_consolidated_data(root)
         sales_candidates = []
         
         # Keywords indicating sales/revenue-related data
         sales_keywords = [
             'NetSales', 'Revenue', 'Sales', 'TotalRevenue', 'OperatingRevenue',
-            'TotalSales', 'TotalNetSales', 'ConsolidatedNetSales', 'ConsolidatedRevenue'
+            'TotalSales', 'TotalNetSales', 'ConsolidatedNetSales', 'ConsolidatedRevenue',
+            'BusinessRevenue'  # Added for companies like 4598
         ]
         
         # Search through all elements
@@ -1099,9 +1194,14 @@ class XBRLParser:
                             if 1_000_000 <= numeric_value <= 100_000_000_000_000:
                                 context_ref = elem.get('contextRef', '')
                                 
-                                # Skip NonConsolidatedMember contexts (individual company data)
+                                # Handle NonConsolidatedMember based on whether consolidated data exists
                                 if 'NonConsolidatedMember' in context_ref:
-                                    continue
+                                    # Skip if consolidated data exists
+                                    if has_consolidated:
+                                        continue
+                                    # Include only current year if no consolidated data
+                                    elif 'CurrentYear' not in context_ref:
+                                        continue
                                 
                                 priority = self._calculate_sales_priority(local_name, context_ref, numeric_value)
                                 sales_candidates.append((numeric_value, priority, local_name, context_ref))
@@ -1168,6 +1268,8 @@ class XBRLParser:
         Returns:
             Employee count value or None
         """
+        # Check if consolidated data exists
+        has_consolidated = self._has_consolidated_data(root)
         employee_candidates = []
         
         # Keywords indicating employee-related data
@@ -1197,9 +1299,14 @@ class XBRLParser:
                             if 10 <= numeric_value <= 1_000_000:
                                 context_ref = elem.get('contextRef', '')
                                 
-                                # Skip NonConsolidatedMember contexts (individual company data)
+                                # Handle NonConsolidatedMember based on whether consolidated data exists
                                 if 'NonConsolidatedMember' in context_ref:
-                                    continue
+                                    # Skip if consolidated data exists
+                                    if has_consolidated:
+                                        continue
+                                    # Include only current year if no consolidated data
+                                    elif 'CurrentYear' not in context_ref:
+                                        continue
                                 
                                 priority = self._calculate_employee_priority(local_name, context_ref, numeric_value)
                                 employee_candidates.append((numeric_value, priority, local_name, context_ref))
@@ -1266,6 +1373,8 @@ class XBRLParser:
         Returns:
             Equity value or None
         """
+        # Check if consolidated data exists
+        has_consolidated = self._has_consolidated_data(root)
         equity_candidates = []
         
         # Keywords indicating equity-related data
@@ -1296,9 +1405,14 @@ class XBRLParser:
                             if 100_000_000 <= numeric_value <= 100_000_000_000_000:
                                 context_ref = elem.get('contextRef', '')
                                 
-                                # Skip NonConsolidatedMember contexts (individual company data)
+                                # Handle NonConsolidatedMember based on whether consolidated data exists
                                 if 'NonConsolidatedMember' in context_ref:
-                                    continue
+                                    # Skip if consolidated data exists
+                                    if has_consolidated:
+                                        continue
+                                    # Include only current year if no consolidated data
+                                    elif 'CurrentYear' not in context_ref:
+                                        continue
                                 
                                 priority = self._calculate_equity_priority(local_name, context_ref, numeric_value)
                                 equity_candidates.append((numeric_value, priority, local_name, context_ref))
@@ -1369,6 +1483,8 @@ class XBRLParser:
         Returns:
             Depreciation value or None
         """
+        # Check if consolidated data exists
+        has_consolidated = self._has_consolidated_data(root)
         depreciation_candidates = []
         
         # Keywords indicating depreciation-related data
@@ -1399,9 +1515,14 @@ class XBRLParser:
                             if 10_000_000 <= numeric_value <= 1_000_000_000_000:
                                 context_ref = elem.get('contextRef', '')
                                 
-                                # Skip NonConsolidatedMember contexts (individual company data)
+                                # Handle NonConsolidatedMember based on whether consolidated data exists
                                 if 'NonConsolidatedMember' in context_ref:
-                                    continue
+                                    # Skip if consolidated data exists
+                                    if has_consolidated:
+                                        continue
+                                    # Include only current year if no consolidated data
+                                    elif 'CurrentYear' not in context_ref:
+                                        continue
                                 
                                 priority = self._calculate_depreciation_priority(local_name, context_ref, numeric_value)
                                 depreciation_candidates.append((numeric_value, priority, local_name, context_ref))
@@ -1476,6 +1597,8 @@ class XBRLParser:
         Returns:
             Net income value or None
         """
+        # Check if consolidated data exists
+        has_consolidated = self._has_consolidated_data(root)
         net_income_candidates = []
         
         # Keywords indicating net income-related data
@@ -1507,9 +1630,14 @@ class XBRLParser:
                             if -1_000_000_000_000 <= numeric_value <= 1_000_000_000_000:
                                 context_ref = elem.get('contextRef', '')
                                 
-                                # Skip NonConsolidatedMember contexts (individual company data)
+                                # Handle NonConsolidatedMember based on whether consolidated data exists
                                 if 'NonConsolidatedMember' in context_ref:
-                                    continue
+                                    # Skip if consolidated data exists
+                                    if has_consolidated:
+                                        continue
+                                    # Include only current year if no consolidated data
+                                    elif 'CurrentYear' not in context_ref:
+                                        continue
                                 
                                 priority = self._calculate_net_income_priority(local_name, context_ref, numeric_value)
                                 net_income_candidates.append((numeric_value, priority, local_name, context_ref))
@@ -1600,6 +1728,8 @@ class XBRLParser:
         Returns:
             EPS value or None
         """
+        # Check if consolidated data exists
+        has_consolidated = self._has_consolidated_data(root)
         eps_candidates = []
         
         # Keywords indicating EPS-related data
@@ -1629,9 +1759,14 @@ class XBRLParser:
                             if -10_000 <= numeric_value <= 10_000:
                                 context_ref = elem.get('contextRef', '')
                                 
-                                # Skip NonConsolidatedMember contexts (individual company data)
+                                # Handle NonConsolidatedMember based on whether consolidated data exists
                                 if 'NonConsolidatedMember' in context_ref:
-                                    continue
+                                    # Skip if consolidated data exists
+                                    if has_consolidated:
+                                        continue
+                                    # Include only current year if no consolidated data
+                                    elif 'CurrentYear' not in context_ref:
+                                        continue
                                 
                                 priority = self._calculate_eps_priority(local_name, context_ref, numeric_value)
                                 eps_candidates.append((numeric_value, priority, local_name, context_ref))
@@ -1700,6 +1835,8 @@ class XBRLParser:
         Returns:
             BPS value or None
         """
+        # Check if consolidated data exists
+        has_consolidated = self._has_consolidated_data(root)
         bps_candidates = []
         
         # Keywords indicating BPS-related data
@@ -1731,9 +1868,14 @@ class XBRLParser:
                             if 1 <= numeric_value <= 100_000:
                                 context_ref = elem.get('contextRef', '')
                                 
-                                # Skip NonConsolidatedMember contexts (individual company data)
+                                # Handle NonConsolidatedMember based on whether consolidated data exists
                                 if 'NonConsolidatedMember' in context_ref:
-                                    continue
+                                    # Skip if consolidated data exists
+                                    if has_consolidated:
+                                        continue
+                                    # Include only current year if no consolidated data
+                                    elif 'CurrentYear' not in context_ref:
+                                        continue
                                 
                                 priority = self._calculate_bps_priority(local_name, context_ref, numeric_value)
                                 bps_candidates.append((numeric_value, priority, local_name, context_ref))
@@ -1808,6 +1950,8 @@ class XBRLParser:
         Returns:
             Debt value or None
         """
+        # Check if consolidated data exists
+        has_consolidated = self._has_consolidated_data(root)
         debt_candidates = []
         
         # Keywords indicating debt-related data
@@ -1871,9 +2015,14 @@ class XBRLParser:
                             if 0 <= numeric_value <= 100_000_000_000_000:
                                 context_ref = elem.get('contextRef', '')
                                 
-                                # Skip NonConsolidatedMember contexts (individual company data)
+                                # Handle NonConsolidatedMember based on whether consolidated data exists
                                 if 'NonConsolidatedMember' in context_ref:
-                                    continue
+                                    # Skip if consolidated data exists
+                                    if has_consolidated:
+                                        continue
+                                    # Include only current year if no consolidated data
+                                    elif 'CurrentYear' not in context_ref:
+                                        continue
                                 
                                 priority = self._calculate_debt_priority(local_name, context_ref, numeric_value)
                                 debt_candidates.append((numeric_value, priority, local_name, context_ref))
@@ -2030,6 +2179,8 @@ class XBRLParser:
         Returns:
             Cash value or None
         """
+        # Check if consolidated data exists
+        has_consolidated = self._has_consolidated_data(root)
         cash_candidates = []
         
         # Keywords indicating cash and cash equivalents-related data
@@ -2062,9 +2213,14 @@ class XBRLParser:
                             if 1_000_000 <= numeric_value <= 10_000_000_000_000:
                                 context_ref = elem.get('contextRef', '')
                                 
-                                # Skip NonConsolidatedMember contexts (individual company data)
+                                # Handle NonConsolidatedMember based on whether consolidated data exists
                                 if 'NonConsolidatedMember' in context_ref:
-                                    continue
+                                    # Skip if consolidated data exists
+                                    if has_consolidated:
+                                        continue
+                                    # Include only current year if no consolidated data
+                                    elif 'CurrentYear' not in context_ref:
+                                        continue
                                 
                                 priority = self._calculate_cash_priority(local_name, context_ref, numeric_value)
                                 cash_candidates.append((numeric_value, priority, local_name, context_ref))
@@ -2238,6 +2394,8 @@ class XBRLParser:
         Returns:
             Business description text or None
         """
+        # Check if consolidated data exists
+        has_consolidated = self._has_consolidated_data(root)
         business_candidates = []
         
         # Keywords indicating business description-related data
@@ -2282,9 +2440,14 @@ class XBRLParser:
                         if len(text_content) >= 20:  # At least 20 characters
                             context_ref = elem.get('contextRef', '')
                             
-                            # Skip NonConsolidatedMember contexts (individual company data)
+                            # Handle NonConsolidatedMember based on whether consolidated data exists
                             if 'NonConsolidatedMember' in context_ref:
-                                continue
+                                # Skip if consolidated data exists
+                                if has_consolidated:
+                                    continue
+                                # Include only current year if no consolidated data
+                                elif 'CurrentYear' not in context_ref:
+                                    continue
                             
                             # Validate the text is actually a business description
                             if self._is_valid_business_description(text_content):
@@ -2440,6 +2603,8 @@ class XBRLParser:
         Returns:
             Market cap value or None
         """
+        # Check if consolidated data exists
+        has_consolidated = self._has_consolidated_data(root)
         market_cap_candidates = []
         
         # Keywords indicating market cap data
