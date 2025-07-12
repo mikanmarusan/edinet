@@ -1023,8 +1023,10 @@ class XBRLParser:
         elif 'Current' in context_ref:
             priority += 15
         
-        # Highest priority for total issued shares (not treasury stock)
-        if 'totalnumberofsharesissued' in tag_name.lower():
+        # Highest priority for total issued shares patterns
+        if 'numberofissuedsharesasof' in tag_name.lower() and 'totalnumberofshares' in tag_name.lower():
+            priority += 30  # Highest priority for the official total shares pattern
+        elif 'totalnumberofsharesissued' in tag_name.lower():
             priority += 25
         elif 'numberofissuedandoutstandingshares' in tag_name.lower() and 'treasury' not in tag_name.lower():
             priority += 23
