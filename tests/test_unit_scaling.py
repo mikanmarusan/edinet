@@ -24,7 +24,7 @@ class TestXBRLParserUnitScaling(unittest.TestCase):
   <xbrli:unit id="shares_thousand">
     <xbrli:measure>千株</xbrli:measure>
   </xbrli:unit>
-  <jpcrp_cor:TotalNumberOfSharesIssued contextRef="CurrentYear" unitRef="shares_thousand">2780021.8</jpcrp_cor:TotalNumberOfSharesIssued>
+  <jpcrp_cor:TotalNumberOfSharesIssued contextRef="CurrentYear" unitRef="shares_thousand">1234567.8</jpcrp_cor:TotalNumberOfSharesIssued>
 </xbrl>'''
         
         root = ET.fromstring(test_xml)
@@ -33,7 +33,7 @@ class TestXBRLParserUnitScaling(unittest.TestCase):
         )
         
         # Should scale from thousand shares
-        self.assertAlmostEqual(value, 2780021800.0, delta=1)
+        self.assertAlmostEqual(value, 1234567800.0, delta=1)
     
     def test_share_unit_scaling_ten_thousand(self):
         """Test scaling for shares in ten thousands (万株)"""
@@ -154,6 +154,26 @@ class TestXBRLParserUnitScaling(unittest.TestCase):
         
         # Should not scale normal shares
         self.assertEqual(value, 1000000.0)
+    
+    def test_total_issued_shares_pattern(self):
+        """Test extraction of total issued shares using correct EDINET pattern"""
+        test_xml = '''<?xml version="1.0" encoding="UTF-8"?>
+<xbrl xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+      xmlns:xbrli="http://www.xbrl.org/2003/instance"
+      xmlns:jpcrp_cor="http://disclosure.edinet-fsa.go.jp/taxonomy/jpcrp/2024-11-01/jpcrp_cor">
+  <xbrli:unit id="shares">
+    <xbrli:measure>shares</xbrli:measure>
+  </xbrli:unit>
+  <jpcrp_cor:NumberOfIssuedSharesAsOfFiscalYearEndIssuedSharesTotalNumberOfSharesEtc contextRef="FilingDateInstant" unitRef="shares">15794987460</jpcrp_cor:NumberOfIssuedSharesAsOfFiscalYearEndIssuedSharesTotalNumberOfSharesEtc>
+</xbrl>'''
+        
+        root = ET.fromstring(test_xml)
+        value = self.parser.data_extractor.extract_numeric_value_with_context(
+            root, ['.//jpcrp_cor:NumberOfIssuedSharesAsOfFiscalYearEndIssuedSharesTotalNumberOfSharesEtc']
+        )
+        
+        # Should extract the total issued shares correctly
+        self.assertEqual(value, 15794987460.0)
 
 
 if __name__ == '__main__':

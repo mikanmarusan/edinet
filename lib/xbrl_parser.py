@@ -294,59 +294,44 @@ class FinancialDataExtractor:
                 # Check for Japanese share units first
                 if '株' in measure_text:
                     if '千株' in measure_text:
-                        print(f"Applying thousand shares (千株) scaling to {value}")
                         return value * 1000
                     elif '百万株' in measure_text:
-                        print(f"Applying million shares (百万株) scaling to {value}")
                         return value * 1000000
                     elif '万株' in measure_text:
-                        print(f"Applying ten thousand shares (万株) scaling to {value}")
                         return value * 10000
                     elif '億株' in measure_text:
-                        print(f"Applying hundred million shares (億株) scaling to {value}")
                         return value * 100000000
                     elif '単元株' in measure_text:
                         # Unit shares (typically 100 shares per unit in Japan)
-                        print(f"Applying unit shares (単元株) scaling to {value}")
                         return value * 100
                 
                 # Check for English share units
                 elif 'shares' in measure_text or 'stock' in measure_text:
                     if 'thousand' in measure_text:
-                        print(f"Applying thousand shares scaling to {value}")
                         return value * 1000
                     elif 'million' in measure_text:
-                        print(f"Applying million shares scaling to {value}")
                         return value * 1000000
                     elif '000' in measure_text:
                         # Sometimes written as "shares(000s)" or "shares in 000s"
-                        print(f"Applying thousand shares (000s) scaling to {value}")
                         return value * 1000
                 
                 # Check for monetary units
                 elif '円' in measure_text:
                     if '千円' in measure_text:
-                        print(f"Applying thousand yen (千円) scaling to {value}")
                         return value * 1000
                     elif '百万円' in measure_text:
-                        print(f"Applying million yen (百万円) scaling to {value}")
                         return value * 1000000
                     elif '万円' in measure_text:
-                        print(f"Applying ten thousand yen (万円) scaling to {value}")
                         return value * 10000
                     elif '億円' in measure_text:
-                        print(f"Applying hundred million yen (億円) scaling to {value}")
                         return value * 100000000
                     elif '兆円' in measure_text:
-                        print(f"Applying trillion yen (兆円) scaling to {value}")
                         return value * 1000000000000
                 
                 # Check for English monetary units
                 elif 'thousand' in measure_text and ('yen' in measure_text or 'jpy' in measure_text):
-                    print(f"Applying thousand yen scaling to {value}")
                     return value * 1000
                 elif 'million' in measure_text and ('yen' in measure_text or 'jpy' in measure_text):
-                    print(f"Applying million yen scaling to {value}")
                     return value * 1000000
         
         return value
@@ -513,24 +498,21 @@ class MetricsCalculator:
                 calculated_eps = MetricsCalculator._calculate_eps(financial_data)
                 if calculated_eps is not None:
                     financial_data['eps'] = calculated_eps
-                    print(f"Calculated EPS: {calculated_eps:.2f} yen")
             
             # Calculate PER if not already available and we have the necessary data
             if not financial_data.get('per'):
                 calculated_per = MetricsCalculator._calculate_per(financial_data)
                 if calculated_per is not None:
                     financial_data['per'] = calculated_per
-                    print(f"Calculated PER: {calculated_per:.2f}")
             
             # Calculate BPS if not already available and we have the necessary data
             if not financial_data.get('bps'):
                 calculated_bps = MetricsCalculator._calculate_bps(financial_data)
                 if calculated_bps is not None:
                     financial_data['bps'] = calculated_bps
-                    print(f"Calculated BPS: {calculated_bps:.2f} yen")
             
         except Exception as e:
-            print(f"Error calculating derived metrics: {e}", file=sys.stderr)
+            pass
         
         return financial_data
     
@@ -564,7 +546,7 @@ class MetricsCalculator:
                 return eps
             
         except Exception as e:
-            print(f"Error calculating EPS: {e}", file=sys.stderr)
+            pass
         
         return None
     
@@ -588,7 +570,7 @@ class MetricsCalculator:
                 return per
             
         except Exception as e:
-            print(f"Error calculating PER: {e}", file=sys.stderr)
+            pass
         
         return None
     
@@ -612,7 +594,7 @@ class MetricsCalculator:
                 return bps
             
         except Exception as e:
-            print(f"Error calculating BPS: {e}", file=sys.stderr)
+            pass
         
         return None
 
@@ -845,7 +827,6 @@ class XBRLParser:
         if per_candidates:
             per_candidates.sort(key=lambda x: x[1], reverse=True)
             best_match = per_candidates[0]
-            print(f"Dynamic PER search found: {best_match[0]:.2f} from tag '{best_match[2]}' (context: {best_match[3]})")
             return best_match[0]
         
         return None
@@ -1018,7 +999,6 @@ class XBRLParser:
         if share_candidates:
             share_candidates.sort(key=lambda x: x[1], reverse=True)
             best_match = share_candidates[0]
-            print(f"Dynamic share search found: {best_match[0]:,.0f} shares from tag '{best_match[2]}' (context: {best_match[3]})")
             return best_match[0]
         
         return None
@@ -1043,8 +1023,10 @@ class XBRLParser:
         elif 'Current' in context_ref:
             priority += 15
         
-        # Highest priority for total issued shares (not treasury stock)
-        if 'totalnumberofsharesissued' in tag_name.lower():
+        # Highest priority for total issued shares patterns
+        if 'numberofissuedsharesasof' in tag_name.lower() and 'totalnumberofshares' in tag_name.lower():
+            priority += 30  # Highest priority for the official total shares pattern
+        elif 'totalnumberofsharesissued' in tag_name.lower():
             priority += 25
         elif 'numberofissuedandoutstandingshares' in tag_name.lower() and 'treasury' not in tag_name.lower():
             priority += 23
@@ -1132,7 +1114,6 @@ class XBRLParser:
         if sales_candidates:
             sales_candidates.sort(key=lambda x: x[1], reverse=True)
             best_match = sales_candidates[0]
-            print(f"Dynamic net sales search found: {best_match[0]:,.0f} yen from tag '{best_match[2]}' (context: {best_match[3]})")
             return best_match[0]
         
         return None
@@ -1231,7 +1212,6 @@ class XBRLParser:
         if employee_candidates:
             employee_candidates.sort(key=lambda x: x[1], reverse=True)
             best_match = employee_candidates[0]
-            print(f"Dynamic employee search found: {best_match[0]:,.0f} employees from tag '{best_match[2]}' (context: {best_match[3]})")
             return best_match[0]
         
         return None
@@ -1331,7 +1311,6 @@ class XBRLParser:
         if equity_candidates:
             equity_candidates.sort(key=lambda x: x[1], reverse=True)
             best_match = equity_candidates[0]
-            print(f"Dynamic equity search found: {best_match[0]:,.0f} yen from tag '{best_match[2]}' (context: {best_match[3]})")
             return best_match[0]
         
         return None
@@ -1435,7 +1414,6 @@ class XBRLParser:
         if depreciation_candidates:
             depreciation_candidates.sort(key=lambda x: x[1], reverse=True)
             best_match = depreciation_candidates[0]
-            print(f"Dynamic depreciation search found: {best_match[0]:,.0f} yen from tag '{best_match[2]}' (context: {best_match[3]})")
             return best_match[0]
         
         return None
@@ -1544,7 +1522,6 @@ class XBRLParser:
         if net_income_candidates:
             net_income_candidates.sort(key=lambda x: x[1], reverse=True)
             best_match = net_income_candidates[0]
-            print(f"Dynamic net income search found: {best_match[0]:,.0f} yen from tag '{best_match[2]}' (context: {best_match[3]})")
             return best_match[0]
         
         return None
@@ -1667,7 +1644,6 @@ class XBRLParser:
         if eps_candidates:
             eps_candidates.sort(key=lambda x: x[1], reverse=True)
             best_match = eps_candidates[0]
-            print(f"Dynamic EPS search found: {best_match[0]:.2f} yen from tag '{best_match[2]}' (context: {best_match[3]})")
             return best_match[0]
         
         return None
@@ -1770,7 +1746,6 @@ class XBRLParser:
         if bps_candidates:
             bps_candidates.sort(key=lambda x: x[1], reverse=True)
             best_match = bps_candidates[0]
-            print(f"Dynamic BPS search found: {best_match[0]:.2f} yen from tag '{best_match[2]}' (context: {best_match[3]})")
             return best_match[0]
         
         return None
@@ -1911,7 +1886,6 @@ class XBRLParser:
         if debt_candidates:
             debt_candidates.sort(key=lambda x: x[1], reverse=True)
             best_match = debt_candidates[0]
-            print(f"Dynamic debt search found: {best_match[0]:,.0f} yen from tag '{best_match[2]}' (context: {best_match[3]})")
             return best_match[0]
         
         return None
@@ -2038,13 +2012,10 @@ class XBRLParser:
         # Calculate total if we have at least one component
         if short_term_debt is not None and long_term_debt is not None:
             total_debt = short_term_debt + long_term_debt
-            print(f"Calculated total debt from components: {short_term_debt:,.0f} (short-term) + {long_term_debt:,.0f} (long-term) = {total_debt:,.0f}")
             return total_debt
         elif short_term_debt is not None:
-            print(f"Using short-term debt only: {short_term_debt:,.0f}")
             return short_term_debt
         elif long_term_debt is not None:
-            print(f"Using long-term debt only: {long_term_debt:,.0f}")
             return long_term_debt
         
         return None
@@ -2106,7 +2077,6 @@ class XBRLParser:
         if cash_candidates:
             cash_candidates.sort(key=lambda x: x[1], reverse=True)
             best_match = cash_candidates[0]
-            print(f"Dynamic cash search found: {best_match[0]:,.0f} yen from tag '{best_match[2]}' (context: {best_match[3]})")
             return best_match[0]
         
         return None
@@ -2327,7 +2297,6 @@ class XBRLParser:
         if business_candidates:
             business_candidates.sort(key=lambda x: x[1], reverse=True)
             best_match = business_candidates[0]
-            print(f"Dynamic business description search found text from tag '{best_match[2]}' (context: {best_match[3]})")
             return best_match[0]
         
         return None
@@ -2520,7 +2489,6 @@ class XBRLParser:
         if market_cap_candidates:
             market_cap_candidates.sort(key=lambda x: x[1], reverse=True)
             best_match = market_cap_candidates[0]
-            print(f"Dynamic market cap search found: {best_match[0]:,.0f} yen from tag '{best_match[2]}' (context: {best_match[3]})")
             return best_match[0]
         
         return None
