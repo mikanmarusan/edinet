@@ -37,7 +37,7 @@ python fetch_edinet_financial_documents.py --date YYYY-MM-DD --outputdir data/js
 | netSales | 売上高 | 15000000000 |
 | operatingIncome | 営業利益 | 1200000000 |
 | ebitda | EBITDA | 1500000000 |
-| marketCapitalization | 時価総額 | 50000000000 |
+| marketCapitalization | 時価総額（株価×発行済株式総数） | 50000000000 |
 | per | PER | 25.5 |
 | ev | 企業価値 | 52000000000 |
 | equity | 純資産 | 15000000000 |
@@ -77,9 +77,12 @@ python consolidate_documents.py --inputdir data/jsons/ --output data/edinet.json
 
 **発行済株式数の抽出仕様:**
 優先順位：
-1. `TotalNumberOfIssuedSharesSummaryOfBusinessResults`
-2. `TotalNumberOfIssuedShares`系タグ
-3. 動的検索（スコアリング付き）
+1. `NumberOfIssuedSharesAsOfFiscalYearEndIssuedSharesTotalNumberOfSharesEtc`（総発行済株式数）
+2. `TotalNumberOfIssuedSharesSummaryOfBusinessResults`
+3. `TotalNumberOfIssuedShares`系タグ
+4. 動的検索（スコアリング付き）
+
+**重要**: 市場時価総額計算には自己株式を含む発行済株式総数を使用する。自己株式控除後の株式数（Outstanding shares）ではない。
 
 **証券取引所コード決定:**
 - `config/stock_exchange_mapping.yml`から取引所マッピング

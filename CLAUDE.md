@@ -97,3 +97,14 @@ python bin/consolidate_documents.py --inputdir data/jsons --output data/edinet.j
 ## 開発時の注意
 
 新機能追加やバグ修正の際は、必ず`.claude/`配下の関連ドキュメントを参照してください。
+
+## 最近の重要な修正
+
+### 市場時価総額計算の修正
+- **問題**: 自己株式数のみを使用して市場時価総額を計算していた
+- **原因**: EDINETのXBRLパターンの理解不足により、誤ったデータ要素を抽出
+- **解決**: 正しいEDINETパターン `NumberOfIssuedSharesAsOfFiscalYearEndIssuedSharesTotalNumberOfSharesEtc` を最優先に設定
+- **重要な学習**: 
+  - 市場時価総額 = 株価 × 発行済株式総数（自己株式を含む）
+  - EDINETタクソノミーの正確な理解が必要
+  - 存在しないパターン名を使用しないこと
