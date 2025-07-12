@@ -15,18 +15,18 @@
     "depreciation": 46835000.0,
     "ebitda": 470926000.0,
     "ebitdaMargin": 6.554332893015226,
-    "marketCapitalization": 5215743739.8,
+    "marketCapitalization": 5579502588.0,
     "per": 19.8,
-    "ev": 1219606739.8000002,
-    "evPerEbitda": 2.589805489185138,
+    "ev": 1583365588.0,
+    "evPerEbitda": 3.3622386277249503,
     "pbr": 1.7510081961267863,
     "bps": 551.48,
     "equity": 2981043000.0,
     "debt": 826130000.0,
-    "outstandingShares": 5401300,
+    "outstandingShares": 5778000,
     "netIncome": 261865000.0,
     "eps": 48.77,
     "cash": 4822267000.0,
-    "retrievedDate": "2025-07-11"
+    "retrievedDate": "2025-07-13"
   }
 ]

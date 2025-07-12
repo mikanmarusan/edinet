@@ -15,19 +15,19 @@
     "depreciation": 12000000000.0,
     "ebitda": 48221000000.0,
     "ebitdaMargin": 15.713871391375472,
-    "marketCapitalization": 278622671688.89996,
+    "marketCapitalization": 279466975779.552,
     "per": 10.7,
-    "ev": 258364671688.89996,
-    "evPerEbitda": 5.357928530907695,
+    "ev": 259208975779.552,
+    "evPerEbitda": 5.375437584860372,
     "pbr": null,
-    "bps": 1984.3317489874823,
+    "bps": 1978.3368388260672,
     "equity": 185740000000.0,
     "debt": 1015000000.0,
-    "outstandingShares": 93603300,
+    "outstandingShares": 93886944,
     "netIncome": 25015000000.0,
     "eps": 278.19,
     "cash": 21273000000.0,
-    "retrievedDate": "2025-07-11"
+    "retrievedDate": "2025-07-13"
   },
   {
     "secCode": "7806",
@@ -45,7 +45,7 @@
     "depreciation": 1652000000.0,
     "ebitda": 4929000000.0,
     "ebitdaMargin": 6.858693383427259,
-    "marketCapitalization": 62484286187.99999,
+    "marketCapitalization": 62738861532.579994,
     "per": 27.25,
     "ev": null,
     "evPerEbitda": null,
@@ -53,10 +53,10 @@
     "bps": 1111.65,
     "equity": 44524000000.0,
     "debt": null,
-    "outstandingShares": 39940800,
+    "outstandingShares": 40103528,
     "netIncome": 2279000000.0,
     "eps": 57.41,
     "cash": 12960000000.0,
-    "retrievedDate": "2025-07-11"
+    "retrievedDate": "2025-07-13"
   }
 ]

@@ -15,7 +15,7 @@
     "depreciation": 199000000.0,
     "ebitda": 1209000000.0,
     "ebitdaMargin": 5.354532973116613,
-    "marketCapitalization": 17516785964.25,
+    "marketCapitalization": 19239159779.4,
     "per": 35.65,
     "ev": null,
     "evPerEbitda": null,
@@ -23,10 +23,10 @@
     "bps": 431.75,
     "equity": 10884000000.0,
     "debt": null,
-    "outstandingShares": 25314500,
+    "outstandingShares": 27803600,
     "netIncome": 489000000.0,
     "eps": 19.41,
     "cash": 109000000.0,
-    "retrievedDate": "2025-07-11"
+    "retrievedDate": "2025-07-12"
   }
 ]
