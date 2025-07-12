@@ -56,3 +56,29 @@ bin/consolidate_documents.py
 - **Additional Metrics**: Extend XBRLParser.extract_financial_metrics()
 - **Output Formats**: Add formatters alongside JSON output
 - **Storage Backends**: Replace file I/O with database operations
+
+### XBRL Data Extraction Strategy
+
+#### Consolidated vs Non-Consolidated Financial Statements
+- **Priority**: Always prefer consolidated financial data when available
+- **Fallback**: Use non-consolidated data only when consolidated data doesn't exist
+- **Implementation**:
+  - `_has_consolidated_data()` method checks for presence of consolidated contexts
+  - All extraction methods conditionally include/exclude NonConsolidatedMember
+  - Historical data (PriorYear contexts) is always excluded for non-consolidated data
+  
+#### Context Filtering Logic
+```python
+# Pseudo-code for context filtering
+if has_consolidated_data:
+    # Traditional behavior - exclude NonConsolidatedMember
+    valid_contexts = [c for c in contexts if 'NonConsolidatedMember' not in c]
+else:
+    # New behavior - include NonConsolidatedMember for current year only
+    valid_contexts = [c for c in contexts if 'CurrentYear' in c]
+```
+
+#### Affected Methods
+- `extract_numeric_value_with_context`: Core extraction method with conditional logic
+- `_dynamic_search_*`: All dynamic search methods check consolidated data availability
+- Pattern matching maintains backward compatibility for companies with consolidated data

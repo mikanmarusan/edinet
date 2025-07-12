@@ -108,3 +108,15 @@ python bin/consolidate_documents.py --inputdir data/jsons --output data/edinet.j
   - 市場時価総額 = 株価 × 発行済株式総数（自己株式を含む）
   - EDINETタクソノミーの正確な理解が必要
   - 存在しないパターン名を使用しないこと
+
+### 非連結財務諸表の条件付き処理
+- **問題**: 連結財務諸表を持たない企業（証券コード1401等）のデータが取得できない
+- **原因**: NonConsolidatedMemberコンテキストのデータを一律除外していた
+- **解決**: 連結財務諸表が存在しない場合のみ非連結データを使用
+- **実装仕様**:
+  - `_has_consolidated_data`メソッドで連結データの有無を判定
+  - 連結データがある場合：従来通り連結データを優先（NonConsolidatedMember除外）
+  - 連結データがない場合：NonConsolidatedMemberデータを使用
+  - 過去データは除外（CurrentYearコンテキストのみ使用）
+- **対象メソッド**: 
+  - `extract_numeric_value_with_context`および全動的検索メソッド
