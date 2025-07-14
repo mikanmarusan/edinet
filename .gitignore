@@ -199,7 +199,7 @@ cython_debug/
 
 
 # Debug and investigation files
-test_*.py
+# test_*.py  # Commented out to allow test files in tests/ directory
 investigate_*.py
 analyze_*.py
 *_debug.py

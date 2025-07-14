@@ -90,10 +90,29 @@ class FinancialDataExtractor:
         Returns:
             True if consolidated data exists, False otherwise
         """
+        # First, check if any context elements contain ConsolidatedMember
+        contexts = root.findall('.//xbrli:context', self.namespaces)
+        for context in contexts:
+            # Check for explicit dimension members
+            for member in context.findall('.//xbrldi:explicitMember', self.namespaces):
+                member_text = member.text if member.text else ''
+                # Look for ConsolidatedMember in the member text
+                # Make sure it's not NonConsolidatedMember
+                if 'ConsolidatedMember' in member_text and 'NonConsolidatedMember' not in member_text:
+                    return True
+        
+        # Additionally check if there are elements with ConsolidatedMember in contextRef
+        # This is a fallback for cases where context structure might be different
         for elem in root.iter():
             context_ref = elem.get('contextRef', '')
-            if 'Consolidated' in context_ref and 'NonConsolidatedMember' not in context_ref:
+            # Look for patterns that indicate consolidated data
+            # Exclude NonConsolidatedMember explicitly
+            if 'ConsolidatedMember' in context_ref and 'NonConsolidatedMember' not in context_ref:
                 return True
+            # Check for legacy patterns (e.g., "ConsolidatedCurrentYear")
+            elif 'Consolidated' in context_ref and 'NonConsolidated' not in context_ref:
+                return True
+        
         return False
     
     def extract_numeric_value(self, root: ET.Element, patterns: List[str]) -> Optional[float]:
@@ -769,11 +788,8 @@ class XBRLParser:
         Returns:
             True if consolidated data exists, False otherwise
         """
-        for elem in root.iter():
-            context_ref = elem.get('contextRef', '')
-            if 'Consolidated' in context_ref and 'NonConsolidatedMember' not in context_ref:
-                return True
-        return False
+        # Use data_extractor's method to check for consolidated data
+        return self.data_extractor._has_consolidated_data(root)
     
     def _extract_characteristic(self, root: ET.Element) -> Optional[str]:
         """Extract first sentence of company characteristics/business description"""
