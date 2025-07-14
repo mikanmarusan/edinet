@@ -40,33 +40,45 @@ XBRL_PATTERNS = {
         './/jppfs_cor:SharePrice'
     ],
     'net_sales': [
-        # Primary consolidated patterns
+        # Primary patterns from summary of business results
         './/jpcrp_cor:RevenueIFRSSummaryOfBusinessResults',
         './/jpcrp_cor:NetSalesSummaryOfBusinessResults',
-        './/jppfs_cor:NetSales',
         
-        # Additional consolidated revenue patterns
+        # Operating revenue patterns (used by financial companies like Toyota, SMFG)
+        './/jpcrp_cor:OperatingRevenue1SummaryOfBusinessResults',
+        './/jpcrp_cor:OperatingRevenue2SummaryOfBusinessResults',
+        './/jpcrp_cor:GrossOperatingRevenueSummaryOfBusinessResults',
+        
+        # Standard patterns (need context checking)
+        './/jppfs_cor:NetSales',
+        './/jppfs_cor:OperatingRevenue1',
+        './/jppfs_cor:OperatingRevenue2',
+        './/jppfs_cor:GrossOperatingRevenue',
+        
+        # Explicitly consolidated patterns
         './/jpcrp_cor:ConsolidatedNetSales',
         './/jppfs_cor:ConsolidatedNetSales',
         './/jpcrp_cor:ConsolidatedRevenue',
         './/jppfs_cor:ConsolidatedRevenue',
+        './/jpcrp_cor:ConsolidatedOperatingRevenue',
+        './/jppfs_cor:ConsolidatedOperatingRevenue',
+        
+        # Other revenue patterns
         './/jpcrp_cor:TotalRevenue',
         './/jppfs_cor:TotalRevenue',
-        './/jpcrp_cor:OperatingRevenue',
-        './/jppfs_cor:OperatingRevenue',
-        
-        # IFRS patterns
         './/jpcrp_cor:Revenue',
         './/jppfs_cor:Revenue',
         './/jpcrp_cor:RevenueFromContractsWithCustomers',
         './/jppfs_cor:RevenueFromContractsWithCustomers'
     ],
     'employees': [
-        # Primary employee patterns
+        # Note: NumberOfEmployees can be either consolidated or non-consolidated
+        # depending on context. The extraction logic must check context.
+        # Standard patterns that need context checking
         './/jpcrp_cor:NumberOfEmployees',
         './/jppfs_cor:NumberOfEmployees',
         
-        # Consolidated employee patterns
+        # Explicitly consolidated employee patterns (rarely used)
         './/jpcrp_cor:ConsolidatedNumberOfEmployees',
         './/jppfs_cor:ConsolidatedNumberOfEmployees',
         './/jpcrp_cor:TotalNumberOfEmployees',

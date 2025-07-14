@@ -67,18 +67,35 @@ bin/consolidate_documents.py
   - All extraction methods conditionally include/exclude NonConsolidatedMember
   - Historical data (PriorYear contexts) is always excluded for non-consolidated data
   
+#### Context Priority System (2025-07 Update)
+- **Highest Priority**: BusinessResultsOfGroup contexts (+50~80 points)
+- **High Priority**: ConsolidatedMember contexts (+30~55 points)
+- **Standard Priority**: CurrentYear contexts (+15 points)
+- **Penalties**: 
+  - ReportingCompany contexts: -30 points (individual data)
+  - NonConsolidatedMember: -20 points
+
 #### Context Filtering Logic
 ```python
 # Pseudo-code for context filtering
 if has_consolidated_data:
     # Traditional behavior - exclude NonConsolidatedMember
     valid_contexts = [c for c in contexts if 'NonConsolidatedMember' not in c]
+    # NEW: Also skip ReportingCompany contexts when consolidated data exists
+    valid_contexts = [c for c in valid_contexts if 'ReportingCompany' not in c]
 else:
     # New behavior - include NonConsolidatedMember for current year only
     valid_contexts = [c for c in contexts if 'CurrentYear' in c]
 ```
 
+#### Key XBRL Context Patterns
+- **BusinessResultsOfGroup**: Most reliable indicator of consolidated data
+- **ReportingCompany**: Indicates individual/non-consolidated data
+- **ConsolidatedMember**: Explicit consolidated data marker
+- **NonConsolidatedMember**: Explicit non-consolidated data marker
+
 #### Affected Methods
 - `extract_numeric_value_with_context`: Core extraction method with conditional logic
 - `_dynamic_search_*`: All dynamic search methods check consolidated data availability
+- Priority calculation methods: `_calculate_*_priority()` for consistent scoring
 - Pattern matching maintains backward compatibility for companies with consolidated data
