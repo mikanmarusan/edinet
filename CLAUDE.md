@@ -110,7 +110,7 @@ python bin/consolidate_documents.py --inputdir data/jsons --output data/edinet.j
   - 存在しないパターン名を使用しないこと
 
 ### 非連結財務諸表の条件付き処理
-- **問題**: 連結財務諸表を持たない企業（証券コード1401等）のデータが取得できない
+- **問題**: 連結財務諸表を持たない企業のデータが取得できない
 - **原因**: NonConsolidatedMemberコンテキストのデータを一律除外していた
 - **解決**: 連結財務諸表が存在しない場合のみ非連結データを使用
 - **実装仕様**:
@@ -120,3 +120,16 @@ python bin/consolidate_documents.py --inputdir data/jsons --output data/edinet.j
   - 過去データは除外（CurrentYearコンテキストのみ使用）
 - **対象メソッド**: 
   - `extract_numeric_value_with_context`および全動的検索メソッド
+
+### 連結・個別データの優先順位改善（2025年7月）
+- **問題**: 連結財務諸表を持つ企業でも個別（提出会社）データを取得してしまうバグ
+- **原因**: コンテキスト優先度の判定ロジックが不十分
+- **解決**: 
+  - BusinessResultsOfGroupコンテキストを最優先に設定（+50〜80ポイント）
+  - ReportingCompanyコンテキストにペナルティ付与（-30ポイント）
+  - 連結データ検出ロジックの強化
+- **学習ポイント**:
+  - XBRLのコンテキスト構造を正確に理解することが重要
+  - BusinessResultsOfGroup = 連結データの最も確実な指標
+  - ReportingCompany = 個別データの指標
+  - 優先度スコアリングによる柔軟な判定が有効

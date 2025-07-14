@@ -101,10 +101,12 @@ class FinancialDataExtractor:
                 if 'ConsolidatedMember' in member_text and 'NonConsolidatedMember' not in member_text:
                     return True
         
-        # Additionally check if there are elements with ConsolidatedMember in contextRef
-        # This is a fallback for cases where context structure might be different
+        # Check for elements with BusinessResultsOfGroup (consolidated) contexts
         for elem in root.iter():
             context_ref = elem.get('contextRef', '')
+            # BusinessResultsOfGroup indicates consolidated data
+            if 'BusinessResultsOfGroup' in context_ref:
+                return True
             # Look for patterns that indicate consolidated data
             # Exclude NonConsolidatedMember explicitly
             if 'ConsolidatedMember' in context_ref and 'NonConsolidatedMember' not in context_ref:
@@ -112,6 +114,17 @@ class FinancialDataExtractor:
             # Check for legacy patterns (e.g., "ConsolidatedCurrentYear")
             elif 'Consolidated' in context_ref and 'NonConsolidated' not in context_ref:
                 return True
+        
+        # Also check for consolidated patterns in tags themselves
+        for elem in root.iter():
+            if elem.tag and ('Consolidated' in elem.tag and 'NonConsolidated' not in elem.tag):
+                # Check if it's a financial data element (has numeric value)
+                if elem.text:
+                    try:
+                        float(elem.text.replace(',', ''))
+                        return True
+                    except ValueError:
+                        continue
         
         return False
     
@@ -170,7 +183,7 @@ class FinancialDataExtractor:
                 for element in elements:
                     context_ref = element.get('contextRef', '')
                     
-                    # Handle NonConsolidatedMember based on whether consolidated data exists
+                    # Skip NonConsolidatedMember contexts when consolidated data exists
                     if 'NonConsolidatedMember' in context_ref:
                         # Skip if consolidated data exists
                         if has_consolidated:
@@ -181,13 +194,26 @@ class FinancialDataExtractor:
                         # Skip past years
                         continue
                     
-                    # Prioritize consolidated data
-                    if 'Consolidated' in context_ref and 'CurrentYear' in context_ref:
-                        consolidated_current_elements.append(element)
+                    # Skip ReportingCompany contexts (individual data) if consolidated data exists
+                    if has_consolidated and 'ReportingCompany' in context_ref:
+                        continue
+                    
+                    # Priority 1: BusinessResultsOfGroup context (highest priority for consolidated data)
+                    if 'BusinessResultsOfGroup' in context_ref:
+                        if 'CurrentYear' in context_ref:
+                            consolidated_current_elements.append(element)
+                        else:
+                            consolidated_elements.append(element)
+                    # Priority 2: Explicit ConsolidatedMember or Consolidated patterns
+                    elif ('ConsolidatedMember' in context_ref or 
+                          ('Consolidated' in context_ref and 'NonConsolidated' not in context_ref)):
+                        if 'CurrentYear' in context_ref:
+                            consolidated_current_elements.append(element)
+                        else:
+                            consolidated_elements.append(element)
+                    # Priority 3: CurrentYear without specific member (may be default consolidated)
                     elif 'CurrentYear' in context_ref:
                         current_year_elements.append(element)
-                    elif 'Consolidated' in context_ref:
-                        consolidated_elements.append(element)
                     else:
                         other_elements.append(element)
                 
@@ -1210,6 +1236,10 @@ class XBRLParser:
                             if 1_000_000 <= numeric_value <= 100_000_000_000_000:
                                 context_ref = elem.get('contextRef', '')
                                 
+                                # Skip ReportingCompany contexts if consolidated data exists
+                                if has_consolidated and 'ReportingCompany' in context_ref:
+                                    continue
+                                
                                 # Handle NonConsolidatedMember based on whether consolidated data exists
                                 if 'NonConsolidatedMember' in context_ref:
                                     # Skip if consolidated data exists
@@ -1353,11 +1383,19 @@ class XBRLParser:
         """
         priority = 0
         
+        # Highest priority for BusinessResultsOfGroup context
+        if 'BusinessResultsOfGroup' in context_ref:
+            priority += 50
+            if 'CurrentYear' in context_ref:
+                priority += 25
+        # Lower priority for ReportingCompany context (individual data)
+        elif 'ReportingCompany' in context_ref:
+            priority -= 30  # Significant penalty for individual data
         # Higher priority for consolidated data
-        if 'Consolidated' in context_ref:
+        elif 'Consolidated' in context_ref:
             priority += 25
             if 'CurrentYear' in context_ref:
-                priority += 20  # Consolidated + CurrentYear is highest priority
+                priority += 20  # Consolidated + CurrentYear is high priority
         elif 'CurrentYear' in context_ref:
             priority += 15
         
@@ -1459,13 +1497,26 @@ class XBRLParser:
         """
         priority = 0
         
-        # Higher priority for consolidated data
-        if 'Consolidated' in context_ref:
-            priority += 25
+        # Highest priority for BusinessResultsOfGroup (consolidated)
+        if 'BusinessResultsOfGroup' in context_ref:
+            priority += 50
             if 'CurrentYear' in context_ref:
-                priority += 20  # Consolidated + CurrentYear is highest priority
+                priority += 30  # BusinessResultsOfGroup + CurrentYear is absolute highest priority
+        # High priority for consolidated data
+        elif 'ConsolidatedMember' in context_ref or ('Consolidated' in context_ref and 'NonConsolidated' not in context_ref):
+            priority += 30
+            if 'CurrentYear' in context_ref:
+                priority += 25  # Consolidated + CurrentYear is very high priority
         elif 'CurrentYear' in context_ref:
             priority += 15
+        
+        # Penalty for ReportingCompany (individual) contexts
+        if 'ReportingCompany' in context_ref:
+            priority -= 30
+        
+        # Penalty for NonConsolidatedMember
+        if 'NonConsolidatedMember' in context_ref:
+            priority -= 20
         
         # Higher priority for exact equity tags
         if any(term in tag_name.lower() for term in ['shareholdersequity', 'equity', 'netassets']):
@@ -1813,11 +1864,28 @@ class XBRLParser:
         """
         priority = 0
         
-        # Higher priority for current year context
-        if 'CurrentYear' in context_ref:
-            priority += 20
-        elif 'Current' in context_ref:
+        # Highest priority for BusinessResultsOfGroup (consolidated)
+        if 'BusinessResultsOfGroup' in context_ref:
+            priority += 50
+            if 'CurrentYear' in context_ref:
+                priority += 30  # BusinessResultsOfGroup + CurrentYear is absolute highest priority
+        # High priority for consolidated data
+        elif 'ConsolidatedMember' in context_ref or ('Consolidated' in context_ref and 'NonConsolidated' not in context_ref):
+            priority += 30
+            if 'CurrentYear' in context_ref:
+                priority += 25  # Consolidated + CurrentYear is very high priority
+        elif 'CurrentYear' in context_ref:
             priority += 15
+        elif 'Current' in context_ref:
+            priority += 10
+        
+        # Penalty for ReportingCompany (individual) contexts
+        if 'ReportingCompany' in context_ref:
+            priority -= 30
+        
+        # Penalty for NonConsolidatedMember
+        if 'NonConsolidatedMember' in context_ref:
+            priority -= 20
         
         # Higher priority for diluted EPS
         if 'diluted' in tag_name.lower():
@@ -1922,13 +1990,26 @@ class XBRLParser:
         """
         priority = 0
         
-        # Higher priority for consolidated data
-        if 'Consolidated' in context_ref:
-            priority += 25
+        # Highest priority for BusinessResultsOfGroup (consolidated)
+        if 'BusinessResultsOfGroup' in context_ref:
+            priority += 50
             if 'CurrentYear' in context_ref:
-                priority += 20  # Consolidated + CurrentYear is highest priority
+                priority += 30  # BusinessResultsOfGroup + CurrentYear is absolute highest priority
+        # High priority for consolidated data
+        elif 'ConsolidatedMember' in context_ref or ('Consolidated' in context_ref and 'NonConsolidated' not in context_ref):
+            priority += 30
+            if 'CurrentYear' in context_ref:
+                priority += 25  # Consolidated + CurrentYear is very high priority
         elif 'CurrentYear' in context_ref:
             priority += 15
+        
+        # Penalty for ReportingCompany (individual) contexts
+        if 'ReportingCompany' in context_ref:
+            priority -= 30
+        
+        # Penalty for NonConsolidatedMember
+        if 'NonConsolidatedMember' in context_ref:
+            priority -= 20
         
         # Higher priority for exact BPS tags
         if any(term in tag_name.lower() for term in ['bookvaluepershare', 'netassetspershare']):
@@ -2069,13 +2150,26 @@ class XBRLParser:
         """
         priority = 0
         
-        # Higher priority for consolidated data
-        if 'Consolidated' in context_ref:
-            priority += 25
+        # Highest priority for BusinessResultsOfGroup (consolidated)
+        if 'BusinessResultsOfGroup' in context_ref:
+            priority += 50
             if 'CurrentYear' in context_ref:
-                priority += 20  # Consolidated + CurrentYear is highest priority
+                priority += 30  # BusinessResultsOfGroup + CurrentYear is absolute highest priority
+        # High priority for consolidated data
+        elif 'ConsolidatedMember' in context_ref or ('Consolidated' in context_ref and 'NonConsolidated' not in context_ref):
+            priority += 30
+            if 'CurrentYear' in context_ref:
+                priority += 25  # Consolidated + CurrentYear is very high priority
         elif 'CurrentYear' in context_ref:
             priority += 15
+        
+        # Penalty for ReportingCompany (individual) contexts
+        if 'ReportingCompany' in context_ref:
+            priority -= 30
+        
+        # Penalty for NonConsolidatedMember
+        if 'NonConsolidatedMember' in context_ref:
+            priority -= 20
         
         # Highest priority for interest-bearing debt (most accurate for financial analysis)
         if any(term in tag_name.lower() for term in ['interestbearingdebt', 'totalinterestbearingdebt', 'netinterestbearingdebt']):

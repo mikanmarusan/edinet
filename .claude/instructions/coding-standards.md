@@ -223,3 +223,43 @@ def validate_financial_data(data):
     
     return True
 ```
+
+## XBRL Context Handling
+
+### Context Priority System
+Implement a consistent priority scoring system for XBRL contexts:
+
+```python
+# Priority scoring constants
+BUSINESS_RESULTS_GROUP_PRIORITY = 50  # Highest - consolidated group data
+CONSOLIDATED_MEMBER_PRIORITY = 30     # High - explicit consolidated
+CURRENT_YEAR_PRIORITY = 15            # Standard - current year data
+REPORTING_COMPANY_PENALTY = -30       # Penalty - individual data
+NON_CONSOLIDATED_PENALTY = -20        # Penalty - non-consolidated
+
+def calculate_context_priority(context_ref):
+    """Calculate priority score for XBRL context"""
+    priority = 0
+    
+    # Apply bonuses
+    if 'BusinessResultsOfGroup' in context_ref:
+        priority += BUSINESS_RESULTS_GROUP_PRIORITY
+    if 'ConsolidatedMember' in context_ref:
+        priority += CONSOLIDATED_MEMBER_PRIORITY
+    if 'CurrentYear' in context_ref:
+        priority += CURRENT_YEAR_PRIORITY
+    
+    # Apply penalties
+    if 'ReportingCompany' in context_ref:
+        priority += REPORTING_COMPANY_PENALTY
+    if 'NonConsolidatedMember' in context_ref:
+        priority += NON_CONSOLIDATED_PENALTY
+    
+    return priority
+```
+
+### Context Validation Rules
+1. **Always check consolidated data availability first**
+2. **Skip individual contexts when consolidated exists**
+3. **Use consistent priority scoring across all metrics**
+4. **Log context decisions for debugging**
