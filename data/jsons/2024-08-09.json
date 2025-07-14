@@ -8,26 +8,26 @@
     "periodEnd": "2024年5月期",
     "characteristic": "３【事業の内容】 当社グループ（当社及び当社の関係会社）は、当社（コーセル㈱）及び子会社21社で構成されており、直流安定化電源の製造・販売を主たる事業としております。",
     "stockPrice": 1433.912,
-    "netSales": 31772590000.0,
-    "employees": 473,
-    "operatingIncome": 4882802000.0,
-    "operatingIncomeRate": 15.367969687079336,
-    "depreciation": 47118000.0,
-    "ebitda": 4929920000.0,
-    "ebitdaMargin": 15.516267323501168,
+    "netSales": 41437250000.0,
+    "employees": 721,
+    "operatingIncome": 6912609000.0,
+    "operatingIncomeRate": 16.68211331591744,
+    "depreciation": 1368245000.0,
+    "ebitda": 8280854000.0,
+    "ebitdaMargin": 19.984081955245582,
     "marketCapitalization": 51207865344.0,
     "per": 9.2,
-    "ev": 45573064344.0,
-    "evPerEbitda": 9.244179285667922,
-    "pbr": 1.1657536808045332,
-    "bps": 1230.03,
-    "equity": 40812631000.0,
-    "debt": 3994955000.0,
+    "ev": 35826577344.0,
+    "evPerEbitda": 4.326435092805645,
+    "pbr": 1.0104304810761675,
+    "bps": 1419.11,
+    "equity": 47257410000.0,
+    "debt": 13091000.0,
     "outstandingShares": 35712000,
-    "netIncome": 4074052000.0,
+    "netIncome": 5169523000.0,
     "eps": 155.86,
-    "cash": 9629756000.0,
-    "retrievedDate": "2025-07-12"
+    "cash": 15394379000.0,
+    "retrievedDate": "2025-07-15"
   },
   {
     "secCode": "3075",
@@ -57,7 +57,7 @@
     "netIncome": 1073000000.0,
     "eps": 78.04,
     "cash": 6178000000.0,
-    "retrievedDate": "2025-07-12"
+    "retrievedDate": "2025-07-15"
   },
   {
     "secCode": "3391",
@@ -87,6 +87,6 @@
     "netIncome": 24105000000.0,
     "eps": 493.48,
     "cash": 58554000000.0,
-    "retrievedDate": "2025-07-12"
+    "retrievedDate": "2025-07-15"
   }
 ]

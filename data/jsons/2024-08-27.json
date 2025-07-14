@@ -27,7 +27,7 @@
     "netIncome": 16162000000.0,
     "eps": 365.22,
     "cash": 20264000000.0,
-    "retrievedDate": "2025-07-12"
+    "retrievedDate": "2025-07-15"
   },
   {
     "secCode": "4825",
@@ -57,7 +57,7 @@
     "netIncome": 2437821000.0,
     "eps": 220.28,
     "cash": 14311060000.0,
-    "retrievedDate": "2025-07-12"
+    "retrievedDate": "2025-07-15"
   },
   {
     "secCode": "8940",
@@ -87,7 +87,7 @@
     "netIncome": 414164000.0,
     "eps": 50.04,
     "cash": 4690001000.0,
-    "retrievedDate": "2025-07-12"
+    "retrievedDate": "2025-07-15"
   },
   {
     "secCode": "1887",
@@ -98,26 +98,26 @@
     "periodEnd": "2024年5月期",
     "characteristic": "３ 【事業の内容】当社グループは、当社、子会社17社、関連会社３社で構成され、主な事業内容とその位置づけは次のとおりであります。",
     "stockPrice": null,
-    "netSales": 114398000000.0,
-    "employees": 830,
-    "operatingIncome": -10724000000.0,
-    "operatingIncomeRate": -9.374289760310495,
-    "depreciation": 416000000.0,
-    "ebitda": -10308000000.0,
-    "ebitdaMargin": -9.010647039283903,
+    "netSales": 135701000000.0,
+    "employees": 1048,
+    "operatingIncome": -9404000000.0,
+    "operatingIncomeRate": -6.929941562700348,
+    "depreciation": 2316000000.0,
+    "ebitda": -7088000000.0,
+    "ebitdaMargin": -5.223248170610386,
     "marketCapitalization": null,
-    "per": 22.0,
+    "per": 79.0,
     "ev": null,
     "evPerEbitda": null,
     "pbr": null,
-    "bps": 746.35,
-    "equity": 62335000000.0,
-    "debt": 327000000.0,
+    "bps": 819.47,
+    "equity": 68591000000.0,
+    "debt": 21227000000.0,
     "outstandingShares": 93255000,
-    "netIncome": -8320000000.0,
+    "netIncome": -7191000000.0,
     "eps": -86.21,
-    "cash": 16120000000.0,
-    "retrievedDate": "2025-07-12"
+    "cash": 21947000000.0,
+    "retrievedDate": "2025-07-15"
   },
   {
     "secCode": "9265",
@@ -128,25 +128,25 @@
     "periodEnd": "2024年5月期",
     "characteristic": "３ 【事業の内容】当社は、持株会社として傘下グループ会社の経営管理およびそれに附帯する業務を行っております。",
     "stockPrice": 2667.132,
-    "netSales": 1408000000.0,
-    "employees": 29,
-    "operatingIncome": 763000000.0,
-    "operatingIncomeRate": 54.19034090909091,
+    "netSales": 61555000000.0,
+    "employees": 606,
+    "operatingIncome": 967000000.0,
+    "operatingIncomeRate": 1.570952806433271,
     "depreciation": 185000000.0,
-    "ebitda": 948000000.0,
-    "ebitdaMargin": 67.32954545454545,
+    "ebitda": 1152000000.0,
+    "ebitdaMargin": 1.8714970351717974,
     "marketCapitalization": 6809187996.0,
     "per": 11.7,
-    "ev": 6877187996.0,
-    "evPerEbitda": 7.254417717299578,
-    "pbr": 1.0578525901628941,
-    "bps": 2521.27,
-    "equity": 6281000000.0,
-    "debt": 380000000.0,
+    "ev": 1860187996.0,
+    "evPerEbitda": 1.6147465243055557,
+    "pbr": 0.7777981266112194,
+    "bps": 3429.08,
+    "equity": 8556000000.0,
+    "debt": 351000000.0,
     "outstandingShares": 2553000,
-    "netIncome": 767000000.0,
+    "netIncome": 580000000.0,
     "eps": 227.96,
-    "cash": 312000000.0,
-    "retrievedDate": "2025-07-12"
+    "cash": 5300000000.0,
+    "retrievedDate": "2025-07-15"
   }
 ]

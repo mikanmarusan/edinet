@@ -8,26 +8,26 @@
     "periodEnd": "2024年4月期",
     "characteristic": "３【事業の内容】 当社グループは、当社（株式会社柿安本店）及び子会社１社により構成されており、主に、精肉、惣菜、和菓子、牛肉しぐれ煮の製造販売及びレストランの運営を行っております。",
     "stockPrice": 2748.3570000000004,
-    "netSales": 35710000000.0,
-    "employees": 838,
-    "operatingIncome": 2105000000.0,
-    "operatingIncomeRate": 5.894707364883786,
-    "depreciation": 418000000.0,
-    "ebitda": 2523000000.0,
-    "ebitdaMargin": 7.065247829739568,
+    "netSales": 37052000000.0,
+    "employees": 886,
+    "operatingIncome": 2200000000.0,
+    "operatingIncomeRate": 5.937601209111519,
+    "depreciation": 535000000.0,
+    "ebitda": 2735000000.0,
+    "ebitdaMargin": 7.38151786678182,
     "marketCapitalization": 34207975071.900005,
     "per": 20.55,
     "ev": null,
     "evPerEbitda": null,
-    "pbr": 1.6372326736801974,
-    "bps": 1678.66,
-    "equity": 17582000000.0,
+    "pbr": 1.6302693628657696,
+    "bps": 1685.83,
+    "equity": 17657000000.0,
     "debt": null,
     "outstandingShares": 12446700,
-    "netIncome": 1342000000.0,
+    "netIncome": 1400000000.0,
     "eps": 133.74,
-    "cash": 10276000000.0,
-    "retrievedDate": "2025-07-12"
+    "cash": 10108000000.0,
+    "retrievedDate": "2025-07-15"
   },
   {
     "secCode": "4026",
@@ -57,6 +57,6 @@
     "netIncome": null,
     "eps": null,
     "cash": null,
-    "retrievedDate": "2025-07-12"
+    "retrievedDate": "2025-07-15"
   }
 ]

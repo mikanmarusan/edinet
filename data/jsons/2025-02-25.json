@@ -27,7 +27,7 @@
     "netIncome": 3106800000.0,
     "eps": 92.2,
     "cash": 1904843000.0,
-    "retrievedDate": "2025-07-13"
+    "retrievedDate": "2025-07-15"
   },
   {
     "secCode": "3994",
@@ -57,7 +57,7 @@
     "netIncome": -6330577000.0,
     "eps": -116.32,
     "cash": 45211947000.0,
-    "retrievedDate": "2025-07-13"
+    "retrievedDate": "2025-07-15"
   },
   {
     "secCode": "5243",
@@ -68,26 +68,26 @@
     "periodEnd": "2024年11月期",
     "characteristic": "３ 【事業の内容】当社グループは、「メディアプラットフォーム事業」及び「IP・コンテンツクリエーション事業」を展開しております。",
     "stockPrice": 479.938,
-    "netSales": 3295106000.0,
-    "employees": 148,
-    "operatingIncome": 54138000.0,
-    "operatingIncomeRate": 1.6429820467080574,
+    "netSales": 3312248000.0,
+    "employees": 151,
+    "operatingIncome": 52844000.0,
+    "operatingIncomeRate": 1.5954119377534535,
     "depreciation": null,
     "ebitda": null,
     "ebitdaMargin": null,
     "marketCapitalization": 7386485789.0,
     "per": 75.7,
-    "ev": 5385702789.0,
+    "ev": 5300427789.0,
     "evPerEbitda": null,
-    "pbr": 4.315601115007643,
-    "bps": 111.21,
-    "equity": 1731009000.0,
+    "pbr": 4.338226520835216,
+    "bps": 110.63,
+    "equity": 1722164000.0,
     "debt": 80000000.0,
     "outstandingShares": 15390500,
-    "netIncome": 107785000.0,
+    "netIncome": 98939000.0,
     "eps": 6.34,
-    "cash": 2080783000.0,
-    "retrievedDate": "2025-07-13"
+    "cash": 2166058000.0,
+    "retrievedDate": "2025-07-15"
   },
   {
     "secCode": "9558",
@@ -117,6 +117,6 @@
     "netIncome": 722607000.0,
     "eps": 179.45,
     "cash": 2999564000.0,
-    "retrievedDate": "2025-07-13"
+    "retrievedDate": "2025-07-15"
   }
 ]

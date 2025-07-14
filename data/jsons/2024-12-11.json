@@ -8,26 +8,26 @@
     "periodEnd": "2024年5月期",
     "characteristic": "３ 【事業の内容】当社グループは、当社と連結子会社11社及び持分法を適用していない非連結子会社１社により構成されております。",
     "stockPrice": null,
-    "netSales": 8058539000.0,
-    "employees": 63,
-    "operatingIncome": -139261000.0,
-    "operatingIncomeRate": -1.7281172182699618,
-    "depreciation": 15237000.0,
-    "ebitda": -124024000.0,
-    "ebitdaMargin": -1.5390382797675857,
+    "netSales": 17714904000.0,
+    "employees": 315,
+    "operatingIncome": -553001000.0,
+    "operatingIncomeRate": -3.1216708823259784,
+    "depreciation": 256801000.0,
+    "ebitda": -296200000.0,
+    "ebitdaMargin": -1.6720384146592044,
     "marketCapitalization": null,
     "per": 50.0,
     "ev": null,
     "evPerEbitda": null,
     "pbr": null,
-    "bps": 280.35,
-    "equity": 1391139000.0,
-    "debt": 1159000000.0,
+    "bps": 232.55,
+    "equity": 1620898000.0,
+    "debt": 669065000.0,
     "outstandingShares": 5137046,
-    "netIncome": -2146836000.0,
+    "netIncome": -2086426000.0,
     "eps": -426.06,
-    "cash": 656754000.0,
-    "retrievedDate": "2025-07-12"
+    "cash": 1752966000.0,
+    "retrievedDate": "2025-07-15"
   },
   {
     "secCode": "3636",
@@ -57,6 +57,6 @@
     "netIncome": 5003000000.0,
     "eps": 316.44,
     "cash": 30627000000.0,
-    "retrievedDate": "2025-07-12"
+    "retrievedDate": "2025-07-15"
   }
 ]

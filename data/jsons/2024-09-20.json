@@ -8,26 +8,26 @@
     "periodEnd": "2024年6月期",
     "characteristic": "３ 【事業の内容】当社グループは、当社、連結子会社１社及び関連会社１社で構成され、その事業は、食品の製造販売を主な事業の内容として、当事業に関する物流、サービス等の事業を展開しています。",
     "stockPrice": 765.87,
-    "netSales": 34095393000.0,
-    "employees": 893,
-    "operatingIncome": 1151903000.0,
-    "operatingIncomeRate": 3.3784711031194155,
-    "depreciation": 24143000.0,
-    "ebitda": 1176046000.0,
-    "ebitdaMargin": 3.4492812562682587,
+    "netSales": 34487406000.0,
+    "employees": 928,
+    "operatingIncome": 1271246000.0,
+    "operatingIncomeRate": 3.6861166073203653,
+    "depreciation": 1627226000.0,
+    "ebitda": 2898472000.0,
+    "ebitdaMargin": 8.404436100528988,
     "marketCapitalization": 14237523300.0,
     "per": 14.7,
-    "ev": 17432337300.0,
-    "evPerEbitda": 14.822836266608618,
-    "pbr": 1.006333355232902,
-    "bps": 761.05,
-    "equity": 13986548000.0,
+    "ev": 17308856300.0,
+    "evPerEbitda": 5.971717615350433,
+    "pbr": 0.9704015306057803,
+    "bps": 789.23,
+    "equity": 14504420000.0,
     "debt": 6255285000.0,
     "outstandingShares": 18590000,
-    "netIncome": 1046732000.0,
+    "netIncome": 957478000.0,
     "eps": 52.1,
-    "cash": 3060471000.0,
-    "retrievedDate": "2025-07-12"
+    "cash": 3183952000.0,
+    "retrievedDate": "2025-07-15"
   },
   {
     "secCode": "3191",
@@ -57,7 +57,7 @@
     "netIncome": null,
     "eps": null,
     "cash": null,
-    "retrievedDate": "2025-07-12"
+    "retrievedDate": "2025-07-15"
   },
   {
     "secCode": "3836",
@@ -87,7 +87,7 @@
     "netIncome": 2850922000.0,
     "eps": 76.62,
     "cash": 11976585000.0,
-    "retrievedDate": "2025-07-12"
+    "retrievedDate": "2025-07-15"
   },
   {
     "secCode": "4398",
@@ -117,7 +117,7 @@
     "netIncome": 455530000.0,
     "eps": 102.54,
     "cash": 1920742000.0,
-    "retrievedDate": "2025-07-12"
+    "retrievedDate": "2025-07-15"
   },
   {
     "secCode": "3984",
@@ -147,6 +147,6 @@
     "netIncome": 1185536000.0,
     "eps": 73.57,
     "cash": 7676580000.0,
-    "retrievedDate": "2025-07-12"
+    "retrievedDate": "2025-07-15"
   }
 ]

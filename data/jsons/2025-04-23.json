@@ -27,7 +27,7 @@
     "netIncome": 154558000.0,
     "eps": 55.44,
     "cash": 526924000.0,
-    "retrievedDate": "2025-07-13"
+    "retrievedDate": "2025-07-15"
   },
   {
     "secCode": "7878",
@@ -57,7 +57,7 @@
     "netIncome": 88402000.0,
     "eps": 59.08,
     "cash": 685476000.0,
-    "retrievedDate": "2025-07-13"
+    "retrievedDate": "2025-07-15"
   },
   {
     "secCode": "6619",
@@ -87,7 +87,7 @@
     "netIncome": -3713000000.0,
     "eps": -67.6,
     "cash": 4008000000.0,
-    "retrievedDate": "2025-07-13"
+    "retrievedDate": "2025-07-15"
   },
   {
     "secCode": "4592",
@@ -100,24 +100,24 @@
     "stockPrice": null,
     "netSales": 2424000.0,
     "employees": 29,
-    "operatingIncome": -1540395000.0,
-    "operatingIncomeRate": -63547.648514851484,
+    "operatingIncome": -3516093000.0,
+    "operatingIncomeRate": -145053.34158415842,
     "depreciation": 14504000.0,
-    "ebitda": -1525891000.0,
-    "ebitdaMargin": -62949.29867986799,
+    "ebitda": -3501589000.0,
+    "ebitdaMargin": -144454.99174917492,
     "marketCapitalization": null,
     "per": 21.93,
     "ev": null,
     "evPerEbitda": null,
     "pbr": null,
-    "bps": 20.35,
-    "equity": 1650896000.0,
-    "debt": 8030360000.0,
+    "bps": 21.93,
+    "equity": 1762921000.0,
+    "debt": 129000000.0,
     "outstandingShares": 70927202,
-    "netIncome": -3545614000.0,
+    "netIncome": -2882885000.0,
     "eps": -41.86,
-    "cash": 2479531000.0,
-    "retrievedDate": "2025-07-13"
+    "cash": 2853132000.0,
+    "retrievedDate": "2025-07-15"
   },
   {
     "secCode": "3415",
@@ -128,25 +128,25 @@
     "periodEnd": "2025年1月期",
     "characteristic": "３【事業の内容】 当社グループは、衣料品および身の回り品、雑貨類の小売販売事業を主力としております。",
     "stockPrice": 316.4777,
-    "netSales": 19035639000.0,
-    "employees": 262,
-    "operatingIncome": 1765961000.0,
-    "operatingIncomeRate": 9.277130124184431,
-    "depreciation": 199781000.0,
-    "ebitda": 1965742000.0,
-    "ebitdaMargin": 10.326640466337905,
+    "netSales": 20207670000.0,
+    "employees": 278,
+    "operatingIncome": 1472944000.0,
+    "operatingIncomeRate": 7.289034312219073,
+    "depreciation": 467537000.0,
+    "ebitda": 1940481000.0,
+    "ebitdaMargin": 9.60269541218755,
     "marketCapitalization": 13753956906.551401,
     "per": 17.87,
-    "ev": 11355216906.551401,
-    "evPerEbitda": 5.776555064983809,
-    "pbr": 2.6877087048832276,
-    "bps": 117.75,
-    "equity": 5128648000.0,
-    "debt": 744358000.0,
+    "ev": 10229020906.551401,
+    "evPerEbitda": 5.271384211724516,
+    "pbr": 2.698479706684857,
+    "bps": 117.28,
+    "equity": 5108264000.0,
+    "debt": 144358000.0,
     "outstandingShares": 43459482,
-    "netIncome": 632527000.0,
+    "netIncome": 776867000.0,
     "eps": 17.71,
-    "cash": 3143098000.0,
-    "retrievedDate": "2025-07-13"
+    "cash": 3669294000.0,
+    "retrievedDate": "2025-07-15"
   }
 ]

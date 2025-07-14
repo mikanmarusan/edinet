@@ -27,7 +27,7 @@
     "netIncome": -180100000.0,
     "eps": -10.96,
     "cash": 2543387000.0,
-    "retrievedDate": "2025-07-12"
+    "retrievedDate": "2025-07-15"
   },
   {
     "secCode": "7445",
@@ -57,7 +57,7 @@
     "netIncome": -5720000000.0,
     "eps": -207.4,
     "cash": 10204000000.0,
-    "retrievedDate": "2025-07-12"
+    "retrievedDate": "2025-07-15"
   },
   {
     "secCode": "2484",
@@ -68,10 +68,10 @@
     "periodEnd": "2024年8月期",
     "characteristic": "３ 【事業の内容】当社グループは、当社及び子会社である株式会社出前館コミュニケーションズにて構成されております。",
     "stockPrice": null,
-    "netSales": 50406000000.0,
-    "employees": 342,
-    "operatingIncome": -5959000000.0,
-    "operatingIncomeRate": -11.822005316827362,
+    "netSales": 50411000000.0,
+    "employees": 388,
+    "operatingIncome": -5991000000.0,
+    "operatingIncomeRate": -11.884310963876931,
     "depreciation": null,
     "ebitda": null,
     "ebitdaMargin": null,
@@ -80,13 +80,13 @@
     "ev": null,
     "evPerEbitda": null,
     "pbr": null,
-    "bps": 296.01,
-    "equity": 36662000000.0,
-    "debt": 125000000.0,
+    "bps": 295.09,
+    "equity": 36548000000.0,
+    "debt": null,
     "outstandingShares": 132421230,
-    "netIncome": -3505000000.0,
+    "netIncome": -3705000000.0,
     "eps": -28.19,
-    "cash": 34218000000.0,
-    "retrievedDate": "2025-07-12"
+    "cash": 34511000000.0,
+    "retrievedDate": "2025-07-15"
   }
 ]

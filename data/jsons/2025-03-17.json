@@ -27,7 +27,7 @@
     "netIncome": 124349000.0,
     "eps": 24.44,
     "cash": 1891732000.0,
-    "retrievedDate": "2025-07-13"
+    "retrievedDate": "2025-07-15"
   },
   {
     "secCode": "6481",
@@ -57,7 +57,7 @@
     "netIncome": 10439000000.0,
     "eps": 85.17,
     "cash": 138293000000.0,
-    "retrievedDate": "2025-07-13"
+    "retrievedDate": "2025-07-15"
   },
   {
     "secCode": "9749",
@@ -68,25 +68,25 @@
     "periodEnd": "2024年12月期",
     "characteristic": "３ 【事業の内容】当社グループは、連結子会社32社、持分法適用非連結子会社２社、持分法適用関連会社１社で構成され、ＳＩ（システムインテグレーション）事業、ファシリティ事業を主な事業として行っております。",
     "stockPrice": 9849.758100000001,
-    "netSales": 216377000000.0,
-    "employees": 9806,
-    "operatingIncome": 13661000000.0,
-    "operatingIncomeRate": 6.313517610466916,
-    "depreciation": 516000000.0,
-    "ebitda": 14177000000.0,
-    "ebitdaMargin": 6.551990276230837,
+    "netSales": 317482000000.0,
+    "employees": 19689,
+    "operatingIncome": 22033000000.0,
+    "operatingIncomeRate": 6.939921003395468,
+    "depreciation": 5047000000.0,
+    "ebitda": 27080000000.0,
+    "ebitdaMargin": 8.529617427129727,
     "marketCapitalization": 663873695940.0001,
     "per": 29.47,
-    "ev": 709215695940.0001,
-    "evPerEbitda": 50.025795015870784,
-    "pbr": 4.4638119170843575,
-    "bps": 2206.58,
-    "equity": 139831000000.0,
-    "debt": 55579000000.0,
+    "ev": 629758695940.0001,
+    "evPerEbitda": 23.255490987444613,
+    "pbr": 4.475759011946254,
+    "bps": 2200.69,
+    "equity": 141654000000.0,
+    "debt": 191000000.0,
     "outstandingShares": 67400000,
-    "netIncome": 15481000000.0,
+    "netIncome": 21147000000.0,
     "eps": 334.23,
-    "cash": 10237000000.0,
-    "retrievedDate": "2025-07-13"
+    "cash": 34306000000.0,
+    "retrievedDate": "2025-07-15"
   }
 ]
