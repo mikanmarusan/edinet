@@ -27,6 +27,7 @@
     "netIncome": 458101000.0,
     "eps": 69.09,
     "cash": 2647903000.0,
+    "issuedDate": "2024-10-24",
     "retrievedDate": "2025-07-15"
   },
   {
@@ -57,6 +58,7 @@
     "netIncome": 607000000.0,
     "eps": 133.1,
     "cash": 1492000000.0,
+    "issuedDate": "2024-10-24",
     "retrievedDate": "2025-07-15"
   },
   {
@@ -87,6 +89,7 @@
     "netIncome": 808040000.0,
     "eps": 37.35,
     "cash": 1221431000.0,
+    "issuedDate": "2024-10-24",
     "retrievedDate": "2025-07-15"
   },
   {
@@ -117,6 +120,7 @@
     "netIncome": 3205000000.0,
     "eps": 112.71,
     "cash": 15566000000.0,
+    "issuedDate": "2024-10-24",
     "retrievedDate": "2025-07-15"
   }
 ]

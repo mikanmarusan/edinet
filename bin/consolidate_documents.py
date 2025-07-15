@@ -86,14 +86,14 @@ class DataConsolidator:
                 self.logger.error(f"Error reading {json_file}: {e}")
                 continue
         
-        # Handle duplicates by keeping the latest data for each company
+        # Handle duplicates by keeping the data with the latest issuedDate for each company
         consolidated_companies = []
         
         for sec_code, company_entries in company_data.items():
             if not company_entries:
                 continue
             
-            # Sort by retrievedDate to get the latest entry
+            # Sort by issuedDate to get the latest entry
             latest_entry = self._get_latest_entry(company_entries)
             
             if latest_entry:
@@ -179,7 +179,7 @@ class DataConsolidator:
     
     def _get_latest_entry(self, entries: List[Dict[str, Any]]) -> Optional[Dict[str, Any]]:
         """
-        Get the latest entry based on retrievedDate
+        Get the latest entry based on issuedDate
         
         Args:
             entries: List of company data entries
@@ -190,11 +190,11 @@ class DataConsolidator:
         if not entries:
             return None
             
-        # Sort entries by retrievedDate (latest first)
+        # Sort entries by issuedDate (latest first)
         try:
             sorted_entries = sorted(
                 entries,
-                key=lambda x: datetime.strptime(x.get('retrievedDate', '1900-01-01'), '%Y-%m-%d'),
+                key=lambda x: datetime.strptime(x.get('issuedDate', '1900-01-01'), '%Y-%m-%d'),
                 reverse=True
             )
             return sorted_entries[0]
