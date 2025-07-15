@@ -209,7 +209,7 @@ def main():
                         break
                     
                     # Parse financial data
-                    financial_data = xbrl_parser.parse_financial_data(xbrl_content, sec_code, filer_name, doc_id, period_end)
+                    financial_data = xbrl_parser.parse_financial_data(xbrl_content, sec_code, filer_name, doc_id, period_end, args.date)
                     if financial_data:
                         financial_data_list.append(financial_data)
                         logger.info(f"Successfully extracted data for {filer_name}")

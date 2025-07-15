@@ -133,3 +133,19 @@ python bin/consolidate_documents.py --inputdir data/jsons --output data/edinet.j
   - BusinessResultsOfGroup = 連結データの最も確実な指標
   - ReportingCompany = 個別データの指標
   - 優先度スコアリングによる柔軟な判定が有効
+
+### issuedDateフィールドの追加（2025年7月）
+- **概要**: 有価証券報告書の提出日をJSONに記録
+- **フィールド仕様**:
+  - フィールド名: `issuedDate`
+  - データ型: 文字列
+  - フォーマット: `YYYY-MM-DD`（ISO 8601形式）
+  - データソース: `--date`パラメータ（コマンドライン引数）
+  - JSON内位置: `cash`の後、`retrievedDate`の前
+- **実装詳細**:
+  - `XBRLParser.parse_financial_data()`に`issued_date`パラメータ追加
+  - `XBRLParser._build_financial_data_structure()`に`issued_date`パラメータ追加
+  - `fetch_edinet_financial_documents.py`から`args.date`を渡す
+- **目的**: 
+  - 有価証券報告書の提出日を記録し、時系列分析を可能にする
+  - `retrievedDate`（データ取得日）と区別して実際の報告書提出日を保持

@@ -715,7 +715,7 @@ class XBRLParser:
         self.calculator = MetricsCalculator()
     
     def parse_financial_data(self, xbrl_content: bytes, sec_code: str, 
-                           filer_name: str, doc_id: str, period_end: str) -> Optional[Dict[str, Any]]:
+                           filer_name: str, doc_id: str, period_end: str, issued_date: str) -> Optional[Dict[str, Any]]:
         """
         Parse XBRL content and extract financial metrics
         
@@ -725,6 +725,7 @@ class XBRLParser:
             filer_name: Company name
             doc_id: Document ID
             period_end: Period end date
+            issued_date: Date when the report was issued (YYYY-MM-DD format)
             
         Returns:
             Dictionary with financial metrics or None if parsing fails
@@ -745,7 +746,7 @@ class XBRLParser:
             
             # Build financial data structure
             financial_data = self._build_financial_data_structure(
-                root, sec_code, filer_name, doc_id, period_end
+                root, sec_code, filer_name, doc_id, period_end, issued_date
             )
             
             # Calculate derived metrics
@@ -759,7 +760,7 @@ class XBRLParser:
             raise XBRLParsingError(f"Error parsing XBRL for {sec_code}: {e}")
     
     def _build_financial_data_structure(self, root: ET.Element, sec_code: str,
-                                      filer_name: str, doc_id: str, period_end: str) -> Dict[str, Any]:
+                                      filer_name: str, doc_id: str, period_end: str, issued_date: str) -> Dict[str, Any]:
         """
         Build the financial data structure from XBRL data
         
@@ -769,6 +770,7 @@ class XBRLParser:
             filer_name: Company name
             doc_id: Document ID
             period_end: Period end date
+            issued_date: Date when the report was issued (YYYY-MM-DD format)
             
         Returns:
             Financial data dictionary
@@ -801,6 +803,7 @@ class XBRLParser:
             "netIncome": self._extract_net_income(root),
             "eps": self._extract_eps(root),
             "cash": self._extract_cash(root),
+            "issuedDate": issued_date,
             "retrievedDate": datetime.now().strftime("%Y-%m-%d")
         }
     
