@@ -38,26 +38,51 @@ edinet/
 - 決算期: YYYY年M月期（先頭0なし）
 - 財務データ優先: 連結 > 個別、当期 > 過去
 
+## .claude/ディレクトリ構造の定義
+
+### context/ - プロジェクトの背景・仕様・知識
+- **役割**: プロジェクトの「What」と「Why」を説明
+- **配置基準**: このプロジェクトを理解するために必要な背景情報
+- **内容例**: プロダクト要件、アーキテクチャ、ドメイン知識、変更履歴
+
+### instructions/ - 手順書・ガイドライン・ルール  
+- **役割**: 作業の「How」を説明
+- **配置基準**: 何かを実行するための手順やルール
+- **内容例**: 開発手順、コーディング規約、デプロイ手順、テスト方法
+
+### examples/ - コード例・実装パターン
+- **役割**: 「実際のコード」を示す
+- **配置基準**: 具体的なコードやその解説
+- **内容例**: 実装パターン、データ抽出例、エラーハンドリング例
+
+### templates/ - 雛形・テンプレート
+- **役割**: 「コピーして使う」ファイル
+- **配置基準**: そのままコピーして使うことを想定したファイル
+- **内容例**: Issue/PRテンプレート、設定ファイルの雛形
+
 ## 詳細ルールへの参照
 
 詳細は`.claude/`ディレクトリ内のドキュメントを参照：
+
+### context/ - プロジェクトコンテキスト
+- `product-requirements.md` - プロダクト要件
+- `architecture.md` - アーキテクチャ設計
+- `xbrl-taxonomy-notes.md` - XBRL構造の理解と学習事項
 
 ### instructions/ - 開発指示
 - `coding-standards.md` - コーディング規約
 - `git-workflow.md` - Git運用ルール
 - `security.md` - セキュリティ指針
 - `documentation.md` - ドキュメント作成
-
-### context/ - プロジェクトコンテキスト
-- `product-requirements.md` - プロダクト要件
-- `architecture.md` - アーキテクチャ設計
+- `debugging-guide.md` - デバッグ手法
 - `deployment.md` - デプロイ設定
 - `performance-guidelines.md` - パフォーマンス最適化
+- `testing-guidelines.md` - テスト戦略
+- `web-viewer-guide.md` - Webビューア実装
 
 ### examples/ - 実装例とガイド
 - `development-patterns.md` - 開発パターン
-- `testing-guidelines.md` - テスト戦略
-- `web-viewer-guide.md` - Webビューア実装
+- `xbrl-extraction-patterns.md` - XBRL抽出パターン例
 
 ## クイックリファレンス
 
