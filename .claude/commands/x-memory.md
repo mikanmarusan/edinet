@@ -1,6 +1,6 @@
 ---
 allowed-tools: Write(*.md), Read(*)
-description: Retain Project Cotext
+description: Retain Project Context
 ---
 
 # Your task

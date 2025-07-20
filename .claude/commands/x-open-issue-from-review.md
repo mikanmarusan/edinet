@@ -8,7 +8,7 @@ Please open the issue according to PR review: $ARGUMENTS.
 
 # Follow these steps:
 1. Use 'gh pr view $ARGUMENTS' to get the PR detail
-2. Understand the problem described in the review commnet.
+2. Understand the problem described in the review comment.
 3. Search the codebase for relevant files.
 4. Open the issues if you determine that any revisions are necessary based on the review comment. Use 'gh issue create'.
 
