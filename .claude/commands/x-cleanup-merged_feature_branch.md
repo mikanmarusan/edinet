@@ -1,4 +1,5 @@
 ---
+allowed-tools: Bash(gh pr list:*), Bash(git branch:*), Bash(git pull:*), Bash(git switch:*)
 description: Clean up merged feature branch
 ---
 
