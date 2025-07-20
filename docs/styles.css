@@ -378,3 +378,101 @@ td:not(:nth-child(1)):not(:nth-child(2)) {
 .sortable {
     padding-right: 20px;
 }
+
+/* ドキュメントアイコンのスタイル */
+.doc-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 20px;
+    height: 20px;
+    margin-right: 8px;
+    color: #3498db;
+    transition: color 0.2s ease, transform 0.2s ease;
+    vertical-align: middle;
+}
+
+.doc-icon:hover {
+    color: #2980b9;
+    transform: scale(1.1);
+}
+
+.doc-icon svg {
+    width: 16px;
+    height: 16px;
+}
+
+/* 証券コードセルのフレックスレイアウト */
+.sec-code {
+    display: flex;
+    align-items: center;
+}
+
+/* 企業特性tooltipのスタイル */
+.company-name-with-tooltip {
+    position: relative;
+    cursor: help;
+    border-bottom: 1px dotted #666;
+}
+
+.company-name-with-tooltip::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    left: 0;
+    top: calc(100% + 5px);
+    background-color: #333;
+    color: #fff;
+    padding: 8px 12px;
+    border-radius: 6px;
+    white-space: normal;
+    width: 300px;
+    max-width: 400px;
+    z-index: 1000;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+    font-size: 12px;
+    line-height: 1.5;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+    pointer-events: none;
+}
+
+.company-name-with-tooltip:hover::after {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* バルーンの三角形 */
+.company-name-with-tooltip::before {
+    content: '';
+    position: absolute;
+    left: 20px;
+    top: calc(100% - 2px);
+    width: 0;
+    height: 0;
+    border-left: 8px solid transparent;
+    border-right: 8px solid transparent;
+    border-bottom: 8px solid #333;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+    z-index: 1001;
+}
+
+.company-name-with-tooltip:hover::before {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* 画面端での位置調整 */
+td:last-child .company-name-with-tooltip::after,
+td:nth-last-child(2) .company-name-with-tooltip::after {
+    left: auto;
+    right: 0;
+}
+
+td:last-child .company-name-with-tooltip::before,
+td:nth-last-child(2) .company-name-with-tooltip::before {
+    left: auto;
+    right: 20px;
+}

@@ -49,9 +49,28 @@ function displayData(data) {
         const row = document.createElement('tr');
         row.id = `row-${item.secCode}`;
         
+        // Document icon SVG
+        const docIconSVG = `<svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path d="M4 1h6l4 4v10a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1zm0 1v12h8V5.5L9.5 3H4zm2 3h4v1H6V5zm0 2h4v1H6V7zm0 2h4v1H6V9zm0 2h2v1H6v-1z"/>
+        </svg>`;
+        
+        const docIcon = item.docPdfURL 
+            ? `<a href="${encodeURI(item.docPdfURL)}" target="_blank" rel="noopener noreferrer" 
+                 class="doc-icon" title="有価証券報告書を開く" aria-label="有価証券報告書PDF">
+                 ${docIconSVG}
+               </a>`
+            : '';
+            
+        const companyNameContent = item.characteristic 
+            ? `<span class="company-name-with-tooltip" data-tooltip="${escapeHtml(item.characteristic)}">${escapeHtml(item.filerName)}</span>`
+            : escapeHtml(item.filerName) || '-';
+        
         row.innerHTML = `
-            <td class="sec-code fixed-column">${item.yahooURL ? `<a href="${encodeURI(item.yahooURL)}" target="_blank" rel="noopener noreferrer">${escapeHtml(item.secCode)}</a>` : escapeHtml(item.secCode) || '-'}</td>
-            <td class="company-name fixed-column">${item.docPdfURL ? `<a href="${encodeURI(item.docPdfURL)}" target="_blank" rel="noopener noreferrer">${escapeHtml(item.filerName)}</a>` : escapeHtml(item.filerName) || '-'}</td>
+            <td class="sec-code fixed-column">
+                ${docIcon}
+                ${item.yahooURL ? `<a href="${encodeURI(item.yahooURL)}" target="_blank" rel="noopener noreferrer">${escapeHtml(item.secCode)}</a>` : escapeHtml(item.secCode) || '-'}
+            </td>
+            <td class="company-name fixed-column">${companyNameContent}</td>
             <td>${escapeHtml(item.periodEnd) || '-'}</td>
             <td class="number-cell">${formatStockPrice(item.stockPrice)}</td>
             <td class="number-cell">${formatNumber(item.netSales)}</td>
