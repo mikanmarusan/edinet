@@ -1,3 +1,7 @@
+---
+description: Fix the issue
+---
+
 # Your Task
 Please analyze and fix the GitHub issue: $ARGUMENTS.
 

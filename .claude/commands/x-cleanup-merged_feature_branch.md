@@ -1,3 +1,7 @@
+---
+description: Clean up merged feature branch
+---
+
 # Your task
 clean up merged local feature branch (excluding main branch) and bring main branch up to date
 
