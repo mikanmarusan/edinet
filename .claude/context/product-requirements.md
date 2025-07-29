@@ -11,7 +11,7 @@ EDINET APIを通じて上場企業の有価証券報告書から財務データ�
 - 上場企業情報を調査する財務アナリスト
 
 ### システム構成
-1. **fetch_edinet_financial_documents.py**: 日次データ抽出ツール
+1. **fetch_edinet_financial_documents.py**: 日次データ抽出ツール（EDINET + Yahoo Finance統合）
 2. **consolidate_documents.py**: データ統合ツール
 
 ## 2. 機能要件
@@ -21,6 +21,7 @@ EDINET APIを通じて上場企業の有価証券報告書から財務データ�
 #### 基本機能
 - 指定日のEDINET API経由で有価証券報告書を取得
 - XBRLデータから財務メトリクスを抽出
+- Yahoo Financeから補完データを取得（2025-07追加）
 - JSON形式で出力
 
 #### コマンドライン仕様
@@ -42,6 +43,9 @@ python fetch_edinet_financial_documents.py --date YYYY-MM-DD --outputdir data/js
 | ev | 企業価値 | 52000000000 |
 | equity | 純資産 | 15000000000 |
 | debt | ネット有利子負債 | 2000000000 |
+| ordinaryIncome | 経常利益（2025-07追加） | 1300000000 |
+| ordinaryIncomeRate | 経常利益率（2025-07追加） | 8.67 |
+| characteristic | 企業特色（Yahoo Finance優先） | 【特色】IT企業向けクラウドサービス |
 | （他多数） | | |
 
 ### 2.2 データ統合ツール
@@ -60,12 +64,21 @@ python consolidate_documents.py --inputdir data/jsons/ --output data/edinet.json
 
 ### 3.1 開発環境
 - **言語**: Python 3.x
-- **外部依存**: EDINET API、XBRLパースライブラリ
+- **外部依存**: EDINET API、XBRLパースライブラリ、Playwright（2025-07追加）
 
 ### 3.2 API統合
 - **エンドポイント**: EDINET API
 - **レート制限**: 最大1リクエスト/秒
 - **認証**: APIキー必須
+
+### 3.2.1 Yahoo Finance統合（2025-07追加）
+- **データソース**: finance.yahoo.co.jp
+- **取得方法**: Playwright（ヘッドレスブラウザ）
+- **対象ページ**:
+  - `/profile` - 企業概要（特色、従業員数）
+  - `/performance` - 業績データ（売上高、営業利益、経常利益、当期純利益）
+  - `/finance` - 財務データ（EPS、BPS、負債、減価償却費、発行済株式数）
+- **レート制限**: 未実装（要改善）
 
 ### 3.3 XBRL処理
 
