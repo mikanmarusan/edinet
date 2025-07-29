@@ -534,89 +534,69 @@ class MetricsCalculator:
             Financial data with calculated derived metrics
         """
         try:
+            # Get all required data
             net_sales = financial_data.get('netSales')
             operating_income = financial_data.get('operatingIncome')
             depreciation = financial_data.get('depreciation')
-            market_cap = financial_data.get('marketCapitalization')
+            stock_price = financial_data.get('stockPrice')
             debt = financial_data.get('debt', 0)
             outstanding_shares = financial_data.get('outstandingShares')
-            stock_price = financial_data.get('stockPrice')
+            eps = financial_data.get('eps')
+            bps = financial_data.get('bps')
+            cash = financial_data.get('cash', 0)
             
-            # Operating income rate
+            # Operating Income Rate = (operatingIncome / netSales) * 100
             if net_sales and operating_income and net_sales > 0:
                 financial_data['operatingIncomeRate'] = (operating_income / net_sales) * 100
             
-            # EBITDA
-            if operating_income and depreciation:
-                financial_data['ebitda'] = operating_income + depreciation
+            # Ordinary Income Rate = (ordinaryIncome / netSales) * 100
+            ordinary_income = financial_data.get('ordinaryIncome')
+            if net_sales and ordinary_income and net_sales > 0:
+                financial_data['ordinaryIncomeRate'] = (ordinary_income / net_sales) * 100
             
-            # EBITDA margin
-            if financial_data.get('ebitda') and net_sales and net_sales > 0:
+            # EBITDA = operatingIncome + depreciation (or ordinaryIncome + depreciation if operatingIncome is not available)
+            if operating_income is not None:
+                # Use operating income if available
+                if depreciation is not None:
+                    financial_data['ebitda'] = operating_income + depreciation
+                else:
+                    # If no depreciation data, use operating income alone
+                    financial_data['ebitda'] = operating_income
+            elif ordinary_income is not None:
+                # Fall back to ordinary income if operating income is not available
+                if depreciation is not None:
+                    financial_data['ebitda'] = ordinary_income + depreciation
+                else:
+                    # If no depreciation data, use ordinary income alone
+                    financial_data['ebitda'] = ordinary_income
+            
+            # EBITDA Margin = (ebitda / netSales) * 100
+            if financial_data.get('ebitda') is not None and net_sales and net_sales > 0:
                 financial_data['ebitdaMargin'] = (financial_data['ebitda'] / net_sales) * 100
             
-            # Calculate missing financial metrics (Issue #21)
-            # stockPrice = eps × per (only if stockPrice is missing and eps >= 0)
-            if not financial_data.get('stockPrice'):
-                eps = financial_data.get('eps')
-                per = financial_data.get('per')
-                if eps is not None and per is not None:
-                    if eps >= 0:  # Issue #28: Only calculate stock price for non-negative eps
-                        financial_data['stockPrice'] = eps * per
-                    else:
-                        financial_data['stockPrice'] = None  # Set to null for negative eps
-                else:
-                    financial_data['stockPrice'] = None
+            # Market Capitalization = outstandingShares * stockPrice
+            if outstanding_shares is not None and stock_price is not None:
+                financial_data['marketCapitalization'] = outstanding_shares * stock_price
             
-            # marketCapitalization = outstandingShares × stockPrice (only if marketCapitalization is missing)
-            if not financial_data.get('marketCapitalization'):
-                outstanding_shares = financial_data.get('outstandingShares')
-                calculated_stock_price = financial_data.get('stockPrice')
-                if outstanding_shares is not None and calculated_stock_price is not None:
-                    financial_data['marketCapitalization'] = outstanding_shares * calculated_stock_price
-                else:
-                    financial_data['marketCapitalization'] = None
+            # PER = stockPrice / eps
+            if stock_price is not None and eps is not None and eps > 0:
+                financial_data['per'] = stock_price / eps
             
-            # pbr = stockPrice ÷ bps (only if pbr is missing)
-            if not financial_data.get('pbr'):
-                calculated_stock_price = financial_data.get('stockPrice')
-                bps = financial_data.get('bps')
-                if calculated_stock_price is not None and bps is not None and bps > 0:
-                    financial_data['pbr'] = calculated_stock_price / bps
-                else:
-                    financial_data['pbr'] = None
+            # PBR = stockPrice / bps
+            if stock_price is not None and bps is not None and bps > 0:
+                financial_data['pbr'] = stock_price / bps
             
-            # Enterprise Value (EV) = marketCapitalization + debt - cash
-            calculated_market_cap = financial_data.get('marketCapitalization')
-            debt = financial_data.get('debt')
-            cash = financial_data.get('cash')
-            if calculated_market_cap is not None and debt is not None and cash is not None:
-                financial_data['ev'] = calculated_market_cap + debt - cash
-            else:
-                financial_data['ev'] = None
+            # EV (Enterprise Value) = marketCapitalization + debt - cash
+            # If debt or cash is None, treat as 0
+            market_cap = financial_data.get('marketCapitalization')
+            if market_cap is not None:
+                debt_value = debt if debt is not None else 0
+                cash_value = cash if cash is not None else 0
+                financial_data['ev'] = market_cap + debt_value - cash_value
             
-            # EV/EBITDA
-            if financial_data.get('ev') and financial_data.get('ebitda') and financial_data['ebitda'] > 0:
+            # EV/EBITDA = ev / ebitda
+            if financial_data.get('ev') is not None and financial_data.get('ebitda') is not None and financial_data['ebitda'] > 0:
                 financial_data['evPerEbitda'] = financial_data['ev'] / financial_data['ebitda']
-            else:
-                financial_data['evPerEbitda'] = None
-            
-            # Calculate EPS if not already available and we have the necessary data
-            if not financial_data.get('eps'):
-                calculated_eps = MetricsCalculator._calculate_eps(financial_data)
-                if calculated_eps is not None:
-                    financial_data['eps'] = calculated_eps
-            
-            # Calculate PER if not already available and we have the necessary data
-            if not financial_data.get('per'):
-                calculated_per = MetricsCalculator._calculate_per(financial_data)
-                if calculated_per is not None:
-                    financial_data['per'] = calculated_per
-            
-            # Calculate BPS if not already available and we have the necessary data
-            if not financial_data.get('bps'):
-                calculated_bps = MetricsCalculator._calculate_bps(financial_data)
-                if calculated_bps is not None:
-                    financial_data['bps'] = calculated_bps
             
         except Exception as e:
             pass
@@ -715,7 +695,8 @@ class XBRLParser:
         self.calculator = MetricsCalculator()
     
     def parse_financial_data(self, xbrl_content: bytes, sec_code: str, 
-                           filer_name: str, doc_id: str, period_end: str, issued_date: str) -> Optional[Dict[str, Any]]:
+                           filer_name: str, doc_id: str, period_end: str, issued_date: str,
+                           yahoo_data: Optional[Dict[str, Any]] = None) -> Optional[Dict[str, Any]]:
         """
         Parse XBRL content and extract financial metrics
         
@@ -726,6 +707,7 @@ class XBRLParser:
             doc_id: Document ID
             period_end: Period end date
             issued_date: Date when the report was issued (YYYY-MM-DD format)
+            yahoo_data: Data from Yahoo Finance (optional)
             
         Returns:
             Dictionary with financial metrics or None if parsing fails
@@ -746,7 +728,7 @@ class XBRLParser:
             
             # Build financial data structure
             financial_data = self._build_financial_data_structure(
-                root, sec_code, filer_name, doc_id, period_end, issued_date
+                root, sec_code, filer_name, doc_id, period_end, issued_date, yahoo_data
             )
             
             # Calculate derived metrics
@@ -760,7 +742,8 @@ class XBRLParser:
             raise XBRLParsingError(f"Error parsing XBRL for {sec_code}: {e}")
     
     def _build_financial_data_structure(self, root: ET.Element, sec_code: str,
-                                      filer_name: str, doc_id: str, period_end: str, issued_date: str) -> Dict[str, Any]:
+                                      filer_name: str, doc_id: str, period_end: str, issued_date: str,
+                                      yahoo_data: Optional[Dict[str, Any]] = None) -> Dict[str, Any]:
         """
         Build the financial data structure from XBRL data
         
@@ -771,10 +754,62 @@ class XBRLParser:
             doc_id: Document ID
             period_end: Period end date
             issued_date: Date when the report was issued (YYYY-MM-DD format)
+            yahoo_data: Data from Yahoo Finance (optional)
             
         Returns:
             Financial data dictionary
         """
+        # Get data from Yahoo Finance if available
+        if yahoo_data:
+            # Use Yahoo Finance data for most fields
+            characteristic = yahoo_data.get('characteristic')
+            stock_price = yahoo_data.get('stockPrice')
+            net_sales = yahoo_data.get('netSales')
+            employees = yahoo_data.get('employees')
+            operating_income = yahoo_data.get('operatingIncome')
+            ordinary_income = yahoo_data.get('ordinaryIncome')
+            depreciation = yahoo_data.get('depreciation')
+            bps = yahoo_data.get('bps')
+            debt = yahoo_data.get('debt')
+            outstanding_shares = yahoo_data.get('outstandingShares')
+            net_income = yahoo_data.get('netIncome')
+            eps = yahoo_data.get('eps')
+        else:
+            # If Yahoo Finance data is not available, set all fields to None
+            # (except equity and cash which are always extracted from XBRL)
+            characteristic = None
+            stock_price = None
+            net_sales = None
+            employees = None
+            operating_income = None
+            ordinary_income = None
+            depreciation = None
+            bps = None
+            debt = None
+            outstanding_shares = None
+            net_income = None
+            eps = None
+            
+            # === COMMENTED OUT: Fallback to XBRL extraction ===
+            # Uncomment the following lines if you want to fall back to XBRL extraction
+            # when Yahoo Finance data is not available:
+            #
+            # characteristic = self._extract_characteristic(root)
+            # stock_price = self._extract_stock_price(root)
+            # net_sales = self._extract_net_sales(root)
+            # employees = self._extract_employees(root)
+            # operating_income = self._extract_operating_income(root)
+            # depreciation = self._extract_depreciation(root)
+            # bps = self._extract_bps(root)
+            # debt = self._extract_debt(root)
+            # outstanding_shares = self._extract_outstanding_shares(root)
+            # net_income = self._extract_net_income(root)
+            # eps = self._extract_eps(root)
+        
+        # Always extract equity and cash from XBRL
+        equity = self._extract_equity(root)
+        cash = self._extract_cash(root)
+        
         return {
             "secCode": sec_code,
             "filerName": filer_name,
@@ -782,27 +817,29 @@ class XBRLParser:
             "docPdfURL": f"https://disclosure2dl.edinet-fsa.go.jp/searchdocument/pdf/{doc_id}.pdf",
             "yahooURL": f"https://finance.yahoo.co.jp/quote/{sec_code}.{get_stock_exchange_code(sec_code)}",
             "periodEnd": format_period_end(period_end),
-            "characteristic": self._extract_characteristic(root),
-            "stockPrice": self._extract_stock_price(root),
-            "netSales": self._extract_net_sales(root),
-            "employees": self._extract_employees(root),
-            "operatingIncome": self._extract_operating_income(root),
+            "characteristic": characteristic,
+            "stockPrice": stock_price,
+            "netSales": net_sales,
+            "employees": employees,
+            "operatingIncome": operating_income,
+            "ordinaryIncome": ordinary_income,
             "operatingIncomeRate": None,  # Calculated later
-            "depreciation": self._extract_depreciation(root),
+            "ordinaryIncomeRate": None,  # Calculated later
+            "depreciation": depreciation,
             "ebitda": None,  # Calculated later
             "ebitdaMargin": None,  # Calculated later
-            "marketCapitalization": self._extract_market_cap(root),
-            "per": self._extract_per(root),
+            "marketCapitalization": None,  # Calculated from stock price and shares
+            "per": None,  # Calculated from stock price and EPS
             "ev": None,  # Calculated later
             "evPerEbitda": None,  # Calculated later
-            "pbr": self._extract_pbr(root),
-            "bps": self._extract_bps(root),
-            "equity": self._extract_equity(root),
-            "debt": self._extract_debt(root),
-            "outstandingShares": self._extract_outstanding_shares(root),
-            "netIncome": self._extract_net_income(root),
-            "eps": self._extract_eps(root),
-            "cash": self._extract_cash(root),
+            "pbr": None,  # Calculated from stock price and BPS
+            "bps": bps,
+            "equity": equity,
+            "debt": debt,
+            "outstandingShares": outstanding_shares,
+            "netIncome": net_income,
+            "eps": eps,
+            "cash": cash,
             "issuedDate": issued_date,
             "retrievedDate": datetime.now().strftime("%Y-%m-%d")
         }

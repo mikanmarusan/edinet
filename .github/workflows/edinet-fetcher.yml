@@ -29,7 +29,7 @@ jobs:
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
-        pip install -r requirements.txt
+        make install
     
     # 1つ目のスクリプトを実行（環境変数を使用）
     - name: Fetch financial documents from EDINET
