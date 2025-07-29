@@ -23,9 +23,10 @@ sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from lib.edinet_common import (
     EDINET_BASE_URL, RATE_LIMIT_DELAY, DEFAULT_TIMEOUT, DOWNLOAD_TIMEOUT,
     setup_logging, validate_date_format, normalize_securities_code,
-    ensure_output_directory, EdinetAPIError
+    ensure_output_directory, EdinetAPIError, format_period_end
 )
 from lib.xbrl_parser import XBRLParser
+from lib.data_scraper import get_financial_data
 
 
 class EdinetClient:
@@ -208,8 +209,23 @@ def main():
                         logger.warning(f"Failed to download document for {filer_name} ({sec_code}): {e}")
                         break
                     
-                    # Parse financial data
-                    financial_data = xbrl_parser.parse_financial_data(xbrl_content, sec_code, filer_name, doc_id, period_end, args.date)
+                    # First, try to get data from Yahoo Finance
+                    yahoo_data = None
+                    try:
+                        logger.info(f"Fetching Yahoo Finance data for {sec_code}...")
+                        # Convert period_end to Yahoo Finance format (YYYY年M月期)
+                        formatted_period_end = format_period_end(period_end)
+                        yahoo_data = get_financial_data(sec_code, formatted_period_end)
+                        logger.info(f"Successfully fetched Yahoo Finance data for {sec_code}")
+                    except Exception as yahoo_error:
+                        logger.warning(f"Failed to fetch Yahoo Finance data for {sec_code}: {yahoo_error}")
+                        # Continue with XBRL parsing even if Yahoo fails
+                    
+                    # Parse financial data with Yahoo data if available
+                    financial_data = xbrl_parser.parse_financial_data(
+                        xbrl_content, sec_code, filer_name, doc_id, period_end, 
+                        args.date, yahoo_data
+                    )
                     if financial_data:
                         financial_data_list.append(financial_data)
                         logger.info(f"Successfully extracted data for {filer_name}")
