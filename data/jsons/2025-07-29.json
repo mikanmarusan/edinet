@@ -30,7 +30,7 @@
     "eps": 386.52,
     "cash": 4867882000.0,
     "issuedDate": "2025-07-29",
-    "retrievedDate": "2025-07-29"
+    "retrievedDate": "2025-07-30"
   },
   {
     "secCode": "184A",
@@ -40,7 +40,7 @@
     "yahooURL": "https://finance.yahoo.co.jp/quote/184A.T",
     "periodEnd": "2025年4月期",
     "characteristic": "【特色】塾、教育関連向けに映像事業展開。１コマ５分の講義に特徴。ＮＯＶＡ親会社が筆頭株主に",
-    "stockPrice": 555.0,
+    "stockPrice": 554.0,
     "netSales": 290000000,
     "employees": null,
     "operatingIncome": -297000000,
@@ -50,20 +50,20 @@
     "depreciation": 11000000,
     "ebitda": -286000000,
     "ebitdaMargin": -98.62068965517241,
-    "marketCapitalization": 1257075000.0,
+    "marketCapitalization": 1254810000.0,
     "per": null,
-    "ev": 1265119000.0,
+    "ev": 1262854000.0,
     "evPerEbitda": null,
-    "pbr": 9.40677966101695,
+    "pbr": 9.389830508474576,
     "bps": 59.0,
     "equity": 135417000.0,
     "debt": 38000000,
     "outstandingShares": 2265000,
     "netIncome": -318000000,
-    "eps": -140.4,
+    "eps": -140.42,
     "cash": 29956000.0,
     "issuedDate": "2025-07-29",
-    "retrievedDate": "2025-07-29"
+    "retrievedDate": "2025-07-30"
   },
   {
     "secCode": "186A",
@@ -73,7 +73,7 @@
     "yahooURL": "https://finance.yahoo.co.jp/quote/186A.T",
     "periodEnd": "2025年4月期",
     "characteristic": "【特色】スペースデブリ（宇宙ゴミ）の除去や人工衛星の寿命延長のサービス等を開発するベンチャー",
-    "stockPrice": 691.0,
+    "stockPrice": 692.0,
     "netSales": 2457000000,
     "employees": 494,
     "operatingIncome": -18755000000,
@@ -83,11 +83,11 @@
     "depreciation": 941000000,
     "ebitda": -17814000000,
     "ebitdaMargin": -725.030525030525,
-    "marketCapitalization": 81204938000.0,
+    "marketCapitalization": 81322456000.0,
     "per": null,
-    "ev": 73834074000.0,
+    "ev": 73951592000.0,
     "evPerEbitda": null,
-    "pbr": 13.288461538461538,
+    "pbr": 13.307692307692308,
     "bps": 52.0,
     "equity": 6126355000.0,
     "debt": 13930000000,
@@ -96,7 +96,7 @@
     "eps": -183.39,
     "cash": 21300864000.0,
     "issuedDate": "2025-07-29",
-    "retrievedDate": "2025-07-29"
+    "retrievedDate": "2025-07-30"
   },
   {
     "secCode": "5079",
@@ -106,7 +106,7 @@
     "yahooURL": "https://finance.yahoo.co.jp/quote/5079.T",
     "periodEnd": "2025年4月期",
     "characteristic": "【特色】高速道路、橋梁、下水道など土木工事に強み。建築はマンション、工場、学校など大型案件に実績",
-    "stockPrice": 2584.0,
+    "stockPrice": 2587.0,
     "netSales": 27512000000,
     "employees": null,
     "operatingIncome": 860000000,
@@ -116,11 +116,11 @@
     "depreciation": 58000000,
     "ebitda": 918000000,
     "ebitdaMargin": 3.3367257923815066,
-    "marketCapitalization": 13310184000.0,
-    "per": 23.210275756759184,
-    "ev": 6263021000.0,
-    "evPerEbitda": 6.822462962962963,
-    "pbr": 0.7318040215236477,
+    "marketCapitalization": 13325637000.0,
+    "per": 23.237222671337467,
+    "ev": 6278474000.0,
+    "evPerEbitda": 6.839296296296296,
+    "pbr": 0.7326536391956953,
     "bps": 3531.0,
     "equity": 18219499000.0,
     "debt": 433000000,
@@ -129,6 +129,6 @@
     "eps": 111.33,
     "cash": 7480163000.0,
     "issuedDate": "2025-07-29",
-    "retrievedDate": "2025-07-29"
+    "retrievedDate": "2025-07-30"
   }
 ]
