@@ -7,14 +7,19 @@
 **edinet** - EDINETから上場企業の開示情報を取得・処理するツール
 - EDINET: 日本の企業情報電子開示システム
 - 日次で財務データを自動取得し、構造化されたJSONとして保管
-- Python 3.x + requests/lxml/argparse
+- Python 3.x + requests/lxml/argparse/playwright
 
 ## アーキテクチャ
 
 ```
 edinet/
 ├── bin/                    # 実行可能スクリプト
-├── lib/                    # 共有ライブラリ（edinet_common.py, xbrl_parser.py）
+├── lib/                    # 共有ライブラリ
+│   ├── edinet_common.py   # EDINET API共通処理
+│   ├── xbrl_parser.py     # XBRL解析処理
+│   ├── ticker_generator.py # Yahoo Finance用ティッカー生成
+│   ├── url_generator.py   # Yahoo Finance URL生成
+│   └── data_scraper.py    # Yahoo Financeスクレイピング
 ├── data/jsons/            # 出力データ
 └── .claude/               # Claude Code用の詳細ルール
 ```
@@ -174,3 +179,22 @@ python bin/consolidate_documents.py --inputdir data/jsons --output data/edinet.j
 - **目的**: 
   - 有価証券報告書の提出日を記録し、時系列分析を可能にする
   - `retrievedDate`（データ取得日）と区別して実際の報告書提出日を保持
+
+### Yahoo Finance統合の実装（2025年7月）
+- **概要**: EDINETデータをYahoo Financeのリアルタイム市場データで補完
+- **新規ライブラリ**:
+  - `lib/ticker_generator.py`: 証券コードからYahooティッカーシンボルへの変換
+  - `lib/url_generator.py`: Yahoo Finance URLの生成
+  - `lib/data_scraper.py`: Playwrightを使用したWebスクレイピング
+- **技術的変更**:
+  - Headless Browser (Playwright) を使用したデータ取得
+  - EDINETデータ取得後にYahoo Financeから補完データを取得
+  - 失敗時はEDINETデータのみで処理を継続（フェイルセーフ）
+- **データソース詳細**:
+  - **Yahoo Financeから取得**: characteristic, stockPrice, netSales, employees, operatingIncome, ordinaryIncome（新規）, depreciation, bps, debt, outstandingShares, netIncome, eps
+  - **EDINETから取得**: equity, cash（財務諸表の正式な値が必要なため）
+  - **計算値**: operatingIncomeRate, ordinaryIncomeRate（新規）, ebitda, ebitdaMargin, marketCapitalization, per, ev, evPerEbitda, pbr
+- **注意事項**:
+  - レート制限未実装（Issue #91）
+  - ブラウザインスタンスの最適化が必要（Issue #92）
+  - デバッグprint文の削除が必要（Issue #90）

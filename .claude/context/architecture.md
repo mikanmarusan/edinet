@@ -23,10 +23,15 @@ bin/fetch_edinet_financial_documents.py
 │   ├── XBRL namespaces (NAMESPACES)
 │   ├── Logging setup (setup_logging)
 │   └── Utility functions (fetch_document_list, format_date)
-└── lib/xbrl_parser.py
-    ├── XBRLParser class
-    ├── extract_financial_metrics()
-    └── Dynamic search algorithms
+├── lib/xbrl_parser.py
+│   ├── XBRLParser class
+│   ├── extract_financial_metrics()
+│   └── Dynamic search algorithms
+└── lib/data_scraper.py (2025-07 追加)
+    ├── get_financial_data() - メインエントリポイント
+    ├── extract_profile_data() - 企業概要データ取得
+    ├── extract_performance_data() - 業績データ取得
+    └── extract_financial_data() - 財務データ取得
 
 bin/consolidate_documents.py
 └── lib/edinet_common.py
@@ -99,3 +104,63 @@ else:
 - `_dynamic_search_*`: All dynamic search methods check consolidated data availability
 - Priority calculation methods: `_calculate_*_priority()` for consistent scoring
 - Pattern matching maintains backward compatibility for companies with consolidated data
+
+### Yahoo Finance Integration Architecture (2025-07)
+
+#### データ取得フロー
+1. **EDINET API経由でXBRLドキュメントを取得**
+   - 有価証券報告書のメタデータとXBRLファイルをダウンロード
+   - APIレート制限: 1リクエスト/秒を遵守
+
+2. **Yahoo Financeから補完データを取得**
+   - 証券コードをYahooティッカーシンボルに変換（lib/ticker_generator.py）
+   - Playwright（ヘッドレスブラウザ）を使用してデータ取得
+   - 3つのページから情報収集:
+     - `/profile` - 企業概要（特色、従業員数）
+     - `/performance` - 業績データ（売上高、利益等）
+     - `/finance` - 財務データ（EPS、BPS、負債等）
+
+3. **データの統合と計算**
+   - Yahoo Financeデータが利用可能な場合は優先使用
+   - equity と cash は常にXBRLから取得（財務諸表の正式値）
+   - 各種財務指標を計算（PER、PBR、EV/EBITDA等）
+
+#### 技術スタック
+- **Playwright**: ヘッドレスブラウザ自動化フレームワーク
+  - 動的JavaScriptコンテンツの取得に対応
+  - Chromiumブラウザをバックグラウンドで実行
+  - User-Agent設定でアクセス制限を回避
+
+- **データ抽出戦略**:
+  - PRELOADED_STATEからJSONデータを優先的に抽出
+  - フォールバック: HTMLテーブルからのパーシング
+  - ハードコードされたカラムインデックス使用（要改善）
+
+#### データソース分割
+**Yahoo Financeから取得するフィールド**:
+- characteristic（企業特色）
+- stockPrice（株価）
+- netSales（売上高）
+- employees（従業員数）
+- operatingIncome（営業利益）
+- ordinaryIncome（経常利益）※新規追加
+- depreciation（減価償却費）
+- bps（1株当たり純資産）
+- debt（有利子負債）
+- outstandingShares（発行済株式数）
+- netIncome（当期純利益）
+- eps（1株当たり利益）
+
+**EDINETから取得するフィールド**:
+- equity（純資産）
+- cash（現金及び現金同等物）
+
+#### エラーハンドリング
+- Yahoo Finance取得失敗時もXBRL処理を継続
+- 失敗したフィールドはnullを設定
+- XBRLへのフォールバック処理は現在コメントアウト
+
+#### パフォーマンス考慮事項
+- 現在: 企業ごとに新規ブラウザインスタンスを起動
+- 課題: 100社で100回のブラウザ起動（最適化が必要）
+- レート制限: Yahoo Financeへのアクセス制限は未実装

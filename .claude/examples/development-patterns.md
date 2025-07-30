@@ -38,6 +38,43 @@
 3. エラーハンドリングの改善
 4. ログ出力の整合性確認
 
+### Yahoo Finance統合パターン（2025-07追加）
+
+#### Playwrightを使用したWebスクレイピング
+```python
+# ブラウザの起動と設定
+from playwright.sync_api import sync_playwright
+
+with sync_playwright() as p:
+    browser = p.chromium.launch(headless=True)
+    context = browser.new_context(
+        user_agent='Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36'
+    )
+    page = context.new_page()
+    
+    # ページへのアクセスとデータ取得
+    page.goto(url, wait_until='domcontentloaded', timeout=30000)
+    # PRELOADED_STATEからデータを抽出
+    
+    browser.close()
+```
+
+#### データソースの優先順位
+1. **Yahoo Finance優先**: より新しい市場データと簡潔な企業特色
+2. **XBRL必須データ**: equity（純資産）とcash（現金）は常にXBRLから
+3. **フェイルセーフ**: Yahoo Finance失敗時もXBRL処理を継続
+
+#### エラーハンドリング
+```python
+# Yahoo Financeデータ取得のエラーハンドリング
+try:
+    yahoo_data = get_financial_data(sec_code, formatted_period_end)
+    logger.info(f"Successfully fetched Yahoo Finance data for {sec_code}")
+except Exception as yahoo_error:
+    logger.warning(f"Failed to fetch Yahoo Finance data for {sec_code}: {yahoo_error}")
+    # Continue with XBRL parsing even if Yahoo fails
+```
+
 ## デプロイプロセス
 GitHub Actionsによる自動実行：
 - 毎日午前3時（JST）に自動実行
