@@ -58,6 +58,8 @@ function displayData(data) {
             <td class="number-cell">${formatEmployees(item.employees)}</td>
             <td class="number-cell">${formatNumber(item.operatingIncome)}</td>
             <td class="number-cell">${formatPercentage(item.operatingIncomeRate)}</td>
+            <td class="number-cell">${formatNumber(item.ordinaryIncome)}</td>
+            <td class="number-cell">${formatPercentage(item.ordinaryIncomeRate)}</td>
             <td class="number-cell">${formatNumber(item.ebitda)}</td>
             <td class="number-cell">${formatPercentage(item.ebitdaMargin)}</td>
             <td class="number-cell">${formatNumber(item.marketCapitalization)}</td>
@@ -348,6 +350,8 @@ function exportToExcel() {
         '期末従業員数(人)': item.employees || '',
         '営業利益(百万円)': item.operatingIncome ? Math.round(item.operatingIncome / MILLION) : '',
         '営業利益率(%)': item.operatingIncomeRate || '',
+        '経常利益(百万円)': item.ordinaryIncome ? Math.round(item.ordinaryIncome / MILLION) : '',
+        '経常利益率(%)': item.ordinaryIncomeRate || '',
         'EBITDA(百万円)': item.ebitda ? Math.round(item.ebitda / MILLION) : '',
         'EBITDAマージン(%)': item.ebitdaMargin || '',
         '時価総額(百万円)': item.marketCapitalization ? Math.round(item.marketCapitalization / MILLION) : '',
@@ -375,6 +379,8 @@ function exportToExcel() {
         {wch: 15},  // 期末従業員数
         {wch: 15},  // 営業利益
         {wch: 12},  // 営業利益率
+        {wch: 15},  // 経常利益
+        {wch: 12},  // 経常利益率
         {wch: 15},  // EBITDA
         {wch: 15},  // EBITDAマージン
         {wch: 15},  // 時価総額
