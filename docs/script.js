@@ -343,7 +343,7 @@ function exportToExcel() {
         '有価証券報告書URL': item.docPdfURL || '',
         'Yahoo!ファイナンスURL': item.yahooURL || '',
         '決算期': item.periodEnd || '',
-        '決算期末株価(円)': item.stockPrice || '',
+        '株価(円)': item.stockPrice || '',
         '売上高(百万円)': item.netSales ? Math.round(item.netSales / MILLION) : '',
         '期末従業員数(人)': item.employees || '',
         '営業利益(百万円)': item.operatingIncome ? Math.round(item.operatingIncome / MILLION) : '',
@@ -370,7 +370,7 @@ function exportToExcel() {
         {wch: 50},  // 有価証券報告書URL
         {wch: 40},  // Yahoo!ファイナンスURL
         {wch: 12},  // 決算期
-        {wch: 15},  // 決算期末株価
+        {wch: 15},  // 株価
         {wch: 15},  // 売上高
         {wch: 15},  // 期末従業員数
         {wch: 15},  // 営業利益
