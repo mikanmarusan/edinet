@@ -45,6 +45,7 @@ python fetch_edinet_financial_documents.py --date YYYY-MM-DD --outputdir data/js
 | debt | ネット有利子負債 | 2000000000 |
 | ordinaryIncome | 経常利益（2025-07追加） | 1300000000 |
 | ordinaryIncomeRate | 経常利益率（2025-07追加） | 8.67 |
+| issuedDate | 有価証券報告書提出日（2025-07追加） | 2024-09-30 |
 | characteristic | 企業特色（Yahoo Finance優先） | 【特色】IT企業向けクラウドサービス |
 | （他多数） | | |
 

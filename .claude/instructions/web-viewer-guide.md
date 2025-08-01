@@ -41,27 +41,29 @@ docs/
 - 仮想スクロールは実装せず、ブラウザのネイティブ性能に依存
 - テーブルコンテナ内でのスクロールで対応
 
-## 表示項目（2025年6月29日更新）
+## 表示項目（2025年8月1日更新）
 
-### カラム定義（全18列）
+### カラム定義（全20列）
 1. **証券コード** (secCode) - 固定列、幅100px
 2. **企業名称** (filerName) - 固定列、幅200px
 3. **決算期** (periodEnd)
-4. **決算期末株価（円）** (stockPrice) - 整数表示
+4. **株価（円）** (stockPrice) - 整数表示
 5. **売上高（百万円）** (netSales)
 6. **期末従業員数（人）** (employees) - 千単位区切り
 7. **営業利益（百万円）** (operatingIncome)
 8. **営業利益率（%）** (operatingIncomeRate) - 小数点1桁
-9. **EBITDA（百万円）** (ebitda)
-10. **EBITDAマージン（%）** (ebitdaMargin) - 小数点1桁
-11. **時価総額（百万円）** (marketCapitalization)
-12. **PER（倍）** (per) - 小数点1桁
-13. **企業価値（百万円）** (ev)
-14. **EV/EBITDA（倍）** (evPerEbitda) - 小数点1桁
-15. **PBR（倍）** (pbr) - 小数点1桁
-16. **純資産合計（百万円）** (equity)
-17. **ネット有利子負債（百万円）** (debt)
-18. **最終更新日** (retrievedDate)
+9. **経常利益（百万円）** (ordinaryIncome)
+10. **経常利益率（%）** (ordinaryIncomeRate) - 小数点1桁
+11. **EBITDA（百万円）** (ebitda)
+12. **EBITDAマージン（%）** (ebitdaMargin) - 小数点1桁
+13. **時価総額（百万円）** (marketCapitalization)
+14. **PER（倍）** (per) - 小数点1桁
+15. **企業価値（百万円）** (ev)
+16. **EV/EBITDA（倍）** (evPerEbitda) - 小数点1桁
+17. **PBR（倍）** (pbr) - 小数点1桁
+18. **純資産合計（百万円）** (equity)
+19. **ネット有利子負債（百万円）** (debt)
+20. **最終更新日** (retrievedDate)
 
 ### 固定列の実装（2025年6月29日追加）
 証券コードと企業名称の2列を固定し、残りは横スクロール可能：
@@ -83,10 +85,6 @@ targetRow.scrollIntoView({ behavior: 'smooth', block: 'center' });
 targetRow.classList.add('highlight');
 ```
 
-### 事業内容のツールチップ
-- CSS擬似要素（`::after`）で実装
-- `data-full-text`属性に全文を格納
-- ホバー時に`content: attr(data-full-text)`で表示
 
 ### トップへ戻るボタン
 - テーブルコンテナのスクロールを監視
@@ -131,6 +129,10 @@ python3 -m http.server 8080
 4. 公開URL: https://[username].github.io/edinet/
 
 ## 更新履歴
+
+### 2025年8月1日
+- 表示カラムを20列に拡張（ordinaryIncome, ordinaryIncomeRateを追加）
+- 「決算期末株価」を「株価」に修正（実装済み）
 
 ### 2025年6月29日
 - タイトルを「上場企業有価証券報告書 from EDINET」に変更
