@@ -8,7 +8,7 @@ This system extracts financial information from XBRL data and compiles it into J
 
 **Key Features:**
 - Automated daily data extraction from EDINET API
-- Extraction of 22 financial metrics from XBRL documents
+- Extraction of 25 financial metrics from XBRL documents
 - Data consolidation across multiple dates
 - Robust error handling and retry mechanisms
 - Clean JSON output format
@@ -104,6 +104,8 @@ Consolidates multiple daily JSON files into a single file.
 | employees | Number of employees | Number |
 | operatingIncome | Operating income | Number |
 | operatingIncomeRate | Operating income rate (%) | Number |
+| ordinaryIncome | Ordinary income | Number |
+| ordinaryIncomeRate | Ordinary income rate (%) | Number |
 | depreciation | Depreciation | Number |
 | marketCapitalization | Market capitalization | Number |
 | per | Price-to-earnings ratio | Number |
@@ -115,6 +117,7 @@ Consolidates multiple daily JSON files into a single file.
 | netIncome | Net income | Number |
 | eps | Earnings per share | Number |
 | cash | Cash and cash equivalents | Number |
+| issuedDate | Securities report submission date | String |
 | ebitda | EBITDA | Number |
 | ebitdaMargin | EBITDA margin (%) | Number |
 | ev | Enterprise value | Number |
