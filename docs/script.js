@@ -69,6 +69,7 @@ function displayData(data) {
             <td class="number-cell">${formatRatio(item.pbr)}</td>
             <td class="number-cell">${formatNumber(item.equity)}</td>
             <td class="number-cell">${formatNumber(item.debt)}</td>
+            <td>${escapeHtml(item.issuedDate) || '-'}</td>
             <td>${escapeHtml(item.retrievedDate) || '-'}</td>
         `;
         
@@ -361,6 +362,7 @@ function exportToExcel() {
         'PBR(倍)': item.pbr || '',
         '純資産合計(百万円)': item.equity ? Math.round(item.equity / MILLION) : '',
         'ネット有利子負債(百万円)': item.debt ? Math.round(item.debt / MILLION) : '',
+        'EDINET提出日': item.issuedDate || '',
         '最終更新日': item.retrievedDate || ''
     }));
     
@@ -390,6 +392,7 @@ function exportToExcel() {
         {wch: 10},  // PBR
         {wch: 15},  // 純資産合計
         {wch: 20},  // ネット有利子負債
+        {wch: 12},  // EDINET提出日
         {wch: 12}   // 最終更新日
     ];
     
