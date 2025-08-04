@@ -119,19 +119,6 @@ def extract_performance_data(page, periodEnd, financial_data):
     # First, try to extract from PRELOADED_STATE
     state = extract_preloaded_state(page)
     
-    # Debug: Investigate PRELOADED_STATE structure
-    if state and len(state) > 0:
-        logger.debug(f"PRELOADED_STATE keys: {list(state.keys())[:10]}")  # Print first 10 keys
-        
-        # Look for any key containing 'fin' or 'perf' or related terms
-        for key in state.keys():
-            if any(term in key.lower() for term in ['fin', 'perf', 'result', 'income', 'profit']):
-                logger.debug(f"Potential financial data key: {key}")
-                # Print the structure of this key
-                value = state[key]
-                if isinstance(value, dict):
-                    logger.debug(f"  Sub-keys: {list(value.keys())[:5]}")
-    
     # Check for performance data in PRELOADED_STATE
     if 'mainStocksPerformance' in state:
         performance_data = state['mainStocksPerformance']
@@ -310,8 +297,6 @@ def get_financial_data(secCode, periodEnd):
     
     financial_data = {}
     
-    # Debug: Show the periodEnd format we're searching for
-    #print(f"Debug: Searching for periodEnd: {periodEnd}")
     
     try:
         with sync_playwright() as p:
@@ -322,17 +307,14 @@ def get_financial_data(secCode, periodEnd):
             page = context.new_page()
             
             # Profile page - Extract company info and stock price
-            #print(f"Loading profile page: {urls['profile']}")
             page.goto(urls['profile'], wait_until='networkidle')
             extract_profile_data(page, financial_data)
             
             # Performance page - Extract revenue and profit data
-            #print(f"Loading performance page: {urls['performance']}")
             page.goto(urls['performance'], wait_until='networkidle')
             extract_performance_data(page, periodEnd, financial_data)
             
             # Financials page - Extract per-share metrics and other financial data
-            #print(f"Loading financials page: {urls['financials']}")
             page.goto(urls['financials'], wait_until='networkidle')
             extract_financial_data(page, periodEnd, financial_data)
             
