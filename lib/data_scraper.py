@@ -1,6 +1,10 @@
 import json
 import re
+import logging
 from playwright.sync_api import sync_playwright
+
+# Setup module logger
+logger = logging.getLogger(__name__)
 
 
 def extract_preloaded_state(page):
@@ -117,16 +121,16 @@ def extract_performance_data(page, periodEnd, financial_data):
     
     # Debug: Investigate PRELOADED_STATE structure
     if state and len(state) > 0:
-        print(f"[DEBUG] PRELOADED_STATE keys: {list(state.keys())[:10]}")  # Print first 10 keys
+        logger.debug(f"PRELOADED_STATE keys: {list(state.keys())[:10]}")  # Print first 10 keys
         
         # Look for any key containing 'fin' or 'perf' or related terms
         for key in state.keys():
             if any(term in key.lower() for term in ['fin', 'perf', 'result', 'income', 'profit']):
-                print(f"[DEBUG] Potential financial data key: {key}")
+                logger.debug(f"Potential financial data key: {key}")
                 # Print the structure of this key
                 value = state[key]
                 if isinstance(value, dict):
-                    print(f"[DEBUG]   Sub-keys: {list(value.keys())[:5]}")
+                    logger.debug(f"  Sub-keys: {list(value.keys())[:5]}")
     
     # Check for performance data in PRELOADED_STATE
     if 'mainStocksPerformance' in state:
@@ -225,7 +229,7 @@ def extract_performance_data(page, periodEnd, financial_data):
                 break
                 
     except Exception as e:
-        print(f"Error parsing performance data: {e}")
+        logger.error(f"Error parsing performance data: {e}")
 
 
 def extract_financial_data(page, periodEnd, financial_data):
@@ -293,7 +297,7 @@ def extract_financial_data(page, periodEnd, financial_data):
                 break
                 
     except Exception as e:
-        print(f"Error parsing financial data: {e}")
+        logger.error(f"Error parsing financial data: {e}")
 
 
 def get_financial_data(secCode, periodEnd):

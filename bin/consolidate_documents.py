@@ -25,6 +25,9 @@ sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from lib.edinet_common import setup_logging, ensure_output_directory
 
+# Setup module logger
+logger = logging.getLogger(__name__)
+
 
 class DataConsolidator:
     """Consolidates financial data from multiple JSON files"""
@@ -243,10 +246,12 @@ class DataConsolidator:
         """
         if not consolidated_data:
             print("No data to summarize")
+            logger.info("No data to summarize")
             return
         
         print("\n=== Consolidation Summary ===")
         print(f"Total companies: {len(consolidated_data)}")
+        logger.info(f"Consolidation Summary: Total companies: {len(consolidated_data)}")
         
         # Count companies by retrieval date
         date_counts = defaultdict(int)
@@ -262,13 +267,16 @@ class DataConsolidator:
         
         print(f"Companies with financial data: {companies_with_data}")
         print(f"Companies by retrieval date:")
+        logger.info(f"Companies with financial data: {companies_with_data}")
         
         for date, count in sorted(date_counts.items()):
             print(f"  {date}: {count} companies")
+            logger.info(f"Retrieval date {date}: {count} companies")
         
         # Sample of company codes
         sample_codes = [company.get('secCode') or 'Unknown' for company in consolidated_data[:10]]
         print(f"Sample company codes: {', '.join(sample_codes)}")
+        logger.info(f"Sample company codes: {', '.join(sample_codes)}")
         
         print("=" * 30)
 
@@ -288,16 +296,19 @@ class InputValidator:
             True if valid, False otherwise
         """
         if not os.path.exists(directory):
+            logger.error(f"Input directory does not exist: {directory}")
             print(f"Error: Input directory does not exist: {directory}", file=sys.stderr)
             return False
         
         if not os.path.isdir(directory):
+            logger.error(f"Input path is not a directory: {directory}")
             print(f"Error: Input path is not a directory: {directory}", file=sys.stderr)
             return False
         
         # Check for JSON files
         json_files = glob.glob(os.path.join(directory, "*.json"))
         if not json_files:
+            logger.warning(f"No JSON files found in directory: {directory}")
             print(f"Warning: No JSON files found in directory: {directory}", file=sys.stderr)
         
         return True
