@@ -496,7 +496,12 @@ def setup_logging(script_name: str, verbose: bool = False) -> logging.Logger:
     Returns:
         Configured logger instance
     """
-    log_level = logging.DEBUG if verbose else logging.INFO
+    # Check environment variable for log level override
+    env_log_level = os.environ.get('EDINET_LOG_LEVEL', '').upper()
+    if env_log_level in ['DEBUG', 'INFO', 'WARNING', 'ERROR', 'CRITICAL']:
+        log_level = getattr(logging, env_log_level)
+    else:
+        log_level = logging.DEBUG if verbose else logging.INFO
     log_filename = f"{script_name}_{datetime.now().strftime('%Y%m%d')}.log"
     
     # Create formatter
@@ -647,7 +652,8 @@ def get_stock_exchange_code(sec_code: str) -> str:
                 _stock_exchange_mapping_cache = data.get('stock_exchanges', {})
         except Exception as e:
             # If loading fails, use empty mapping (all will default to Tokyo)
-            print(f"Warning: Could not load stock exchange mapping: {e}")
+            logger = logging.getLogger(__name__)
+            logger.warning(f"Could not load stock exchange mapping: {e}")
             _stock_exchange_mapping_cache = {}
     
     # Look up the security code in the mapping
