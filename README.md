@@ -4,14 +4,22 @@ A Python-based tool for retrieving and analyzing financial data from listed comp
 
 ## Overview
 
-This system extracts financial information from XBRL data and compiles it into JSON format for analysis by corporate finance teams and M&A departments.
+This system provides comprehensive financial data extraction and analysis capabilities for Japanese listed companies through the EDINET (Electronic Disclosure for Investors' NETwork) system. It automatically retrieves securities reports (有価証券報告書) submitted to Japan's Financial Services Agency and transforms complex XBRL financial data into structured, analysis-ready JSON format.
+
+**Who Uses This Tool:**
+- Corporate Finance Teams - For competitor analysis and market research
+- M&A Departments - For due diligence and valuation analysis
+- Investment Analysts - For financial modeling and screening
+- Data Scientists - For building financial datasets and models
 
 **Key Features:**
-- Automated daily data extraction from EDINET API
-- Extraction of 25 financial metrics from XBRL documents
-- Data consolidation across multiple dates
-- Robust error handling and retry mechanisms
-- Clean JSON output format
+- **Automated Data Collection**: Daily extraction from EDINET API with intelligent retry mechanisms
+- **Comprehensive Metrics**: Extraction of 25+ key financial indicators including P&L, balance sheet, and market data
+- **Yahoo Finance Integration**: Enriched data with real-time stock prices and market metrics
+- **Flexible Filtering**: Target specific companies using security codes
+- **Data Consolidation**: Merge multiple daily extracts into unified datasets
+- **Enterprise Value Calculations**: Automated EV, EBITDA, and EV/EBITDA calculations
+- **Clean JSON Output**: Structured format optimized for analysis and integration
 
 ## Prerequisites
 
