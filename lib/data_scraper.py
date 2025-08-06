@@ -1,7 +1,7 @@
 import json
 import re
 import logging
-from playwright.sync_api import sync_playwright
+from playwright.sync_api import sync_playwright, TimeoutError, Error
 
 # Setup module logger
 logger = logging.getLogger(__name__)
@@ -13,8 +13,10 @@ def extract_preloaded_state(page):
         preloaded_state = page.evaluate('() => window.__PRELOADED_STATE__')
         if preloaded_state:
             return preloaded_state
-    except:
-        pass
+    except Error as e:
+        logger.debug(f"Failed to evaluate JavaScript for __PRELOADED_STATE__: {e}")
+    except Exception as e:
+        logger.debug(f"Unexpected error evaluating __PRELOADED_STATE__: {e}")
     
     # Fallback to regex parsing
     content = page.content()
@@ -23,8 +25,10 @@ def extract_preloaded_state(page):
     if match:
         try:
             return json.loads(match.group(1))
-        except:
-            pass
+        except json.JSONDecodeError as e:
+            logger.warning(f"Invalid JSON in __PRELOADED_STATE__: {e}")
+        except Exception as e:
+            logger.debug(f"Unexpected error parsing __PRELOADED_STATE__ JSON: {e}")
     
     return {}
 
@@ -54,7 +58,11 @@ def convert_million_to_yen(value_str):
         
         # Add negative sign back if needed
         return -result if is_negative else result
-    except:
+    except ValueError as e:
+        logger.debug(f"Invalid numeric value for million to yen conversion: '{value_str}' - {e}")
+        return None
+    except Exception as e:
+        logger.debug(f"Unexpected error in million to yen conversion: '{value_str}' - {e}")
         return None
 
 
@@ -68,7 +76,11 @@ def convert_thousand_to_shares(value_str):
         # Convert to number and multiply by 1,000
         value = int(value_str)
         return value * 1000
-    except:
+    except ValueError as e:
+        logger.debug(f"Invalid numeric value for thousand to shares conversion: '{value_str}' - {e}")
+        return None
+    except Exception as e:
+        logger.debug(f"Unexpected error in thousand to shares conversion: '{value_str}' - {e}")
         return None
 
 
@@ -82,7 +94,11 @@ def extract_profile_data(page, financial_data):
         if 'price' in price_board:
             try:
                 financial_data['stockPrice'] = float(parse_numeric_value(price_board['price']))
-            except:
+            except ValueError as e:
+                logger.debug(f"Invalid stock price value: {price_board.get('price')} - {e}")
+                financial_data['stockPrice'] = None
+            except Exception as e:
+                logger.debug(f"Unexpected error parsing stock price: {e}")
                 financial_data['stockPrice'] = None
     
     # Extract company characteristics and employees
@@ -100,7 +116,11 @@ def extract_profile_data(page, financial_data):
                 if emp_match:
                     try:
                         financial_data['employees'] = int(emp_match.group(1).replace(',', ''))
-                    except:
+                    except ValueError as e:
+                        logger.debug(f"Invalid employee count value: {emp_match.group(1)} - {e}")
+                        financial_data['employees'] = None
+                    except Exception as e:
+                        logger.debug(f"Unexpected error parsing employee count: {e}")
                         financial_data['employees'] = None
 
 
@@ -206,17 +226,25 @@ def extract_performance_data(page, periodEnd, financial_data):
                                     if converted is not None:
                                         financial_data['ordinaryIncome'] = converted
                                         break
-                                except:
+                                except ValueError:
                                     continue
                     if len(cells) > 8:
                         value = parse_numeric_value(cells[8].text_content())
                         financial_data['netIncome'] = convert_million_to_yen(value)
-                except Exception:
-                    pass
+                except TimeoutError as e:
+                    logger.warning(f"Timeout while parsing performance data for period {target_period}: {e}")
+                except Error as e:
+                    logger.error(f"Playwright error accessing page elements for period {target_period}: {e}")
+                except Exception as e:
+                    logger.error(f"Unexpected error parsing performance data for period {target_period}: {e}")
                 break
                 
+    except TimeoutError as e:
+        logger.warning(f"Timeout while extracting performance data for period {periodEnd}: {e}")
+    except Error as e:
+        logger.error(f"Playwright error in extract_performance_data for period {periodEnd}: {e}")
     except Exception as e:
-        logger.error(f"Error parsing performance data: {e}")
+        logger.error(f"Unexpected error in extract_performance_data for period {periodEnd}: {e}")
 
 
 def extract_financial_data(page, periodEnd, financial_data):
@@ -257,7 +285,11 @@ def extract_financial_data(page, periodEnd, financial_data):
                         if value not in ['---', 'N/A', '']:
                             try:
                                 financial_data['eps'] = float(value)
-                            except:
+                            except ValueError as e:
+                                logger.debug(f"Invalid EPS value for period {target_period}: {value} - {e}")
+                                financial_data['eps'] = None
+                            except Exception as e:
+                                logger.debug(f"Unexpected error parsing EPS for period {target_period}: {e}")
                                 financial_data['eps'] = None
                     
                     if len(cells) > 2:  # BPS
@@ -265,7 +297,11 @@ def extract_financial_data(page, periodEnd, financial_data):
                         if value not in ['---', 'N/A', '']:
                             try:
                                 financial_data['bps'] = float(value)
-                            except:
+                            except ValueError as e:
+                                logger.debug(f"Invalid BPS value for period {target_period}: {value} - {e}")
+                                financial_data['bps'] = None
+                            except Exception as e:
+                                logger.debug(f"Unexpected error parsing BPS for period {target_period}: {e}")
                                 financial_data['bps'] = None
                     
                     if len(cells) > 8:  # Debt (有利子負債)
@@ -279,12 +315,20 @@ def extract_financial_data(page, periodEnd, financial_data):
                     if len(cells) > 10:  # Outstanding shares
                         value = parse_numeric_value(cells[10].text_content())
                         financial_data['outstandingShares'] = convert_thousand_to_shares(value)
-                except Exception as cell_error:
-                    pass
+                except TimeoutError as e:
+                    logger.warning(f"Timeout while parsing financial data cells for period {target_period}: {e}")
+                except Error as e:
+                    logger.error(f"Playwright error accessing table cells for period {target_period}: {e}")
+                except Exception as e:
+                    logger.error(f"Unexpected error parsing financial data cells for period {target_period}: {e}")
                 break
                 
+    except TimeoutError as e:
+        logger.warning(f"Timeout while extracting financial data for period {periodEnd}: {e}")
+    except Error as e:
+        logger.error(f"Playwright error in extract_financial_data for period {periodEnd}: {e}")
     except Exception as e:
-        logger.error(f"Error parsing financial data: {e}")
+        logger.error(f"Unexpected error in extract_financial_data for period {periodEnd}: {e}")
 
 
 def get_financial_data(secCode, periodEnd):
@@ -298,6 +342,7 @@ def get_financial_data(secCode, periodEnd):
     financial_data = {}
     
     
+    browser = None
     try:
         with sync_playwright() as p:
             browser = p.chromium.launch(headless=True)
@@ -318,9 +363,18 @@ def get_financial_data(secCode, periodEnd):
             page.goto(urls['financials'], wait_until='networkidle')
             extract_financial_data(page, periodEnd, financial_data)
             
-            browser.close()
+    except TimeoutError as e:
+        logger.error(f"Timeout error for company {secCode} (period: {periodEnd}): {e}")
+        raise TimeoutError(f"Failed to scrape data for {secCode}: {e}") from e
+    except Error as e:
+        logger.error(f"Playwright error for company {secCode} (period: {periodEnd}): {e}")
+        raise Error(f"Browser operation failed for {secCode}: {e}") from e
     except Exception as e:
-        raise
+        logger.error(f"Unexpected error for company {secCode} (period: {periodEnd}): {e}")
+        raise Exception(f"Failed to get financial data for {secCode}: {e}") from e
+    finally:
+        if browser:
+            browser.close()
     
     # Ensure all expected fields are present (set to None if missing)
     expected_fields = [
