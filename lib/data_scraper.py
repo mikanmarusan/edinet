@@ -1,7 +1,7 @@
 import json
 import re
 import logging
-from playwright.sync_api import sync_playwright, TimeoutError, Error
+from playwright.sync_api import sync_playwright, TimeoutError as PlaywrightTimeoutError, Error as PlaywrightError
 
 # Setup module logger
 logger = logging.getLogger(__name__)
@@ -13,7 +13,7 @@ def extract_preloaded_state(page):
         preloaded_state = page.evaluate('() => window.__PRELOADED_STATE__')
         if preloaded_state:
             return preloaded_state
-    except Error as e:
+    except PlaywrightError as e:
         logger.debug(f"Failed to evaluate JavaScript for __PRELOADED_STATE__: {e}")
     except Exception as e:
         logger.debug(f"Unexpected error evaluating __PRELOADED_STATE__: {e}")
@@ -231,17 +231,17 @@ def extract_performance_data(page, periodEnd, financial_data):
                     if len(cells) > 8:
                         value = parse_numeric_value(cells[8].text_content())
                         financial_data['netIncome'] = convert_million_to_yen(value)
-                except TimeoutError as e:
+                except PlaywrightTimeoutError as e:
                     logger.warning(f"Timeout while parsing performance data for period {target_period}: {e}")
-                except Error as e:
+                except PlaywrightError as e:
                     logger.error(f"Playwright error accessing page elements for period {target_period}: {e}")
                 except Exception as e:
                     logger.error(f"Unexpected error parsing performance data for period {target_period}: {e}")
                 break
                 
-    except TimeoutError as e:
+    except PlaywrightTimeoutError as e:
         logger.warning(f"Timeout while extracting performance data for period {periodEnd}: {e}")
-    except Error as e:
+    except PlaywrightError as e:
         logger.error(f"Playwright error in extract_performance_data for period {periodEnd}: {e}")
     except Exception as e:
         logger.error(f"Unexpected error in extract_performance_data for period {periodEnd}: {e}")
@@ -315,17 +315,17 @@ def extract_financial_data(page, periodEnd, financial_data):
                     if len(cells) > 10:  # Outstanding shares
                         value = parse_numeric_value(cells[10].text_content())
                         financial_data['outstandingShares'] = convert_thousand_to_shares(value)
-                except TimeoutError as e:
+                except PlaywrightTimeoutError as e:
                     logger.warning(f"Timeout while parsing financial data cells for period {target_period}: {e}")
-                except Error as e:
+                except PlaywrightError as e:
                     logger.error(f"Playwright error accessing table cells for period {target_period}: {e}")
                 except Exception as e:
                     logger.error(f"Unexpected error parsing financial data cells for period {target_period}: {e}")
                 break
                 
-    except TimeoutError as e:
+    except PlaywrightTimeoutError as e:
         logger.warning(f"Timeout while extracting financial data for period {periodEnd}: {e}")
-    except Error as e:
+    except PlaywrightError as e:
         logger.error(f"Playwright error in extract_financial_data for period {periodEnd}: {e}")
     except Exception as e:
         logger.error(f"Unexpected error in extract_financial_data for period {periodEnd}: {e}")
@@ -342,7 +342,6 @@ def get_financial_data(secCode, periodEnd):
     financial_data = {}
     
     
-    browser = None
     try:
         with sync_playwright() as p:
             browser = p.chromium.launch(headless=True)
@@ -363,18 +362,17 @@ def get_financial_data(secCode, periodEnd):
             page.goto(urls['financials'], wait_until='networkidle')
             extract_financial_data(page, periodEnd, financial_data)
             
-    except TimeoutError as e:
+            # Browser is automatically closed by the context manager
+            
+    except PlaywrightTimeoutError as e:
         logger.error(f"Timeout error for company {secCode} (period: {periodEnd}): {e}")
-        raise TimeoutError(f"Failed to scrape data for {secCode}: {e}") from e
-    except Error as e:
+        raise RuntimeError(f"Failed to scrape data for {secCode}: timeout occurred - {str(e)}")
+    except PlaywrightError as e:
         logger.error(f"Playwright error for company {secCode} (period: {periodEnd}): {e}")
-        raise Error(f"Browser operation failed for {secCode}: {e}") from e
+        raise RuntimeError(f"Browser operation failed for {secCode}: {str(e)}")
     except Exception as e:
         logger.error(f"Unexpected error for company {secCode} (period: {periodEnd}): {e}")
-        raise Exception(f"Failed to get financial data for {secCode}: {e}") from e
-    finally:
-        if browser:
-            browser.close()
+        raise RuntimeError(f"Failed to get financial data for {secCode}: {str(e)}")
     
     # Ensure all expected fields are present (set to None if missing)
     expected_fields = [
