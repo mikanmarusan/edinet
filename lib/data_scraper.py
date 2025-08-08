@@ -198,6 +198,64 @@ def extract_performance_data(page, periodEnd, financial_data):
         # First table contains performance data
         rows = tables[0].query_selector_all('tr')
         
+        # Extract headers to map column positions
+        column_mapping = {}
+        
+        # Define comprehensive header patterns for robust matching
+        header_patterns = {
+            'netSales': [
+                '売上高', '売上', 'sales', 'revenue', '収益', '営業収益',
+                'total revenue', 'net sales', '売上収益'
+            ],
+            'operatingIncome': [
+                '営業利益', 'operating income', 'operating profit', 
+                '営業損益', 'operating earnings', '事業利益'
+            ],
+            'ordinaryIncome': [
+                '経常利益', 'ordinary income', 'ordinary profit',
+                '経常損益', 'recurring profit', 'recurring income'
+            ],
+            'netIncome': [
+                '純利益', '当期純利益', 'net income', 'net profit',
+                '親会社株主に帰属する当期純利益', 'net earnings',
+                'profit attributable', '最終利益', '当期利益'
+            ]
+        }
+        
+        # First pass: check for header rows (th elements)
+        for idx, row in enumerate(rows[:5]):  # Check first 5 rows for headers
+            cells = row.query_selector_all('th')
+            if cells and len(cells) > 1:
+                for col_idx, cell in enumerate(cells):
+                    header_text = cell.text_content().strip().lower()
+                    # Check against all patterns
+                    for field_name, patterns in header_patterns.items():
+                        if any(pattern.lower() in header_text for pattern in patterns):
+                            if field_name not in column_mapping:
+                                column_mapping[field_name] = col_idx
+                                logger.debug(f"Mapped header '{header_text}' to {field_name} at column {col_idx}")
+                if column_mapping:
+                    break
+        
+        # Second pass: check td cells for header-like content if no th headers found
+        if not column_mapping:
+            for row in rows[:5]:  # Check first 5 rows
+                cells = row.query_selector_all('td')
+                if cells and len(cells) > 1:
+                    # Check if this looks like a header row (contains text patterns)
+                    potential_headers = []
+                    for col_idx, cell in enumerate(cells):
+                        text = cell.text_content().strip()
+                        for field_name, patterns in header_patterns.items():
+                            if any(pattern.lower() in text.lower() for pattern in patterns):
+                                if field_name not in column_mapping:
+                                    column_mapping[field_name] = col_idx
+                                    logger.debug(f"Mapped cell text '{text}' to {field_name} at column {col_idx}")
+                                    potential_headers.append(field_name)
+                    if len(potential_headers) >= 2:  # Found at least 2 headers, likely a header row
+                        break
+        
+        # Parse data rows
         for row in rows:
             cells = row.query_selector_all('td, th')
             if not cells:
@@ -207,30 +265,31 @@ def extract_performance_data(page, periodEnd, financial_data):
             
             # Check if this row contains our fiscal period
             if target_period in first_cell or target_year in first_cell:
-                # Map column positions to data fields
                 try:
-                    if len(cells) > 1:
-                        value = parse_numeric_value(cells[1].text_content())
-                        financial_data['netSales'] = convert_million_to_yen(value)
-                    if len(cells) > 4:
-                        value = parse_numeric_value(cells[4].text_content())
-                        financial_data['operatingIncome'] = convert_million_to_yen(value)
-                    # Check multiple columns for ordinary income
-                    for col_idx in [5, 6, 7]:
-                        if len(cells) > col_idx:
-                            value = parse_numeric_value(cells[col_idx].text_content())
-                            if value and value not in ['---', 'N/A', '', '—']:
-                                try:
-                                    float(value)  # Validate it's a number
+                    if column_mapping:
+                        # Use header-based mapping with validation
+                        extracted_count = 0
+                        for field_name, col_idx in column_mapping.items():
+                            if col_idx < len(cells):
+                                value = parse_numeric_value(cells[col_idx].text_content())
+                                if field_name in ['netSales', 'operatingIncome', 'ordinaryIncome', 'netIncome']:
                                     converted = convert_million_to_yen(value)
                                     if converted is not None:
-                                        financial_data['ordinaryIncome'] = converted
-                                        break
-                                except ValueError:
-                                    continue
-                    if len(cells) > 8:
-                        value = parse_numeric_value(cells[8].text_content())
-                        financial_data['netIncome'] = convert_million_to_yen(value)
+                                        # Validate the value is reasonable (positive for income statement items)
+                                        if converted > 0:
+                                            financial_data[field_name] = converted
+                                            extracted_count += 1
+                                            logger.debug(f"Extracted {field_name}: {converted} from column {col_idx}")
+                                        else:
+                                            logger.warning(f"Skipped negative or zero value for {field_name}: {converted}")
+                        
+                        if extracted_count == 0:
+                            logger.warning(f"No valid financial data extracted using column mapping for period {target_period}")
+                    else:
+                        # If no column mapping found, log warning and skip heuristic extraction
+                        logger.warning(f"No column headers identified for table parsing. Skipping row for period {target_period}")
+                        # We intentionally don't fall back to positional indexing to avoid fragile extraction
+                            
                 except PlaywrightTimeoutError as e:
                     logger.warning(f"Timeout while parsing performance data for period {target_period}: {e}")
                 except PlaywrightError as e:
@@ -266,6 +325,32 @@ def extract_financial_data(page, periodEnd, financial_data):
         # First table contains financial data
         rows = tables[0].query_selector_all('tr')
         
+        # Extract headers to map column positions
+        column_mapping = {}
+        
+        # Define header patterns for financial metrics
+        header_patterns = {
+            'eps': ['eps', '1株当たり利益', '1株利益', 'earnings per share', '基本的1株当たり'],
+            'bps': ['bps', '1株当たり純資産', '1株純資産', 'book value per share', '純資産/株'],
+            'debt': ['有利子負債', '負債', 'debt', 'interest-bearing debt', '借入金'],
+            'depreciation': ['減価償却', '償却費', 'depreciation', 'amortization'],
+            'outstandingShares': ['発行済株式数', '株式数', 'shares outstanding', '発行済み株式', 'outstanding shares']
+        }
+        
+        # First pass: check for header rows
+        for idx, row in enumerate(rows[:5]):  # Check first 5 rows for headers
+            cells = row.query_selector_all('th, td')
+            if cells and len(cells) > 1:
+                for col_idx, cell in enumerate(cells):
+                    header_text = cell.text_content().strip().lower()
+                    # Check against all patterns
+                    for field_name, patterns in header_patterns.items():
+                        if any(pattern.lower() in header_text for pattern in patterns):
+                            if field_name not in column_mapping:
+                                column_mapping[field_name] = col_idx
+                                logger.debug(f"Mapped financial header '{header_text}' to {field_name} at column {col_idx}")
+                if len(column_mapping) >= 2:  # Found at least 2 headers
+                    break
         
         for row in rows:
             cells = row.query_selector_all('td, th')
@@ -280,41 +365,43 @@ def extract_financial_data(page, periodEnd, financial_data):
                 
                 # Map column positions to data fields
                 try:
-                    if len(cells) > 1:  # EPS
-                        value = parse_numeric_value(cells[1].text_content())
-                        if value not in ['---', 'N/A', '']:
-                            try:
-                                financial_data['eps'] = float(value)
-                            except ValueError as e:
-                                logger.debug(f"Invalid EPS value for period {target_period}: {value} - {e}")
-                                financial_data['eps'] = None
-                            except Exception as e:
-                                logger.debug(f"Unexpected error parsing EPS for period {target_period}: {e}")
-                                financial_data['eps'] = None
-                    
-                    if len(cells) > 2:  # BPS
-                        value = parse_numeric_value(cells[2].text_content())
-                        if value not in ['---', 'N/A', '']:
-                            try:
-                                financial_data['bps'] = float(value)
-                            except ValueError as e:
-                                logger.debug(f"Invalid BPS value for period {target_period}: {value} - {e}")
-                                financial_data['bps'] = None
-                            except Exception as e:
-                                logger.debug(f"Unexpected error parsing BPS for period {target_period}: {e}")
-                                financial_data['bps'] = None
-                    
-                    if len(cells) > 8:  # Debt (有利子負債)
-                        value = parse_numeric_value(cells[8].text_content())
-                        financial_data['debt'] = convert_million_to_yen(value)
-                    
-                    if len(cells) > 9:  # Depreciation
-                        value = parse_numeric_value(cells[9].text_content())
-                        financial_data['depreciation'] = convert_million_to_yen(value)
-                    
-                    if len(cells) > 10:  # Outstanding shares
-                        value = parse_numeric_value(cells[10].text_content())
-                        financial_data['outstandingShares'] = convert_thousand_to_shares(value)
+                    if column_mapping:
+                        # Use header-based mapping
+                        extracted_count = 0
+                        for field_name, col_idx in column_mapping.items():
+                            if col_idx < len(cells):
+                                value = parse_numeric_value(cells[col_idx].text_content())
+                                if value not in ['---', 'N/A', '', '—']:
+                                    try:
+                                        if field_name in ['eps', 'bps']:
+                                            financial_data[field_name] = float(value)
+                                            extracted_count += 1
+                                        elif field_name == 'debt':
+                                            converted = convert_million_to_yen(value)
+                                            if converted is not None and converted >= 0:
+                                                financial_data[field_name] = converted
+                                                extracted_count += 1
+                                        elif field_name == 'depreciation':
+                                            converted = convert_million_to_yen(value)
+                                            if converted is not None and converted >= 0:
+                                                financial_data[field_name] = converted
+                                                extracted_count += 1
+                                        elif field_name == 'outstandingShares':
+                                            converted = convert_thousand_to_shares(value)
+                                            if converted is not None and converted > 0:
+                                                financial_data[field_name] = converted
+                                                extracted_count += 1
+                                        logger.debug(f"Extracted {field_name}: {financial_data.get(field_name)} from column {col_idx}")
+                                    except ValueError as e:
+                                        logger.debug(f"Invalid {field_name} value for period {target_period}: {value} - {e}")
+                                    except Exception as e:
+                                        logger.debug(f"Unexpected error parsing {field_name} for period {target_period}: {e}")
+                        
+                        if extracted_count == 0:
+                            logger.warning(f"No valid financial metrics extracted using column mapping for period {target_period}")
+                    else:
+                        # No column mapping found - log warning
+                        logger.warning(f"No column headers identified for financial data table. Skipping extraction for period {target_period}")
                 except PlaywrightTimeoutError as e:
                     logger.warning(f"Timeout while parsing financial data cells for period {target_period}: {e}")
                 except PlaywrightError as e:
