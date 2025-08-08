@@ -188,9 +188,39 @@ class TestDataScraperExtraction(unittest.TestCase):
         mock_table = Mock()
         mock_rows = []
         
-        # Create mock row with financial data
-        mock_row = Mock()
-        mock_cells = []
+        # Create mock header row
+        mock_header_row = Mock()
+        mock_header_cells = []
+        header_data = [
+            "決算期",          # Period
+            "EPS",           # EPS
+            "BPS",           # BPS
+            "ROE",           # Empty
+            "ROA",           # Empty
+            "自己資本比率",    # Empty
+            "配当性向",       # Empty
+            "配当利回り",     # Empty
+            "有利子負債",     # Debt
+            "減価償却",       # Depreciation
+            "発行済株式数"    # Outstanding shares
+        ]
+        
+        for data in header_data:
+            cell = Mock()
+            cell.text_content.return_value = data
+            mock_header_cells.append(cell)
+        
+        def header_row_selector(selector):
+            if selector == 'th, td':
+                return mock_header_cells
+            return []
+        
+        mock_header_row.query_selector_all = header_row_selector
+        mock_rows.append(mock_header_row)
+        
+        # Create mock data row
+        mock_data_row = Mock()
+        mock_data_cells = []
         
         # Mock cells with text content
         cell_data = [
@@ -210,10 +240,15 @@ class TestDataScraperExtraction(unittest.TestCase):
         for data in cell_data:
             cell = Mock()
             cell.text_content.return_value = data
-            mock_cells.append(cell)
+            mock_data_cells.append(cell)
         
-        mock_row.query_selector_all.return_value = mock_cells
-        mock_rows.append(mock_row)
+        def data_row_selector(selector):
+            if selector == 'td, th':
+                return mock_data_cells
+            return []
+        
+        mock_data_row.query_selector_all = data_row_selector
+        mock_rows.append(mock_data_row)
         
         mock_table.query_selector_all.return_value = mock_rows
         self.mock_page.query_selector_all.return_value = [mock_table]
@@ -278,8 +313,9 @@ class TestGetFinancialData(unittest.TestCase):
                     mock_extract_performance.assert_called_once()
                     mock_extract_financial.assert_called_once()
                     
-                    # Verify browser was closed
-                    mock_browser.close.assert_called_once()
+                    # Verify context manager was properly used
+                    mock_playwright.return_value.__enter__.assert_called_once()
+                    mock_playwright.return_value.__exit__.assert_called_once()
                     
                     # Check that all expected fields are in result
                     expected_fields = [
