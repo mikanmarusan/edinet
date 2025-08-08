@@ -275,13 +275,13 @@ def extract_performance_data(page, periodEnd, financial_data):
                                 if field_name in ['netSales', 'operatingIncome', 'ordinaryIncome', 'netIncome']:
                                     converted = convert_million_to_yen(value)
                                     if converted is not None:
-                                        # Validate the value is reasonable (positive for income statement items)
-                                        if converted > 0:
+                                        # Validate: netSales should be positive, but profits can be negative
+                                        if field_name == 'netSales' and converted <= 0:
+                                            logger.warning(f"Skipped non-positive netSales value: {converted}")
+                                        else:
                                             financial_data[field_name] = converted
                                             extracted_count += 1
                                             logger.debug(f"Extracted {field_name}: {converted} from column {col_idx}")
-                                        else:
-                                            logger.warning(f"Skipped negative or zero value for {field_name}: {converted}")
                         
                         if extracted_count == 0:
                             logger.warning(f"No valid financial data extracted using column mapping for period {target_period}")
