@@ -149,6 +149,43 @@ function setupSearchEvents() {
     // デバウンス付きの検索関数
     const debouncedSearch = debounce(performSearch, DEBOUNCE_DELAY);
     
+    // 入力制限: 英数字のみ許可
+    searchInput.addEventListener('beforeinput', (e) => {
+        // 削除操作は許可
+        if (e.inputType === 'deleteContentBackward' || 
+            e.inputType === 'deleteContentForward' ||
+            e.inputType === 'deleteByCut') {
+            return;
+        }
+        
+        // ペースト操作の場合
+        if (e.inputType === 'insertFromPaste') {
+            // ペースト内容は input イベントで処理
+            return;
+        }
+        
+        // 通常の文字入力の場合
+        if (e.data && !/^[0-9A-Za-z]+$/.test(e.data)) {
+            e.preventDefault();
+        }
+    });
+    
+    // ペースト時の処理と入力値の補正
+    searchInput.addEventListener('input', (e) => {
+        const originalValue = e.target.value;
+        const cleanedValue = originalValue.replace(/[^0-9A-Za-z]/g, '');
+        
+        if (originalValue !== cleanedValue) {
+            e.target.value = cleanedValue;
+            // カーソル位置を維持
+            const cursorPosition = e.target.selectionStart;
+            e.target.setSelectionRange(cursorPosition, cursorPosition);
+        }
+        
+        // デバウンス付きで検索実行
+        debouncedSearch();
+    });
+    
     // 検索ボタンクリック時（即座に実行）
     searchButton.addEventListener('click', () => {
         clearTimeout(searchTimeout);
@@ -162,9 +199,6 @@ function setupSearchEvents() {
             performSearch();
         }
     });
-    
-    // 入力時はデバウンス付きで実行
-    searchInput.addEventListener('input', debouncedSearch);
 }
 
 // 検索実行
