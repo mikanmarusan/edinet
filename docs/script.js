@@ -1,10 +1,13 @@
 // 定数定義
 const SCROLL_THRESHOLD = 300;  // トップへ戻るボタンの表示閾値（ピクセル）
 const MILLION = 1000000;       // 百万円単位への変換
-const DEBOUNCE_DELAY = 300;    // 検索デバウンス遅延（ミリ秒）
+
+// JPX証券コード仕様に基づく正規表現
+// 4桁の証券コード: 数字4桁、または2桁目・4桁目に指定の英文字を含む
+// 使用可能な英文字: A,C,D,F,G,H,J,K,L,M,N,P,R,S,T,U,W,X,Y（B,E,I,O,Q,V,Zは除外）
+const SEC_CODE_PATTERN = /^(?:[0-9]{4}|[0-9][ACDFGHJKLMNPRSTUXY][0-9]{2}|[0-9]{3}[ACDFGHJKLMNPRSTUXY]|[0-9][ACDFGHJKLMNPRSTUXY][0-9][ACDFGHJKLMNPRSTUXY])$/i;
 
 let allData = [];
-let searchTimeout = null;      // デバウンス用タイマー
 let currentSort = { column: null, direction: 'asc' };  // ソート状態管理
 
 // ページ読み込み時の処理
@@ -133,21 +136,26 @@ function escapeHtml(text) {
     return div.innerHTML;
 }
 
-// デバウンス関数
-function debounce(func, delay) {
-    return function (...args) {
-        clearTimeout(searchTimeout);
-        searchTimeout = setTimeout(() => func.apply(this, args), delay);
-    };
+// 証券コードのバリデーション
+function validateSecCode(code) {
+    if (!code) {
+        return { valid: false, message: '証券コードを入力してください' };
+    }
+    
+    if (!SEC_CODE_PATTERN.test(code)) {
+        return { 
+            valid: false, 
+            message: '証券コードのフォーマットが正しくありません（4桁の数字、または2桁目・4桁目に指定の英文字）' 
+        };
+    }
+    
+    return { valid: true };
 }
 
 // 検索機能のセットアップ
 function setupSearchEvents() {
     const searchInput = document.getElementById('search-input');
     const searchButton = document.getElementById('search-button');
-    
-    // デバウンス付きの検索関数
-    const debouncedSearch = debounce(performSearch, DEBOUNCE_DELAY);
     
     // 入力制限: 英数字のみ許可
     searchInput.addEventListener('beforeinput', (e) => {
@@ -181,21 +189,16 @@ function setupSearchEvents() {
             const cursorPosition = e.target.selectionStart;
             e.target.setSelectionRange(cursorPosition, cursorPosition);
         }
-        
-        // デバウンス付きで検索実行
-        debouncedSearch();
     });
     
-    // 検索ボタンクリック時（即座に実行）
+    // 検索ボタンクリック時
     searchButton.addEventListener('click', () => {
-        clearTimeout(searchTimeout);
         performSearch();
     });
     
-    // Enterキーでも検索実行（即座に実行）
+    // Enterキーでも検索実行
     searchInput.addEventListener('keypress', (e) => {
         if (e.key === 'Enter') {
-            clearTimeout(searchTimeout);
             performSearch();
         }
     });
@@ -203,10 +206,12 @@ function setupSearchEvents() {
 
 // 検索実行
 function performSearch() {
-    const searchValue = document.getElementById('search-input').value.trim();
+    const searchValue = document.getElementById('search-input').value.trim().toUpperCase();
     
-    if (!searchValue) {
-        alert('証券コードを入力してください');
+    // バリデーション
+    const validation = validateSecCode(searchValue);
+    if (!validation.valid) {
+        alert(validation.message);
         return;
     }
     
@@ -216,13 +221,13 @@ function performSearch() {
         previousHighlight.classList.remove('highlight');
     }
     
-    // 部分一致検索
+    // 部分一致検索（大文字小文字を区別しない）
     const matchedItems = allData.filter(item => 
-        item.secCode && item.secCode.includes(searchValue)
+        item.secCode && item.secCode.toUpperCase().includes(searchValue)
     );
     
     if (matchedItems.length === 0) {
-        alert(`証券コード「${searchValue}」にマッチする企業が見つかりませんでした`);
+        alert('該当する企業が見つかりませんでした');
         return;
     }
     
