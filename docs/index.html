@@ -10,7 +10,7 @@
     <header style="position: fixed !important; top: 0 !important; left: 0 !important; width: 100% !important; z-index: 9999 !important;">
         <h1>上場企業の財務情報</h1>
         <div class="search-container">
-            <input type="text" id="search-input" placeholder="証券コードで検索...">
+            <input type="text" id="search-input" placeholder="証券コードで検索..." pattern="[0-9A-Za-z]*" title="英数字のみ入力可能">
             <button id="search-button">検索</button>
             <button id="export-button">Excelエクスポート</button>
         </div>
