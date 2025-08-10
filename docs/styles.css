@@ -378,3 +378,127 @@ td:not(:nth-child(1)):not(:nth-child(2)) {
 .sortable {
     padding-right: 20px;
 }
+
+/* トースト通知のスタイル */
+#toast-container {
+    position: fixed;
+    top: 80px; /* ヘッダーの下に配置 */
+    right: 20px;
+    z-index: 10000;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    pointer-events: none;
+}
+
+.toast {
+    min-width: 300px;
+    max-width: 400px;
+    padding: 16px 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 14px;
+    line-height: 1.5;
+    pointer-events: auto;
+    animation: slideIn 0.3s ease-out;
+    transition: all 0.3s ease;
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes slideOut {
+    from {
+        transform: translateX(0);
+        opacity: 1;
+    }
+    to {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+}
+
+.toast.hiding {
+    animation: slideOut 0.3s ease-out;
+}
+
+/* トーストのタイプ別スタイル */
+.toast.toast-error {
+    background-color: #fff5f5;
+    color: #c53030;
+    border-left: 4px solid #fc8181;
+}
+
+.toast.toast-warning {
+    background-color: #fffdf7;
+    color: #c05621;
+    border-left: 4px solid #f6ad55;
+}
+
+.toast.toast-info {
+    background-color: #f0f9ff;
+    color: #065f46;
+    border-left: 4px solid #38bdf8;
+}
+
+.toast.toast-success {
+    background-color: #f0fdf4;
+    color: #065f46;
+    border-left: 4px solid #4ade80;
+}
+
+/* トーストアイコン */
+.toast-icon {
+    flex-shrink: 0;
+    width: 20px;
+    height: 20px;
+}
+
+.toast-message {
+    flex-grow: 1;
+}
+
+/* 閉じるボタン */
+.toast-close {
+    flex-shrink: 0;
+    background: none;
+    border: none;
+    color: inherit;
+    opacity: 0.6;
+    cursor: pointer;
+    padding: 0;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: opacity 0.2s;
+}
+
+.toast-close:hover {
+    opacity: 1;
+}
+
+/* レスポンシブ対応 */
+@media (max-width: 768px) {
+    #toast-container {
+        left: 10px;
+        right: 10px;
+    }
+    
+    .toast {
+        min-width: auto;
+        max-width: none;
+    }
+}

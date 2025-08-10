@@ -10,8 +10,77 @@ const SEC_CODE_PATTERN = /^(?:[0-9]{4}|[0-9][ACDFGHJKLMNPRSTUXY][0-9]{2}|[0-9]{3
 let allData = [];
 let currentSort = { column: null, direction: 'asc' };  // ソート状態管理
 
+// トースト通知システム
+class ToastNotification {
+    constructor() {
+        this.container = document.getElementById('toast-container');
+    }
+    
+    show(message, type = 'info', duration = 5000) {
+        const toast = document.createElement('div');
+        toast.className = `toast toast-${type}`;
+        toast.setAttribute('role', 'alert');
+        
+        // アイコンの設定
+        const icons = {
+            error: '❌',
+            warning: '⚠️',
+            info: 'ℹ️',
+            success: '✅'
+        };
+        
+        // トーストの内容を構築
+        toast.innerHTML = `
+            <span class="toast-icon" aria-hidden="true">${icons[type] || icons.info}</span>
+            <span class="toast-message">${this.escapeHtml(message)}</span>
+            <button class="toast-close" aria-label="閉じる">✕</button>
+        `;
+        
+        // コンテナに追加
+        this.container.appendChild(toast);
+        
+        // 閉じるボタンのイベント
+        const closeBtn = toast.querySelector('.toast-close');
+        closeBtn.addEventListener('click', () => {
+            this.hide(toast);
+        });
+        
+        // 自動的に非表示にする
+        if (duration > 0) {
+            setTimeout(() => {
+                this.hide(toast);
+            }, duration);
+        }
+        
+        return toast;
+    }
+    
+    hide(toast) {
+        if (!toast || toast.classList.contains('hiding')) return;
+        
+        toast.classList.add('hiding');
+        setTimeout(() => {
+            if (toast.parentNode) {
+                toast.parentNode.removeChild(toast);
+            }
+        }, 300); // アニメーション時間と同じ
+    }
+    
+    escapeHtml(text) {
+        const div = document.createElement('div');
+        div.textContent = text;
+        return div.innerHTML;
+    }
+}
+
+// トースト通知インスタンス
+let toastNotification;
+
 // ページ読み込み時の処理
 document.addEventListener('DOMContentLoaded', async () => {
+    // トースト通知システムの初期化
+    toastNotification = new ToastNotification();
+    
     await loadData();
     setupSearchEvents();
     setupBackToTopButton();
@@ -211,7 +280,7 @@ function performSearch() {
     // バリデーション
     const validation = validateSecCode(searchValue);
     if (!validation.valid) {
-        alert(validation.message);
+        toastNotification.show(validation.message, 'warning');
         return;
     }
     
@@ -227,7 +296,7 @@ function performSearch() {
     );
     
     if (matchedItems.length === 0) {
-        alert('該当する企業が見つかりませんでした');
+        toastNotification.show('該当する企業が見つかりませんでした', 'info');
         return;
     }
     
@@ -245,7 +314,7 @@ function performSearch() {
     
     // 複数マッチした場合は通知
     if (matchedItems.length > 1) {
-        console.log(`${matchedItems.length}件の企業がマッチしました`);
+        toastNotification.show(`${matchedItems.length}件の企業がマッチしました`, 'info', 3000);
     }
 }
 
@@ -374,7 +443,7 @@ function updateSortIndicators() {
 // Excelエクスポート機能
 function exportToExcel() {
     if (!allData || allData.length === 0) {
-        alert('エクスポートするデータがありません');
+        toastNotification.show('エクスポートするデータがありません', 'warning');
         return;
     }
     
@@ -446,4 +515,7 @@ function exportToExcel() {
     
     // ダウンロード実行
     XLSX.writeFile(wb, fileName);
+    
+    // 成功通知を表示
+    toastNotification.show(`Excelファイル（${fileName}）のエクスポートが完了しました`, 'success');
 }
