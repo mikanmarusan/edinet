@@ -86,6 +86,19 @@ targetRow.scrollIntoView({ behavior: 'smooth', block: 'center' });
 targetRow.classList.add('highlight');
 ```
 
+### トースト通知システム（2025年8月11日追加）
+```javascript
+// トースト通知の表示
+toastNotification.show(message, type, duration);
+// type: 'error' | 'warning' | 'info' | 'success'
+// duration: ミリ秒（デフォルト5000）
+
+// 使用例
+toastNotification.show('エラーが発生しました', 'error');
+toastNotification.show('処理が完了しました', 'success');
+toastNotification.show('3件の結果が見つかりました', 'info', 3000);
+```
+
 
 ### トップへ戻るボタン
 - テーブルコンテナのスクロールを監視
@@ -130,6 +143,16 @@ python3 -m http.server 8080
 4. 公開URL: https://[username].github.io/edinet/
 
 ## 更新履歴
+
+### 2025年8月11日
+- **トースト通知システムの実装** (Issue #119)
+  - ブラウザのalert()を完全に廃止
+  - ToastNotificationクラスによる非ブロッキング通知
+  - タイプ別スタイリング（error/warning/info/success）
+  - 自動消去機能（デフォルト5秒）とマニュアルクローズボタン
+  - アニメーション付き表示（slideIn/slideOut）
+  - ARIAアトリビュートによるアクセシビリティ対応
+  - モバイルレスポンシブ対応
 
 ### 2025年8月3日
 - タイトルを「上場企業の財務情報」に変更
