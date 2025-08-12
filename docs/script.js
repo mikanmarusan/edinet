@@ -290,9 +290,9 @@ function performSearch() {
         previousHighlight.classList.remove('highlight');
     }
     
-    // 部分一致検索（大文字小文字を区別しない）
+    // 完全一致検索（大文字小文字を区別しない）
     const matchedItems = allData.filter(item => 
-        item.secCode && item.secCode.toUpperCase().includes(searchValue)
+        item.secCode && item.secCode.toUpperCase() === searchValue
     );
     
     if (matchedItems.length === 0) {
