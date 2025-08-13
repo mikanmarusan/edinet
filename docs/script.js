@@ -226,36 +226,15 @@ function setupSearchEvents() {
     const searchInput = document.getElementById('search-input');
     const searchButton = document.getElementById('search-button');
     
-    // 入力制限: 英数字のみ許可
-    searchInput.addEventListener('beforeinput', (e) => {
-        // 削除操作は許可
-        if (e.inputType === 'deleteContentBackward' || 
-            e.inputType === 'deleteContentForward' ||
-            e.inputType === 'deleteByCut') {
-            return;
-        }
-        
-        // ペースト操作の場合
-        if (e.inputType === 'insertFromPaste') {
-            // ペースト内容は input イベントで処理
-            return;
-        }
-        
-        // 通常の文字入力の場合
-        if (e.data && !/^[0-9A-Za-z]+$/.test(e.data)) {
-            e.preventDefault();
-        }
-    });
-    
-    // ペースト時の処理と入力値の補正
+    // 入力制限: 英数字のみ許可（統合版）
     searchInput.addEventListener('input', (e) => {
         const originalValue = e.target.value;
         const cleanedValue = originalValue.replace(/[^0-9A-Za-z]/g, '');
         
         if (originalValue !== cleanedValue) {
+            // カーソル位置を適切に計算（文字列長を超えないように）
+            const cursorPosition = Math.min(e.target.selectionStart || 0, cleanedValue.length);
             e.target.value = cleanedValue;
-            // カーソル位置を維持
-            const cursorPosition = e.target.selectionStart;
             e.target.setSelectionRange(cursorPosition, cursorPosition);
         }
     });
