@@ -418,8 +418,17 @@ def extract_financial_data(page, periodEnd, financial_data):
         logger.error(f"Unexpected error in extract_financial_data for period {periodEnd}: {e}")
 
 
-def get_financial_data(secCode, periodEnd):
-    """Main function to get financial data for a security"""
+def get_financial_data_with_context(secCode, periodEnd, context):
+    """Get financial data for a security using an existing browser context
+    
+    Args:
+        secCode: Security code of the company
+        periodEnd: Fiscal period end (e.g., "2023年3月期")
+        context: Existing Playwright browser context
+    
+    Returns:
+        dict: Financial data for the company
+    """
     from .ticker_generator import get_ticker_from_security_code
     from .url_generator import generate_yahoo_finance_urls
     
@@ -427,30 +436,23 @@ def get_financial_data(secCode, periodEnd):
     urls = generate_yahoo_finance_urls(ticker)
     
     financial_data = {}
-    
+    page = None
     
     try:
-        with sync_playwright() as p:
-            browser = p.chromium.launch(headless=True)
-            context = browser.new_context(
-                user_agent='Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36'
-            )
-            page = context.new_page()
-            
-            # Profile page - Extract company info and stock price
-            page.goto(urls['profile'], wait_until='networkidle')
-            extract_profile_data(page, financial_data)
-            
-            # Performance page - Extract revenue and profit data
-            page.goto(urls['performance'], wait_until='networkidle')
-            extract_performance_data(page, periodEnd, financial_data)
-            
-            # Financials page - Extract per-share metrics and other financial data
-            page.goto(urls['financials'], wait_until='networkidle')
-            extract_financial_data(page, periodEnd, financial_data)
-            
-            # Browser is automatically closed by the context manager
-            
+        page = context.new_page()
+        
+        # Profile page - Extract company info and stock price
+        page.goto(urls['profile'], wait_until='networkidle')
+        extract_profile_data(page, financial_data)
+        
+        # Performance page - Extract revenue and profit data
+        page.goto(urls['performance'], wait_until='networkidle')
+        extract_performance_data(page, periodEnd, financial_data)
+        
+        # Financials page - Extract per-share metrics and other financial data
+        page.goto(urls['financials'], wait_until='networkidle')
+        extract_financial_data(page, periodEnd, financial_data)
+        
     except PlaywrightTimeoutError as e:
         logger.error(f"Timeout error for company {secCode} (period: {periodEnd}): {e}")
         raise RuntimeError(f"Failed to scrape data for {secCode}: timeout occurred - {str(e)}")
@@ -460,6 +462,13 @@ def get_financial_data(secCode, periodEnd):
     except Exception as e:
         logger.error(f"Unexpected error for company {secCode} (period: {periodEnd}): {e}")
         raise RuntimeError(f"Failed to get financial data for {secCode}: {str(e)}")
+    finally:
+        # Always close the page to free resources
+        if page:
+            try:
+                page.close()
+            except Exception as e:
+                logger.debug(f"Error closing page for {secCode}: {e}")
     
     # Ensure all expected fields are present (set to None if missing)
     expected_fields = [
@@ -473,3 +482,77 @@ def get_financial_data(secCode, periodEnd):
             financial_data[field] = None
     
     return financial_data
+
+
+def get_financial_data(secCode, periodEnd):
+    """Main function to get financial data for a security (backward compatible)
+    
+    This function maintains backward compatibility by creating its own browser instance.
+    For batch processing, use get_financial_data_batch() or get_financial_data_with_context() instead.
+    """
+    try:
+        with sync_playwright() as p:
+            browser = p.chromium.launch(headless=True)
+            try:
+                context = browser.new_context(
+                    user_agent='Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36'
+                )
+                return get_financial_data_with_context(secCode, periodEnd, context)
+            finally:
+                # Ensure browser is closed even if an error occurs
+                browser.close()
+    except Exception as e:
+        # Re-raise the exception from get_financial_data_with_context
+        raise
+
+
+def get_financial_data_batch(companies_data):
+    """Get financial data for multiple companies efficiently using a single browser instance
+    
+    Args:
+        companies_data: List of tuples (secCode, periodEnd)
+    
+    Returns:
+        dict: Mapping of secCode to financial data or error information
+    """
+    results = {}
+    
+    try:
+        with sync_playwright() as p:
+            browser = p.chromium.launch(headless=True)
+            try:
+                context = browser.new_context(
+                    user_agent='Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36'
+                )
+                
+                for secCode, periodEnd in companies_data:
+                    try:
+                        logger.info(f"Processing company {secCode} with period {periodEnd}")
+                        financial_data = get_financial_data_with_context(secCode, periodEnd, context)
+                        results[secCode] = {
+                            'success': True,
+                            'data': financial_data
+                        }
+                    except Exception as e:
+                        logger.error(f"Failed to get data for {secCode}: {e}")
+                        results[secCode] = {
+                            'success': False,
+                            'error': str(e)
+                        }
+                        # Continue processing other companies even if one fails
+                        continue
+                        
+            finally:
+                # Ensure browser is closed even if an error occurs
+                browser.close()
+                
+    except Exception as e:
+        logger.error(f"Failed to initialize browser for batch processing: {e}")
+        # Return error for all companies if browser initialization fails
+        for secCode, _ in companies_data:
+            results[secCode] = {
+                'success': False,
+                'error': f"Browser initialization failed: {str(e)}"
+            }
+    
+    return results
