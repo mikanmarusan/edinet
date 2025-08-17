@@ -1,6 +1,7 @@
 import json
 import re
 import logging
+import time
 from playwright.sync_api import sync_playwright, TimeoutError as PlaywrightTimeoutError, Error as PlaywrightError
 
 # Setup module logger
@@ -222,37 +223,66 @@ def extract_performance_data(page, periodEnd, financial_data):
             ]
         }
         
+        # Cache rows to avoid redundant queries
+        cached_rows = rows[:5]  # Cache first 5 rows for header detection
+        
+        # Define important columns for prioritization
+        important_columns = {'netSales', 'netIncome', 'operatingIncome', 'ordinaryIncome'}
+        found_important = set()
+        
         # First pass: check for header rows (th elements)
-        for idx, row in enumerate(rows[:5]):  # Check first 5 rows for headers
+        for idx, row in enumerate(cached_rows):
             cells = row.query_selector_all('th')
             if cells and len(cells) > 1:
                 for col_idx, cell in enumerate(cells):
-                    header_text = cell.text_content().strip().lower()
+                    # Null safety check for text_content()
+                    text_content = cell.text_content()
+                    if text_content is None:
+                        logger.debug(f"Null text_content at th row {idx}, column {col_idx}")
+                        continue
+                    
+                    header_text = text_content.strip().lower()
                     # Check against all patterns
                     for field_name, patterns in header_patterns.items():
                         if any(pattern.lower() in header_text for pattern in patterns):
                             if field_name not in column_mapping:
                                 column_mapping[field_name] = col_idx
                                 logger.debug(f"Mapped header '{header_text}' to {field_name} at column {col_idx}")
-                if column_mapping:
+                                if field_name in important_columns:
+                                    found_important.add(field_name)
+                
+                # Continue searching if important columns are missing
+                if found_important and len(found_important) >= 2:
+                    logger.debug(f"Found {len(found_important)} important columns, stopping header search")
                     break
         
-        # Second pass: check td cells for header-like content if no th headers found
-        if not column_mapping:
-            for row in rows[:5]:  # Check first 5 rows
+        # Second pass: check td cells for header-like content if important columns are missing
+        if not column_mapping or (important_columns - found_important):
+            for row in cached_rows:
                 cells = row.query_selector_all('td')
                 if cells and len(cells) > 1:
                     # Check if this looks like a header row (contains text patterns)
                     potential_headers = []
                     for col_idx, cell in enumerate(cells):
-                        text = cell.text_content().strip()
+                        # Null safety check for text_content()
+                        text_content = cell.text_content()
+                        if text_content is None:
+                            logger.debug(f"Null text_content at td column {col_idx}")
+                            continue
+                        
+                        text = text_content.strip()
                         for field_name, patterns in header_patterns.items():
                             if any(pattern.lower() in text.lower() for pattern in patterns):
                                 if field_name not in column_mapping:
                                     column_mapping[field_name] = col_idx
                                     logger.debug(f"Mapped cell text '{text}' to {field_name} at column {col_idx}")
                                     potential_headers.append(field_name)
-                    if len(potential_headers) >= 2:  # Found at least 2 headers, likely a header row
+                                    if field_name in important_columns:
+                                        found_important.add(field_name)
+                    
+                    # Continue if we found new important columns
+                    if len(potential_headers) >= 2 and len(found_important) >= len(important_columns):
+                        logger.debug(f"Found all important columns, stopping td search")
                         break
         
         # Parse data rows
@@ -261,7 +291,13 @@ def extract_performance_data(page, periodEnd, financial_data):
             if not cells:
                 continue
                 
-            first_cell = cells[0].text_content().strip()
+            # Null safety check for first cell
+            first_cell_content = cells[0].text_content()
+            if first_cell_content is None:
+                logger.debug(f"Null text_content in first cell of row")
+                continue
+            
+            first_cell = first_cell_content.strip()
             
             # Check if this row contains our fiscal period
             if target_period in first_cell or target_year in first_cell:
@@ -271,7 +307,13 @@ def extract_performance_data(page, periodEnd, financial_data):
                         extracted_count = 0
                         for field_name, col_idx in column_mapping.items():
                             if col_idx < len(cells):
-                                value = parse_numeric_value(cells[col_idx].text_content())
+                                # Null safety check for cell text_content
+                                cell_content = cells[col_idx].text_content()
+                                if cell_content is None:
+                                    logger.debug(f"Null text_content for {field_name} at column {col_idx}")
+                                    continue
+                                
+                                value = parse_numeric_value(cell_content)
                                 if field_name in ['netSales', 'operatingIncome', 'ordinaryIncome', 'netIncome']:
                                     converted = convert_million_to_yen(value)
                                     if converted is not None:
@@ -337,12 +379,21 @@ def extract_financial_data(page, periodEnd, financial_data):
             'outstandingShares': ['発行済株式数', '株式数', 'shares outstanding', '発行済み株式', 'outstanding shares']
         }
         
+        # Cache first 5 rows for header detection
+        cached_rows = rows[:5]
+        
         # First pass: check for header rows
-        for idx, row in enumerate(rows[:5]):  # Check first 5 rows for headers
+        for idx, row in enumerate(cached_rows):
             cells = row.query_selector_all('th, td')
             if cells and len(cells) > 1:
                 for col_idx, cell in enumerate(cells):
-                    header_text = cell.text_content().strip().lower()
+                    # Null safety check for text_content()
+                    text_content = cell.text_content()
+                    if text_content is None:
+                        logger.debug(f"Null text_content at row {idx}, column {col_idx} in financial table")
+                        continue
+                    
+                    header_text = text_content.strip().lower()
                     # Check against all patterns
                     for field_name, patterns in header_patterns.items():
                         if any(pattern.lower() in header_text for pattern in patterns):
@@ -357,7 +408,13 @@ def extract_financial_data(page, periodEnd, financial_data):
             if not cells:
                 continue
                 
-            first_cell = cells[0].text_content().strip()
+            # Null safety check for first cell
+            first_cell_content = cells[0].text_content()
+            if first_cell_content is None:
+                logger.debug(f"Null text_content in first cell of financial data row")
+                continue
+            
+            first_cell = first_cell_content.strip()
             
             # Check if this row contains our fiscal period
             # Also check for partial matches due to format differences
@@ -370,7 +427,13 @@ def extract_financial_data(page, periodEnd, financial_data):
                         extracted_count = 0
                         for field_name, col_idx in column_mapping.items():
                             if col_idx < len(cells):
-                                value = parse_numeric_value(cells[col_idx].text_content())
+                                # Null safety check for cell text_content
+                                cell_content = cells[col_idx].text_content()
+                                if cell_content is None:
+                                    logger.debug(f"Null text_content for {field_name} at column {col_idx} in financial data")
+                                    continue
+                                
+                                value = parse_numeric_value(cell_content)
                                 if value not in ['---', 'N/A', '', '—']:
                                     try:
                                         if field_name in ['eps', 'bps']:
@@ -441,16 +504,64 @@ def get_financial_data_with_context(secCode, periodEnd, context):
     try:
         page = context.new_page()
         
+        # Set page timeout to handle slow loading pages
+        page.set_default_timeout(60000)  # 60 seconds default timeout
+        
         # Profile page - Extract company info and stock price
-        page.goto(urls['profile'], wait_until='networkidle')
+        # Use 'domcontentloaded' instead of 'networkidle' for faster, more reliable loading
+        retry_count = 0
+        max_retries = 2
+        while retry_count <= max_retries:
+            try:
+                page.goto(urls['profile'], wait_until='domcontentloaded', timeout=45000)
+                # Wait for critical content to be visible
+                try:
+                    page.wait_for_selector('table', timeout=5000)
+                except PlaywrightTimeoutError:
+                    logger.debug(f"Table not found on profile page for {secCode}, continuing anyway")
+                break
+            except PlaywrightTimeoutError as e:
+                retry_count += 1
+                if retry_count > max_retries:
+                    raise
+                logger.warning(f"Retry {retry_count}/{max_retries} for profile page of {secCode} after timeout")
+                time.sleep(2 * retry_count)  # Exponential backoff
         extract_profile_data(page, financial_data)
         
         # Performance page - Extract revenue and profit data
-        page.goto(urls['performance'], wait_until='networkidle')
+        retry_count = 0
+        while retry_count <= max_retries:
+            try:
+                page.goto(urls['performance'], wait_until='domcontentloaded', timeout=45000)
+                try:
+                    page.wait_for_selector('table', timeout=5000)
+                except PlaywrightTimeoutError:
+                    logger.debug(f"Table not found on performance page for {secCode}, continuing anyway")
+                break
+            except PlaywrightTimeoutError as e:
+                retry_count += 1
+                if retry_count > max_retries:
+                    raise
+                logger.warning(f"Retry {retry_count}/{max_retries} for performance page of {secCode} after timeout")
+                time.sleep(2 * retry_count)
         extract_performance_data(page, periodEnd, financial_data)
         
         # Financials page - Extract per-share metrics and other financial data
-        page.goto(urls['financials'], wait_until='networkidle')
+        retry_count = 0
+        while retry_count <= max_retries:
+            try:
+                page.goto(urls['financials'], wait_until='domcontentloaded', timeout=45000)
+                try:
+                    page.wait_for_selector('table', timeout=5000)
+                except PlaywrightTimeoutError:
+                    logger.debug(f"Table not found on financials page for {secCode}, continuing anyway")
+                break
+            except PlaywrightTimeoutError as e:
+                retry_count += 1
+                if retry_count > max_retries:
+                    raise
+                logger.warning(f"Retry {retry_count}/{max_retries} for financials page of {secCode} after timeout")
+                time.sleep(2 * retry_count)
         extract_financial_data(page, periodEnd, financial_data)
         
     except PlaywrightTimeoutError as e:
@@ -492,10 +603,15 @@ def get_financial_data(secCode, periodEnd):
     """
     try:
         with sync_playwright() as p:
-            browser = p.chromium.launch(headless=True)
+            browser = p.chromium.launch(
+                headless=True,
+                args=['--disable-blink-features=AutomationControlled']
+            )
             try:
                 context = browser.new_context(
-                    user_agent='Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36'
+                    user_agent='Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+                    viewport={'width': 1920, 'height': 1080},
+                    ignore_https_errors=True
                 )
                 return get_financial_data_with_context(secCode, periodEnd, context)
             finally:
@@ -519,10 +635,15 @@ def get_financial_data_batch(companies_data):
     
     try:
         with sync_playwright() as p:
-            browser = p.chromium.launch(headless=True)
+            browser = p.chromium.launch(
+                headless=True,
+                args=['--disable-blink-features=AutomationControlled']
+            )
             try:
                 context = browser.new_context(
-                    user_agent='Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36'
+                    user_agent='Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+                    viewport={'width': 1920, 'height': 1080},
+                    ignore_https_errors=True
                 )
                 
                 for secCode, periodEnd in companies_data:

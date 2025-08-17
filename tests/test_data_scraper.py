@@ -381,14 +381,19 @@ class TestGetFinancialData(unittest.TestCase):
                     # Call the function
                     get_financial_data("7203", "2023年3月期")
                     
-                    # Verify browser was launched in headless mode
-                    mock_p.chromium.launch.assert_called_once_with(headless=True)
+                    # Verify browser was launched in headless mode with anti-automation args
+                    mock_p.chromium.launch.assert_called_once_with(
+                        headless=True,
+                        args=['--disable-blink-features=AutomationControlled']
+                    )
                     
-                    # Verify context was created with user agent
+                    # Verify context was created with user agent and viewport
                     mock_browser.new_context.assert_called_once()
                     call_args = mock_browser.new_context.call_args
                     self.assertIn('user_agent', call_args[1])
                     self.assertIn('Mozilla', call_args[1]['user_agent'])
+                    self.assertIn('viewport', call_args[1])
+                    self.assertIn('ignore_https_errors', call_args[1])
 
 
 if __name__ == '__main__':
