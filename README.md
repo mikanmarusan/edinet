@@ -23,11 +23,31 @@ This system provides comprehensive financial data extraction and analysis capabi
 
 ## Prerequisites
 
-- Python 3.7+
+- Python 3.11+
 - EDINET API key (register at https://disclosure2.edinet-fsa.go.jp/)
 - Internet connection
 
 ## Installation
+
+### Method 1: Using uv (Recommended)
+
+1. Clone the repository:
+```bash
+git clone <repository-url>
+cd edinet
+```
+
+2. Install uv (if not already installed):
+```bash
+curl -LsSf https://astral.sh/uv/install.sh | sh
+```
+
+3. Install dependencies:
+```bash
+make install
+```
+
+### Method 2: Using pip (Legacy)
 
 1. Clone the repository:
 ```bash
@@ -37,7 +57,7 @@ cd edinet
 
 2. Install dependencies:
 ```bash
-pip install -r requirements.txt
+make install-legacy
 ```
 
 ## Quick Start
@@ -49,6 +69,13 @@ Register at https://disclosure2.edinet-fsa.go.jp/ to obtain an EDINET API key.
 ### 2. Extract Daily Data
 
 ```bash
+# With uv (recommended)
+uv run python bin/fetch_edinet_financial_documents.py \
+  --date 2025-06-10 \
+  --outputdir data/jsons \
+  --api-key YOUR_API_KEY
+
+# With standard Python
 python bin/fetch_edinet_financial_documents.py \
   --date 2025-06-10 \
   --outputdir data/jsons \
@@ -58,6 +85,13 @@ python bin/fetch_edinet_financial_documents.py \
 ### 3. Consolidate Multiple Days
 
 ```bash
+# With uv (recommended)
+uv run python bin/consolidate_documents.py \
+  --inputdir data/jsons/ \
+  --output data/edinet.json \
+  --summary
+
+# With standard Python
 python bin/consolidate_documents.py \
   --inputdir data/jsons/ \
   --output data/edinet.json \
@@ -136,16 +170,16 @@ Consolidates multiple daily JSON files into a single file.
 
 ```bash
 # Day 1: Extract data
-python bin/fetch_edinet_financial_documents.py --date 2025-06-10 --outputdir data/jsons --api-key YOUR_KEY
+uv run python bin/fetch_edinet_financial_documents.py --date 2025-06-10 --outputdir data/jsons --api-key YOUR_KEY
 
 # Day 2: Extract data
-python bin/fetch_edinet_financial_documents.py --date 2025-06-11 --outputdir data/jsons --api-key YOUR_KEY
+uv run python bin/fetch_edinet_financial_documents.py --date 2025-06-11 --outputdir data/jsons --api-key YOUR_KEY
 
 # Day 3: Extract data
-python bin/fetch_edinet_financial_documents.py --date 2025-06-12 --outputdir data/jsons --api-key YOUR_KEY
+uv run python bin/fetch_edinet_financial_documents.py --date 2025-06-12 --outputdir data/jsons --api-key YOUR_KEY
 
 # Consolidate all data
-python bin/consolidate_documents.py --inputdir data/jsons/ --output data/edinet.json --summary
+uv run python bin/consolidate_documents.py --inputdir data/jsons/ --output data/edinet.json --summary
 ```
 
 ## Troubleshooting

@@ -4,7 +4,22 @@ This directory contains test cases for EDINET tools functionality.
 
 ## Running Tests
 
-### Using pytest (recommended)
+### Using uv (recommended)
+```bash
+# Run all tests
+uv run python -m pytest tests/ -v
+
+# Run with coverage report
+uv run python -m pytest tests/ -v --cov=lib --cov-report=term-missing
+
+# Run specific test file
+uv run python -m pytest tests/test_ticker_generator.py -v
+
+# Run multiple specific test files
+uv run python -m pytest tests/test_ticker_generator.py tests/test_url_generator.py -v
+```
+
+### Using pytest (standard Python)
 ```bash
 # Run all tests
 python -m pytest tests/
