@@ -2,13 +2,14 @@ import json
 import re
 import logging
 import time
+from typing import Dict, List, Tuple, Optional, Any, Union
 from playwright.sync_api import sync_playwright, TimeoutError as PlaywrightTimeoutError, Error as PlaywrightError
 
 # Setup module logger
 logger = logging.getLogger(__name__)
 
 
-def extract_preloaded_state(page):
+def extract_preloaded_state(page) -> Dict[str, Any]:
     """Extract __PRELOADED_STATE__ from page"""
     try:
         preloaded_state = page.evaluate('() => window.__PRELOADED_STATE__')
@@ -34,14 +35,14 @@ def extract_preloaded_state(page):
     return {}
 
 
-def parse_numeric_value(value):
+def parse_numeric_value(value: Union[str, int, float]) -> str:
     """Remove commas and units from numeric values"""
     if isinstance(value, str):
         return value.replace(',', '').replace('円', '').replace('人', '').replace('株', '').strip()
     return str(value)
 
 
-def convert_million_to_yen(value_str):
+def convert_million_to_yen(value_str: str) -> Optional[int]:
     """Convert million yen to yen (e.g., '51121' -> 51121000000)"""
     try:
         # Handle special cases like '---' or 'N/A'
@@ -67,7 +68,7 @@ def convert_million_to_yen(value_str):
         return None
 
 
-def convert_thousand_to_shares(value_str):
+def convert_thousand_to_shares(value_str: str) -> Optional[int]:
     """Convert thousand shares to shares (e.g., '58162' -> 58162000)"""
     try:
         # Handle special cases
@@ -85,7 +86,7 @@ def convert_thousand_to_shares(value_str):
         return None
 
 
-def extract_profile_data(page, financial_data):
+def extract_profile_data(page, financial_data: Dict[str, Any]) -> None:
     """Extract company profile data from PRELOADED_STATE"""
     state = extract_preloaded_state(page)
     
@@ -125,7 +126,7 @@ def extract_profile_data(page, financial_data):
                         financial_data['employees'] = None
 
 
-def extract_performance_data(page, periodEnd, financial_data):
+def extract_performance_data(page, periodEnd: str, financial_data: Dict[str, Any]) -> None:
     """Extract performance data from PRELOADED_STATE"""
     # Parse periodEnd
     try:
@@ -348,7 +349,7 @@ def extract_performance_data(page, periodEnd, financial_data):
         logger.error(f"Unexpected error in extract_performance_data for period {periodEnd}: {e}")
 
 
-def extract_financial_data(page, periodEnd, financial_data):
+def extract_financial_data(page, periodEnd: str, financial_data: Dict[str, Any]) -> None:
     """Extract financial data from table"""
     # Parse periodEnd
     try:
@@ -481,17 +482,41 @@ def extract_financial_data(page, periodEnd, financial_data):
         logger.error(f"Unexpected error in extract_financial_data for period {periodEnd}: {e}")
 
 
-def get_financial_data_with_context(secCode, periodEnd, context):
-    """Get financial data for a security using an existing browser context
+def get_financial_data_with_context(
+    secCode: str, 
+    periodEnd: str, 
+    context: Any  # BrowserContext from playwright
+) -> Dict[str, Any]:
+    """Get financial data for a security using an existing browser context.
+    
+    This function is optimized for batch processing by reusing an existing browser
+    context, avoiding the overhead of browser initialization for each request.
     
     Args:
-        secCode: Security code of the company
-        periodEnd: Fiscal period end (e.g., "2023年3月期")
-        context: Existing Playwright browser context
+        secCode: Security code of the company (e.g., "7203" for Toyota)
+        periodEnd: Fiscal period end in Japanese format (e.g., "2023年3月期")
+        context: Existing Playwright browser context that will be reused
     
     Returns:
-        dict: Financial data for the company
+        dict: Financial data containing stockPrice, characteristic, employees,
+              netSales, operatingIncome, ordinaryIncome, netIncome, eps, bps,
+              debt, depreciation, outstandingShares (all may be None)
+    
+    Raises:
+        ValueError: If context is None
+        RuntimeError: If data scraping fails
+    
+    Example:
+        >>> with sync_playwright() as p:
+        ...     browser = p.chromium.launch(headless=True)
+        ...     context = browser.new_context()
+        ...     data = get_financial_data_with_context("7203", "2023年3月期", context)
+        ...     print(data['stockPrice'])
     """
+    # Validate context
+    if context is None:
+        raise ValueError("Browser context cannot be None")
+    
     from .ticker_generator import get_ticker_from_security_code
     from .url_generator import generate_yahoo_finance_urls
     
@@ -595,11 +620,18 @@ def get_financial_data_with_context(secCode, periodEnd, context):
     return financial_data
 
 
-def get_financial_data(secCode, periodEnd):
-    """Main function to get financial data for a security (backward compatible)
+def get_financial_data(secCode: str, periodEnd: str) -> Dict[str, Any]:
+    """Get financial data for a security (backward compatible).
     
     This function maintains backward compatibility by creating its own browser instance.
     For batch processing, use get_financial_data_batch() or get_financial_data_with_context() instead.
+    
+    Args:
+        secCode: Security code of the company
+        periodEnd: Fiscal period end (e.g., "2023年3月期")
+    
+    Returns:
+        dict: Financial data for the company
     """
     try:
         with sync_playwright() as p:
@@ -622,15 +654,36 @@ def get_financial_data(secCode, periodEnd):
         raise
 
 
-def get_financial_data_batch(companies_data):
-    """Get financial data for multiple companies efficiently using a single browser instance
+def get_financial_data_batch(
+    companies_data: List[Tuple[str, str]]
+) -> Dict[str, Dict[str, Any]]:
+    """Get financial data for multiple companies efficiently using a single browser instance.
+    
+    This function optimizes batch processing by reusing a single browser context
+    for all requests, significantly reducing overhead.
     
     Args:
-        companies_data: List of tuples (secCode, periodEnd)
+        companies_data: List of tuples containing (secCode, periodEnd).
+                       Example: [("7203", "2023年3月期"), ("9984", "2023年2月期")]
     
     Returns:
-        dict: Mapping of secCode to financial data or error information
+        dict: Mapping of secCode to result dict containing:
+              - 'success': bool indicating if data was retrieved
+              - 'data': Financial data dict if success=True
+              - 'error': Error message string if success=False
+    
+    Example:
+        >>> companies = [("7203", "2023年3月期"), ("9984", "2023年2月期")]
+        >>> results = get_financial_data_batch(companies)
+        >>> for sec_code, result in results.items():
+        ...     if result['success']:
+        ...         print(f"{sec_code}: {result['data']['stockPrice']}")
     """
+    # Handle empty input
+    if not companies_data:
+        logger.info("No companies provided for batch processing")
+        return {}
+    
     results = {}
     
     try:
