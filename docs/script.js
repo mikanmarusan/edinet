@@ -348,17 +348,17 @@ function setupSortableHeaders() {
 function handleSort(column) {
     // 同じ列をクリックした場合は方向を変更
     if (currentSort.column === column) {
-        if (currentSort.direction === 'asc') {
-            currentSort.direction = 'desc';
-        } else if (currentSort.direction === 'desc') {
+        if (currentSort.direction === 'desc') {
+            currentSort.direction = 'asc';
+        } else if (currentSort.direction === 'asc') {
             // デフォルト（証券コード昇順）にリセット
             currentSort.column = 'secCode';
             currentSort.direction = 'asc';
         }
     } else {
-        // 新しい列をクリックした場合は昇順から開始
+        // 新しい列をクリックした場合は降順から開始
         currentSort.column = column;
-        currentSort.direction = 'asc';
+        currentSort.direction = 'desc';
     }
     
     // データをソート
