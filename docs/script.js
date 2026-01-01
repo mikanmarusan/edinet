@@ -1,71 +1,70 @@
-// 定数定義
-const SCROLL_THRESHOLD = 300;  // トップへ戻るボタンの表示閾値（ピクセル）
-const MILLION = 1000000;       // 百万円単位への変換
+// ============================================
+// PRECISION FINANCE - Japanese Financial Data Viewer
+// ============================================
+
+// ---------- Constants ----------
+const SCROLL_THRESHOLD = 300;
+const MILLION = 1000000;
+const ANIMATION_STAGGER_DELAY = 20; // ms between row animations
 
 // JPX証券コード仕様に基づく正規表現
-// 4桁の証券コード: 数字4桁、または2桁目・4桁目に指定の英文字を含む
-// 使用可能な英文字: A,C,D,F,G,H,J,K,L,M,N,P,R,S,T,U,W,X,Y（B,E,I,O,Q,V,Zは除外）
 const SEC_CODE_PATTERN = /^(?:[0-9]{4}|[0-9][ACDFGHJKLMNPRSTUXY][0-9]{2}|[0-9]{3}[ACDFGHJKLMNPRSTUXY]|[0-9][ACDFGHJKLMNPRSTUXY][0-9][ACDFGHJKLMNPRSTUXY])$/i;
 
+// ---------- State ----------
 let allData = [];
-let currentSort = { column: null, direction: 'asc' };  // ソート状態管理
+let currentSort = { column: null, direction: 'asc' };
 
-// トースト通知システム
+// ---------- Toast Notification System ----------
 class ToastNotification {
     constructor() {
         this.container = document.getElementById('toast-container');
     }
-    
+
     show(message, type = 'info', duration = 5000) {
         const toast = document.createElement('div');
         toast.className = `toast toast-${type}`;
         toast.setAttribute('role', 'alert');
-        
-        // アイコンの設定
+
         const icons = {
-            error: '❌',
-            warning: '⚠️',
-            info: 'ℹ️',
-            success: '✅'
+            error: '✕',
+            warning: '⚠',
+            info: 'ℹ',
+            success: '✓'
         };
-        
-        // トーストの内容を構築
+
         toast.innerHTML = `
             <span class="toast-icon" aria-hidden="true">${icons[type] || icons.info}</span>
             <span class="toast-message">${this.escapeHtml(message)}</span>
-            <button class="toast-close" aria-label="閉じる">✕</button>
+            <button class="toast-close" aria-label="閉じる">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M18 6L6 18M6 6l12 12"/>
+                </svg>
+            </button>
         `;
-        
-        // コンテナに追加
+
         this.container.appendChild(toast);
-        
-        // 閉じるボタンのイベント
+
         const closeBtn = toast.querySelector('.toast-close');
-        closeBtn.addEventListener('click', () => {
-            this.hide(toast);
-        });
-        
-        // 自動的に非表示にする
+        closeBtn.addEventListener('click', () => this.hide(toast));
+
         if (duration > 0) {
-            setTimeout(() => {
-                this.hide(toast);
-            }, duration);
+            setTimeout(() => this.hide(toast), duration);
         }
-        
+
         return toast;
     }
-    
+
     hide(toast) {
         if (!toast || toast.classList.contains('hiding')) return;
-        
+
         toast.classList.add('hiding');
         setTimeout(() => {
             if (toast.parentNode) {
                 toast.parentNode.removeChild(toast);
             }
-        }, 300); // アニメーション時間と同じ
+        }, 250);
     }
-    
+
     escapeHtml(text) {
         const div = document.createElement('div');
         div.textContent = text;
@@ -73,14 +72,73 @@ class ToastNotification {
     }
 }
 
-// トースト通知インスタンス
 let toastNotification;
 
-// ページ読み込み時の処理
+// ---------- Theme Management ----------
+class ThemeManager {
+    constructor() {
+        this.toggle = document.getElementById('theme-toggle');
+        this.init();
+    }
+
+    init() {
+        // Check for saved preference or system preference
+        let savedTheme = null;
+        try {
+            savedTheme = localStorage.getItem('theme');
+        } catch (e) {
+            console.warn('localStorage unavailable:', e);
+        }
+        const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+        if (savedTheme) {
+            this.setTheme(savedTheme);
+        } else if (systemPrefersDark) {
+            this.setTheme('dark');
+        } else {
+            this.setTheme('light');
+        }
+
+        // Listen for toggle clicks
+        this.toggle.addEventListener('click', () => this.toggleTheme());
+
+        // Listen for system preference changes
+        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
+            let hasStoredTheme = false;
+            try {
+                hasStoredTheme = localStorage.getItem('theme') !== null;
+            } catch (err) {
+                // localStorage unavailable
+            }
+            if (!hasStoredTheme) {
+                this.setTheme(e.matches ? 'dark' : 'light');
+            }
+        });
+    }
+
+    setTheme(theme) {
+        document.documentElement.setAttribute('data-theme', theme);
+        try {
+            localStorage.setItem('theme', theme);
+        } catch (e) {
+            console.warn('localStorage unavailable:', e);
+        }
+    }
+
+    toggleTheme() {
+        const currentTheme = document.documentElement.getAttribute('data-theme');
+        const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+        this.setTheme(newTheme);
+    }
+}
+
+// ---------- Initialization ----------
 document.addEventListener('DOMContentLoaded', async () => {
-    // トースト通知システムの初期化
+    // Initialize systems
     toastNotification = new ToastNotification();
-    
+    new ThemeManager();
+
+    // Load data and setup UI
     await loadData();
     setupSearchEvents();
     setupBackToTopButton();
@@ -88,50 +146,67 @@ document.addEventListener('DOMContentLoaded', async () => {
     setupSortableHeaders();
 });
 
-// データの読み込み
+// ---------- Data Loading ----------
 async function loadData() {
     try {
-        // GitHub Pages用とローカル用で切り替え
         const isLocal = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
-        const dataUrl = isLocal 
-            ? '../data/edinet.json'  // ローカル: 元のパス
-            : 'data.json';  // GitHub Pages: docs内のdata.json
-        
+        const dataUrl = isLocal ? '../data/edinet.json' : 'data.json';
+
         console.log('Loading data from:', dataUrl);
+
         const response = await fetch(dataUrl);
         if (!response.ok) {
             throw new Error('データの読み込みに失敗しました');
         }
+
         allData = await response.json();
         displayData(allData);
+
         document.getElementById('loading').style.display = 'none';
         document.getElementById('table-container').style.display = 'block';
+
     } catch (error) {
         console.error('Error loading data:', error);
-        document.getElementById('loading').textContent = 'データの読み込みに失敗しました。';
+        const loadingEl = document.getElementById('loading');
+        loadingEl.textContent = '';
+        const container = document.createElement('div');
+        container.className = 'loading-container';
+        const p = document.createElement('p');
+        p.className = 'loading-text';
+        p.style.color = 'var(--negative)';
+        p.textContent = 'データの読み込みに失敗しました';
+        container.appendChild(p);
+        loadingEl.appendChild(container);
     }
 }
 
-// データの表示
+// ---------- Data Display ----------
 function displayData(data) {
     const tbody = document.getElementById('data-tbody');
     tbody.innerHTML = '';
-    
-    data.forEach(item => {
+
+    data.forEach((item, index) => {
         const row = document.createElement('tr');
         row.id = `row-${item.secCode}`;
-        
+
+        // Add staggered animation delay
+        if (index < 30) {
+            row.style.animationDelay = `${index * ANIMATION_STAGGER_DELAY}ms`;
+        } else {
+            row.style.animationDelay = '300ms';
+        }
+
         row.innerHTML = `
-            <td class="sec-code fixed-column">${item.yahooURL ? `<a href="${encodeURI(item.yahooURL)}" target="_blank" rel="noopener noreferrer">${escapeHtml(item.secCode)}</a>` : escapeHtml(item.secCode) || '-'}</td>
-            <td class="company-name fixed-column">${item.docPdfURL ? `<a href="${encodeURI(item.docPdfURL)}" target="_blank" rel="noopener noreferrer">${escapeHtml(item.filerName)}</a>` : escapeHtml(item.filerName) || '-'}</td>
+            <td class="sec-code sticky-col sticky-col-1">${item.yahooURL ? `<a href="${encodeURI(item.yahooURL)}" target="_blank" rel="noopener noreferrer">${escapeHtml(item.secCode)}</a>` : escapeHtml(item.secCode) || '-'}</td>
+            <td class="company-name sticky-col sticky-col-2">${item.docPdfURL ? `<a href="${encodeURI(item.docPdfURL)}" target="_blank" rel="noopener noreferrer">${escapeHtml(item.filerName)}</a>` : escapeHtml(item.filerName) || '-'}</td>
             <td>${escapeHtml(item.periodEnd) || '-'}</td>
             <td class="number-cell">${formatStockPrice(item.stockPrice)}</td>
             <td class="number-cell">${formatNumber(item.netSales)}</td>
             <td class="number-cell">${formatEmployees(item.employees)}</td>
-            <td class="number-cell">${formatNumber(item.operatingIncome)}</td>
-            <td class="number-cell">${formatPercentage(item.operatingIncomeRate)}</td>
-            <td class="number-cell">${formatNumber(item.ordinaryIncome)}</td>
-            <td class="number-cell">${formatPercentage(item.ordinaryIncomeRate)}</td>
+            <td class="number-cell ${getValueClass(item.operatingIncome)}">${formatNumber(item.operatingIncome)}</td>
+            <td class="number-cell ${getValueClass(item.operatingIncomeRate)}">${formatPercentage(item.operatingIncomeRate)}</td>
+            <td class="number-cell ${getValueClass(item.ordinaryIncome)}">${formatNumber(item.ordinaryIncome)}</td>
+            <td class="number-cell ${getValueClass(item.ordinaryIncomeRate)}">${formatPercentage(item.ordinaryIncomeRate)}</td>
             <td class="number-cell">${formatNumber(item.ebitda)}</td>
             <td class="number-cell">${formatPercentage(item.ebitdaMargin)}</td>
             <td class="number-cell">${formatNumber(item.marketCapitalization)}</td>
@@ -144,60 +219,43 @@ function displayData(data) {
             <td>${escapeHtml(item.issuedDate) || '-'}</td>
             <td>${escapeHtml(item.retrievedDate) || '-'}</td>
         `;
-        
+
         tbody.appendChild(row);
     });
 }
 
-// 数値を百万円単位でフォーマット
+// ---------- Formatting Functions ----------
 function formatNumber(value) {
-    if (value === null || value === undefined) {
-        return '-';
-    }
+    if (value === null || value === undefined) return '-';
     const millionValue = Math.round(value / MILLION);
     return millionValue.toLocaleString('ja-JP');
 }
 
-// パーセンテージをフォーマット（小数点1桁）
 function formatPercentage(value) {
-    if (value === null || value === undefined) {
-        return '-';
-    }
+    if (value === null || value === undefined) return '-';
     return value.toFixed(1);
 }
 
-// 倍率をフォーマット（小数点1桁）
 function formatRatio(value) {
-    if (value === null || value === undefined) {
-        return '-';
-    }
+    if (value === null || value === undefined) return '-';
     return value.toFixed(1);
 }
 
-// 株価をフォーマット（整数、円単位）
 function formatStockPrice(value) {
-    if (value === null || value === undefined) {
-        return '-';
-    }
+    if (value === null || value === undefined) return '-';
     return Math.round(value).toLocaleString('ja-JP');
 }
 
-// 従業員数をフォーマット（整数、千単位区切り）
 function formatEmployees(value) {
-    if (value === null || value === undefined) {
-        return '-';
-    }
+    if (value === null || value === undefined) return '-';
     return value.toLocaleString('ja-JP');
 }
 
-// テキストを指定文字数で切り詰め
-function truncateText(text, maxLength) {
-    if (!text) return '-';
-    if (text.length <= maxLength) return text;
-    return text.substring(0, maxLength) + '...';
+function getValueClass(value) {
+    if (value === null || value === undefined) return '';
+    return value < 0 ? 'negative' : '';
 }
 
-// HTMLエスケープ
 function escapeHtml(text) {
     if (!text) return '';
     const div = document.createElement('div');
@@ -205,46 +263,40 @@ function escapeHtml(text) {
     return div.innerHTML;
 }
 
-// 証券コードのバリデーション
+// ---------- Search Functionality ----------
 function validateSecCode(code) {
     if (!code) {
         return { valid: false, message: '証券コードを入力してください' };
     }
-    
+
     if (!SEC_CODE_PATTERN.test(code)) {
-        return { 
-            valid: false, 
-            message: '証券コードのフォーマットが正しくありません（4桁の数字、または2桁目・4桁目に指定の英文字）' 
+        return {
+            valid: false,
+            message: '証券コードのフォーマットが正しくありません'
         };
     }
-    
+
     return { valid: true };
 }
 
-// 検索機能のセットアップ
 function setupSearchEvents() {
     const searchInput = document.getElementById('search-input');
     const searchButton = document.getElementById('search-button');
-    
-    // 入力制限: 英数字のみ許可（統合版）
+
+    // Input restriction: alphanumeric only
     searchInput.addEventListener('input', (e) => {
         const originalValue = e.target.value;
         const cleanedValue = originalValue.replace(/[^0-9A-Za-z]/g, '');
-        
+
         if (originalValue !== cleanedValue) {
-            // カーソル位置を適切に計算（文字列長を超えないように）
             const cursorPosition = Math.min(e.target.selectionStart || 0, cleanedValue.length);
             e.target.value = cleanedValue;
             e.target.setSelectionRange(cursorPosition, cursorPosition);
         }
     });
-    
-    // 検索ボタンクリック時
-    searchButton.addEventListener('click', () => {
-        performSearch();
-    });
-    
-    // Enterキーでも検索実行
+
+    searchButton.addEventListener('click', performSearch);
+
     searchInput.addEventListener('keypress', (e) => {
         if (e.key === 'Enter') {
             performSearch();
@@ -252,61 +304,52 @@ function setupSearchEvents() {
     });
 }
 
-// 検索実行
 function performSearch() {
     const searchValue = document.getElementById('search-input').value.trim().toUpperCase();
-    
-    // バリデーション
+
     const validation = validateSecCode(searchValue);
     if (!validation.valid) {
         toastNotification.show(validation.message, 'warning');
         return;
     }
-    
-    // 前回のハイライトを削除
+
+    // Remove previous highlight
     const previousHighlight = document.querySelector('.highlight');
     if (previousHighlight) {
         previousHighlight.classList.remove('highlight');
     }
-    
-    // 完全一致検索（大文字小文字を区別しない）
-    const matchedItems = allData.filter(item => 
+
+    // Exact match search
+    const matchedItems = allData.filter(item =>
         item.secCode && item.secCode.toUpperCase() === searchValue
     );
-    
+
     if (matchedItems.length === 0) {
         toastNotification.show('該当する企業が見つかりませんでした', 'info');
         return;
     }
-    
-    // 最初にマッチした項目にスクロール
+
+    // Scroll to first match
     const firstMatch = matchedItems[0];
     const targetRow = document.getElementById(`row-${firstMatch.secCode}`);
-    
+
     if (targetRow) {
-        // ハイライト追加
         targetRow.classList.add('highlight');
-        
-        // スクロール（ヘッダーの高さを考慮）
         targetRow.scrollIntoView({ behavior: 'smooth', block: 'center' });
     }
-    
-    // 複数マッチした場合は通知
+
     if (matchedItems.length > 1) {
         toastNotification.show(`${matchedItems.length}件の企業がマッチしました`, 'info', 3000);
     }
 }
 
-// トップへ戻るボタンの設定
+// ---------- Back to Top Button ----------
 function setupBackToTopButton() {
     const backToTopButton = document.getElementById('back-to-top');
     const tableContainer = document.getElementById('table-container');
-    
-    if (!backToTopButton || !tableContainer) {
-        return;
-    }
-    
-    // テーブルコンテナのスクロールを監視
+
+    if (!backToTopButton || !tableContainer) return;
+
     tableContainer.addEventListener('scroll', () => {
         if (tableContainer.scrollTop > SCROLL_THRESHOLD) {
             backToTopButton.classList.add('visible');
@@ -314,8 +357,7 @@ function setupBackToTopButton() {
             backToTopButton.classList.remove('visible');
         }
     });
-    
-    // クリック時のスクロール処理
+
     backToTopButton.addEventListener('click', () => {
         tableContainer.scrollTo({
             top: 0,
@@ -324,109 +366,20 @@ function setupBackToTopButton() {
     });
 }
 
-// エクスポートボタンの設定
+// ---------- Export Functionality ----------
 function setupExportButton() {
     const exportButton = document.getElementById('export-button');
     if (!exportButton) return;
-    
+
     exportButton.addEventListener('click', exportToExcel);
 }
 
-// ソート機能のセットアップ
-function setupSortableHeaders() {
-    const sortableHeaders = document.querySelectorAll('.sortable');
-    
-    sortableHeaders.forEach(header => {
-        header.addEventListener('click', () => {
-            const sortColumn = header.dataset.sort;
-            handleSort(sortColumn);
-        });
-    });
-}
-
-// ソート処理
-function handleSort(column) {
-    // 同じ列をクリックした場合は方向を変更
-    if (currentSort.column === column) {
-        if (currentSort.direction === 'desc') {
-            currentSort.direction = 'asc';
-        } else if (currentSort.direction === 'asc') {
-            // デフォルト（証券コード昇順）にリセット
-            currentSort.column = 'secCode';
-            currentSort.direction = 'asc';
-        }
-    } else {
-        // 新しい列をクリックした場合は降順から開始
-        currentSort.column = column;
-        currentSort.direction = 'desc';
-    }
-    
-    // データをソート
-    const sortedData = sortData(allData, currentSort.column, currentSort.direction);
-    
-    // 表示を更新
-    displayData(sortedData);
-    
-    // ソート状態を視覚的に更新
-    updateSortIndicators();
-}
-
-// データのソート
-function sortData(data, column, direction) {
-    return [...data].sort((a, b) => {
-        let aValue = a[column];
-        let bValue = b[column];
-        
-        // null値は最後にソート
-        if (aValue === null || aValue === undefined) {
-            return 1;
-        }
-        if (bValue === null || bValue === undefined) {
-            return -1;
-        }
-        
-        // 数値の場合
-        if (typeof aValue === 'number' && typeof bValue === 'number') {
-            return direction === 'asc' ? aValue - bValue : bValue - aValue;
-        }
-        
-        // 文字列の場合
-        const aStr = String(aValue).toLowerCase();
-        const bStr = String(bValue).toLowerCase();
-        
-        if (direction === 'asc') {
-            return aStr < bStr ? -1 : aStr > bStr ? 1 : 0;
-        } else {
-            return aStr > bStr ? -1 : aStr < bStr ? 1 : 0;
-        }
-    });
-}
-
-// ソート状態の視覚的更新
-function updateSortIndicators() {
-    // 全てのソート表示をクリア
-    document.querySelectorAll('.sortable').forEach(header => {
-        header.classList.remove('sort-asc', 'sort-desc', 'sort-active');
-    });
-    
-    // 現在のソート列にインジケータを追加
-    if (currentSort.column) {
-        const activeHeader = document.querySelector(`[data-sort="${currentSort.column}"]`);
-        if (activeHeader) {
-            activeHeader.classList.add('sort-active');
-            activeHeader.classList.add(currentSort.direction === 'asc' ? 'sort-asc' : 'sort-desc');
-        }
-    }
-}
-
-// Excelエクスポート機能
 function exportToExcel() {
     if (!allData || allData.length === 0) {
         toastNotification.show('エクスポートするデータがありません', 'warning');
         return;
     }
-    
-    // エクスポート用データの準備
+
     const exportData = allData.map(item => ({
         '証券コード': item.secCode || '',
         '企業名称': item.filerName || '',
@@ -452,49 +405,109 @@ function exportToExcel() {
         'EDINET提出日': item.issuedDate || '',
         '最終更新日': item.retrievedDate || ''
     }));
-    
-    // ワークシート作成
+
     const ws = XLSX.utils.json_to_sheet(exportData);
-    
-    // カラム幅の設定
+
     ws['!cols'] = [
-        {wch: 10},  // 証券コード
-        {wch: 30},  // 企業名称
-        {wch: 50},  // 有価証券報告書URL
-        {wch: 40},  // Yahoo!ファイナンスURL
-        {wch: 12},  // 決算期
-        {wch: 15},  // 株価
-        {wch: 15},  // 売上高
-        {wch: 15},  // 期末従業員数
-        {wch: 15},  // 営業利益
-        {wch: 12},  // 営業利益率
-        {wch: 15},  // 経常利益
-        {wch: 12},  // 経常利益率
-        {wch: 15},  // EBITDA
-        {wch: 15},  // EBITDAマージン
-        {wch: 15},  // 時価総額
-        {wch: 10},  // PER
-        {wch: 15},  // 企業価値
-        {wch: 12},  // EV/EBITDA
-        {wch: 10},  // PBR
-        {wch: 15},  // 純資産合計
-        {wch: 20},  // ネット有利子負債
-        {wch: 12},  // EDINET提出日
-        {wch: 12}   // 最終更新日
+        {wch: 10}, {wch: 30}, {wch: 50}, {wch: 40}, {wch: 12},
+        {wch: 15}, {wch: 15}, {wch: 15}, {wch: 15}, {wch: 12},
+        {wch: 15}, {wch: 12}, {wch: 15}, {wch: 15}, {wch: 15},
+        {wch: 10}, {wch: 15}, {wch: 12}, {wch: 10}, {wch: 15},
+        {wch: 20}, {wch: 12}, {wch: 12}
     ];
-    
-    // ワークブック作成
+
     const wb = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(wb, ws, "財務データ");
-    
-    // ファイル名生成（現在日付）
+
     const today = new Date();
     const dateStr = today.toISOString().slice(0, 10).replace(/-/g, '');
     const fileName = `edinet_data_${dateStr}.xlsx`;
-    
-    // ダウンロード実行
+
     XLSX.writeFile(wb, fileName);
-    
-    // 成功通知を表示
-    toastNotification.show(`Excelファイル（${fileName}）のエクスポートが完了しました`, 'success');
+
+    toastNotification.show(`${fileName} をエクスポートしました`, 'success');
+}
+
+// ---------- Sort Functionality ----------
+function setupSortableHeaders() {
+    const sortableHeaders = document.querySelectorAll('.sortable');
+
+    sortableHeaders.forEach(header => {
+        // Add accessibility attributes
+        header.setAttribute('tabindex', '0');
+        header.setAttribute('role', 'button');
+        header.setAttribute('aria-sort', 'none');
+
+        header.addEventListener('click', () => {
+            const sortColumn = header.dataset.sort;
+            handleSort(sortColumn);
+        });
+
+        // Keyboard navigation support
+        header.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                const sortColumn = header.dataset.sort;
+                handleSort(sortColumn);
+            }
+        });
+    });
+}
+
+function handleSort(column) {
+    if (currentSort.column === column) {
+        if (currentSort.direction === 'desc') {
+            currentSort.direction = 'asc';
+        } else if (currentSort.direction === 'asc') {
+            // Reset to default
+            currentSort.column = 'secCode';
+            currentSort.direction = 'asc';
+        }
+    } else {
+        currentSort.column = column;
+        currentSort.direction = 'desc';
+    }
+
+    const sortedData = sortData(allData, currentSort.column, currentSort.direction);
+    displayData(sortedData);
+    updateSortIndicators();
+}
+
+function sortData(data, column, direction) {
+    return [...data].sort((a, b) => {
+        let aValue = a[column];
+        let bValue = b[column];
+
+        if (aValue === null || aValue === undefined) return 1;
+        if (bValue === null || bValue === undefined) return -1;
+
+        if (typeof aValue === 'number' && typeof bValue === 'number') {
+            return direction === 'asc' ? aValue - bValue : bValue - aValue;
+        }
+
+        const aStr = String(aValue).toLowerCase();
+        const bStr = String(bValue).toLowerCase();
+
+        if (direction === 'asc') {
+            return aStr < bStr ? -1 : aStr > bStr ? 1 : 0;
+        } else {
+            return aStr > bStr ? -1 : aStr < bStr ? 1 : 0;
+        }
+    });
+}
+
+function updateSortIndicators() {
+    document.querySelectorAll('.sortable').forEach(header => {
+        header.classList.remove('sort-asc', 'sort-desc');
+        header.setAttribute('aria-sort', 'none');
+    });
+
+    if (currentSort.column) {
+        const activeHeader = document.querySelector(`[data-sort="${currentSort.column}"]`);
+        if (activeHeader) {
+            const isAsc = currentSort.direction === 'asc';
+            activeHeader.classList.add(isAsc ? 'sort-asc' : 'sort-desc');
+            activeHeader.setAttribute('aria-sort', isAsc ? 'ascending' : 'descending');
+        }
+    }
 }
