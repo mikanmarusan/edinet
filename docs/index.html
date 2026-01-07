@@ -111,6 +111,30 @@
         </div>
     </main>
 
+    <!-- Mobile Bottom Action Bar -->
+    <div id="mobile-action-bar" class="mobile-action-bar" role="toolbar" aria-label="モバイルアクションバー">
+        <div class="mobile-search-container">
+            <svg class="mobile-search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <circle cx="11" cy="11" r="8"></circle>
+                <path d="m21 21-4.3-4.3"></path>
+            </svg>
+            <input type="text" id="mobile-search-input" aria-label="証券コードで検索" placeholder="証券コードで検索..." pattern="[0-9A-Za-z]*" title="英数字のみ入力可能" autocomplete="off">
+        </div>
+        <button id="mobile-search-button" class="btn btn-primary mobile-btn" aria-label="検索">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <circle cx="11" cy="11" r="8"></circle>
+                <path d="m21 21-4.3-4.3"></path>
+            </svg>
+        </button>
+        <button id="mobile-export-button" class="btn btn-secondary mobile-btn" aria-label="Excelエクスポート">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                <polyline points="7 10 12 15 17 10"></polyline>
+                <line x1="12" y1="15" x2="12" y2="3"></line>
+            </svg>
+        </button>
+    </div>
+
     <!-- Back to Top Button -->
     <button id="back-to-top" aria-label="トップへ戻る" title="トップへ戻る">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">

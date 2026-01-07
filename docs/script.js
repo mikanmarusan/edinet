@@ -282,9 +282,11 @@ function validateSecCode(code) {
 function setupSearchEvents() {
     const searchInput = document.getElementById('search-input');
     const searchButton = document.getElementById('search-button');
+    const mobileSearchInput = document.getElementById('mobile-search-input');
+    const mobileSearchButton = document.getElementById('mobile-search-button');
 
-    // Input restriction: alphanumeric only
-    searchInput.addEventListener('input', (e) => {
+    // Helper function for input restriction
+    function restrictToAlphanumeric(e) {
         const originalValue = e.target.value;
         const cleanedValue = originalValue.replace(/[^0-9A-Za-z]/g, '');
 
@@ -293,19 +295,56 @@ function setupSearchEvents() {
             e.target.value = cleanedValue;
             e.target.setSelectionRange(cursorPosition, cursorPosition);
         }
-    });
+    }
 
-    searchButton.addEventListener('click', performSearch);
-
-    searchInput.addEventListener('keypress', (e) => {
-        if (e.key === 'Enter') {
-            performSearch();
+    // Helper function to sync inputs
+    function syncSearchInputs(sourceInput, targetInput) {
+        if (targetInput) {
+            targetInput.value = sourceInput.value;
         }
-    });
+    }
+
+    // Desktop search setup
+    if (searchInput) {
+        searchInput.addEventListener('input', (e) => {
+            restrictToAlphanumeric(e);
+            syncSearchInputs(searchInput, mobileSearchInput);
+        });
+
+        searchInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                performSearch('desktop');
+            }
+        });
+    }
+
+    if (searchButton) {
+        searchButton.addEventListener('click', () => performSearch('desktop'));
+    }
+
+    // Mobile search setup
+    if (mobileSearchInput) {
+        mobileSearchInput.addEventListener('input', (e) => {
+            restrictToAlphanumeric(e);
+            syncSearchInputs(mobileSearchInput, searchInput);
+        });
+
+        mobileSearchInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                performSearch('mobile');
+            }
+        });
+    }
+
+    if (mobileSearchButton) {
+        mobileSearchButton.addEventListener('click', () => performSearch('mobile'));
+    }
 }
 
-function performSearch() {
-    const searchValue = document.getElementById('search-input').value.trim().toUpperCase();
+function performSearch(source = 'desktop') {
+    const inputId = source === 'mobile' ? 'mobile-search-input' : 'search-input';
+    const searchInput = document.getElementById(inputId);
+    const searchValue = searchInput ? searchInput.value.trim().toUpperCase() : '';
 
     const validation = validateSecCode(searchValue);
     if (!validation.valid) {
@@ -369,9 +408,15 @@ function setupBackToTopButton() {
 // ---------- Export Functionality ----------
 function setupExportButton() {
     const exportButton = document.getElementById('export-button');
-    if (!exportButton) return;
+    const mobileExportButton = document.getElementById('mobile-export-button');
 
-    exportButton.addEventListener('click', exportToExcel);
+    if (exportButton) {
+        exportButton.addEventListener('click', exportToExcel);
+    }
+
+    if (mobileExportButton) {
+        mobileExportButton.addEventListener('click', exportToExcel);
+    }
 }
 
 function exportToExcel() {
