@@ -36,6 +36,40 @@
                     <button id="search-button" class="btn btn-primary">検索</button>
                 </div>
 
+                <button id="density-toggle" class="btn btn-icon" aria-label="表示密度切替" title="表示密度切替 (compact/comfortable)">
+                    <svg class="icon-density-compact" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="3" y1="6" x2="21" y2="6"></line>
+                        <line x1="3" y1="10" x2="21" y2="10"></line>
+                        <line x1="3" y1="14" x2="21" y2="14"></line>
+                        <line x1="3" y1="18" x2="21" y2="18"></line>
+                    </svg>
+                    <svg class="icon-density-comfortable" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="3" y1="5" x2="21" y2="5"></line>
+                        <line x1="3" y1="12" x2="21" y2="12"></line>
+                        <line x1="3" y1="19" x2="21" y2="19"></line>
+                    </svg>
+                </button>
+
+                <div class="column-visibility-wrapper">
+                    <button id="column-toggle" class="btn btn-icon" aria-label="列表示設定" title="列表示設定" aria-haspopup="true" aria-expanded="false" aria-controls="column-dropdown">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="3" y="3" width="7" height="7"></rect>
+                            <rect x="14" y="3" width="7" height="7"></rect>
+                            <rect x="14" y="14" width="7" height="7"></rect>
+                            <rect x="3" y="14" width="7" height="7"></rect>
+                        </svg>
+                    </button>
+                    <div id="column-dropdown" class="column-dropdown" role="menu" aria-label="列表示設定">
+                        <div class="column-dropdown-header">
+                            <span>表示する列</span>
+                            <button id="column-reset" class="column-reset-btn" aria-label="すべて表示">リセット</button>
+                        </div>
+                        <div class="column-dropdown-list">
+                            <!-- Column checkboxes will be populated by JavaScript -->
+                        </div>
+                    </div>
+                </div>
+
                 <button id="export-button" class="btn btn-secondary" aria-label="Excelエクスポート">
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                         <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
@@ -144,6 +178,55 @@
 
     <!-- Toast Notification Container -->
     <div id="toast-container" aria-live="polite" aria-atomic="true"></div>
+
+    <!-- Keyboard Shortcuts Modal -->
+    <div id="shortcuts-modal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="shortcuts-title" hidden>
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="shortcuts-title">キーボードショートカット</h2>
+                <button id="shortcuts-close" class="modal-close" aria-label="閉じる">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M18 6L6 18M6 6l12 12"/>
+                    </svg>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="shortcut-group">
+                    <h3>検索</h3>
+                    <div class="shortcut-item">
+                        <span class="shortcut-keys">
+                            <kbd>/</kbd>
+                            <span class="shortcut-or">または</span>
+                            <kbd>Ctrl</kbd><kbd>K</kbd>
+                        </span>
+                        <span class="shortcut-desc">検索フィールドにフォーカス</span>
+                    </div>
+                    <div class="shortcut-item">
+                        <span class="shortcut-keys"><kbd>Escape</kbd></span>
+                        <span class="shortcut-desc">フォーカス解除</span>
+                    </div>
+                </div>
+                <div class="shortcut-group">
+                    <h3>表示</h3>
+                    <div class="shortcut-item">
+                        <span class="shortcut-keys"><kbd>d</kbd></span>
+                        <span class="shortcut-desc">ダークモード切替</span>
+                    </div>
+                    <div class="shortcut-item">
+                        <span class="shortcut-keys"><kbd>c</kbd></span>
+                        <span class="shortcut-desc">表示密度切替</span>
+                    </div>
+                </div>
+                <div class="shortcut-group">
+                    <h3>ヘルプ</h3>
+                    <div class="shortcut-item">
+                        <span class="shortcut-keys"><kbd>?</kbd></span>
+                        <span class="shortcut-desc">ショートカット一覧を表示</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!-- Scripts -->
     <script src="https://cdn.sheetjs.com/xlsx-0.20.3/package/dist/xlsx.full.min.js"></script>

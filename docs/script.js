@@ -132,11 +132,423 @@ class ThemeManager {
     }
 }
 
+// ---------- Density Management ----------
+class DensityManager {
+    constructor() {
+        this.toggle = document.getElementById('density-toggle');
+        this.init();
+    }
+
+    init() {
+        let savedDensity = null;
+        try {
+            savedDensity = localStorage.getItem('density');
+        } catch (e) {
+            console.warn('localStorage unavailable:', e);
+        }
+
+        if (savedDensity) {
+            this.setDensity(savedDensity);
+        } else {
+            this.setDensity('comfortable');
+        }
+
+        if (this.toggle) {
+            this.toggle.addEventListener('click', () => this.toggleDensity());
+        }
+    }
+
+    setDensity(density) {
+        document.documentElement.setAttribute('data-density', density);
+        try {
+            localStorage.setItem('density', density);
+        } catch (e) {
+            console.warn('localStorage unavailable:', e);
+        }
+    }
+
+    toggleDensity() {
+        const currentDensity = document.documentElement.getAttribute('data-density');
+        const newDensity = currentDensity === 'compact' ? 'comfortable' : 'compact';
+        this.setDensity(newDensity);
+
+        // Announce change to screen readers
+        const message = newDensity === 'compact' ? 'コンパクト表示に切替' : '標準表示に切替';
+        this.announceChange(message);
+    }
+
+    announceChange(message) {
+        const announcement = document.createElement('div');
+        announcement.setAttribute('role', 'status');
+        announcement.setAttribute('aria-live', 'polite');
+        announcement.className = 'sr-only';
+        announcement.textContent = message;
+        document.body.appendChild(announcement);
+        setTimeout(() => announcement.remove(), 1000);
+    }
+}
+
+// ---------- Column Visibility Management ----------
+class ColumnVisibilityManager {
+    constructor() {
+        this.toggleBtn = document.getElementById('column-toggle');
+        this.dropdown = document.getElementById('column-dropdown');
+        this.resetBtn = document.getElementById('column-reset');
+        this.dropdownList = this.dropdown?.querySelector('.column-dropdown-list');
+
+        // Column definitions with labels
+        this.columns = [
+            { index: 0, key: 'secCode', label: '証券コード', required: true },
+            { index: 1, key: 'filerName', label: '企業名称', required: true },
+            { index: 2, key: 'periodEnd', label: '決算期', required: false },
+            { index: 3, key: 'stockPrice', label: '株価', required: false },
+            { index: 4, key: 'netSales', label: '売上高', required: false },
+            { index: 5, key: 'employees', label: '従業員数', required: false },
+            { index: 6, key: 'operatingIncome', label: '営業利益', required: false },
+            { index: 7, key: 'operatingIncomeRate', label: '営業利益率', required: false },
+            { index: 8, key: 'ordinaryIncome', label: '経常利益', required: false },
+            { index: 9, key: 'ordinaryIncomeRate', label: '経常利益率', required: false },
+            { index: 10, key: 'ebitda', label: 'EBITDA', required: false },
+            { index: 11, key: 'ebitdaMargin', label: 'EBITDAマージン', required: false },
+            { index: 12, key: 'marketCapitalization', label: '時価総額', required: false },
+            { index: 13, key: 'per', label: 'PER', required: false },
+            { index: 14, key: 'ev', label: '企業価値', required: false },
+            { index: 15, key: 'evPerEbitda', label: 'EV/EBITDA', required: false },
+            { index: 16, key: 'pbr', label: 'PBR', required: false },
+            { index: 17, key: 'equity', label: '純資産合計', required: false },
+            { index: 18, key: 'debt', label: 'ネット有利子負債', required: false },
+            { index: 19, key: 'issuedDate', label: 'EDINET提出日', required: false },
+            { index: 20, key: 'retrievedDate', label: '最終更新日', required: false }
+        ];
+
+        this.visibilityState = {};
+        this.init();
+    }
+
+    init() {
+        // Load saved visibility state
+        let savedState = null;
+        try {
+            const savedJson = localStorage.getItem('columnVisibility');
+            if (savedJson) {
+                const parsed = JSON.parse(savedJson);
+                // Validate that parsed data is a plain object with boolean values
+                if (parsed && typeof parsed === 'object' && !Array.isArray(parsed)) {
+                    savedState = parsed;
+                }
+            }
+        } catch (e) {
+            console.warn('localStorage unavailable or invalid:', e);
+        }
+
+        // Initialize visibility state
+        this.columns.forEach(col => {
+            if (savedState && typeof savedState[col.key] === 'boolean') {
+                this.visibilityState[col.key] = col.required ? true : savedState[col.key];
+            } else {
+                this.visibilityState[col.key] = true;
+            }
+        });
+
+        this.buildDropdownList();
+        this.setupEventListeners();
+        this.applyVisibility();
+    }
+
+    buildDropdownList() {
+        if (!this.dropdownList) return;
+
+        this.dropdownList.innerHTML = '';
+
+        this.columns.forEach(col => {
+            const item = document.createElement('label');
+            item.className = `column-checkbox-item${col.required ? ' disabled' : ''}`;
+            item.setAttribute('role', 'menuitemcheckbox');
+            item.setAttribute('aria-checked', String(this.visibilityState[col.key]));
+
+            const checkbox = document.createElement('input');
+            checkbox.type = 'checkbox';
+            checkbox.checked = this.visibilityState[col.key];
+            checkbox.disabled = col.required;
+            checkbox.dataset.columnKey = col.key;
+
+            const label = document.createElement('span');
+            label.textContent = col.label;
+
+            item.appendChild(checkbox);
+            item.appendChild(label);
+            this.dropdownList.appendChild(item);
+
+            if (!col.required) {
+                checkbox.addEventListener('change', (e) => {
+                    this.visibilityState[col.key] = e.target.checked;
+                    item.setAttribute('aria-checked', String(e.target.checked));
+                    this.saveState();
+                    this.applyVisibility();
+                });
+            }
+        });
+    }
+
+    setupEventListeners() {
+        if (this.toggleBtn) {
+            this.toggleBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                this.toggleDropdown();
+            });
+        }
+
+        if (this.resetBtn) {
+            this.resetBtn.addEventListener('click', () => {
+                this.resetAll();
+            });
+        }
+
+        // Close dropdown when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!this.dropdown?.contains(e.target) && !this.toggleBtn?.contains(e.target)) {
+                this.closeDropdown();
+            }
+        });
+
+        // Close dropdown on Escape
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && this.dropdown?.classList.contains('open')) {
+                this.closeDropdown();
+            }
+        });
+    }
+
+    toggleDropdown() {
+        const isOpen = this.dropdown?.classList.contains('open');
+        if (isOpen) {
+            this.closeDropdown();
+        } else {
+            this.openDropdown();
+        }
+    }
+
+    openDropdown() {
+        this.dropdown?.classList.add('open');
+        this.toggleBtn?.setAttribute('aria-expanded', 'true');
+    }
+
+    closeDropdown() {
+        this.dropdown?.classList.remove('open');
+        this.toggleBtn?.setAttribute('aria-expanded', 'false');
+    }
+
+    resetAll() {
+        this.columns.forEach(col => {
+            this.visibilityState[col.key] = true;
+        });
+
+        // Update checkboxes and aria-checked attributes
+        const items = this.dropdownList?.querySelectorAll('.column-checkbox-item');
+        items?.forEach(item => {
+            const checkbox = item.querySelector('input[type="checkbox"]');
+            if (checkbox) {
+                checkbox.checked = true;
+            }
+            item.setAttribute('aria-checked', 'true');
+        });
+
+        this.saveState();
+        this.applyVisibility();
+    }
+
+    saveState() {
+        try {
+            localStorage.setItem('columnVisibility', JSON.stringify(this.visibilityState));
+        } catch (e) {
+            console.warn('localStorage unavailable:', e);
+        }
+    }
+
+    applyVisibility() {
+        const table = document.getElementById('data-table');
+        if (!table) return;
+
+        this.columns.forEach(col => {
+            const isVisible = this.visibilityState[col.key];
+
+            // Apply to header
+            const th = table.querySelector(`thead tr th:nth-child(${col.index + 1})`);
+            if (th) {
+                th.setAttribute('data-hidden', !isVisible);
+            }
+
+            // Apply to all body cells
+            const tds = table.querySelectorAll(`tbody tr td:nth-child(${col.index + 1})`);
+            tds.forEach(td => {
+                td.setAttribute('data-hidden', !isVisible);
+            });
+        });
+    }
+}
+
+// ---------- Keyboard Shortcuts Management ----------
+class KeyboardShortcutsManager {
+    constructor(themeManager, densityManager) {
+        this.themeManager = themeManager;
+        this.densityManager = densityManager;
+        this.modal = document.getElementById('shortcuts-modal');
+        this.closeBtn = document.getElementById('shortcuts-close');
+        this.previousActiveElement = null;
+        this.handleModalKeydown = this.handleModalKeydown.bind(this);
+        this.init();
+    }
+
+    init() {
+        this.setupKeyboardListeners();
+        this.setupModalListeners();
+    }
+
+    handleModalKeydown(e) {
+        if (e.key !== 'Tab') return;
+
+        const focusableElements = this.modal.querySelectorAll(
+            'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+        );
+        const firstElement = focusableElements[0];
+        const lastElement = focusableElements[focusableElements.length - 1];
+
+        if (e.shiftKey && document.activeElement === firstElement) {
+            e.preventDefault();
+            lastElement.focus();
+        } else if (!e.shiftKey && document.activeElement === lastElement) {
+            e.preventDefault();
+            firstElement.focus();
+        }
+    }
+
+    setupKeyboardListeners() {
+        document.addEventListener('keydown', (e) => {
+            // Ignore if user is typing in an input field
+            const isTyping = e.target.tagName === 'INPUT' ||
+                             e.target.tagName === 'TEXTAREA' ||
+                             e.target.isContentEditable;
+
+            // Special handling for Escape - always allow
+            if (e.key === 'Escape') {
+                // Close modal if open
+                if (!this.modal?.hidden) {
+                    this.closeModal();
+                    return;
+                }
+
+                // Blur search input
+                const searchInput = document.getElementById('search-input');
+                const mobileSearchInput = document.getElementById('mobile-search-input');
+                if (document.activeElement === searchInput || document.activeElement === mobileSearchInput) {
+                    document.activeElement.blur();
+                }
+                return;
+            }
+
+            // Don't process other shortcuts if typing
+            if (isTyping) return;
+
+            // ? - Show shortcuts modal
+            if (e.key === '?' && e.shiftKey) {
+                e.preventDefault();
+                this.toggleModal();
+                return;
+            }
+
+            // / or Ctrl+K (Cmd+K on macOS) - Focus search
+            if (e.key === '/' || ((e.ctrlKey || e.metaKey) && e.key === 'k')) {
+                e.preventDefault();
+                this.focusSearch();
+                return;
+            }
+
+            // d - Toggle dark mode
+            if (e.key === 'd') {
+                e.preventDefault();
+                this.themeManager?.toggleTheme();
+                return;
+            }
+
+            // c - Toggle density
+            if (e.key === 'c') {
+                e.preventDefault();
+                this.densityManager?.toggleDensity();
+                return;
+            }
+        });
+    }
+
+    setupModalListeners() {
+        // Close button
+        this.closeBtn?.addEventListener('click', () => {
+            this.closeModal();
+        });
+
+        // Click outside modal content to close
+        this.modal?.addEventListener('click', (e) => {
+            if (e.target === this.modal) {
+                this.closeModal();
+            }
+        });
+    }
+
+    focusSearch() {
+        // Try desktop search first, fall back to mobile
+        const searchInput = document.getElementById('search-input');
+        const mobileSearchInput = document.getElementById('mobile-search-input');
+
+        // Check if on mobile (using media query)
+        const isMobile = window.matchMedia('(max-width: 768px)').matches;
+
+        if (isMobile && mobileSearchInput) {
+            mobileSearchInput.focus();
+        } else if (searchInput) {
+            searchInput.focus();
+        }
+    }
+
+    toggleModal() {
+        if (this.modal?.hidden) {
+            this.openModal();
+        } else {
+            this.closeModal();
+        }
+    }
+
+    openModal() {
+        if (!this.modal) return;
+        this.previousActiveElement = document.activeElement;
+        this.modal.hidden = false;
+        // Add focus trap
+        this.modal.addEventListener('keydown', this.handleModalKeydown);
+        // Focus close button for accessibility
+        setTimeout(() => {
+            this.closeBtn?.focus();
+        }, 100);
+    }
+
+    closeModal() {
+        if (!this.modal) return;
+        this.modal.hidden = true;
+        this.modal.removeEventListener('keydown', this.handleModalKeydown);
+        // Restore focus to previous element
+        this.previousActiveElement?.focus();
+    }
+}
+
 // ---------- Initialization ----------
+let themeManager;
+let densityManager;
+let columnVisibilityManager;
+
 document.addEventListener('DOMContentLoaded', async () => {
     // Initialize systems
     toastNotification = new ToastNotification();
-    new ThemeManager();
+    themeManager = new ThemeManager();
+    densityManager = new DensityManager();
+    columnVisibilityManager = new ColumnVisibilityManager();
+    new KeyboardShortcutsManager(themeManager, densityManager);
 
     // Load data and setup UI
     await loadData();
@@ -222,6 +634,11 @@ function displayData(data) {
 
         tbody.appendChild(row);
     });
+
+    // Reapply column visibility after data render
+    if (columnVisibilityManager) {
+        columnVisibilityManager.applyVisibility();
+    }
 }
 
 // ---------- Formatting Functions ----------
