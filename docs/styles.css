@@ -1100,3 +1100,403 @@ a:focus:not(:focus-visible) {
 .skip-link:focus {
     top: 0;
 }
+
+/* Screen reader only - for accessibility announcements */
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+/* ---------- Data Density Toggle ---------- */
+.icon-density-compact,
+.icon-density-comfortable {
+    transition: transform var(--transition-base), opacity var(--transition-base);
+}
+
+/* Show compact icon when in comfortable mode (to switch to compact) */
+[data-density="comfortable"] .icon-density-comfortable,
+:not([data-density]) .icon-density-comfortable {
+    display: none;
+}
+
+[data-density="comfortable"] .icon-density-compact,
+:not([data-density]) .icon-density-compact {
+    display: block;
+}
+
+/* Show comfortable icon when in compact mode (to switch to comfortable) */
+[data-density="compact"] .icon-density-compact {
+    display: none;
+}
+
+[data-density="compact"] .icon-density-comfortable {
+    display: block;
+}
+
+/* Compact Mode Styles */
+[data-density="compact"] td {
+    padding: 6px 8px;
+    font-size: var(--text-xs);
+}
+
+[data-density="compact"] th {
+    padding: 10px 8px;
+    font-size: 0.6875rem;
+}
+
+[data-density="compact"] .unit {
+    font-size: 0.625rem;
+}
+
+/* Comfortable Mode Styles (default) */
+[data-density="comfortable"] td,
+:not([data-density]) td {
+    padding: 12px;
+    font-size: var(--text-sm);
+}
+
+[data-density="comfortable"] th,
+:not([data-density]) th {
+    padding: 14px 12px;
+    font-size: var(--text-xs);
+}
+
+/* ---------- Column Visibility Dropdown ---------- */
+.column-visibility-wrapper {
+    position: relative;
+}
+
+.column-dropdown {
+    position: absolute;
+    top: calc(100% + 8px);
+    right: 0;
+    width: 220px;
+    background: var(--surface-secondary);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-lg);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-4px);
+    transition: all var(--transition-fast);
+    z-index: 1001;
+}
+
+.column-dropdown.open {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.column-dropdown-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--border-subtle);
+}
+
+.column-dropdown-header span {
+    font-size: var(--text-sm);
+    font-weight: 500;
+    color: var(--text-primary);
+}
+
+.column-reset-btn {
+    font-family: var(--font-body);
+    font-size: var(--text-xs);
+    color: var(--accent-primary);
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 2px 4px;
+    border-radius: var(--radius-sm);
+    transition: background-color var(--transition-fast);
+}
+
+.column-reset-btn:hover {
+    background: var(--accent-subtle);
+}
+
+.column-dropdown-list {
+    max-height: 320px;
+    overflow-y: auto;
+    padding: 8px 0;
+}
+
+.column-dropdown-list::-webkit-scrollbar {
+    width: 6px;
+}
+
+.column-dropdown-list::-webkit-scrollbar-thumb {
+    background: var(--border-default);
+    border-radius: 3px;
+}
+
+.column-checkbox-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 12px;
+    cursor: pointer;
+    transition: background-color var(--transition-fast);
+}
+
+.column-checkbox-item:hover {
+    background: var(--row-hover);
+}
+
+.column-checkbox-item input[type="checkbox"] {
+    appearance: none;
+    width: 16px;
+    height: 16px;
+    border: 1px solid var(--border-default);
+    border-radius: 4px;
+    background: var(--surface-secondary);
+    cursor: pointer;
+    position: relative;
+    flex-shrink: 0;
+    transition: all var(--transition-fast);
+}
+
+.column-checkbox-item input[type="checkbox"]:checked {
+    background: var(--accent-primary);
+    border-color: var(--accent-primary);
+}
+
+.column-checkbox-item input[type="checkbox"]:checked::after {
+    content: '';
+    position: absolute;
+    left: 4.5px;
+    top: 1.5px;
+    width: 4px;
+    height: 8px;
+    border: solid white;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+}
+
+.column-checkbox-item input[type="checkbox"]:focus-visible {
+    outline: 2px solid var(--accent-primary);
+    outline-offset: 2px;
+}
+
+.column-checkbox-item span {
+    font-size: var(--text-sm);
+    color: var(--text-secondary);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.column-checkbox-item.disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.column-checkbox-item.disabled input[type="checkbox"] {
+    cursor: not-allowed;
+}
+
+/* Hidden column styles */
+th[data-hidden="true"],
+td[data-hidden="true"] {
+    display: none;
+}
+
+/* ---------- Keyboard Shortcuts Modal ---------- */
+.modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(15, 23, 42, 0.6);
+    backdrop-filter: blur(4px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2000;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity var(--transition-base), visibility var(--transition-base);
+}
+
+.modal-overlay:not([hidden]) {
+    opacity: 1;
+    visibility: visible;
+}
+
+.modal-overlay[hidden] {
+    display: flex;
+}
+
+.modal-content {
+    background: var(--surface-secondary);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-lg);
+    width: 100%;
+    max-width: 400px;
+    margin: 16px;
+    transform: scale(0.95);
+    transition: transform var(--transition-base);
+}
+
+.modal-overlay:not([hidden]) .modal-content {
+    transform: scale(1);
+}
+
+.modal-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 20px;
+    border-bottom: 1px solid var(--border-subtle);
+}
+
+.modal-header h2 {
+    font-family: var(--font-display);
+    font-size: var(--text-lg);
+    font-weight: 600;
+    color: var(--text-primary);
+    margin: 0;
+}
+
+.modal-close {
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: none;
+    border: none;
+    color: var(--text-muted);
+    cursor: pointer;
+    border-radius: var(--radius-sm);
+    transition: all var(--transition-fast);
+}
+
+.modal-close:hover {
+    background: var(--surface-tertiary);
+    color: var(--text-primary);
+}
+
+.modal-body {
+    padding: 16px 20px 20px;
+}
+
+.shortcut-group {
+    margin-bottom: 20px;
+}
+
+.shortcut-group:last-child {
+    margin-bottom: 0;
+}
+
+.shortcut-group h3 {
+    font-size: var(--text-xs);
+    font-weight: 600;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 10px;
+}
+
+.shortcut-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 8px 0;
+}
+
+.shortcut-keys {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.shortcut-or {
+    font-size: var(--text-xs);
+    color: var(--text-muted);
+    margin: 0 4px;
+}
+
+kbd {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 24px;
+    height: 24px;
+    padding: 0 8px;
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    font-weight: 500;
+    color: var(--text-secondary);
+    background: var(--surface-tertiary);
+    border: 1px solid var(--border-subtle);
+    border-radius: 4px;
+    box-shadow: 0 1px 0 var(--border-default);
+}
+
+.shortcut-desc {
+    font-size: var(--text-sm);
+    color: var(--text-secondary);
+}
+
+/* Dark mode adjustments for modal */
+[data-theme="dark"] .modal-overlay {
+    background: rgba(0, 0, 0, 0.7);
+}
+
+[data-theme="dark"] kbd {
+    background: var(--surface-tertiary);
+    border-color: var(--border-default);
+    box-shadow: 0 1px 0 rgba(0, 0, 0, 0.3);
+}
+
+/* ---------- Mobile Adjustments for New Features ---------- */
+@media (max-width: 768px) {
+    /* Hide column visibility and density on small screens - keep essential actions only */
+    #density-toggle,
+    .column-visibility-wrapper {
+        display: none;
+    }
+
+    .modal-content {
+        max-width: none;
+        margin: 12px;
+        border-radius: var(--radius-md);
+    }
+
+    .modal-header {
+        padding: 14px 16px;
+    }
+
+    .modal-header h2 {
+        font-size: var(--text-base);
+    }
+
+    .modal-body {
+        padding: 14px 16px 16px;
+    }
+
+    .shortcut-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 4px;
+    }
+
+    /* Compact density adjustments for mobile */
+    [data-density="compact"] td {
+        padding: 6px 6px;
+    }
+
+    [data-density="compact"] th {
+        padding: 8px 6px;
+    }
+}
