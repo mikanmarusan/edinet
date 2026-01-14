@@ -206,3 +206,7 @@ analyze_*.py
 *.log
 XBRL_*.md
 xbrl_*_investigation_*.json
+
+# Playwright MCP
+# Browser automation outputs (screenshots, traces, videos, sessions)
+.playwright-mcp/
