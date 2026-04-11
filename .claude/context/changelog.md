@@ -113,6 +113,30 @@
   - pointer-eventsによる適切なイベント処理
   - z-indexによるレイヤー管理（z-index: 10000）
 
+### 上場廃止企業の検出とWeb UI表示（2026年4月）
+- **概要**: JPX公開の「東証上場銘柄一覧」(`data_j.xls`) との差分で上場廃止企業を検出し、`data/edinet.json`と Web ビューアで視覚的に区別する
+- **背景**: EDINETは有価証券報告書のみを提供し、上場廃止情報を持たない。有報を提出しなくなった企業は fetcher から消えるが、過去の `data/jsons/*.json` に残ったデータは「ゾンビ」化していた
+- **検出ロジック**:
+  - `delisted = (observed_secs - regional_skip) - jpx_listed`
+  - `observed_secs`: `data/jsons/*.json` で過去に観測された全 secCode
+  - `jpx_listed`: JPX `data_j.xls` から抽出した現役の東証上場 secCode
+  - `regional_skip`: `config/stock_exchange_mapping.yml` 登録コード（地方取引所単独上場銘柄のため JPX データに含まれず、判定対象から**除外**する）
+- **新規ファイル**:
+  - `lib/delisted_detector.py` - 差分計算ロジック
+  - `bin/update_delisted_companies.py` - JPX 取得・YAML 更新（Fail-safe エスカレーション付き）
+  - `data/delisted_companies.yml` - 上場廃止企業の永続化 YAML
+  - `tests/test_delisted_detector.py`, `tests/test_consolidate_delisted.py`
+- **変更ファイル**:
+  - `bin/consolidate_documents.py` - `--delisted` 引数で yml を読み、各 company に `isDelisted` / `delistedDate` フィールドを付与
+  - `docs/script.js` / `docs/styles.css` / `docs/index.html` - `.delisted-row` クラスと `廃止` バッジ、Excel エクスポート列追加
+  - `.github/workflows/edinet-fetcher.yml` - fetch と consolidate の間に update ステップ挿入、`concurrency` グループ追加
+  - `pyproject.toml` / `requirements.txt` - `xlrd==1.2.0` を明示的にピン（xlrd 2.x 以降は `.xls` 非対応）
+- **重要な技術判断**:
+  - **pandas 経由ではなく xlrd を直接呼ぶ**: pandas 2.x は `xlrd>=2.0.1` を要求するが xlrd 2.x は `.xls` 未対応という矛盾のため、`xlrd.open_workbook()` を直接呼ぶ
+  - **`stock_exchange_mapping.yml` は判定スキップリスト（exclusion）として使用**: ホワイトリスト扱いはしない（mapping 未登録の地方単独上場銘柄は誤検出される可能性があるが、それは既存の quarterly update 運用問題に還元される）
+  - **JPX 取得失敗の段階的エスカレーション**: 1 連続失敗→stderr warning、2 連続→`$GITHUB_STEP_SUMMARY` に警告、3 連続→`exit 1` で step を失敗させる。連続失敗カウンタは `metadata.consecutive_failures` に永続化
+- **初期導入時の検出数**: 約 200 件（直近の TOB/MBO による上場廃止が大半。e.g., イオンモール, SCSK, NTTデータグループ, ベネッセHD, ＳＢＩレオスひふみ 等）
+
 ## 今後の改善予定
 
 ### 技術的改善

@@ -16,6 +16,7 @@ This system provides comprehensive financial data extraction and analysis capabi
 - **Automated Data Collection**: Daily extraction from EDINET API with intelligent retry mechanisms
 - **Comprehensive Metrics**: Extraction of 25+ key financial indicators including P&L, balance sheet, and market data
 - **Yahoo Finance Integration**: Enriched data with real-time stock prices and market metrics
+- **Delisted Company Detection**: Automatically flags companies that no longer appear in the JPX listing, based on differences against the JPX `data_j.xls` snapshot
 - **Flexible Filtering**: Target specific companies using security codes
 - **Data Consolidation**: Merge multiple daily extracts into unified datasets
 - **Enterprise Value Calculations**: Automated EV, EBITDA, and EV/EBITDA calculations
@@ -125,10 +126,24 @@ Consolidates multiple daily JSON files into a single file.
 - `--output`: Output file path
 
 **Optional Parameters:**
+- `--delisted`: Path to the delisted companies YAML file (default: `data/delisted_companies.yml`). Adds `isDelisted` and `delistedDate` fields to each company in the output.
 - `--summary`: Display summary statistics
 - `--verbose, -v`: Enable detailed logging
 
 **Output:** Creates consolidated JSON file
+
+### update_delisted_companies.py
+
+Detects delisted companies by comparing every securities code ever observed in `data/jsons/*.json` against the current JPX listing (`data_j.xls`), excluding regional-exchange single-listed stocks. Updates `data/delisted_companies.yml` in place, preserving the first detection date for codes already known to be delisted.
+
+```bash
+uv run python bin/update_delisted_companies.py \
+  --jsonsdir data/jsons \
+  --mapping config/stock_exchange_mapping.yml \
+  --output data/delisted_companies.yml
+```
+
+**Fail-safe:** If the JPX file fails to download, a consecutive-failure counter is maintained in the YAML metadata. After 1 failure the script emits a warning; after 2 it writes to `$GITHUB_STEP_SUMMARY` (if set); after 3 it exits with status 1 so the CI step fails visibly.
 
 ## Extracted Financial Metrics
 
@@ -160,6 +175,8 @@ Consolidates multiple daily JSON files into a single file.
 | eps | Earnings per share | Number |
 | cash | Cash and cash equivalents | Number |
 | issuedDate | Securities report submission date | String |
+| isDelisted | Delisted flag (2026-04 added) | Boolean |
+| delistedDate | Delisted detection date (YYYY-MM-DD) | String |
 | ebitda | EBITDA | Number |
 | ebitdaMargin | EBITDA margin (%) | Number |
 | ev | Enterprise value | Number |

@@ -7,10 +7,15 @@ on:
   # 手動実行も可能にする
   workflow_dispatch:
 
+# delisted_companies.yml の更新と commit が並行実行で競合しないよう直列化
+concurrency:
+  group: edinet-fetcher
+  cancel-in-progress: false
+
 jobs:
   run-scripts:
     runs-on: ubuntu-latest
-    
+
     steps:
     # リポジトリのコードをチェックアウト
     - name: Checkout repository
@@ -41,11 +46,23 @@ jobs:
       env:
         EDINET_API_KEY: ${{ secrets.EDINET_API_KEY }}
       run: uv run python bin/fetch_edinet_financial_documents.py --date $(date -d "yesterday" '+%Y-%m-%d') --outputdir data/jsons --api-key $EDINET_API_KEY
-    
+
+    # JPX data_j.xls との差分で上場廃止銘柄を検出し delisted_companies.yml を更新
+    # 失敗時は段階的エスカレーション（1→warning / 2→step summary / 3→exit 1）
+    - name: Update delisted companies
+      run: |
+        uv run python bin/update_delisted_companies.py \
+          --jsonsdir data/jsons \
+          --mapping config/stock_exchange_mapping.yml \
+          --output data/delisted_companies.yml
+
     # 2つ目のスクリプトを実行
     - name: Consolidate documents
       run: |
-        uv run python bin/consolidate_documents.py --inputdir data/jsons/ --output data/edinet.json
+        uv run python bin/consolidate_documents.py \
+          --inputdir data/jsons/ \
+          --output data/edinet.json \
+          --delisted data/delisted_companies.yml
         # docs配下にもコピー（GitHub Pages用）
         cp data/edinet.json docs/data.json
     

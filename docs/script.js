@@ -608,9 +608,19 @@ function displayData(data) {
             row.style.animationDelay = '300ms';
         }
 
+        // Mark delisted companies for visual styling and screen readers.
+        if (item.isDelisted) {
+            row.classList.add('delisted-row');
+            row.setAttribute('aria-label', `上場廃止（検知日: ${item.delistedDate || '不明'}）`);
+        }
+
+        const delistedBadge = item.isDelisted
+            ? ` <span class="badge badge-delisted" title="上場廃止（検知日: ${escapeHtml(item.delistedDate || '不明')}）">廃止</span>`
+            : '';
+
         row.innerHTML = `
             <td class="sec-code sticky-col sticky-col-1">${item.yahooURL ? `<a href="${encodeURI(item.yahooURL)}" target="_blank" rel="noopener noreferrer">${escapeHtml(item.secCode)}</a>` : escapeHtml(item.secCode) || '-'}</td>
-            <td class="company-name sticky-col sticky-col-2">${item.docPdfURL ? `<a href="${encodeURI(item.docPdfURL)}" target="_blank" rel="noopener noreferrer">${escapeHtml(item.filerName)}</a>` : escapeHtml(item.filerName) || '-'}</td>
+            <td class="company-name sticky-col sticky-col-2">${item.docPdfURL ? `<a href="${encodeURI(item.docPdfURL)}" target="_blank" rel="noopener noreferrer">${escapeHtml(item.filerName)}</a>` : escapeHtml(item.filerName) || '-'}${delistedBadge}</td>
             <td>${escapeHtml(item.periodEnd) || '-'}</td>
             <td class="number-cell">${formatStockPrice(item.stockPrice)}</td>
             <td class="number-cell">${formatNumber(item.netSales)}</td>
@@ -865,7 +875,9 @@ function exportToExcel() {
         '純資産合計(百万円)': item.equity ? Math.round(item.equity / MILLION) : '',
         'ネット有利子負債(百万円)': item.debt ? Math.round(item.debt / MILLION) : '',
         'EDINET提出日': item.issuedDate || '',
-        '最終更新日': item.retrievedDate || ''
+        '最終更新日': item.retrievedDate || '',
+        '上場廃止': item.isDelisted ? 'TRUE' : 'FALSE',
+        '上場廃止検知日': item.delistedDate || ''
     }));
 
     const ws = XLSX.utils.json_to_sheet(exportData);
@@ -875,7 +887,7 @@ function exportToExcel() {
         {wch: 15}, {wch: 15}, {wch: 15}, {wch: 15}, {wch: 12},
         {wch: 15}, {wch: 12}, {wch: 15}, {wch: 15}, {wch: 15},
         {wch: 10}, {wch: 15}, {wch: 12}, {wch: 10}, {wch: 15},
-        {wch: 20}, {wch: 12}, {wch: 12}
+        {wch: 20}, {wch: 12}, {wch: 12}, {wch: 10}, {wch: 15}
     ];
 
     const wb = XLSX.utils.book_new();
