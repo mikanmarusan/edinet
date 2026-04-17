@@ -46,6 +46,8 @@ python fetch_edinet_financial_documents.py --date YYYY-MM-DD --outputdir data/js
 | ordinaryIncome | 経常利益（2025-07追加） | 1300000000 |
 | ordinaryIncomeRate | 経常利益率（2025-07追加） | 8.67 |
 | issuedDate | 有価証券報告書提出日（2025-07追加） | 2024-09-30 |
+| isDelisted | 上場廃止フラグ（2026-04追加） | true / false |
+| delistedDate | 上場廃止検知日（2026-04追加） | 2026-04-11 |
 | characteristic | 企業特色（Yahoo Finance優先） | 【特色】IT企業向けクラウドサービス |
 | （他多数） | | |
 
@@ -54,11 +56,28 @@ python fetch_edinet_financial_documents.py --date YYYY-MM-DD --outputdir data/js
 #### 基本機能
 - 複数のJSONファイルを統合
 - 重複企業は最新データを保持
+- 上場廃止企業（`data/delisted_companies.yml`）の情報を付与（2026-04追加）
 - 統合データをJSON形式で出力
 
 #### コマンドライン仕様
 ```bash
-python consolidate_documents.py --inputdir data/jsons/ --output data/edinet.json
+python consolidate_documents.py --inputdir data/jsons/ --output data/edinet.json \
+    --delisted data/delisted_companies.yml
+```
+
+### 2.3 上場廃止検出ツール（2026-04追加）
+
+#### 基本機能
+- JPX「東証上場銘柄一覧」(`data_j.xls`) との差分で上場廃止企業を検出
+- `data/delisted_companies.yml` に永続化（初回検出日を保存）
+- JPX 取得失敗時は段階的エスカレーション（1 連続 warning / 2 連続 GitHub Actions step summary / 3 連続 exit 1）
+
+#### コマンドライン仕様
+```bash
+python bin/update_delisted_companies.py \
+    --jsonsdir data/jsons \
+    --mapping config/stock_exchange_mapping.yml \
+    --output data/delisted_companies.yml
 ```
 
 ## 3. 技術要件

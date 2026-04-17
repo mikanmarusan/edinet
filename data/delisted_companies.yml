@@ -1,0 +1,811 @@
+# 上場廃止企業リスト (auto-generated)
+# 検出方法: JPX data_j.xls にない、かつ stock_exchange_mapping.yml 未登録、
+#           かつ data/jsons/ で過去に観測された secCode
+# 自動更新スクリプト: bin/update_delisted_companies.py
+metadata:
+  schema_version: 1
+  last_updated: '2026-04-11'
+  last_success: '2026-04-11'
+  consecutive_failures: 0
+  source: https://www.jpx.co.jp/markets/statistics-equities/misc/tvdivq0000001vg2-att/data_j.xls
+delisted:
+  '1451':
+    name: 株式会社ＫＨＣ
+    detectedDate: '2026-04-11'
+    reason: null
+  165A:
+    name: ＳＢＩレオスひふみ株式会社
+    detectedDate: '2026-04-11'
+    reason: null
+  '1712':
+    name: 株式会社ダイセキ環境ソリューション
+    detectedDate: '2026-04-11'
+    reason: null
+  '1730':
+    name: 麻生フオームクリート株式会社
+    detectedDate: '2026-04-11'
+    reason: null
+  '1743':
+    name: コーアツ工業株式会社
+    detectedDate: '2026-04-11'
+    reason: null
+  '1757':
+    name: 株式会社創建エース
+    detectedDate: '2026-04-11'
+    reason: null
+  176A:
+    name: レジル株式会社
+    detectedDate: '2026-04-11'
+    reason: null
+  '1775':
+    name: 富士古河Ｅ＆Ｃ株式会社
+    detectedDate: '2026-04-11'
+    reason: null
+  '1805':
+    name: 飛島建設株式会社
+    detectedDate: '2026-04-11'
+    reason: null
+  '1821':
+    name: 三井住友建設株式会社
+    detectedDate: '2026-04-11'
+    reason: null
+  '1841':
+    name: サンユー建設株式会社
+    detectedDate: '2026-04-11'
+    reason: null
+  '1884':
+    name: 日本道路株式会社
+    detectedDate: '2026-04-11'
+    reason: null
+  '1890':
+    name: 東洋建設株式会社
+    detectedDate: '2026-04-11'
+    reason: null
+  '1949':
+    name: 住友電設株式会社
+    detectedDate: '2026-04-11'
+    reason: null
+  '1973':
+    name: ＮＥＣネッツエスアイ株式会社
+    detectedDate: '2026-04-11'
+    reason: null
+  '2107':
+    name: 東洋精糖株式会社
+    detectedDate: '2026-04-11'
+    reason: null
+  '2150':
+    name: 株式会社ケアネット
+    detectedDate: '2026-04-11'
+    reason: null
+  '2196':
+    name: 株式会社エスクリ
+    detectedDate: '2026-04-11'
+    reason: null
+  '2372':
+    name: 株式会社アイロムグループ
+    detectedDate: '2026-04-11'
+    reason: null
+  '2374':
+    name: セントケア・ホールディング株式会社
+    detectedDate: '2026-04-11'
+    reason: null
+  '2389':
+    name: 株式会社デジタルホールディングス
+    detectedDate: '2026-04-11'
+    reason: null
+  '2397':
+    name: 株式会社ＤＮＡチップ研究所
+    detectedDate: '2026-04-11'
+    reason: null
+  '2468':
+    name: 株式会社フュートレック
+    detectedDate: '2026-04-11'
+    reason: null
+  '2599':
+    name: ジャパンフーズ株式会社
+    detectedDate: '2026-04-11'
+    reason: null
+  260A:
+    name: 株式会社オルツ
+    detectedDate: '2026-04-11'
+    reason: null
+  '2715':
+    name: エレマテック株式会社
+    detectedDate: '2026-04-11'
+    reason: null
+  '2743':
+    name: ピクセルカンパニーズ株式会社
+    detectedDate: '2026-04-11'
+    reason: null
+  '2754':
+    name: 株式会社東葛ホールディングス
+    detectedDate: '2026-04-11'
+    reason: null
+  '2830':
+    name: アヲハタ株式会社
+    detectedDate: '2026-04-11'
+    reason: null
+  '2899':
+    name: 株式会社永谷園ホールディングス
+    detectedDate: '2026-04-11'
+    reason: null
+  '3073':
+    name: 株式会社ＤＤグループ
+    detectedDate: '2026-04-11'
+    reason: null
+  '3094':
+    name: 株式会社スーパーバリュー
+    detectedDate: '2026-04-11'
+    reason: null
+  '3136':
+    name: 株式会社エコノス
+    detectedDate: '2026-04-11'
+    reason: null
+  '3141':
+    name: ウエルシアホールディングス株式会社
+    detectedDate: '2026-04-11'
+    reason: null
+  '3254':
+    name: 株式会社プレサンスコーポレーション
+    detectedDate: '2026-04-11'
+    reason: null
+  '3264':
+    name: 株式会社アスコット
+    detectedDate: '2026-04-11'
+    reason: null
+  '3275':
+    name: ハウスコム株式会社
+    detectedDate: '2026-04-11'
+    reason: null
+  '3319':
+    name: 株式会社ゴルフダイジェスト・オンライン
+    detectedDate: '2026-04-11'
+    reason: null
+  '3322':
+    name: アルファグループ株式会社
+    detectedDate: '2026-04-11'
+    reason: null
+  '3328':
+    name: ＢＥＥＮＯＳ株式会社
+    detectedDate: '2026-04-11'
+    reason: null
+  '3341':
+    name: 日本調剤株式会社
+    detectedDate: '2026-04-11'
+    reason: null
+  '3347':
+    name: 株式会社トラスト
+    detectedDate: '2026-04-11'
+    reason: null
+  '3458':
+    name: 株式会社シーアールイー
+    detectedDate: '2026-04-11'
+    reason: null
+  '3497':
+    name: 株式会社ＬｅＴｅｃｈ
+    detectedDate: '2026-04-11'
+    reason: null
+  '3526':
+    name: 芦森工業株式会社
+    detectedDate: '2026-04-11'
+    reason: null
+  '3540':
+    name: 株式会社歯愛メディカル
+    detectedDate: '2026-04-11'
+    reason: null
+  '3604':
+    name: 川本産業株式会社
+    detectedDate: '2026-04-11'
+    reason: null
+  '3655':
+    name: 株式会社ブレインパッド
+    detectedDate: '2026-04-11'
+    reason: null
+  '3666':
+    name: 株式会社テクノスジャパン
+    detectedDate: '2026-04-11'
+    reason: null
+  '3688':
+    name: 株式会社ＣＡＲＴＡ　ＨＯＬＤＩＮＧＳ
+    detectedDate: '2026-04-11'
+    reason: null
+  '3738':
+    name: 株式会社ティーガイア
+    detectedDate: '2026-04-11'
+    reason: null
+  '3770':
+    name: 株式会社ザッパラス
+    detectedDate: '2026-04-11'
+    reason: null
+  '3814':
+    name: 株式会社アルファクス・フード・システム
+    detectedDate: '2026-04-11'
+    reason: null
+  '3830':
+    name: 株式会社ギガプライズ
+    detectedDate: '2026-04-11'
+    reason: null
+  '3847':
+    name: パシフィックシステム株式会社
+    detectedDate: '2026-04-11'
+    reason: null
+  '3857':
+    name: 株式会社ラック
+    detectedDate: '2026-04-11'
+    reason: null
+  '3924':
+    name: 株式会社ランドコンピュータ
+    detectedDate: '2026-04-11'
+    reason: null
+  '3952':
+    name: 中央紙器工業株式会社
+    detectedDate: '2026-04-11'
+    reason: null
+  '3961':
+    name: シルバーエッグ・テクノロジー株式会社
+    detectedDate: '2026-04-11'
+    reason: null
+  '3978':
+    name: 株式会社マクロミル
+    detectedDate: '2026-04-11'
+    reason: null
+  '3990':
+    name: ＵＵＵＭ株式会社
+    detectedDate: '2026-04-11'
+    reason: null
+  '4080':
+    name: 株式会社田中化学研究所
+    detectedDate: '2026-04-11'
+    reason: null
+  '4173':
+    name: 株式会社ＷＡＣＵＬ
+    detectedDate: '2026-04-11'
+    reason: null
+  '4215':
+    name: タキロンシーアイ株式会社
+    detectedDate: '2026-04-11'
+    reason: null
+  '4267':
+    name: 株式会社ライトワークス
+    detectedDate: '2026-04-11'
+    reason: null
+  '4268':
+    name: エッジテクノロジー株式会社
+    detectedDate: '2026-04-11'
+    reason: null
+  '4295':
+    name: 株式会社フェイス
+    detectedDate: '2026-04-11'
+    reason: null
+  '4298':
+    name: 株式会社プロトコーポレーション
+    detectedDate: '2026-04-11'
+    reason: null
+  '4304':
+    name: 株式会社Ｅストアー
+    detectedDate: '2026-04-11'
+    reason: null
+  '4319':
+    name: ＴＡＣ株式会社
+    detectedDate: '2026-04-11'
+    reason: null
+  '4333':
+    name: 株式会社東邦システムサイエンス
+    detectedDate: '2026-04-11'
+    reason: null
+  '4348':
+    name: インフォコム株式会社
+    detectedDate: '2026-04-11'
+    reason: null
+  '4349':
+    name: 株式会社テスク
+    detectedDate: '2026-04-11'
+    reason: null
+  '4435':
+    name: 株式会社カオナビ
+    detectedDate: '2026-04-11'
+    reason: null
+  '4485':
+    name: 株式会社ＪＴＯＷＥＲ
+    detectedDate: '2026-04-11'
+    reason: null
+  '4551':
+    name: 鳥居薬品株式会社
+    detectedDate: '2026-04-11'
+    reason: null
+  '4726':
+    name: ＳＢテクノロジー株式会社
+    detectedDate: '2026-04-11'
+    reason: null
+  '4745':
+    name: 株式会社東京個別指導学院
+    detectedDate: '2026-04-11'
+    reason: null
+  '4770':
+    name: 図研エルミック株式会社
+    detectedDate: '2026-04-11'
+    reason: null
+  '4781':
+    name: 日本ハウズイング株式会社
+    detectedDate: '2026-04-11'
+    reason: null
+  '4824':
+    name: 株式会社メディアシーク
+    detectedDate: '2026-04-11'
+    reason: null
+  '4921':
+    name: 株式会社ファンケル
+    detectedDate: '2026-04-11'
+    reason: null
+  '4957':
+    name: ヤスハラケミカル株式会社
+    detectedDate: '2026-04-11'
+    reason: null
+  '5009':
+    name: 富士興産株式会社
+    detectedDate: '2026-04-11'
+    reason: null
+  '5017':
+    name: 富士石油株式会社
+    detectedDate: '2026-04-11'
+    reason: null
+  '5070':
+    name: 株式会社ドラフト
+    detectedDate: '2026-04-11'
+    reason: null
+  '5191':
+    name: 住友理工株式会社
+    detectedDate: '2026-04-11'
+    reason: null
+  '5217':
+    name: テクノクオーツ株式会社
+    detectedDate: '2026-04-11'
+    reason: null
+  '5277':
+    name: 株式会社スパンクリートコーポレーション
+    detectedDate: '2026-04-11'
+    reason: null
+  '5352':
+    name: 黒崎播磨株式会社
+    detectedDate: '2026-04-11'
+    reason: null
+  '5476':
+    name: 日本高周波鋼業株式会社
+    detectedDate: '2026-04-11'
+    reason: null
+  '5481':
+    name: 山陽特殊製鋼株式会社
+    detectedDate: '2026-04-11'
+    reason: null
+  '5577':
+    name: 株式会社アイデミー
+    detectedDate: '2026-04-11'
+    reason: null
+  '5585':
+    name: エコナビスタ株式会社
+    detectedDate: '2026-04-11'
+    reason: null
+  '5595':
+    name: 株式会社ＱＰＳ研究所
+    detectedDate: '2026-04-11'
+    reason: null
+  '5596':
+    name: アウトルックコンサルティング株式会社
+    detectedDate: '2026-04-11'
+    reason: null
+  '5759':
+    name: 日本電解株式会社
+    detectedDate: '2026-04-11'
+    reason: null
+  '5809':
+    name: タツタ電線株式会社
+    detectedDate: '2026-04-11'
+    reason: null
+  '5836':
+    name: 株式会社エージェント・インシュアランス・グループ
+    detectedDate: '2026-04-11'
+    reason: null
+  '5935':
+    name: 元旦ビューティ工業株式会社
+    detectedDate: '2026-04-11'
+    reason: null
+  '5993':
+    name: 知多鋼業株式会社
+    detectedDate: '2026-04-11'
+    reason: null
+  '6026':
+    name: ＧＭＯ　ＴＥＣＨ株式会社
+    detectedDate: '2026-04-11'
+    reason: null
+  '6028':
+    name: テクノプロ・ホールディングス株式会社
+    detectedDate: '2026-04-11'
+    reason: null
+  '6048':
+    name: 株式会社デザインワン・ジャパン
+    detectedDate: '2026-04-11'
+    reason: null
+  '6060':
+    name: こころネット株式会社
+    detectedDate: '2026-04-11'
+    reason: null
+  '6095':
+    name: メドピア株式会社
+    detectedDate: '2026-04-11'
+    reason: null
+  '6131':
+    name: 浜井産業株式会社
+    detectedDate: '2026-04-11'
+    reason: null
+  '6210':
+    name: ＴＯＹＯイノベックス株式会社
+    detectedDate: '2026-04-11'
+    reason: null
+  '6236':
+    name: ＮＣホールディングス株式会社
+    detectedDate: '2026-04-11'
+    reason: null
+  '6293':
+    name: 日精樹脂工業株式会社
+    detectedDate: '2026-04-11'
+    reason: null
+  '6297':
+    name: 鉱研工業株式会社
+    detectedDate: '2026-04-11'
+    reason: null
+  '6312':
+    name: フロイント産業株式会社
+    detectedDate: '2026-04-11'
+    reason: null
+  '6319':
+    name: 株式会社シンニッタン
+    detectedDate: '2026-04-11'
+    reason: null
+  '6362':
+    name: 株式会社石井鐵工所
+    detectedDate: '2026-04-11'
+    reason: null
+  '6373':
+    name: 大同工業株式会社
+    detectedDate: '2026-04-11'
+    reason: null
+  '6406':
+    name: フジテック株式会社
+    detectedDate: '2026-04-11'
+    reason: null
+  '6411':
+    name: 中野冷機株式会社
+    detectedDate: '2026-04-11'
+    reason: null
+  '6416':
+    name: 桂川電機株式会社
+    detectedDate: '2026-04-11'
+    reason: null
+  '6542':
+    name: 株式会社ＦＣホールディングス
+    detectedDate: '2026-04-11'
+    reason: null
+  '6550':
+    name: Ｕｎｉｐｏｓ株式会社
+    detectedDate: '2026-04-11'
+    reason: null
+  '6698':
+    name: ヴィスコ・テクノロジーズ株式会社
+    detectedDate: '2026-04-11'
+    reason: null
+  '6704':
+    name: 岩崎通信機株式会社
+    detectedDate: '2026-04-11'
+    reason: null
+  '6715':
+    name: 株式会社ナカヨ
+    detectedDate: '2026-04-11'
+    reason: null
+  '6734':
+    name: 株式会社ニューテック
+    detectedDate: '2026-04-11'
+    reason: null
+  '6755':
+    name: 株式会社富士通ゼネラル
+    detectedDate: '2026-04-11'
+    reason: null
+  '6879':
+    name: 株式会社ＩＭＡＧＩＣＡ　ＧＲＯＵＰ
+    detectedDate: '2026-04-11'
+    reason: null
+  '6930':
+    name: 日本アンテナ株式会社
+    detectedDate: '2026-04-11'
+    reason: null
+  '6937':
+    name: 古河電池株式会社
+    detectedDate: '2026-04-11'
+    reason: null
+  '6957':
+    name: 株式会社芝浦電子
+    detectedDate: '2026-04-11'
+    reason: null
+  '6967':
+    name: 新光電気工業株式会社
+    detectedDate: '2026-04-11'
+    reason: null
+  '6973':
+    name: 協栄産業株式会社
+    detectedDate: '2026-04-11'
+    reason: null
+  '7086':
+    name: 株式会社きずなホールディングス
+    detectedDate: '2026-04-11'
+    reason: null
+  '7116':
+    name: ダイワ通信株式会社
+    detectedDate: '2026-04-11'
+    reason: null
+  '7163':
+    name: 住信ＳＢＩネット銀行株式会社
+    detectedDate: '2026-04-11'
+    reason: null
+  '7205':
+    name: 日野自動車株式会社
+    detectedDate: '2026-04-11'
+    reason: null
+  '7268':
+    name: 株式会社タツミ
+    detectedDate: '2026-04-11'
+    reason: null
+  '7379':
+    name: 株式会社サーキュレーション
+    detectedDate: '2026-04-11'
+    reason: null
+  '7386':
+    name: ジャパンワランティサポート株式会社
+    detectedDate: '2026-04-11'
+    reason: null
+  '7408':
+    name: 株式会社ジャムコ
+    detectedDate: '2026-04-11'
+    reason: null
+  '7420':
+    name: 佐鳥電機株式会社
+    detectedDate: '2026-04-11'
+    reason: null
+  '7445':
+    name: 株式会社ライトオン
+    detectedDate: '2026-04-11'
+    reason: null
+  '7451':
+    name: 三菱食品株式会社
+    detectedDate: '2026-04-11'
+    reason: null
+  '7455':
+    name: 株式会社パリミキホールディングス
+    detectedDate: '2026-04-11'
+    reason: null
+  '7467':
+    name: 萩原電気ホールディングス株式会社
+    detectedDate: '2026-04-11'
+    reason: null
+  '7518':
+    name: ネットワンシステムズ株式会社
+    detectedDate: '2026-04-11'
+    reason: null
+  '7533':
+    name: 株式会社グリーンクロス
+    detectedDate: '2026-04-11'
+    reason: null
+  '7559':
+    name: ジーエフシー株式会社
+    detectedDate: '2026-04-11'
+    reason: null
+  '7605':
+    name: 株式会社　フジ・コーポレーション
+    detectedDate: '2026-04-11'
+    reason: null
+  '7623':
+    name: 株式会社サンオータス
+    detectedDate: '2026-04-11'
+    reason: null
+  '7635':
+    name: 杉田エース株式会社
+    detectedDate: '2026-04-11'
+    reason: null
+  '7647':
+    name: 株式会社音通
+    detectedDate: '2026-04-11'
+    reason: null
+  '7705':
+    name: ジーエルサイエンス株式会社
+    detectedDate: '2026-04-11'
+    reason: null
+  '7718':
+    name: スター精密株式会社
+    detectedDate: '2026-04-11'
+    reason: null
+  '7732':
+    name: 株式会社　トプコン
+    detectedDate: '2026-04-11'
+    reason: null
+  '7817':
+    name: パラマウントベッドホールディングス株式会社
+    detectedDate: '2026-04-11'
+    reason: null
+  '7829':
+    name: 株式会社サマンサタバサジャパンリミテッド
+    detectedDate: '2026-04-11'
+    reason: null
+  '7923':
+    name: トーイン株式会社
+    detectedDate: '2026-04-11'
+    reason: null
+  '7958':
+    name: 天馬株式会社
+    detectedDate: '2026-04-11'
+    reason: null
+  '8038':
+    name: 東都水産株式会社
+    detectedDate: '2026-04-11'
+    reason: null
+  '8072':
+    name: 日本出版貿易株式会社
+    detectedDate: '2026-04-11'
+    reason: null
+  '8114':
+    name: 株式会社デサント
+    detectedDate: '2026-04-11'
+    reason: null
+  '8155':
+    name: 三益半導体工業株式会社
+    detectedDate: '2026-04-11'
+    reason: null
+  '8182':
+    name: 株式会社いなげや
+    detectedDate: '2026-04-11'
+    reason: null
+  '8208':
+    name: 株式会社エンチョー
+    detectedDate: '2026-04-11'
+    reason: null
+  '8215':
+    name: 株式会社銀座山形屋
+    detectedDate: '2026-04-11'
+    reason: null
+  '8279':
+    name: 株式会社ヤオコー
+    detectedDate: '2026-04-11'
+    reason: null
+  '8462':
+    name: フューチャーベンチャーキャピタル株式会社
+    detectedDate: '2026-04-11'
+    reason: null
+  '8515':
+    name: アイフル株式会社
+    detectedDate: '2026-04-11'
+    reason: null
+  '8732':
+    name: 株式会社マネーパートナーズグループ
+    detectedDate: '2026-04-11'
+    reason: null
+  '8886':
+    name: 株式会社ウッドフレンズ
+    detectedDate: '2026-04-11'
+    reason: null
+  '8890':
+    name: 株式会社レーサム
+    detectedDate: '2026-04-11'
+    reason: null
+  '8905':
+    name: イオンモール株式会社
+    detectedDate: '2026-04-11'
+    reason: null
+  '8940':
+    name: 株式会社インテリックス
+    detectedDate: '2026-04-11'
+    reason: null
+  '9055':
+    name: 株式会社アルプス物流
+    detectedDate: '2026-04-11'
+    reason: null
+  '9058':
+    name: トランコム株式会社
+    detectedDate: '2026-04-11'
+    reason: null
+  '9066':
+    name: 株式会社日新
+    detectedDate: '2026-04-11'
+    reason: null
+  '9070':
+    name: トナミホールディングス株式会社
+    detectedDate: '2026-04-11'
+    reason: null
+  '9078':
+    name: 株式会社エスライングループ本社
+    detectedDate: '2026-04-11'
+    reason: null
+  '9099':
+    name: 株式会社Ｃ＆Ｆロジホールディングス
+    detectedDate: '2026-04-11'
+    reason: null
+  '9161':
+    name: ＩＤ＆Ｅホールディングス株式会社
+    detectedDate: '2026-04-11'
+    reason: null
+  '9164':
+    name: 株式会社トライト
+    detectedDate: '2026-04-11'
+    reason: null
+  '9232':
+    name: 株式会社パスコ
+    detectedDate: '2026-04-11'
+    reason: null
+  '9260':
+    name: 西本Ｗｉｓｍｅｔｔａｃホールディングス株式会社
+    detectedDate: '2026-04-11'
+    reason: null
+  '9275':
+    name: 株式会社ナルミヤ・インターナショナル
+    detectedDate: '2026-04-11'
+    reason: null
+  '9377':
+    name: 株式会社　エージーピー
+    detectedDate: '2026-04-11'
+    reason: null
+  '9384':
+    name: 内外トランスライン株式会社
+    detectedDate: '2026-04-11'
+    reason: null
+  '9386':
+    name: 日本コンセプト株式会社
+    detectedDate: '2026-04-11'
+    reason: null
+  '9479':
+    name: 株式会社インプレスホールディングス
+    detectedDate: '2026-04-11'
+    reason: null
+  '9600':
+    name: 株式会社アイネット
+    detectedDate: '2026-04-11'
+    reason: null
+  '9613':
+    name: 株式会社ＮＴＴデータグループ
+    detectedDate: '2026-04-11'
+    reason: null
+  '9675':
+    name: 常磐興産株式会社
+    detectedDate: '2026-04-11'
+    reason: null
+  '9696':
+    name: 株式会社ウィザス
+    detectedDate: '2026-04-11'
+    reason: null
+  '9719':
+    name: ＳＣＳＫ株式会社
+    detectedDate: '2026-04-11'
+    reason: null
+  '9749':
+    name: 富士ソフト株式会社
+    detectedDate: '2026-04-11'
+    reason: null
+  '9776':
+    name: 札幌臨床検査センター株式会社
+    detectedDate: '2026-04-11'
+    reason: null
+  '9783':
+    name: 株式会社ベネッセホールディングス
+    detectedDate: '2026-04-11'
+    reason: null
+  '9787':
+    name: イオンディライト株式会社
+    detectedDate: '2026-04-11'
+    reason: null
+  '9852':
+    name: ＣＢグループマネジメント株式会社
+    detectedDate: '2026-04-11'
+    reason: null
+  '9873':
+    name: 日本ＫＦＣホールディングス株式会社
+    detectedDate: '2026-04-11'
+    reason: null
+  '9919':
+    name: 株式会社関西フードマーケット
+    detectedDate: '2026-04-11'
+    reason: null

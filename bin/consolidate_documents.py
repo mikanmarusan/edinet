@@ -20,6 +20,8 @@ from datetime import datetime, timedelta
 from typing import List, Dict, Any, Optional
 from collections import defaultdict
 
+import yaml
+
 # Add parent directory to path to access lib module
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
@@ -29,12 +31,31 @@ from lib.edinet_common import setup_logging, ensure_output_directory
 logger = logging.getLogger(__name__)
 
 
+def load_delisted_map(yaml_path: str) -> Dict[str, Dict[str, Any]]:
+    """
+    Load the delisted companies YAML into a {secCode: {detectedDate, name, ...}} map.
+
+    Returns an empty dict if the file does not exist or cannot be parsed.
+    """
+    if not yaml_path or not os.path.exists(yaml_path):
+        return {}
+    try:
+        with open(yaml_path, 'r', encoding='utf-8') as f:
+            data = yaml.safe_load(f) or {}
+    except (OSError, yaml.YAMLError) as e:
+        logger.warning(f"Could not load delisted yaml {yaml_path}: {e}")
+        return {}
+    delisted = data.get('delisted', {}) or {}
+    return {str(code): (info or {}) for code, info in delisted.items()}
+
+
 class DataConsolidator:
     """Consolidates financial data from multiple JSON files"""
-    
-    def __init__(self, input_directory: str):
+
+    def __init__(self, input_directory: str, delisted_yaml_path: Optional[str] = None):
         self.input_directory = input_directory
         self.consolidated_data = {}
+        self.delisted_yaml_path = delisted_yaml_path
         self.logger = logging.getLogger(__name__)
         
     def consolidate_files(self) -> List[Dict[str, Any]]:
@@ -104,8 +125,32 @@ class DataConsolidator:
                 if len(company_entries) > 1:
                     self.logger.debug(f"  Consolidated {len(company_entries)} entries for company {sec_code}")
         
+        # Annotate delisted companies if a yaml path was supplied.
+        if self.delisted_yaml_path:
+            self._annotate_delisted(consolidated_companies)
+
         self.logger.info(f"Consolidation complete: {len(consolidated_companies)} unique companies")
         return consolidated_companies
+
+    def _annotate_delisted(self, companies: List[Dict[str, Any]]) -> None:
+        """
+        Attach ``isDelisted`` and ``delistedDate`` fields to each company
+        based on the delisted_companies.yml file.
+        """
+        delisted_map = load_delisted_map(self.delisted_yaml_path)
+        annotated = 0
+        for company in companies:
+            sec_code = company.get('secCode')
+            if sec_code and sec_code in delisted_map:
+                company['isDelisted'] = True
+                company['delistedDate'] = delisted_map[sec_code].get('detectedDate')
+                annotated += 1
+            else:
+                company['isDelisted'] = False
+                company['delistedDate'] = None
+        self.logger.info(
+            f"Annotated {annotated} delisted companies from {self.delisted_yaml_path}"
+        )
     
     def _filter_files_by_date(self, json_files: List[str]) -> List[str]:
         """
@@ -319,6 +364,11 @@ def main():
     parser = argparse.ArgumentParser(description="Consolidate financial data from multiple JSON files")
     parser.add_argument("--inputdir", required=True, help="Input directory containing JSON files")
     parser.add_argument("--output", required=True, help="Output file path")
+    parser.add_argument(
+        "--delisted",
+        default="data/delisted_companies.yml",
+        help="Delisted companies YAML (for annotating isDelisted/delistedDate)",
+    )
     parser.add_argument("--summary", action="store_true", help="Display summary report")
     parser.add_argument("--verbose", "-v", action="store_true", help="Enable verbose logging")
     
@@ -337,7 +387,7 @@ def main():
             sys.exit(1)
         
         # Initialize consolidator
-        consolidator = DataConsolidator(args.inputdir)
+        consolidator = DataConsolidator(args.inputdir, delisted_yaml_path=args.delisted)
         
         logger.info("Starting data consolidation...")
         
