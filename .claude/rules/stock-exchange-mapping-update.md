@@ -293,7 +293,7 @@ python -m pytest tests/ -v -k stock_exchange
 
 - `.claude/rules/coding-standards.md`: コーディング規約
 - `.claude/rules/testing-guidelines.md`: テスト戦略
-- `.claude/context/changelog.md`: 変更履歴
+- `docs/context/changelog.md`: 変更履歴
 
 ### 外部リンク
 
