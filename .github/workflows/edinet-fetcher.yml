@@ -63,9 +63,7 @@ jobs:
           --inputdir data/jsons/ \
           --output data/edinet.json \
           --delisted data/delisted_companies.yml
-        # docs配下にもコピー（GitHub Pages用）
-        cp data/edinet.json docs/data.json
-    
+
     # Gitの設定
     - name: Configure Git
       run: |
