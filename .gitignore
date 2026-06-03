@@ -203,7 +203,6 @@ cython_debug/
 investigate_*.py
 analyze_*.py
 *_debug.py
-*.log
 XBRL_*.md
 xbrl_*_investigation_*.json
 
