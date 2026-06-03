@@ -291,8 +291,8 @@ python -m pytest tests/ -v -k stock_exchange
 
 ### 関連ドキュメント
 
-- `.claude/instructions/coding-standards.md`: コーディング規約
-- `.claude/instructions/testing-guidelines.md`: テスト戦略
+- `.claude/rules/coding-standards.md`: コーディング規約
+- `.claude/rules/testing-guidelines.md`: テスト戦略
 - `.claude/context/changelog.md`: 変更履歴
 
 ### 外部リンク

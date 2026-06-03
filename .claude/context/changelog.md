@@ -154,4 +154,4 @@
 ## 関連ドキュメント
 - `.claude/context/product-requirements.md` - プロダクト要件詳細
 - `.claude/context/architecture.md` - アーキテクチャ設計
-- `.claude/instructions/debugging-guide.md` - デバッグ手法
+- `.claude/rules/debugging-guide.md` - デバッグ手法
