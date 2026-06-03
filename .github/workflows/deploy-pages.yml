@@ -1,0 +1,46 @@
+name: Deploy Pages
+
+# web/ の静的ビューア + data/edinet.json を data.json として gh-pages ブランチへ公開する。
+# 公開ソースは gh-pages ブランチ（GitHub Pages 設定で main:/docs から切り替え済みであること）。
+# 注意: edinet は独自ドメインを持たないプロジェクトサイト（apex ドメインはユーザーサイト
+#       mikanmarusan.github.io が保有）。このリポジトリに CNAME ファイルを置いてはならない。
+
+on:
+  # EDINET Fetcher が data/edinet.json を main に push した後に自動公開する
+  workflow_run:
+    workflows: ["EDINET Fetcher"]
+    types: [completed]
+  # 手動公開（初回検証・再公開用）
+  workflow_dispatch:
+
+# 既存の workflow_run / dispatch が並行しても gh-pages を壊さないよう直列化
+concurrency:
+  group: deploy-pages
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    # workflow_run 経由の場合は upstream が成功したときのみ公開する
+    # （workflow_dispatch の場合 event.workflow_run は null なので公開する）
+    if: ${{ github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success' }}
+    permissions:
+      contents: write  # peaceiris/actions-gh-pages が gh-pages へ push するために必要
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683  # v4.2.2
+
+      # 公開ディレクトリを組み立てる: web/ のビューア + data/edinet.json -> data.json
+      - name: Build site
+        run: |
+          mkdir -p _site
+          cp -R web/. _site/
+          cp data/edinet.json _site/data.json
+
+      - name: Deploy to gh-pages
+        uses: peaceiris/actions-gh-pages@4f9cc6602d3f66b9c108549d475ec49e8ef4d45e  # v4.0.0
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./_site
+          publish_branch: gh-pages
+          force_orphan: true  # gh-pages の履歴肥大（日次 4.7MB の data.json）を防ぐ
