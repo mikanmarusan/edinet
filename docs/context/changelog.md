@@ -152,6 +152,6 @@
 4. 自動化スケジュール機能
 
 ## 関連ドキュメント
-- `.claude/context/product-requirements.md` - プロダクト要件詳細
-- `.claude/context/architecture.md` - アーキテクチャ設計
+- `docs/context/product-requirements.md` - プロダクト要件詳細
+- `docs/architecture.md` - アーキテクチャ設計
 - `.claude/rules/debugging-guide.md` - デバッグ手法
