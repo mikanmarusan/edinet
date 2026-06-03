@@ -3076,8 +3076,8 @@
     "cash": 7027000000.0,
     "issuedDate": "2025-06-27",
     "retrievedDate": "2025-07-29",
-    "isDelisted": false,
-    "delistedDate": null
+    "isDelisted": true,
+    "delistedDate": "2026-06-03"
   },
   {
     "secCode": "1777",
@@ -11441,8 +11441,8 @@
     "cash": 5605393000.0,
     "issuedDate": "2025-06-25",
     "retrievedDate": "2025-07-29",
-    "isDelisted": false,
-    "delistedDate": null
+    "isDelisted": true,
+    "delistedDate": "2026-06-03"
   },
   {
     "secCode": "2345",
@@ -15781,8 +15781,8 @@
     "cash": 12646000000.0,
     "issuedDate": "2025-06-20",
     "retrievedDate": "2025-07-29",
-    "isDelisted": false,
-    "delistedDate": null
+    "isDelisted": true,
+    "delistedDate": "2026-06-03"
   },
   {
     "secCode": "2693",
@@ -31706,8 +31706,8 @@
     "cash": 21334000000.0,
     "issuedDate": "2025-06-19",
     "retrievedDate": "2025-07-29",
-    "isDelisted": false,
-    "delistedDate": null
+    "isDelisted": true,
+    "delistedDate": "2026-06-03"
   },
   {
     "secCode": "3597",
@@ -47561,8 +47561,8 @@
     "cash": 15547000000.0,
     "issuedDate": "2025-10-22",
     "retrievedDate": "2025-10-23",
-    "isDelisted": false,
-    "delistedDate": null
+    "isDelisted": true,
+    "delistedDate": "2026-06-03"
   },
   {
     "secCode": "4385",
@@ -51131,8 +51131,8 @@
     "cash": 89780000000.0,
     "issuedDate": "2025-05-23",
     "retrievedDate": "2025-07-29",
-    "isDelisted": false,
-    "delistedDate": null
+    "isDelisted": true,
+    "delistedDate": "2026-06-03"
   },
   {
     "secCode": "4531",
@@ -57956,8 +57956,8 @@
     "cash": 23810000000.0,
     "issuedDate": "2025-06-23",
     "retrievedDate": "2025-07-29",
-    "isDelisted": false,
-    "delistedDate": null
+    "isDelisted": true,
+    "delistedDate": "2026-06-03"
   },
   {
     "secCode": "4918",
@@ -67161,8 +67161,8 @@
     "cash": 4599000000.0,
     "issuedDate": "2025-06-18",
     "retrievedDate": "2025-07-29",
-    "isDelisted": false,
-    "delistedDate": null
+    "isDelisted": true,
+    "delistedDate": "2026-06-03"
   },
   {
     "secCode": "5729",
@@ -80986,8 +80986,8 @@
     "cash": 10305000000.0,
     "issuedDate": "2025-08-27",
     "retrievedDate": "2025-08-28",
-    "isDelisted": false,
-    "delistedDate": null
+    "isDelisted": true,
+    "delistedDate": "2026-06-03"
   },
   {
     "secCode": "6490",
@@ -82841,8 +82841,8 @@
     "cash": 5920492000.0,
     "issuedDate": "2025-06-27",
     "retrievedDate": "2025-07-29",
-    "isDelisted": false,
-    "delistedDate": null
+    "isDelisted": true,
+    "delistedDate": "2026-06-03"
   },
   {
     "secCode": "6566",
@@ -88861,8 +88861,8 @@
     "cash": 769000000.0,
     "issuedDate": "2025-06-19",
     "retrievedDate": "2025-07-29",
-    "isDelisted": false,
-    "delistedDate": null
+    "isDelisted": true,
+    "delistedDate": "2026-06-03"
   },
   {
     "secCode": "6902",
@@ -92816,8 +92816,8 @@
     "cash": 10990000000.0,
     "issuedDate": "2025-06-20",
     "retrievedDate": "2025-07-29",
-    "isDelisted": false,
-    "delistedDate": null
+    "isDelisted": true,
+    "delistedDate": "2026-06-03"
   },
   {
     "secCode": "7089",
@@ -108566,8 +108566,8 @@
     "cash": 11805000000.0,
     "issuedDate": "2025-06-23",
     "retrievedDate": "2025-07-29",
-    "isDelisted": false,
-    "delistedDate": null
+    "isDelisted": true,
+    "delistedDate": "2026-06-03"
   },
   {
     "secCode": "7927",
