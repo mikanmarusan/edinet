@@ -210,3 +210,6 @@ xbrl_*_investigation_*.json
 # Playwright MCP
 # Browser automation outputs (screenshots, traces, videos, sessions)
 .playwright-mcp/
+
+# Claude Code local planning notes (not committed)
+.claude/plans/

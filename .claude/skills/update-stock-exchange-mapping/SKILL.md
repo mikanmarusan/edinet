@@ -1,4 +1,5 @@
 ---
+name: update-stock-exchange-mapping
 description: Scrape regional Japanese stock exchanges (Nagoya/Fukuoka/Sapporo) for single-listed stocks and update config/stock_exchange_mapping.yml. Use for quarterly mapping refresh.
 allowed-tools:
   - mcp__plugin_playwright_playwright__browser_navigate
@@ -298,7 +299,7 @@ Removed codes are NOT deleted from the YAML — only reported to the user.
 Run the validation script. スクリプトはこのコマンドと同じディレクトリに同梱されている:
 
 ```bash
-node .claude/commands/validate-stock-exchange-mapping.js config/stock_exchange_mapping.yml
+node .claude/skills/update-stock-exchange-mapping/validate-stock-exchange-mapping.js config/stock_exchange_mapping.yml
 ```
 
 This script checks:
