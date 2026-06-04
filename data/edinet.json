@@ -82841,8 +82841,8 @@
     "cash": 5920492000.0,
     "issuedDate": "2025-06-27",
     "retrievedDate": "2025-07-29",
-    "isDelisted": true,
-    "delistedDate": "2026-06-03"
+    "isDelisted": false,
+    "delistedDate": null
   },
   {
     "secCode": "6566",
