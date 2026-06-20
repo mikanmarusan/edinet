@@ -212,3 +212,6 @@ xbrl_*_investigation_*.json
 
 # Claude Code local planning notes (not committed)
 .claude/plans/
+
+# Repo-root local planning notes (not committed)
+.plans/
