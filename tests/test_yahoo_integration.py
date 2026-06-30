@@ -22,6 +22,7 @@ SEC_CODE = "9999"
 FILER_NAME = "テスト製造株式会社"
 DOC_ID = "S100TEST"
 STOCK_PRICE = 1000.0
+MARKET_CAP = 9000000000  # from the market fetcher (yen)
 EQUITY = 5000000000
 CASH = 1200000000
 
@@ -33,20 +34,10 @@ class TestYahooFinanceIntegration(unittest.TestCase):
         """Set up test fixtures"""
         self.xbrl_parser = XBRLParser()
 
-        # Synthetic market-fetcher data for the fictitious company.
+        # The market fetcher now returns only market data (issue #185).
         self.yahoo_data = {
             'stockPrice': STOCK_PRICE,
-            'characteristic': 'テスト企業の事業概要',
-            'employees': 1000,
-            'netSales': 8000000000,
-            'operatingIncome': 900000000,
-            'ordinaryIncome': 850000000,
-            'netIncome': 600000000,
-            'eps': 60.0,
-            'bps': 500.0,
-            'depreciation': 300000000,
-            'outstandingShares': 10000000,
-            'debt': 2000000000
+            'marketCapitalization': MARKET_CAP,
         }
 
         # Sample XBRL content (minimal valid structure, synthetic values)
@@ -95,10 +86,11 @@ class TestYahooFinanceIntegration(unittest.TestCase):
             yahoo_data=self.yahoo_data
         )
 
-        # Only stockPrice still comes from the market fetcher (issue #184 moved
-        # ordinaryIncome and debt to XBRL).
+        # Market data (stockPrice, marketCapitalization) comes from the fetcher;
+        # everything else is XBRL-sourced (issues #183/#184).
         self.assertIsNotNone(result)
         self.assertEqual(result['stockPrice'], STOCK_PRICE)
+        self.assertEqual(result['marketCapitalization'], MARKET_CAP)
 
         # Financial-statement fields are now sourced from XBRL, not Yahoo; this
         # fixture's XBRL omits them, so they are None regardless of yahoo_data.
@@ -191,95 +183,46 @@ class TestYahooFinanceIntegration(unittest.TestCase):
             yahoo_data=self.yahoo_data
         )
 
-        # The derived metrics depend on XBRL-sourced inputs (outstandingShares,
-        # eps, bps, netSales, operatingIncome). This fixture's XBRL omits them, so
-        # the metrics are None - never fabricated from Yahoo (issue #183).
-        self.assertIsNone(result['marketCapitalization'])
+        # marketCapitalization comes from the fetcher (issue #185).
+        self.assertEqual(result['marketCapitalization'], MARKET_CAP)
+        # per/pbr/rates depend on XBRL-sourced inputs (eps, bps, netSales,
+        # operatingIncome) which this fixture's XBRL omits, so they are None -
+        # never fabricated from Yahoo (issue #183).
         self.assertIsNone(result['per'])
         self.assertIsNone(result['pbr'])
         self.assertIsNone(result['operatingIncomeRate'])
         self.assertIsNone(result['ordinaryIncomeRate'])
 
-    @patch('lib.ticker_generator.get_ticker_from_security_code')
-    @patch('lib.url_generator.generate_yahoo_finance_urls')
-    @patch('lib.data_scraper.sync_playwright')
-    def test_end_to_end_integration(self, mock_playwright, mock_generate_urls, mock_get_ticker):
-        """Test end-to-end integration from Yahoo Finance scraping to XBRL parsing"""
-        # Setup mocks
-        mock_get_ticker.return_value = "9999.T"
-        mock_generate_urls.return_value = {
-            'profile': 'https://finance.yahoo.co.jp/quote/9999.T/profile',
-            'performance': 'https://finance.yahoo.co.jp/quote/9999.T/performance',
-            'financials': 'https://finance.yahoo.co.jp/quote/9999.T/financials'
-        }
+    @patch('lib.data_scraper._fetch_html')
+    def test_end_to_end_integration(self, mock_fetch):
+        """End-to-end: fetch market data from a saved base-quote HTML fixture
+        (no network) via get_financial_data, then parse XBRL with it."""
+        fixture = os.path.join(os.path.dirname(__file__), 'fixtures', 'yahoo_quote_sample.html')
+        with open(fixture, encoding='utf-8') as f:
+            mock_fetch.return_value = f.read()
 
-        # Mock Playwright and page interactions
-        mock_page = Mock()
-        mock_context = Mock()
-        mock_browser = Mock()
-        mock_p = Mock()
+        # The market fetcher returns only market data, parsed from the fixture.
+        yahoo_result = get_financial_data(SEC_CODE, "2023年3月期")
+        self.assertEqual(yahoo_result['stockPrice'], 1234.0)
+        self.assertEqual(yahoo_result['marketCapitalization'], 9999000000)
 
-        mock_playwright.return_value.__enter__.return_value = mock_p
-        mock_p.chromium.launch.return_value = mock_browser
-        mock_browser.new_context.return_value = mock_context
-        mock_context.new_page.return_value = mock_page
+        final_result = self.xbrl_parser.parse_financial_data(
+            self.xbrl_content,
+            sec_code=SEC_CODE,
+            filer_name=FILER_NAME,
+            doc_id=DOC_ID,
+            period_end="2023-03-31",
+            issued_date="2023-06-22",
+            yahoo_data=yahoo_result
+        )
 
-        # Mock extraction functions to return test data
-        with patch('lib.data_scraper.extract_profile_data') as mock_extract_profile:
-            with patch('lib.data_scraper.extract_performance_data') as mock_extract_performance:
-                with patch('lib.data_scraper.extract_financial_data') as mock_extract_financial:
-
-                    # Configure mocks to populate data
-                    def populate_profile(page, data):
-                        data.update({
-                            'stockPrice': STOCK_PRICE,
-                            'characteristic': 'テスト企業の事業概要',
-                            'employees': 1000
-                        })
-
-                    def populate_performance(page, period, data):
-                        data.update({
-                            'netSales': 8000000000,
-                            'operatingIncome': 900000000,
-                            'ordinaryIncome': 850000000,
-                            'netIncome': 600000000
-                        })
-
-                    def populate_financial(page, period, data):
-                        data.update({
-                            'eps': 60.0,
-                            'bps': 500.0,
-                            'depreciation': 300000000,
-                            'outstandingShares': 10000000,
-                            'debt': 2000000000
-                        })
-
-                    mock_extract_profile.side_effect = populate_profile
-                    mock_extract_performance.side_effect = populate_performance
-                    mock_extract_financial.side_effect = populate_financial
-
-                    # Get Yahoo Finance data
-                    yahoo_result = get_financial_data(SEC_CODE, "2023年3月期")
-
-                    # Parse XBRL with Yahoo data
-                    final_result = self.xbrl_parser.parse_financial_data(
-                        self.xbrl_content,
-                        sec_code=SEC_CODE,
-                        filer_name=FILER_NAME,
-                        doc_id=DOC_ID,
-                        period_end="2023-03-31",
-                        issued_date="2023-06-22",
-                        yahoo_data=yahoo_result
-                    )
-
-                    # Verify complete integration
-                    self.assertIsNotNone(final_result)
-                    self.assertEqual(final_result['stockPrice'], STOCK_PRICE)
-                    self.assertEqual(final_result['equity'], EQUITY)
-                    # marketCap and per depend on XBRL-sourced shares/eps, absent
-                    # in this fixture, so they are None (issue #183).
-                    self.assertIsNone(final_result['marketCapitalization'])
-                    self.assertIsNone(final_result['per'])
+        # Market fields flow from the fetcher; equity from XBRL.
+        self.assertIsNotNone(final_result)
+        self.assertEqual(final_result['stockPrice'], 1234.0)
+        self.assertEqual(final_result['marketCapitalization'], 9999000000)
+        self.assertEqual(final_result['equity'], EQUITY)
+        # per needs eps from XBRL (absent in this fixture) -> None.
+        self.assertIsNone(final_result['per'])
 
     def test_yahoo_data_field_mapping(self):
         """Only market-data fields map from the fetcher; financial-statement
@@ -294,9 +237,9 @@ class TestYahooFinanceIntegration(unittest.TestCase):
             yahoo_data=self.yahoo_data
         )
 
-        # Only stockPrice still comes from the fetcher.
-        self.assertIn('stockPrice', result)
+        # Market-data fields (stockPrice, marketCapitalization) come from the fetcher.
         self.assertEqual(result['stockPrice'], self.yahoo_data['stockPrice'])
+        self.assertEqual(result['marketCapitalization'], self.yahoo_data['marketCapitalization'])
 
         # Financial-statement fields come from XBRL (absent here -> None), never
         # from the fetcher. As of issue #184 this includes ordinaryIncome and debt.

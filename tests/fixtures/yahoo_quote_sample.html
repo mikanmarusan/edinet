@@ -1,0 +1,55 @@
+<!--
+  Synthetic Yahoo Finance quote-page fixture for offline tests.
+
+  The DOM structure (hashed class names, the "用語" tooltip span between a
+  DataListItem label and its value, the _CommonPriceBoard__price / _StyledNumber
+  nesting) mirrors the real https://finance.yahoo.co.jp/quote/{ticker} SSR page,
+  verified against a live fetch. Only the company name and the numeric values
+  are synthetic, so no real filer's data is committed:
+    stockPrice           = 1234   (yen)
+    marketCapitalization = 9,999 百万円 = 9,999,000,000 yen
+-->
+<!DOCTYPE html>
+<html lang="ja">
+<head><meta property="og:title" content="テスト企業(株)【9999】：株価・株式情報 - Yahoo!ファイナンス"></head>
+<body>
+  <main>
+    <header>
+      <div class="_CommonPriceBoard__priceBoard_b3h1j_1">
+        <span class="_CommonPriceBoard__marketName_b3h1j_10">東証PRM</span>
+        <span class="_CommonPriceBoard__code_b3h1j_20">9999</span>
+        <div class="_CommonPriceBoard__priceBlock_b3h1j_81">
+          <span class="_StyledNumber_1arhg_1 _StyledNumber--vertical_1arhg_24 _CommonPriceBoard__price_b3h1j_64">
+            <span class="_StyledNumber__item_1arhg_6"><span class="_StyledNumber__value_1arhg_9">1,234</span></span>
+            <span class="_StyledNumber__suffix_1arhg_30">円</span>
+          </span>
+        </div>
+      </div>
+    </header>
+
+    <section>
+      <ul>
+        <li class="_DataListItem_13tc9_1">
+          <span class="_DataListItem__name_13tc9_19">時価総額</span>
+          <span class="_MonoIcon_8bjpa_6"></span>
+          <div class="_DictionaryTip_cgi28_1 _DataListItem__dictionary_13tc9_32">用語</div>
+          <span class="_DataListItem__data_13tc9_40">
+            <span class="_StyledNumber__value_1arhg_9">9,999</span>
+            <span class="_StyledNumber__suffix_1arhg_30">百万円</span>
+          </span>
+        </li>
+        <li class="_DataListItem_13tc9_1">
+          <span class="_DataListItem__name_13tc9_19">PER</span>
+          <div class="_DictionaryTip_cgi28_1">用語</div>
+          <span class="_DataListItem__data_13tc9_40"><span class="_StyledNumber__value_1arhg_9">12.34</span><span>倍</span></span>
+        </li>
+        <li class="_DataListItem_13tc9_1">
+          <span class="_DataListItem__name_13tc9_19">PBR</span>
+          <div class="_DictionaryTip_cgi28_1">用語</div>
+          <span class="_DataListItem__data_13tc9_40"><span class="_StyledNumber__value_1arhg_9">1.23</span><span>倍</span></span>
+        </li>
+      </ul>
+    </section>
+  </main>
+</body>
+</html>

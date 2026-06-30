@@ -26,6 +26,7 @@ from lib.edinet_common import (
     ensure_output_directory, EdinetAPIError, format_period_end
 )
 from lib.xbrl_parser import XBRLParser
+from lib import data_scraper
 from lib.data_scraper import get_financial_data
 
 
@@ -181,7 +182,9 @@ def main():
         financial_data_list = []
         successful_extractions = 0
         failed_extractions = 0
-        
+        # Reset market-data null counters for this run's summary.
+        data_scraper.reset_market_null_counts()
+
         for i, doc in enumerate(documents, 1):
             doc_id = doc.get("docID", "")
             sec_code = doc.get("secCode", "")
@@ -269,6 +272,10 @@ def main():
         logger.info(f"  Total documents processed: {len(documents)}")
         logger.info(f"  Successful extractions: {successful_extractions}")
         logger.info(f"  Failed extractions: {failed_extractions}")
+        logger.info(
+            f"  Market-data nulls: stockPrice={data_scraper.market_null_counts['stockPrice']}, "
+            f"marketCapitalization={data_scraper.market_null_counts['marketCapitalization']}"
+        )
         logger.info(f"  Output file: {output_file}")
         
     except KeyboardInterrupt:
