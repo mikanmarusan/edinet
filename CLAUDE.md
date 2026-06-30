@@ -101,6 +101,7 @@ edinet/
 ```bash
 python bin/fetch_edinet_financial_documents.py --date YYYY-MM-DD --outputdir data/jsons --api-key YOUR_KEY
 # 特定企業のみ: --sec-codes 7203,9984,4755
+# 市場データ取得をスキップ（Yahooにアクセスせず stockPrice/marketCapitalization と派生指標 per/pbr/ev/evPerEbitda を null にする）: --no-market-data
 ```
 
 **データ統合**:
