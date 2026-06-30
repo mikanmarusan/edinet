@@ -84,18 +84,23 @@ class TestYahooFinanceIntegration(unittest.TestCase):
             yahoo_data=self.yahoo_data
         )
         
-        # Verify that Yahoo Finance data is included
+        # Market data still comes from the fetcher (issue #183). ordinaryIncome and
+        # debt remain market-sourced pending the PR3 reconciliation (issue #184).
         self.assertIsNotNone(result)
         self.assertEqual(result['stockPrice'], 2150.5)
-        self.assertEqual(result['characteristic'], '世界的な自動車メーカー')
-        self.assertEqual(result['employees'], 366283)
-        self.assertEqual(result['netSales'], 37154298000000)
-        self.assertEqual(result['operatingIncome'], 2725000000000)
         self.assertEqual(result['ordinaryIncome'], 3932000000000)
-        self.assertEqual(result['netIncome'], 2451000000000)
-        self.assertEqual(result['eps'], 175.23)
-        self.assertEqual(result['bps'], 2456.32)
-        
+        self.assertEqual(result['debt'], 23759000000000)
+
+        # Financial-statement fields are now sourced from XBRL, not Yahoo; this
+        # fixture's XBRL omits them, so they are None regardless of yahoo_data.
+        self.assertIsNone(result['characteristic'])
+        self.assertIsNone(result['employees'])
+        self.assertIsNone(result['netSales'])
+        self.assertIsNone(result['operatingIncome'])
+        self.assertIsNone(result['netIncome'])
+        self.assertIsNone(result['eps'])
+        self.assertIsNone(result['bps'])
+
         # Verify that XBRL data is still extracted
         self.assertEqual(result['equity'], 28552000000000)
         self.assertEqual(result['cash'], 7560000000000)
@@ -155,12 +160,13 @@ class TestYahooFinanceIntegration(unittest.TestCase):
             yahoo_data=partial_yahoo_data
         )
         
-        # Verify that available Yahoo data is used
+        # Market data (stockPrice) is still used from the fetcher.
         self.assertEqual(result['stockPrice'], 2150.5)
-        self.assertEqual(result['characteristic'], '世界的な自動車メーカー')
-        self.assertEqual(result['netSales'], 37154298000000)
-        
-        # Missing Yahoo data should be None
+
+        # Financial-statement fields come from XBRL (absent here) regardless of
+        # what Yahoo provided, so they are None even though Yahoo had netSales.
+        self.assertIsNone(result['characteristic'])
+        self.assertIsNone(result['netSales'])
         self.assertIsNone(result['employees'])
         self.assertIsNone(result['operatingIncome'])
     
@@ -176,26 +182,14 @@ class TestYahooFinanceIntegration(unittest.TestCase):
             yahoo_data=self.yahoo_data
         )
         
-        # Test calculated metrics
-        # Market cap = stock price * outstanding shares
-        expected_market_cap = 2150.5 * 13988000000
-        self.assertEqual(result['marketCapitalization'], expected_market_cap)
-        
-        # PER = stock price / EPS
-        expected_per = 2150.5 / 175.23
-        self.assertAlmostEqual(result['per'], expected_per, places=2)
-        
-        # PBR = stock price / BPS
-        expected_pbr = 2150.5 / 2456.32
-        self.assertAlmostEqual(result['pbr'], expected_pbr, places=2)
-        
-        # Operating income rate = operating income / net sales
-        expected_op_rate = (2725000000000 / 37154298000000) * 100
-        self.assertAlmostEqual(result['operatingIncomeRate'], expected_op_rate, places=2)
-        
-        # Ordinary income rate = ordinary income / net sales
-        expected_ord_rate = (3932000000000 / 37154298000000) * 100
-        self.assertAlmostEqual(result['ordinaryIncomeRate'], expected_ord_rate, places=2)
+        # The derived metrics depend on XBRL-sourced inputs (outstandingShares,
+        # eps, bps, netSales, operatingIncome). This fixture's XBRL omits them, so
+        # the metrics are None - never fabricated from Yahoo (issue #183).
+        self.assertIsNone(result['marketCapitalization'])
+        self.assertIsNone(result['per'])
+        self.assertIsNone(result['pbr'])
+        self.assertIsNone(result['operatingIncomeRate'])
+        self.assertIsNone(result['ordinaryIncomeRate'])
     
     @patch('lib.ticker_generator.get_ticker_from_security_code')
     @patch('lib.url_generator.generate_yahoo_finance_urls')
@@ -273,18 +267,14 @@ class TestYahooFinanceIntegration(unittest.TestCase):
                     self.assertIsNotNone(final_result)
                     self.assertEqual(final_result['stockPrice'], 2150.5)
                     self.assertEqual(final_result['equity'], 28552000000000)
-                    self.assertIsNotNone(final_result['marketCapitalization'])
-                    self.assertIsNotNone(final_result['per'])
+                    # marketCap and per depend on XBRL-sourced shares/eps, absent
+                    # in this fixture, so they are None (issue #183).
+                    self.assertIsNone(final_result['marketCapitalization'])
+                    self.assertIsNone(final_result['per'])
     
     def test_yahoo_data_field_mapping(self):
-        """Test that all Yahoo Finance fields are correctly mapped"""
-        # Define expected field mappings
-        yahoo_fields = [
-            'stockPrice', 'characteristic', 'employees', 'netSales',
-            'operatingIncome', 'ordinaryIncome', 'netIncome', 'eps',
-            'bps', 'depreciation', 'outstandingShares', 'debt'
-        ]
-        
+        """Only market-data fields map from the fetcher; financial-statement
+        fields are sourced from XBRL (issue #183)."""
         result = self.xbrl_parser.parse_financial_data(
             self.xbrl_content,
             sec_code="7203",
@@ -294,11 +284,18 @@ class TestYahooFinanceIntegration(unittest.TestCase):
             issued_date="2023-06-22",
             yahoo_data=self.yahoo_data
         )
-        
-        # Verify all Yahoo fields are present in result
-        for field in yahoo_fields:
+
+        # Market-data fields still come from the fetcher.
+        for field in ['stockPrice', 'ordinaryIncome', 'debt']:
             self.assertIn(field, result)
             self.assertEqual(result[field], self.yahoo_data[field])
+
+        # Financial-statement fields come from XBRL (absent here -> None), never
+        # from the fetcher.
+        for field in ['characteristic', 'employees', 'netSales', 'operatingIncome',
+                      'netIncome', 'eps', 'bps', 'depreciation', 'outstandingShares']:
+            self.assertIn(field, result)
+            self.assertIsNone(result[field])
     
     def test_error_handling_in_integration(self):
         """Test error handling when Yahoo Finance data has issues"""
