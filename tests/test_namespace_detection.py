@@ -17,7 +17,6 @@ from defusedxml.ElementTree import fromstring as defused_fromstring
 from lib.edinet_common import (
     detect_taxonomy_namespaces,
     XBRL_NAMESPACES,
-    EXPECTED_EQUITY_CHANGES,
     XBRLParsingError,
 )
 from lib.xbrl_parser import XBRLParser, FinancialDataExtractor
@@ -55,8 +54,12 @@ NS_2025_SINGLE_QUOTED = (
     b"</xbrli:xbrl>"
 )
 
-# A 2025-edition document carrying both NetAssets (純資産合計) and the larger
-# ShareholdersEquity (株主資本) under a current-year context. Mirrors sec 1301.
+# A 2025-edition document carrying both NetAssets (純資産合計) and the smaller
+# ShareholdersEquity (株主資本) under a current-year context. Net assets always
+# exceed shareholders' equity (they additionally include non-controlling interests
+# and valuation adjustments); the values here are synthetic, not a real filing.
+EQUITY_NET_ASSETS = 5_000_000_000
+EQUITY_SHAREHOLDERS = 4_000_000_000
 EQUITY_2025_DOC = (
     b'<?xml version="1.0" encoding="UTF-8"?>'
     b'<xbrli:xbrl xmlns:xbrli="http://www.xbrl.org/2003/instance" '
@@ -64,8 +67,8 @@ EQUITY_2025_DOC = (
     b'<xbrli:context id="CurrentYearInstant">'
     b'<xbrli:period><xbrli:instant>2025-03-31</xbrli:instant></xbrli:period>'
     b'</xbrli:context>'
-    b'<jppfs_cor:NetAssets contextRef="CurrentYearInstant">63189000000</jppfs_cor:NetAssets>'
-    b'<jppfs_cor:ShareholdersEquity contextRef="CurrentYearInstant">78868000000</jppfs_cor:ShareholdersEquity>'
+    b'<jppfs_cor:NetAssets contextRef="CurrentYearInstant">5000000000</jppfs_cor:NetAssets>'
+    b'<jppfs_cor:ShareholdersEquity contextRef="CurrentYearInstant">4000000000</jppfs_cor:ShareholdersEquity>'
     b'</xbrli:xbrl>'
 )
 
@@ -174,17 +177,19 @@ class TestEntityExpansionHardening(unittest.TestCase):
 
 
 class TestEquityNetAssetsExtraction(unittest.TestCase):
-    """NetAssets is selected over ShareholdersEquity, and only when the
-    per-document namespace map reaches extraction."""
+    """NetAssets (純資産合計) is selected over ShareholdersEquity (株主資本), and
+    only when the per-document namespace map reaches extraction."""
 
-    def test_netassets_selected_with_detected_namespace(self):
-        """With the detected 2025 namespace, equity resolves to NetAssets."""
+    def test_netassets_preferred_over_shareholders_equity(self):
+        """With the detected 2025 namespace, equity resolves to NetAssets (the
+        total net assets), not the smaller ShareholdersEquity."""
         extractor = FinancialDataExtractor()
         extractor.namespaces = detect_taxonomy_namespaces(EQUITY_2025_DOC)
         root = defused_fromstring(EQUITY_2025_DOC)
         value = extractor.extract_numeric_value_with_context(
             root, extractor.patterns['equity'])
-        self.assertEqual(value, EXPECTED_EQUITY_CHANGES['1301']['expected_equity'])
+        self.assertEqual(value, EQUITY_NET_ASSETS)
+        self.assertNotEqual(value, EQUITY_SHAREHOLDERS)
 
     def test_static_namespace_misses_2025_edition(self):
         """With only the static 2024 defaults, the 2025-edition element is not
@@ -195,12 +200,6 @@ class TestEquityNetAssetsExtraction(unittest.TestCase):
         value = extractor.extract_numeric_value_with_context(
             root, extractor.patterns['equity'])
         self.assertIsNone(value)
-
-    def test_allowlist_documents_expected_change(self):
-        """The allowlist records sec 1301's NetAssets concept and value."""
-        entry = EXPECTED_EQUITY_CHANGES['1301']
-        self.assertEqual(entry['concept'], 'NetAssets')
-        self.assertEqual(entry['expected_equity'], 63189000000)
 
 
 if __name__ == '__main__':

@@ -47,18 +47,6 @@ _TAXONOMY_NS_RE = re.compile(
     rb'xmlns:(jpcrp_cor|jppfs_cor|jpigp_cor|jpdei_cor)\s*=\s*(?:"([^"]+)"|\'([^\']+)\')'
 )
 
-# Companies whose `equity` value intentionally changes once NetAssets (純資産合計)
-# is preferred over ShareholdersEquity (株主資本). This is a fix, not a regression;
-# the allowlist records the verified expected values for traceability.
-EXPECTED_EQUITY_CHANGES = {
-    '1301': {
-        'concept': 'NetAssets',
-        'expected_equity': 63189000000,
-        'previous_concept': 'ShareholdersEquity',
-        'previous_equity': 78868000000,
-    },
-}
-
 # XBRL field patterns for financial data extraction
 XBRL_PATTERNS = {
     'stock_price': [
