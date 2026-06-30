@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xbrli:xbrl xmlns:xbrli="http://www.xbrl.org/2003/instance" xmlns:xbrldi="http://xbrl.org/2006/xbrldi" xmlns:jpcrp_cor="http://disclosure.edinet-fsa.go.jp/taxonomy/jpcrp/2024-11-01/jpcrp_cor" xmlns:jppfs_cor="http://disclosure.edinet-fsa.go.jp/taxonomy/jppfs/2024-11-01/jppfs_cor" xmlns:jpdei_cor="http://disclosure.edinet-fsa.go.jp/taxonomy/jpdei/2013-08-31/jpdei_cor">
+<xbrli:context id="CurrentYearDuration"><xbrli:entity><xbrli:identifier scheme="http://disclosure.edinet-fsa.go.jp">E00001</xbrli:identifier></xbrli:entity><xbrli:period><xbrli:startDate>2023-04-01</xbrli:startDate><xbrli:endDate>2024-03-31</xbrli:endDate></xbrli:period></xbrli:context><xbrli:context id="CurrentYearInstant"><xbrli:entity><xbrli:identifier scheme="http://disclosure.edinet-fsa.go.jp">E00001</xbrli:identifier></xbrli:entity><xbrli:period><xbrli:instant>2024-03-31</xbrli:instant></xbrli:period></xbrli:context>
+<xbrli:unit id="JPY"><xbrli:measure>iso4217:JPY</xbrli:measure></xbrli:unit><xbrli:unit id="JPYPerShare"><xbrli:divide><xbrli:unitNumerator><xbrli:measure>iso4217:JPY</xbrli:measure></xbrli:unitNumerator><xbrli:unitDenominator><xbrli:measure>xbrli:shares</xbrli:measure></xbrli:unitDenominator></xbrli:divide></xbrli:unit><xbrli:unit id="shares"><xbrli:measure>xbrli:shares</xbrli:measure></xbrli:unit><xbrli:unit id="pure"><xbrli:measure>xbrli:pure</xbrli:measure></xbrli:unit>
+<jppfs_cor:NetSales contextRef="CurrentYearDuration" unitRef="JPY" decimals="-6">50000000000</jppfs_cor:NetSales>
+<jppfs_cor:OperatingIncome contextRef="CurrentYearDuration" unitRef="JPY" decimals="-6">8000000000</jppfs_cor:OperatingIncome>
+<jppfs_cor:OrdinaryIncome contextRef="CurrentYearDuration" unitRef="JPY" decimals="-6">7500000000</jppfs_cor:OrdinaryIncome>
+<jppfs_cor:ProfitLossAttributableToOwnersOfParent contextRef="CurrentYearDuration" unitRef="JPY" decimals="-6">5000000000</jppfs_cor:ProfitLossAttributableToOwnersOfParent>
+<jppfs_cor:NetAssets contextRef="CurrentYearInstant" unitRef="JPY" decimals="-6">30000000000</jppfs_cor:NetAssets>
+<jppfs_cor:CashAndCashEquivalents contextRef="CurrentYearInstant" unitRef="JPY" decimals="-6">12000000000</jppfs_cor:CashAndCashEquivalents>
+<jppfs_cor:ShortTermLoansPayable contextRef="CurrentYearInstant" unitRef="JPY" decimals="-6">2000000000</jppfs_cor:ShortTermLoansPayable>
+<jppfs_cor:CurrentPortionOfLongTermLoansPayable contextRef="CurrentYearInstant" unitRef="JPY" decimals="-6">1000000000</jppfs_cor:CurrentPortionOfLongTermLoansPayable>
+<jppfs_cor:LongTermLoansPayable contextRef="CurrentYearInstant" unitRef="JPY" decimals="-6">4000000000</jppfs_cor:LongTermLoansPayable>
+<jppfs_cor:BondsPayable contextRef="CurrentYearInstant" unitRef="JPY" decimals="-6">3000000000</jppfs_cor:BondsPayable>
+<jpcrp_cor:EarningsPerShareSummaryOfBusinessResults contextRef="CurrentYearDuration" unitRef="JPYPerShare" decimals="2">50.00</jpcrp_cor:EarningsPerShareSummaryOfBusinessResults>
+<jpcrp_cor:NetAssetsPerShareSummaryOfBusinessResults contextRef="CurrentYearInstant" unitRef="JPYPerShare" decimals="2">300.00</jpcrp_cor:NetAssetsPerShareSummaryOfBusinessResults>
+<jpcrp_cor:PriceEarningsRatioSummaryOfBusinessResults contextRef="CurrentYearDuration" unitRef="pure" decimals="1">15.0</jpcrp_cor:PriceEarningsRatioSummaryOfBusinessResults>
+<jpcrp_cor:NumberOfIssuedSharesAsOfFiscalYearEndIssuedSharesTotalNumberOfSharesEtc contextRef="CurrentYearInstant" unitRef="shares" decimals="0">100000000</jpcrp_cor:NumberOfIssuedSharesAsOfFiscalYearEndIssuedSharesTotalNumberOfSharesEtc>
+</xbrli:xbrl>
