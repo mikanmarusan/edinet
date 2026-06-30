@@ -548,12 +548,11 @@ class MetricsCalculator:
             operating_income = financial_data.get('operatingIncome')
             depreciation = financial_data.get('depreciation')
             stock_price = financial_data.get('stockPrice')
-            debt = financial_data.get('debt', 0)
+            debt = financial_data.get('debt')
             outstanding_shares = financial_data.get('outstandingShares')
             eps = financial_data.get('eps')
             bps = financial_data.get('bps')
-            cash = financial_data.get('cash', 0)
-            
+
             # Operating Income Rate = (operatingIncome / netSales) * 100
             if net_sales and operating_income and net_sales > 0:
                 financial_data['operatingIncomeRate'] = (operating_income / net_sales) * 100
@@ -595,13 +594,13 @@ class MetricsCalculator:
             if stock_price is not None and bps is not None and bps > 0:
                 financial_data['pbr'] = stock_price / bps
             
-            # EV (Enterprise Value) = marketCapitalization + debt - cash
-            # If debt or cash is None, treat as 0
+            # EV (Enterprise Value) = marketCapitalization + net interest-bearing debt.
+            # `debt` is already net of cash (issue #184), so cash is NOT subtracted
+            # again here - it is netted exactly once, inside the debt figure.
             market_cap = financial_data.get('marketCapitalization')
             if market_cap is not None:
                 debt_value = debt if debt is not None else 0
-                cash_value = cash if cash is not None else 0
-                financial_data['ev'] = market_cap + debt_value - cash_value
+                financial_data['ev'] = market_cap + debt_value
             
             # EV/EBITDA = ev / ebitda
             if financial_data.get('ev') is not None and financial_data.get('ebitda') is not None and financial_data['ebitda'] > 0:
@@ -781,17 +780,16 @@ class XBRLParser:
         net_income = self._extract_net_income(root)
         eps = self._extract_eps(root)
 
-        # Market data comes from the market fetcher (Yahoo for now; the source is
-        # swapped in PR4). ordinaryIncome and debt remain market-sourced pending
-        # the PR3 concept reconciliation (issue #184).
+        # ordinaryIncome (経常利益) and net interest-bearing debt are now sourced
+        # from XBRL (issue #184). Only stockPrice still comes from the market
+        # fetcher (Yahoo for now; the source is swapped in PR4).
+        ordinary_income = self._extract_ordinary_income(root)
+        debt = self._extract_debt(root)
+
         if yahoo_data:
             stock_price = yahoo_data.get('stockPrice')
-            ordinary_income = yahoo_data.get('ordinaryIncome')
-            debt = yahoo_data.get('debt')
         else:
             stock_price = None
-            ordinary_income = None
-            debt = None
 
         # Always extract equity and cash from XBRL
         equity = self._extract_equity(root)
@@ -876,9 +874,18 @@ class XBRLParser:
         value = self.data_extractor.extract_numeric_value_with_context(root, self.data_extractor.patterns['net_sales'])
         if value is not None:
             return value
-        
+
         # Fallback: Dynamic search for sales-related tags
         return self._dynamic_search_net_sales(root)
+
+    def _extract_ordinary_income(self, root: ET.Element) -> Optional[float]:
+        """Extract 経常利益 (ordinary income).
+
+        IFRS filers have no ordinary-income concept, so the patterns will not
+        match and this returns None, which is the correct value for them.
+        """
+        return self.data_extractor.extract_numeric_value_with_context(
+            root, self.data_extractor.patterns['ordinary_income'])
     
     def _extract_employees(self, root: ET.Element) -> Optional[int]:
         """Extract number of employees with enhanced pattern matching"""
@@ -1052,24 +1059,70 @@ class XBRLParser:
         return self._dynamic_search_equity(root)
     
     def _extract_debt(self, root: ET.Element) -> Optional[float]:
-        """Extract net interest-bearing debt with enhanced pattern matching.
+        """Extract net interest-bearing debt (issue #184).
 
-        Retained for the PR3 debt concept reconciliation (issue #184); debt
-        currently comes from the market fetcher, so this has no production call
-        site yet.
+        Net interest-bearing debt = short-term borrowings + long-term borrowings
+        + bonds payable + lease obligations - cash and cash equivalents. Returns
+        None when no interest-bearing component is found, so a genuinely
+        debt-free company is distinguishable from a missing extraction.
+
+        Cash is netted here exactly once; the EV calculation therefore adds debt
+        without subtracting cash again.
         """
-        # Try standard patterns first
-        value = self.data_extractor.extract_numeric_value_with_context(root, self.data_extractor.patterns['debt'])
-        if value is not None:
-            return value
-        
-        # Fallback: Dynamic search for debt-related tags
-        dynamic_value = self._dynamic_search_debt(root)
-        if dynamic_value is not None:
-            return dynamic_value
-        
-        # Final fallback: Try to calculate debt from short-term + long-term components
-        return self._calculate_debt_from_components(root)
+        gross = self._sum_interest_bearing_debt(root)
+        if gross is None:
+            return None
+
+        # Cash is extracted via the same consolidated-priority context logic as
+        # the debt components (extract_numeric_value_with_context / _extract_cash),
+        # so the netting stays within one reporting scope in practice.
+        cash = self._extract_cash(root)
+        net_debt = gross - (cash if cash is not None else 0)
+
+        # Range validation: reject implausible magnitudes (|net debt| > 100T JPY).
+        if abs(net_debt) > 100_000_000_000_000:
+            return None
+        return net_debt
+
+    def _sum_interest_bearing_debt(self, root: ET.Element) -> Optional[float]:
+        """Sum the interest-bearing debt components present in the filing.
+
+        Each component group (short-term borrowings, current portion of
+        long-term borrowings, long-term borrowings, bonds, lease obligations) is
+        added when present; absent components are treated as zero. Returns None
+        only when no component at all is found.
+        """
+        component_groups = [
+            # Short-term borrowings
+            ['.//jppfs_cor:ShortTermLoansPayable', './/jpcrp_cor:ShortTermLoansPayable',
+             './/jppfs_cor:ShortTermBorrowings', './/jpcrp_cor:ShortTermBorrowings'],
+            # Current portion of long-term borrowings
+            ['.//jppfs_cor:CurrentPortionOfLongTermLoansPayable',
+             './/jpcrp_cor:CurrentPortionOfLongTermLoansPayable',
+             './/jppfs_cor:CurrentPortionOfLongTermBorrowings',
+             './/jpcrp_cor:CurrentPortionOfLongTermBorrowings'],
+            # Long-term borrowings
+            ['.//jppfs_cor:LongTermLoansPayable', './/jpcrp_cor:LongTermLoansPayable',
+             './/jppfs_cor:LongTermBorrowings', './/jpcrp_cor:LongTermBorrowings'],
+            # Bonds payable. EDINET normally reports the non-current 社債
+            # (BondsPayable) and the current 一年内償還予定の社債
+            # (CurrentPortionOfBonds) as separate line items, so summing them is
+            # correct. A rare filer that folds the current portion into a single
+            # BondsPayable balance would be slightly over-counted here.
+            ['.//jppfs_cor:BondsPayable', './/jpcrp_cor:BondsPayable'],
+            ['.//jppfs_cor:CurrentPortionOfBonds', './/jpcrp_cor:CurrentPortionOfBonds'],
+            # Lease obligations (current + non-current)
+            ['.//jppfs_cor:LeaseObligationsCL', './/jpcrp_cor:LeaseObligationsCL',
+             './/jppfs_cor:LeaseLiabilitiesCL', './/jpcrp_cor:LeaseLiabilitiesCL'],
+            ['.//jppfs_cor:LeaseObligationsNCL', './/jpcrp_cor:LeaseObligationsNCL',
+             './/jppfs_cor:LeaseLiabilitiesNCL', './/jpcrp_cor:LeaseLiabilitiesNCL'],
+        ]
+        total = None
+        for patterns in component_groups:
+            value = self.data_extractor.extract_numeric_value_with_context(root, patterns)
+            if value is not None:
+                total = value if total is None else total + value
+        return total
     
     def _extract_net_income(self, root: ET.Element) -> Optional[float]:
         """Extract net income with enhanced pattern matching"""

@@ -84,12 +84,10 @@ class TestYahooFinanceIntegration(unittest.TestCase):
             yahoo_data=self.yahoo_data
         )
         
-        # Market data still comes from the fetcher (issue #183). ordinaryIncome and
-        # debt remain market-sourced pending the PR3 reconciliation (issue #184).
+        # Only stockPrice still comes from the market fetcher (issue #184 moved
+        # ordinaryIncome and debt to XBRL).
         self.assertIsNotNone(result)
         self.assertEqual(result['stockPrice'], 2150.5)
-        self.assertEqual(result['ordinaryIncome'], 3932000000000)
-        self.assertEqual(result['debt'], 23759000000000)
 
         # Financial-statement fields are now sourced from XBRL, not Yahoo; this
         # fixture's XBRL omits them, so they are None regardless of yahoo_data.
@@ -97,9 +95,11 @@ class TestYahooFinanceIntegration(unittest.TestCase):
         self.assertIsNone(result['employees'])
         self.assertIsNone(result['netSales'])
         self.assertIsNone(result['operatingIncome'])
+        self.assertIsNone(result['ordinaryIncome'])
         self.assertIsNone(result['netIncome'])
         self.assertIsNone(result['eps'])
         self.assertIsNone(result['bps'])
+        self.assertIsNone(result['debt'])
 
         # Verify that XBRL data is still extracted
         self.assertEqual(result['equity'], 28552000000000)
@@ -285,15 +285,15 @@ class TestYahooFinanceIntegration(unittest.TestCase):
             yahoo_data=self.yahoo_data
         )
 
-        # Market-data fields still come from the fetcher.
-        for field in ['stockPrice', 'ordinaryIncome', 'debt']:
-            self.assertIn(field, result)
-            self.assertEqual(result[field], self.yahoo_data[field])
+        # Only stockPrice still comes from the fetcher.
+        self.assertIn('stockPrice', result)
+        self.assertEqual(result['stockPrice'], self.yahoo_data['stockPrice'])
 
         # Financial-statement fields come from XBRL (absent here -> None), never
-        # from the fetcher.
+        # from the fetcher. As of issue #184 this includes ordinaryIncome and debt.
         for field in ['characteristic', 'employees', 'netSales', 'operatingIncome',
-                      'netIncome', 'eps', 'bps', 'depreciation', 'outstandingShares']:
+                      'ordinaryIncome', 'netIncome', 'eps', 'bps', 'depreciation',
+                      'outstandingShares', 'debt']:
             self.assertIn(field, result)
             self.assertIsNone(result[field])
     

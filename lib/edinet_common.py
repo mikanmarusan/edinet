@@ -123,6 +123,21 @@ XBRL_PATTERNS = {
         './/jppfs_cor:OperatingProfitLoss',
         './/jpcrp_cor:OperatingProfitLoss'
     ],
+    'ordinary_income': [
+        # 経常利益. Summary-of-business-results form is most authoritative.
+        # IFRS filers have no 経常利益 concept, so these simply will not match
+        # and ordinaryIncome stays null (correct).
+        './/jpcrp_cor:OrdinaryIncomeLossSummaryOfBusinessResults',
+        './/jpcrp_cor:OrdinaryIncomeSummaryOfBusinessResults',
+
+        # Standard ordinary income / profit patterns
+        './/jppfs_cor:OrdinaryIncome',
+        './/jpcrp_cor:OrdinaryIncome',
+        './/jppfs_cor:OrdinaryProfitLoss',
+        './/jpcrp_cor:OrdinaryProfitLoss',
+        './/jppfs_cor:OrdinaryIncomeLoss',
+        './/jpcrp_cor:OrdinaryIncomeLoss'
+    ],
     'depreciation': [
         # Consolidated depreciation patterns (priority)
         './/jpcrp_cor:ConsolidatedDepreciationAndAmortization',
@@ -206,103 +221,6 @@ XBRL_PATTERNS = {
         './/jpcrp_cor:ShareholdersEquity',
         './/jppfs_cor:Equity',
         './/jpcrp_cor:Equity'
-    ],
-    'debt': [
-        # Consolidated interest-bearing debt patterns (priority)
-        './/jpcrp_cor:ConsolidatedInterestBearingDebt',
-        './/jppfs_cor:ConsolidatedInterestBearingDebt',
-        './/jpcrp_cor:InterestBearingDebtConsolidated',
-        './/jppfs_cor:InterestBearingDebtConsolidated',
-        './/jpcrp_cor:ConsolidatedTotalInterestBearingDebt',
-        './/jppfs_cor:ConsolidatedTotalInterestBearingDebt',
-        
-        # Consolidated debt patterns
-        './/jpcrp_cor:ConsolidatedDebt',
-        './/jppfs_cor:ConsolidatedDebt',
-        './/jpcrp_cor:ConsolidatedTotalDebt',
-        './/jppfs_cor:ConsolidatedTotalDebt',
-        './/jpcrp_cor:DebtConsolidated',
-        './/jppfs_cor:DebtConsolidated',
-        
-        # Consolidated borrowings patterns
-        './/jpcrp_cor:ConsolidatedBorrowings',
-        './/jppfs_cor:ConsolidatedBorrowings',
-        './/jpcrp_cor:ConsolidatedTotalBorrowings',
-        './/jppfs_cor:ConsolidatedTotalBorrowings',
-        './/jpcrp_cor:BorrowingsConsolidated',
-        './/jppfs_cor:BorrowingsConsolidated',
-        
-        # Standard interest-bearing debt patterns
-        './/jppfs_cor:InterestBearingDebt',
-        './/jpcrp_cor:InterestBearingDebt',
-        './/jppfs_cor:TotalInterestBearingDebt',
-        './/jpcrp_cor:TotalInterestBearingDebt',
-        './/jppfs_cor:InterestBearingLiabilities',
-        './/jpcrp_cor:InterestBearingLiabilities',
-        
-        # Standard debt patterns
-        './/jppfs_cor:TotalDebt',
-        './/jpcrp_cor:TotalDebt',
-        './/jppfs_cor:Debt',
-        './/jpcrp_cor:Debt',
-        
-        # Borrowings patterns
-        './/jppfs_cor:Borrowings',
-        './/jpcrp_cor:Borrowings',
-        './/jppfs_cor:TotalBorrowings',
-        './/jpcrp_cor:TotalBorrowings',
-        './/jppfs_cor:BorrowingsAndDebt',
-        './/jpcrp_cor:BorrowingsAndDebt',
-        
-        # Loans patterns
-        './/jppfs_cor:Loans',
-        './/jpcrp_cor:Loans',
-        './/jppfs_cor:TotalLoans',
-        './/jpcrp_cor:TotalLoans',
-        './/jppfs_cor:LoanPayable',
-        './/jpcrp_cor:LoanPayable',
-        './/jppfs_cor:LoansPayable',
-        './/jpcrp_cor:LoansPayable',
-        
-        # Short-term and long-term debt patterns
-        './/jppfs_cor:ShortTermDebt',
-        './/jpcrp_cor:ShortTermDebt',
-        './/jppfs_cor:LongTermDebt',
-        './/jpcrp_cor:LongTermDebt',
-        './/jppfs_cor:ShortTermBorrowings',
-        './/jpcrp_cor:ShortTermBorrowings',
-        './/jppfs_cor:LongTermBorrowings',
-        './/jpcrp_cor:LongTermBorrowings',
-        './/jppfs_cor:ShortTermLoans',
-        './/jpcrp_cor:ShortTermLoans',
-        './/jppfs_cor:LongTermLoans',
-        './/jpcrp_cor:LongTermLoans',
-        
-        # Bank loans and bonds patterns
-        './/jppfs_cor:BankLoans',
-        './/jpcrp_cor:BankLoans',
-        './/jppfs_cor:CorporateBonds',
-        './/jpcrp_cor:CorporateBonds',
-        './/jppfs_cor:BondsPayable',
-        './/jpcrp_cor:BondsPayable',
-        './/jppfs_cor:NotesPayable',
-        './/jpcrp_cor:NotesPayable',
-        
-        # Financial liabilities patterns (IFRS)
-        './/jpigp_cor:FinancialLiabilities',
-        './/jpigp_cor:FinancialLiabilitiesIFRS',
-        './/jpigp_cor:ConsolidatedFinancialLiabilities',
-        './/jpigp_cor:ConsolidatedFinancialLiabilitiesIFRS',
-        
-        # Net debt patterns
-        './/jppfs_cor:NetDebt',
-        './/jpcrp_cor:NetDebt',
-        './/jppfs_cor:NetInterestBearingDebt',
-        './/jpcrp_cor:NetInterestBearingDebt',
-        './/jppfs_cor:ConsolidatedNetDebt',
-        './/jpcrp_cor:ConsolidatedNetDebt',
-        './/jppfs_cor:ConsolidatedNetInterestBearingDebt',
-        './/jpcrp_cor:ConsolidatedNetInterestBearingDebt'
     ],
     'characteristic': [
         # Primary business description patterns (EDINET official taxonomy)
@@ -463,17 +381,23 @@ XBRL_PATTERNS = {
         './/jpcrp_cor:ConsolidatedNetIncomeAttributableToOwnersOfParent',
         './/jppfs_cor:ConsolidatedNetIncomeAttributableToOwnersOfParent',
         
-        # Standard net income patterns
-        './/jpcrp_cor:NetIncomeLoss',
-        './/jppfs_cor:NetIncomeLoss',
-        './/jpcrp_cor:ProfitLoss',
-        './/jppfs_cor:ProfitLoss',
+        # Standard net income patterns - prefer profit attributable to owners of
+        # the parent (net income proper) over the bare total ProfitLoss, which
+        # still includes non-controlling interests (issue #184).
+        './/jpcrp_cor:ProfitLossAttributableToOwnersOfParent',
+        './/jppfs_cor:ProfitLossAttributableToOwnersOfParent',
         './/jpcrp_cor:NetIncomeAttributableToOwnersOfParent',
         './/jppfs_cor:NetIncomeAttributableToOwnersOfParent',
         './/jpcrp_cor:NetIncomeAttributableToShareholdersOfParentCompany',
         './/jppfs_cor:NetIncomeAttributableToShareholdersOfParentCompany',
         './/jpcrp_cor:NetIncomeAttributableToOwnersOfTheParent',
-        './/jppfs_cor:NetIncomeAttributableToOwnersOfTheParent'
+        './/jppfs_cor:NetIncomeAttributableToOwnersOfTheParent',
+        './/jpcrp_cor:NetIncomeLoss',
+        './/jppfs_cor:NetIncomeLoss',
+
+        # Last resort: bare ProfitLoss (total, incl. non-controlling interests)
+        './/jpcrp_cor:ProfitLoss',
+        './/jppfs_cor:ProfitLoss'
     ],
     'cash': [
         # Consolidated cash and cash equivalents patterns (priority)
