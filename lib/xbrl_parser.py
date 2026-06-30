@@ -582,8 +582,11 @@ class MetricsCalculator:
             if financial_data.get('ebitda') is not None and net_sales and net_sales > 0:
                 financial_data['ebitdaMargin'] = (financial_data['ebitda'] / net_sales) * 100
             
-            # Market Capitalization = outstandingShares * stockPrice
-            if outstanding_shares is not None and stock_price is not None:
+            # Market Capitalization: prefer the value from the market fetcher
+            # (issue #185); fall back to outstandingShares * stockPrice only when
+            # the fetcher did not supply one.
+            if financial_data.get('marketCapitalization') is None and \
+                    outstanding_shares is not None and stock_price is not None:
                 financial_data['marketCapitalization'] = outstanding_shares * stock_price
             
             # PER = stockPrice / eps
@@ -788,8 +791,10 @@ class XBRLParser:
 
         if yahoo_data:
             stock_price = yahoo_data.get('stockPrice')
+            market_capitalization = yahoo_data.get('marketCapitalization')
         else:
             stock_price = None
+            market_capitalization = None
 
         # Always extract equity and cash from XBRL
         equity = self._extract_equity(root)
@@ -813,7 +818,7 @@ class XBRLParser:
             "depreciation": depreciation,
             "ebitda": None,  # Calculated later
             "ebitdaMargin": None,  # Calculated later
-            "marketCapitalization": None,  # Calculated from stock price and shares
+            "marketCapitalization": market_capitalization,  # From market fetcher; else shares*price below
             "per": None,  # Calculated from stock price and EPS
             "ev": None,  # Calculated later
             "evPerEbitda": None,  # Calculated later

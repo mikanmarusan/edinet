@@ -1,732 +1,232 @@
-import json
-import re
-import logging
-import time
-from typing import Dict, List, Tuple, Optional, Any, Union
-from playwright.sync_api import sync_playwright, TimeoutError as PlaywrightTimeoutError, Error as PlaywrightError
+"""
+Market-data fetcher for EDINET financial documents (issue #185, PR4).
 
-# Setup module logger
+Fetches ONLY market data (stockPrice, marketCapitalization in yen) from the
+Yahoo Finance base quote page via plain `requests` + BeautifulSoup. The base
+quote page is server-side rendered, so no headless browser (Playwright) is
+needed. Financial-statement fields come from EDINET XBRL (PR1-3); market fields
+degrade to null (with a WARNING) rather than aborting a company's row.
+
+Yahoo scraping is ToS-prohibited and treated here as a null-tolerant interim
+bridge pending migration to an official market-data source (future milestone).
+"""
+
+import logging
+import random
+import re
+import time
+from typing import Any, Dict, Optional
+
+import requests
+from bs4 import BeautifulSoup
+
+from .ticker_generator import get_ticker_from_security_code
+from .url_generator import generate_yahoo_finance_url
+
 logger = logging.getLogger(__name__)
 
+_USER_AGENT = (
+    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 "
+    "(KHTML, like Gecko) Chrome/124.0 Safari/537.36"
+)
+_MIN_REQUEST_INTERVAL = 1.0  # seconds; >= 1 request/second
+_REQUEST_TIMEOUT = 15  # seconds
+_MAX_RETRIES = 3
 
-def extract_preloaded_state(page) -> Dict[str, Any]:
-    """Extract __PRELOADED_STATE__ from page"""
-    try:
-        preloaded_state = page.evaluate('() => window.__PRELOADED_STATE__')
-        if preloaded_state:
-            return preloaded_state
-    except PlaywrightError as e:
-        logger.debug(f"Failed to evaluate JavaScript for __PRELOADED_STATE__: {e}")
-    except Exception as e:
-        logger.debug(f"Unexpected error evaluating __PRELOADED_STATE__: {e}")
-    
-    # Fallback to regex parsing
-    content = page.content()
-    pattern = r'window\.__PRELOADED_STATE__\s*=\s*({.+?});?\s*(?:window\.|</script>)'
-    match = re.search(pattern, content, re.DOTALL)
-    if match:
-        try:
-            return json.loads(match.group(1))
-        except json.JSONDecodeError as e:
-            logger.warning(f"Invalid JSON in __PRELOADED_STATE__: {e}")
-        except Exception as e:
-            logger.debug(f"Unexpected error parsing __PRELOADED_STATE__ JSON: {e}")
-    
-    return {}
+_NUM_RE = re.compile(r"[\d,]+(?:\.\d+)?")
+
+# Module-level state: reused session + pacing clock. The fetch loop is
+# single-threaded; if it is ever parallelized, _pace() and market_null_counts
+# would need synchronization.
+_session: Optional[requests.Session] = None
+_last_request_ts = 0.0
+
+# Run-summary counters: how many companies had each market field null.
+market_null_counts: Dict[str, int] = {"stockPrice": 0, "marketCapitalization": 0}
 
 
-def parse_numeric_value(value: Union[str, int, float]) -> str:
-    """Remove commas and units from numeric values"""
-    if isinstance(value, str):
-        return value.replace(',', '').replace('円', '').replace('人', '').replace('株', '').strip()
-    return str(value)
+def reset_market_null_counts() -> None:
+    """Reset the per-run null counters (call once at the start of a batch run)."""
+    market_null_counts["stockPrice"] = 0
+    market_null_counts["marketCapitalization"] = 0
 
 
-def convert_million_to_yen(value_str: str) -> Optional[int]:
-    """Convert million yen to yen (e.g., '51121' -> 51121000000)"""
-    try:
-        # Handle special cases like '---' or 'N/A'
-        if value_str in ['---', 'N/A', '']:
-            return None
-        
-        # For negative values
-        is_negative = value_str.startswith('-')
-        if is_negative:
-            value_str = value_str[1:]
-        
-        # Convert to number and multiply by 1,000,000
-        value = int(value_str)
-        result = value * 1000000
-        
-        # Add negative sign back if needed
-        return -result if is_negative else result
-    except ValueError as e:
-        logger.debug(f"Invalid numeric value for million to yen conversion: '{value_str}' - {e}")
-        return None
-    except Exception as e:
-        logger.debug(f"Unexpected error in million to yen conversion: '{value_str}' - {e}")
-        return None
+def _get_session() -> requests.Session:
+    global _session
+    if _session is None:
+        _session = requests.Session()
+        _session.headers.update({"User-Agent": _USER_AGENT})
+    return _session
 
 
-def convert_thousand_to_shares(value_str: str) -> Optional[int]:
-    """Convert thousand shares to shares (e.g., '58162' -> 58162000)"""
-    try:
-        # Handle special cases
-        if value_str in ['---', 'N/A', '']:
-            return None
-        
-        # Convert to number and multiply by 1,000
-        value = int(value_str)
-        return value * 1000
-    except ValueError as e:
-        logger.debug(f"Invalid numeric value for thousand to shares conversion: '{value_str}' - {e}")
-        return None
-    except Exception as e:
-        logger.debug(f"Unexpected error in thousand to shares conversion: '{value_str}' - {e}")
-        return None
+def _pace() -> None:
+    """Enforce >= 1 request/second with a little jitter on the shared session."""
+    global _last_request_ts
+    elapsed = time.time() - _last_request_ts
+    wait = _MIN_REQUEST_INTERVAL - elapsed
+    if wait > 0:
+        time.sleep(wait + random.uniform(0.0, 0.4))
+    _last_request_ts = time.time()
 
 
-def extract_profile_data(page, financial_data: Dict[str, Any]) -> None:
-    """Extract company profile data from PRELOADED_STATE"""
-    state = extract_preloaded_state(page)
-    
-    # Extract stock price
-    if 'mainStocksPriceBoard' in state:
-        price_board = state['mainStocksPriceBoard'].get('priceBoard', {})
-        if 'price' in price_board:
-            try:
-                financial_data['stockPrice'] = float(parse_numeric_value(price_board['price']))
-            except ValueError as e:
-                logger.debug(f"Invalid stock price value: {price_board.get('price')} - {e}")
-                financial_data['stockPrice'] = None
-            except Exception as e:
-                logger.debug(f"Unexpected error parsing stock price: {e}")
-                financial_data['stockPrice'] = None
-    
-    # Extract company characteristics and employees
-    if 'mainStocksProfile' in state:
-        profile_items = state['mainStocksProfile'].get('items', [])
-        for item in profile_items:
-            head = item.get('head', '')
-            details = item.get('details', [])
-            
-            if head == '特色' and details:
-                financial_data['characteristic'] = details[0].get('text', '') or None
-            elif head == '従業員数（連結）' and details:
-                emp_text = details[0].get('text', '')
-                emp_match = re.search(r'([\d,]+)人', emp_text)
-                if emp_match:
-                    try:
-                        financial_data['employees'] = int(emp_match.group(1).replace(',', ''))
-                    except ValueError as e:
-                        logger.debug(f"Invalid employee count value: {emp_match.group(1)} - {e}")
-                        financial_data['employees'] = None
-                    except Exception as e:
-                        logger.debug(f"Unexpected error parsing employee count: {e}")
-                        financial_data['employees'] = None
+def _fetch_html(url: str) -> Optional[str]:
+    """GET the base quote page with pacing and 403/429 backoff. None on failure.
 
-
-def extract_performance_data(page, periodEnd: str, financial_data: Dict[str, Any]) -> None:
-    """Extract performance data from PRELOADED_STATE"""
-    # Parse periodEnd
-    try:
-        target_year = periodEnd.split('年')[0]
-        target_month = periodEnd.split('年')[1].replace('月期', '')
-        target_period = f"{target_year}年{target_month}月期"
-    except IndexError:
-        # Handle case where periodEnd format is different
-        target_period = periodEnd
-        target_year = periodEnd.split('年')[0] if '年' in periodEnd else periodEnd
-    
-    # First, try to extract from PRELOADED_STATE
-    state = extract_preloaded_state(page)
-    
-    # Check for performance data in PRELOADED_STATE
-    if 'mainStocksPerformance' in state:
-        performance_data = state['mainStocksPerformance']
-        
-        # Extract financial metrics from the performance data
-        if 'items' in performance_data:
-            for item in performance_data['items']:
-                # Find the row that matches our fiscal period
-                period_text = item.get('period', '')
-                if target_year in period_text or target_period in period_text:
-                    # Extract financial metrics
-                    if 'sales' in item:
-                        financial_data['netSales'] = convert_million_to_yen(str(item['sales']))
-                    if 'operatingIncome' in item:
-                        financial_data['operatingIncome'] = convert_million_to_yen(str(item['operatingIncome']))
-                    if 'ordinaryIncome' in item:
-                        financial_data['ordinaryIncome'] = convert_million_to_yen(str(item['ordinaryIncome']))
-                    if 'netIncome' in item:
-                        financial_data['netIncome'] = convert_million_to_yen(str(item['netIncome']))
-                    return
-        
-        # Alternative structure - check for table data in PRELOADED_STATE
-        if 'tableData' in performance_data:
-            table_data = performance_data['tableData']
-            for row in table_data:
-                if isinstance(row, dict):
-                    period_text = row.get('period', '')
-                    if target_year in period_text or target_period in period_text:
-                        # Map common field names
-                        field_mappings = {
-                            'revenue': 'netSales',
-                            'sales': 'netSales',
-                            '売上高': 'netSales',
-                            'operatingProfit': 'operatingIncome',
-                            'operatingIncome': 'operatingIncome',
-                            '営業利益': 'operatingIncome',
-                            'ordinaryProfit': 'ordinaryIncome',
-                            'ordinaryIncome': 'ordinaryIncome',
-                            '経常利益': 'ordinaryIncome',
-                            'netProfit': 'netIncome',
-                            'netIncome': 'netIncome',
-                            '純利益': 'netIncome'
-                        }
-                        
-                        for key, value in row.items():
-                            if key in field_mappings and value:
-                                mapped_field = field_mappings[key]
-                                financial_data[mapped_field] = convert_million_to_yen(str(value))
-                        return
-    
-    # Fallback to table parsing if PRELOADED_STATE doesn't contain the data
-    try:
-        tables = page.query_selector_all('table')
-        if not tables:
-            return
-            
-        # First table contains performance data
-        rows = tables[0].query_selector_all('tr')
-        
-        # Extract headers to map column positions
-        column_mapping = {}
-        
-        # Define comprehensive header patterns for robust matching
-        header_patterns = {
-            'netSales': [
-                '売上高', '売上', 'sales', 'revenue', '収益', '営業収益',
-                'total revenue', 'net sales', '売上収益'
-            ],
-            'operatingIncome': [
-                '営業利益', 'operating income', 'operating profit', 
-                '営業損益', 'operating earnings', '事業利益'
-            ],
-            'ordinaryIncome': [
-                '経常利益', 'ordinary income', 'ordinary profit',
-                '経常損益', 'recurring profit', 'recurring income'
-            ],
-            'netIncome': [
-                '純利益', '当期純利益', 'net income', 'net profit',
-                '親会社株主に帰属する当期純利益', 'net earnings',
-                'profit attributable', '最終利益', '当期利益'
-            ]
-        }
-        
-        # Cache rows to avoid redundant queries
-        cached_rows = rows[:5]  # Cache first 5 rows for header detection
-        
-        # Define important columns for prioritization
-        important_columns = {'netSales', 'netIncome', 'operatingIncome', 'ordinaryIncome'}
-        found_important = set()
-        
-        # First pass: check for header rows (th elements)
-        for idx, row in enumerate(cached_rows):
-            cells = row.query_selector_all('th')
-            if cells and len(cells) > 1:
-                for col_idx, cell in enumerate(cells):
-                    # Null safety check for text_content()
-                    text_content = cell.text_content()
-                    if text_content is None:
-                        logger.debug(f"Null text_content at th row {idx}, column {col_idx}")
-                        continue
-                    
-                    header_text = text_content.strip().lower()
-                    # Check against all patterns
-                    for field_name, patterns in header_patterns.items():
-                        if any(pattern.lower() in header_text for pattern in patterns):
-                            if field_name not in column_mapping:
-                                column_mapping[field_name] = col_idx
-                                logger.debug(f"Mapped header '{header_text}' to {field_name} at column {col_idx}")
-                                if field_name in important_columns:
-                                    found_important.add(field_name)
-                
-                # Continue searching if important columns are missing
-                if found_important and len(found_important) >= 2:
-                    logger.debug(f"Found {len(found_important)} important columns, stopping header search")
-                    break
-        
-        # Second pass: check td cells for header-like content if important columns are missing
-        if not column_mapping or (important_columns - found_important):
-            for row in cached_rows:
-                cells = row.query_selector_all('td')
-                if cells and len(cells) > 1:
-                    # Check if this looks like a header row (contains text patterns)
-                    potential_headers = []
-                    for col_idx, cell in enumerate(cells):
-                        # Null safety check for text_content()
-                        text_content = cell.text_content()
-                        if text_content is None:
-                            logger.debug(f"Null text_content at td column {col_idx}")
-                            continue
-                        
-                        text = text_content.strip()
-                        for field_name, patterns in header_patterns.items():
-                            if any(pattern.lower() in text.lower() for pattern in patterns):
-                                if field_name not in column_mapping:
-                                    column_mapping[field_name] = col_idx
-                                    logger.debug(f"Mapped cell text '{text}' to {field_name} at column {col_idx}")
-                                    potential_headers.append(field_name)
-                                    if field_name in important_columns:
-                                        found_important.add(field_name)
-                    
-                    # Continue if we found new important columns
-                    if len(potential_headers) >= 2 and len(found_important) >= len(important_columns):
-                        logger.debug(f"Found all important columns, stopping td search")
-                        break
-        
-        # Parse data rows
-        for row in rows:
-            cells = row.query_selector_all('td, th')
-            if not cells:
-                continue
-                
-            # Null safety check for first cell
-            first_cell_content = cells[0].text_content()
-            if first_cell_content is None:
-                logger.debug(f"Null text_content in first cell of row")
-                continue
-            
-            first_cell = first_cell_content.strip()
-            
-            # Check if this row contains our fiscal period
-            if target_period in first_cell or target_year in first_cell:
-                try:
-                    if column_mapping:
-                        # Use header-based mapping with validation
-                        extracted_count = 0
-                        for field_name, col_idx in column_mapping.items():
-                            if col_idx < len(cells):
-                                # Null safety check for cell text_content
-                                cell_content = cells[col_idx].text_content()
-                                if cell_content is None:
-                                    logger.debug(f"Null text_content for {field_name} at column {col_idx}")
-                                    continue
-                                
-                                value = parse_numeric_value(cell_content)
-                                if field_name in ['netSales', 'operatingIncome', 'ordinaryIncome', 'netIncome']:
-                                    converted = convert_million_to_yen(value)
-                                    if converted is not None:
-                                        # Validate: netSales should be positive, but profits can be negative
-                                        if field_name == 'netSales' and converted <= 0:
-                                            logger.warning(f"Skipped non-positive netSales value: {converted}")
-                                        else:
-                                            financial_data[field_name] = converted
-                                            extracted_count += 1
-                                            logger.debug(f"Extracted {field_name}: {converted} from column {col_idx}")
-                        
-                        if extracted_count == 0:
-                            logger.warning(f"No valid financial data extracted using column mapping for period {target_period}")
-                    else:
-                        # If no column mapping found, log warning and skip heuristic extraction
-                        logger.warning(f"No column headers identified for table parsing. Skipping row for period {target_period}")
-                        # We intentionally don't fall back to positional indexing to avoid fragile extraction
-                            
-                except PlaywrightTimeoutError as e:
-                    logger.warning(f"Timeout while parsing performance data for period {target_period}: {e}")
-                except PlaywrightError as e:
-                    logger.error(f"Playwright error accessing page elements for period {target_period}: {e}")
-                except Exception as e:
-                    logger.error(f"Unexpected error parsing performance data for period {target_period}: {e}")
-                break
-                
-    except PlaywrightTimeoutError as e:
-        logger.warning(f"Timeout while extracting performance data for period {periodEnd}: {e}")
-    except PlaywrightError as e:
-        logger.error(f"Playwright error in extract_performance_data for period {periodEnd}: {e}")
-    except Exception as e:
-        logger.error(f"Unexpected error in extract_performance_data for period {periodEnd}: {e}")
-
-
-def extract_financial_data(page, periodEnd: str, financial_data: Dict[str, Any]) -> None:
-    """Extract financial data from table"""
-    # Parse periodEnd
-    try:
-        target_year = periodEnd.split('年')[0]
-        target_month = periodEnd.split('年')[1].replace('月期', '')
-        target_period = f"{target_year}年{target_month}月期"
-    except IndexError:
-        # Handle case where periodEnd format is different
-        target_period = periodEnd
-    
-    try:
-        tables = page.query_selector_all('table')
-        if not tables:
-            return
-            
-        # First table contains financial data
-        rows = tables[0].query_selector_all('tr')
-        
-        # Extract headers to map column positions
-        column_mapping = {}
-        
-        # Define header patterns for financial metrics
-        header_patterns = {
-            'eps': ['eps', '1株当たり利益', '1株利益', 'earnings per share', '基本的1株当たり'],
-            'bps': ['bps', '1株当たり純資産', '1株純資産', 'book value per share', '純資産/株'],
-            'debt': ['有利子負債', '負債', 'debt', 'interest-bearing debt', '借入金'],
-            'depreciation': ['減価償却', '償却費', 'depreciation', 'amortization'],
-            'outstandingShares': ['発行済株式数', '株式数', 'shares outstanding', '発行済み株式', 'outstanding shares']
-        }
-        
-        # Cache first 5 rows for header detection
-        cached_rows = rows[:5]
-        
-        # First pass: check for header rows
-        for idx, row in enumerate(cached_rows):
-            cells = row.query_selector_all('th, td')
-            if cells and len(cells) > 1:
-                for col_idx, cell in enumerate(cells):
-                    # Null safety check for text_content()
-                    text_content = cell.text_content()
-                    if text_content is None:
-                        logger.debug(f"Null text_content at row {idx}, column {col_idx} in financial table")
-                        continue
-                    
-                    header_text = text_content.strip().lower()
-                    # Check against all patterns
-                    for field_name, patterns in header_patterns.items():
-                        if any(pattern.lower() in header_text for pattern in patterns):
-                            if field_name not in column_mapping:
-                                column_mapping[field_name] = col_idx
-                                logger.debug(f"Mapped financial header '{header_text}' to {field_name} at column {col_idx}")
-                if len(column_mapping) >= 2:  # Found at least 2 headers
-                    break
-        
-        for row in rows:
-            cells = row.query_selector_all('td, th')
-            if not cells:
-                continue
-                
-            # Null safety check for first cell
-            first_cell_content = cells[0].text_content()
-            if first_cell_content is None:
-                logger.debug(f"Null text_content in first cell of financial data row")
-                continue
-            
-            first_cell = first_cell_content.strip()
-            
-            # Check if this row contains our fiscal period
-            # Also check for partial matches due to format differences
-            if target_period in first_cell or target_year in first_cell:
-                
-                # Map column positions to data fields
-                try:
-                    if column_mapping:
-                        # Use header-based mapping
-                        extracted_count = 0
-                        for field_name, col_idx in column_mapping.items():
-                            if col_idx < len(cells):
-                                # Null safety check for cell text_content
-                                cell_content = cells[col_idx].text_content()
-                                if cell_content is None:
-                                    logger.debug(f"Null text_content for {field_name} at column {col_idx} in financial data")
-                                    continue
-                                
-                                value = parse_numeric_value(cell_content)
-                                if value not in ['---', 'N/A', '', '—']:
-                                    try:
-                                        if field_name in ['eps', 'bps']:
-                                            financial_data[field_name] = float(value)
-                                            extracted_count += 1
-                                        elif field_name == 'debt':
-                                            converted = convert_million_to_yen(value)
-                                            if converted is not None and converted >= 0:
-                                                financial_data[field_name] = converted
-                                                extracted_count += 1
-                                        elif field_name == 'depreciation':
-                                            converted = convert_million_to_yen(value)
-                                            if converted is not None and converted >= 0:
-                                                financial_data[field_name] = converted
-                                                extracted_count += 1
-                                        elif field_name == 'outstandingShares':
-                                            converted = convert_thousand_to_shares(value)
-                                            if converted is not None and converted > 0:
-                                                financial_data[field_name] = converted
-                                                extracted_count += 1
-                                        logger.debug(f"Extracted {field_name}: {financial_data.get(field_name)} from column {col_idx}")
-                                    except ValueError as e:
-                                        logger.debug(f"Invalid {field_name} value for period {target_period}: {value} - {e}")
-                                    except Exception as e:
-                                        logger.debug(f"Unexpected error parsing {field_name} for period {target_period}: {e}")
-                        
-                        if extracted_count == 0:
-                            logger.warning(f"No valid financial metrics extracted using column mapping for period {target_period}")
-                    else:
-                        # No column mapping found - log warning
-                        logger.warning(f"No column headers identified for financial data table. Skipping extraction for period {target_period}")
-                except PlaywrightTimeoutError as e:
-                    logger.warning(f"Timeout while parsing financial data cells for period {target_period}: {e}")
-                except PlaywrightError as e:
-                    logger.error(f"Playwright error accessing table cells for period {target_period}: {e}")
-                except Exception as e:
-                    logger.error(f"Unexpected error parsing financial data cells for period {target_period}: {e}")
-                break
-                
-    except PlaywrightTimeoutError as e:
-        logger.warning(f"Timeout while extracting financial data for period {periodEnd}: {e}")
-    except PlaywrightError as e:
-        logger.error(f"Playwright error in extract_financial_data for period {periodEnd}: {e}")
-    except Exception as e:
-        logger.error(f"Unexpected error in extract_financial_data for period {periodEnd}: {e}")
-
-
-def get_financial_data_with_context(
-    secCode: str, 
-    periodEnd: str, 
-    context: Any  # BrowserContext from playwright
-) -> Dict[str, Any]:
-    """Get financial data for a security using an existing browser context.
-    
-    This function is optimized for batch processing by reusing an existing browser
-    context, avoiding the overhead of browser initialization for each request.
-    
-    Args:
-        secCode: Security code of the company (e.g., "7203" for Toyota)
-        periodEnd: Fiscal period end in Japanese format (e.g., "2023年3月期")
-        context: Existing Playwright browser context that will be reused
-    
-    Returns:
-        dict: Financial data containing stockPrice, characteristic, employees,
-              netSales, operatingIncome, ordinaryIncome, netIncome, eps, bps,
-              debt, depreciation, outstandingShares (all may be None)
-    
-    Raises:
-        ValueError: If context is None
-        RuntimeError: If data scraping fails
-    
-    Example:
-        >>> with sync_playwright() as p:
-        ...     browser = p.chromium.launch(headless=True)
-        ...     context = browser.new_context()
-        ...     data = get_financial_data_with_context("7203", "2023年3月期", context)
-        ...     print(data['stockPrice'])
+    Default TLS verification is kept (no verify=False / ignore_https_errors).
     """
-    # Validate context
-    if context is None:
-        raise ValueError("Browser context cannot be None")
-    
-    from .ticker_generator import get_ticker_from_security_code
-    from .url_generator import generate_yahoo_finance_urls
-    
-    ticker = get_ticker_from_security_code(secCode)
-    urls = generate_yahoo_finance_urls(ticker)
-    
-    financial_data = {}
-    page = None
-    
+    session = _get_session()
+    for attempt in range(_MAX_RETRIES + 1):
+        _pace()
+        try:
+            resp = session.get(url, timeout=_REQUEST_TIMEOUT)
+        except requests.RequestException as e:
+            logger.warning("Yahoo fetch error for %s: %s", url, e)
+            return None
+
+        if resp.status_code in (403, 429):
+            backoff = (2 ** attempt) + random.uniform(0.0, 1.0)
+            logger.warning(
+                "Yahoo returned HTTP %s for %s; backing off %.1fs (attempt %d)",
+                resp.status_code, url, backoff, attempt + 1,
+            )
+            time.sleep(backoff)
+            continue
+
+        if resp.status_code != 200:
+            logger.warning("Yahoo returned HTTP %s for %s", resp.status_code, url)
+            return None
+
+        return resp.text
+
+    logger.warning("Yahoo fetch exhausted retries for %s", url)
+    return None
+
+
+def _parse_stock_price(soup: BeautifulSoup) -> Optional[float]:
+    """Current price from the price board.
+
+    Anchored on the semantic class fragments (the hash suffix varies across Yahoo
+    deploys, the semantic prefix is stable). The lookup is scoped to the price
+    block (`CommonPriceBoard__priceBlock_`) so sibling figures elsewhere on the
+    page (始値/高値/安値, 前日終値, which live in labelled DataListItems) cannot be
+    mistaken for the current price.
+    """
+    scope = soup.select_one('[class*="CommonPriceBoard__priceBlock_"]') or soup
+    el = scope.select_one('[class*="CommonPriceBoard__price_"]')
+    if el is None:
+        return None
+    match = _NUM_RE.search(el.get_text(strip=True))
+    if not match:
+        return None
     try:
-        page = context.new_page()
-        
-        # Set page timeout to handle slow loading pages
-        page.set_default_timeout(60000)  # 60 seconds default timeout
-        
-        # Profile page - Extract company info and stock price
-        # Use 'domcontentloaded' instead of 'networkidle' for faster, more reliable loading
-        retry_count = 0
-        max_retries = 2
-        while retry_count <= max_retries:
-            try:
-                page.goto(urls['profile'], wait_until='domcontentloaded', timeout=45000)
-                # Wait for critical content to be visible
-                try:
-                    page.wait_for_selector('table', timeout=5000)
-                except PlaywrightTimeoutError:
-                    logger.debug(f"Table not found on profile page for {secCode}, continuing anyway")
-                break
-            except PlaywrightTimeoutError as e:
-                retry_count += 1
-                if retry_count > max_retries:
-                    raise
-                logger.warning(f"Retry {retry_count}/{max_retries} for profile page of {secCode} after timeout")
-                time.sleep(2 * retry_count)  # Exponential backoff
-        extract_profile_data(page, financial_data)
-        
-        # Performance page - Extract revenue and profit data
-        retry_count = 0
-        while retry_count <= max_retries:
-            try:
-                page.goto(urls['performance'], wait_until='domcontentloaded', timeout=45000)
-                try:
-                    page.wait_for_selector('table', timeout=5000)
-                except PlaywrightTimeoutError:
-                    logger.debug(f"Table not found on performance page for {secCode}, continuing anyway")
-                break
-            except PlaywrightTimeoutError as e:
-                retry_count += 1
-                if retry_count > max_retries:
-                    raise
-                logger.warning(f"Retry {retry_count}/{max_retries} for performance page of {secCode} after timeout")
-                time.sleep(2 * retry_count)
-        extract_performance_data(page, periodEnd, financial_data)
-        
-        # Financials page - Extract per-share metrics and other financial data
-        retry_count = 0
-        while retry_count <= max_retries:
-            try:
-                page.goto(urls['financials'], wait_until='domcontentloaded', timeout=45000)
-                try:
-                    page.wait_for_selector('table', timeout=5000)
-                except PlaywrightTimeoutError:
-                    logger.debug(f"Table not found on financials page for {secCode}, continuing anyway")
-                break
-            except PlaywrightTimeoutError as e:
-                retry_count += 1
-                if retry_count > max_retries:
-                    raise
-                logger.warning(f"Retry {retry_count}/{max_retries} for financials page of {secCode} after timeout")
-                time.sleep(2 * retry_count)
-        extract_financial_data(page, periodEnd, financial_data)
-        
-    except PlaywrightTimeoutError as e:
-        logger.error(f"Timeout error for company {secCode} (period: {periodEnd}): {e}")
-        raise RuntimeError(f"Failed to scrape data for {secCode}: timeout occurred - {str(e)}")
-    except PlaywrightError as e:
-        logger.error(f"Playwright error for company {secCode} (period: {periodEnd}): {e}")
-        raise RuntimeError(f"Browser operation failed for {secCode}: {str(e)}")
-    except Exception as e:
-        logger.error(f"Unexpected error for company {secCode} (period: {periodEnd}): {e}")
-        raise RuntimeError(f"Failed to get financial data for {secCode}: {str(e)}")
-    finally:
-        # Always close the page to free resources
-        if page:
-            try:
-                page.close()
-            except Exception as e:
-                logger.debug(f"Error closing page for {secCode}: {e}")
-    
-    # Ensure all expected fields are present (set to None if missing)
-    expected_fields = [
-        'stockPrice', 'characteristic', 'employees', 'netSales', 
-        'operatingIncome', 'ordinaryIncome', 'netIncome', 'eps', 'bps', 
-        'depreciation', 'outstandingShares', 'debt'
-    ]
-    
-    for field in expected_fields:
-        if field not in financial_data:
-            financial_data[field] = None
-    
-    return financial_data
+        return float(match.group(0).replace(",", ""))
+    except ValueError:
+        return None
+
+
+def _enclosing_data_list_item(node):
+    """Walk up to the nearest DataListItem *block* container so a label's value
+    cannot bleed in from an adjacent metric.
+
+    Matches the BEM block class (`_DataListItem_<hash>`) and skips its elements
+    (`_DataListItem__name_`, `_DataListItem__data_`), which also contain the
+    fragment "DataListItem_".
+    """
+    while node is not None:
+        for c in (node.get("class") or []):
+            if "DataListItem_" in c and "DataListItem__" not in c:
+                return node
+        node = node.parent
+    return None
+
+
+def _parse_market_cap_yen(soup: BeautifulSoup) -> Optional[int]:
+    """時価総額 (market capitalization) in yen.
+
+    Anchored on the Japanese label "時価総額" (stable across deploys), reading the
+    value within its DataListItem. Yahoo reports it in 百万円 (millions of yen).
+    """
+    for span in soup.find_all("span"):
+        if span.get_text(strip=True) != "時価総額":
+            continue
+        # Scope to the label's own DataListItem so an adjacent metric's number or
+        # unit cannot bleed in.
+        container = _enclosing_data_list_item(span) or span.parent
+        if container is None:
+            return None
+        # Read the value from the DataListItem's data sub-element when present, so
+        # a digit in the interstitial "用語" tooltip cannot be captured instead.
+        data_el = container.select_one('[class*="DataListItem__data_"]')
+        if data_el is not None:
+            after = data_el.get_text(" ", strip=True)
+        else:
+            after = container.get_text(" ", strip=True).split("時価総額", 1)[-1]
+        match = _NUM_RE.search(after)
+        if not match:
+            return None
+        try:
+            value = float(match.group(0).replace(",", ""))
+        except ValueError:
+            return None
+        if "百万円" in after:
+            return int(value * 1_000_000)
+        if "円" in after:
+            return int(value)
+        # No explicit unit found: Yahoo's 時価総額 is conventionally 百万円, but
+        # warn because a wrong unit would be a silent 1,000,000x error.
+        logger.warning(
+            "時価総額 unit not found near value %s; assuming 百万円", match.group(0)
+        )
+        return int(value * 1_000_000)
+    return None
+
+
+def parse_market_data(html: str) -> Dict[str, Any]:
+    """Parse stockPrice and marketCapitalization (yen) from base-quote-page HTML."""
+    soup = BeautifulSoup(html, "html.parser")
+    return {
+        "stockPrice": _parse_stock_price(soup),
+        "marketCapitalization": _parse_market_cap_yen(soup),
+    }
 
 
 def get_financial_data(secCode: str, periodEnd: str) -> Dict[str, Any]:
-    """Get financial data for a security (backward compatible).
-    
-    This function maintains backward compatibility by creating its own browser instance.
-    For batch processing, use get_financial_data_batch() or get_financial_data_with_context() instead.
-    
-    Args:
-        secCode: Security code of the company
-        periodEnd: Fiscal period end (e.g., "2023年3月期")
-    
-    Returns:
-        dict: Financial data for the company
-    """
-    try:
-        with sync_playwright() as p:
-            browser = p.chromium.launch(
-                headless=True,
-                args=['--disable-blink-features=AutomationControlled']
-            )
-            try:
-                context = browser.new_context(
-                    user_agent='Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
-                    viewport={'width': 1920, 'height': 1080},
-                    ignore_https_errors=True
-                )
-                return get_financial_data_with_context(secCode, periodEnd, context)
-            finally:
-                # Ensure browser is closed even if an error occurs
-                browser.close()
-    except Exception as e:
-        # Re-raise the exception from get_financial_data_with_context
-        raise
+    """Fetch market data for a security from the Yahoo base quote page.
 
+    Returns only {stockPrice, marketCapitalization} (yen). Financial-statement
+    fields are sourced from EDINET XBRL elsewhere. On any failure (network error,
+    soft-block, structure change) the missing market fields are null and a
+    WARNING naming them is logged; the company's row is never aborted.
 
-def get_financial_data_batch(
-    companies_data: List[Tuple[str, str]]
-) -> Dict[str, Dict[str, Any]]:
-    """Get financial data for multiple companies efficiently using a single browser instance.
-    
-    This function optimizes batch processing by reusing a single browser context
-    for all requests, significantly reducing overhead.
-    
-    Args:
-        companies_data: List of tuples containing (secCode, periodEnd).
-                       Example: [("7203", "2023年3月期"), ("9984", "2023年2月期")]
-    
-    Returns:
-        dict: Mapping of secCode to result dict containing:
-              - 'success': bool indicating if data was retrieved
-              - 'data': Financial data dict if success=True
-              - 'error': Error message string if success=False
-    
-    Example:
-        >>> companies = [("7203", "2023年3月期"), ("9984", "2023年2月期")]
-        >>> results = get_financial_data_batch(companies)
-        >>> for sec_code, result in results.items():
-        ...     if result['success']:
-        ...         print(f"{sec_code}: {result['data']['stockPrice']}")
+    `periodEnd` is accepted for signature compatibility; the base quote page is a
+    point-in-time snapshot and does not use it.
     """
-    # Handle empty input
-    if not companies_data:
-        logger.info("No companies provided for batch processing")
-        return {}
-    
-    results = {}
-    
-    try:
-        with sync_playwright() as p:
-            browser = p.chromium.launch(
-                headless=True,
-                args=['--disable-blink-features=AutomationControlled']
-            )
-            try:
-                context = browser.new_context(
-                    user_agent='Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
-                    viewport={'width': 1920, 'height': 1080},
-                    ignore_https_errors=True
-                )
-                
-                for secCode, periodEnd in companies_data:
-                    try:
-                        logger.info(f"Processing company {secCode} with period {periodEnd}")
-                        financial_data = get_financial_data_with_context(secCode, periodEnd, context)
-                        results[secCode] = {
-                            'success': True,
-                            'data': financial_data
-                        }
-                    except Exception as e:
-                        logger.error(f"Failed to get data for {secCode}: {e}")
-                        results[secCode] = {
-                            'success': False,
-                            'error': str(e)
-                        }
-                        # Continue processing other companies even if one fails
-                        continue
-                        
-            finally:
-                # Ensure browser is closed even if an error occurs
-                browser.close()
-                
-    except Exception as e:
-        logger.error(f"Failed to initialize browser for batch processing: {e}")
-        # Return error for all companies if browser initialization fails
-        for secCode, _ in companies_data:
-            results[secCode] = {
-                'success': False,
-                'error': f"Browser initialization failed: {str(e)}"
-            }
-    
-    return results
+    data: Dict[str, Any] = {"stockPrice": None, "marketCapitalization": None}
+
+    ticker = get_ticker_from_security_code(secCode)
+    url = generate_yahoo_finance_url(ticker)
+    html = _fetch_html(url)
+
+    if html is None:
+        logger.warning(
+            "No market data for %s (%s): stockPrice, marketCapitalization set to null",
+            secCode, ticker,
+        )
+        market_null_counts["stockPrice"] += 1
+        market_null_counts["marketCapitalization"] += 1
+        return data
+
+    parsed = parse_market_data(html)
+    data["stockPrice"] = parsed["stockPrice"]
+    data["marketCapitalization"] = parsed["marketCapitalization"]
+
+    missing = [field for field, value in data.items() if value is None]
+    if missing:
+        logger.warning(
+            "Market data missing for %s (%s): %s set to null",
+            secCode, ticker, ", ".join(missing),
+        )
+        for field in missing:
+            market_null_counts[field] += 1
+
+    return data

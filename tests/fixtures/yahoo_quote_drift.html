@@ -1,0 +1,53 @@
+<!--
+  Robustness fixture: a DIFFERENT hash suffix (_z9z9z_) than the sample, plus
+  sibling price-board figures (前日終値 etc.) and a 円-denominated metric placed
+  immediately before 時価総額. Proves the parser isolates the current price (not
+  a sibling figure) and the correct 時価総額 unit despite an adjacent 円 metric.
+    expected stockPrice           = 5678
+    expected marketCapitalization = 8,888 百万円 = 8,888,000,000 yen
+-->
+<!DOCTYPE html>
+<html lang="ja">
+<head><meta property="og:title" content="テスト企業(株)【8888】 - Yahoo!ファイナンス"></head>
+<body>
+  <main>
+    <header>
+      <div class="_CommonPriceBoard__priceBoard_z9z9z_1">
+        <span class="_CommonPriceBoard__marketName_z9z9z_10">東証PRM</span>
+        <span class="_CommonPriceBoard__code_z9z9z_20">8888</span>
+        <div class="_CommonPriceBoard__priceBlock_z9z9z_81">
+          <span class="_StyledNumber_z9z9z_1 _CommonPriceBoard__price_z9z9z_64">
+            <span class="_StyledNumber__item_z9z9z_6"><span class="_StyledNumber__value_z9z9z_9">5,678</span></span>
+            <span class="_StyledNumber__suffix_z9z9z_30">円</span>
+          </span>
+        </div>
+        <!-- sibling change figure that also lives under the CommonPriceBoard namespace -->
+        <div class="_CommonPriceBoard__priceChange_z9z9z_90">
+          <span class="_StyledNumber__value_z9z9z_9">-12</span>
+        </div>
+      </div>
+    </header>
+
+    <section>
+      <ul>
+        <li class="_DataListItem_z9z9z_1">
+          <span class="_DataListItem__name_z9z9z_19">前日終値</span>
+          <span class="_DataListItem__data_z9z9z_40"><span class="_StyledNumber__value_z9z9z_9">5,700</span><span>円</span></span>
+        </li>
+        <li class="_DataListItem_z9z9z_1">
+          <span class="_DataListItem__name_z9z9z_19">配当利回り</span>
+          <span class="_DataListItem__data_z9z9z_40"><span class="_StyledNumber__value_z9z9z_9">123</span><span>円</span></span>
+        </li>
+        <li class="_DataListItem_z9z9z_1">
+          <span class="_DataListItem__name_z9z9z_19">時価総額</span>
+          <div class="_DictionaryTip_z9z9z_1">用語 2024年版</div>
+          <span class="_DataListItem__data_z9z9z_40">
+            <span class="_StyledNumber__value_z9z9z_9">8,888</span>
+            <span class="_StyledNumber__suffix_z9z9z_30">百万円</span>
+          </span>
+        </li>
+      </ul>
+    </section>
+  </main>
+</body>
+</html>

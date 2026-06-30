@@ -1,0 +1,15 @@
+<!--
+  Synthetic fixture for the soft-block / structure-change case: the page loads
+  (HTTP 200) but carries no price board and no 時価総額 DataListItem, so both
+  market fields parse to None. Mirrors the empty-page soft-block Yahoo returns
+  after rate-limiting.
+-->
+<!DOCTYPE html>
+<html lang="ja">
+<head><meta property="og:title" content="テスト企業(株)【9999】 - Yahoo!ファイナンス"></head>
+<body>
+  <main>
+    <p>ただいまアクセスが集中しております。しばらくしてから再度お試しください。</p>
+  </main>
+</body>
+</html>
