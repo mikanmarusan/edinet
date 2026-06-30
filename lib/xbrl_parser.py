@@ -799,12 +799,26 @@ class XBRLParser:
         # Always extract equity and cash from XBRL
         equity = self._extract_equity(root)
         cash = self._extract_cash(root)
-        
+
+        # EDINET document links (issue #186). docID is validated as alphanumeric
+        # before interpolation; an unexpected value yields null rather than a
+        # malformed URL. Both the PDF and web-viewer links share this validation.
+        doc_id_valid = bool(doc_id and re.match(r'^[A-Za-z0-9]+$', doc_id))
+        doc_pdf_url = (
+            f"https://disclosure2dl.edinet-fsa.go.jp/searchdocument/pdf/{doc_id}.pdf"
+            if doc_id_valid else None
+        )
+        doc_url = (
+            f"https://disclosure2.edinet-fsa.go.jp/WZEK0040.aspx?{doc_id}"
+            if doc_id_valid else None
+        )
+
         return {
             "secCode": sec_code,
             "filerName": filer_name,
             "docID": doc_id,
-            "docPdfURL": f"https://disclosure2dl.edinet-fsa.go.jp/searchdocument/pdf/{doc_id}.pdf",
+            "docPdfURL": doc_pdf_url,
+            "docURL": doc_url,
             "yahooURL": f"https://finance.yahoo.co.jp/quote/{sec_code}.{get_stock_exchange_code(sec_code)}",
             "periodEnd": format_period_end(period_end),
             "characteristic": characteristic,

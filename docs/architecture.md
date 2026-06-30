@@ -1,5 +1,5 @@
 # Architecture
-<!-- spec-synced-through: 6a36f185ae8d580280fbd5eec22e757c87c483c8 -->
+<!-- spec-synced-through: 8ef3257ad5e3c1600bde42bb644889f6c84421f6 -->
 
 ## Development Architecture
 
@@ -169,12 +169,15 @@ else:
 - debt はネット有利子負債 = 短期借入金 + 1年内返済予定の長期借入金 + 長期借入金 + 社債 + リース債務 − 現金及び現金同等物。
 - EV = 時価総額 + ネット有利子負債。debt が既に現金控除済みのため、EVで現金を二重控除しない（現金の控除は debt 側で一度だけ）。
 
+#### ドキュメントリンク（PR5 / issue #186）
+- 各レコードは `docPdfURL`（PDF）と `docURL`（EDINET Webビューア: `https://disclosure2.edinet-fsa.go.jp/WZEK0040.aspx?{docID}`）を持つ。`docID` は `^[A-Za-z0-9]+$` で検証し、不正なら両URLとも null（壊れたURLを残さない）。
+- Webビューアは決算期の右に非ソートの「報告書」列を追加し、Web（docURL）/ PDF（docPdfURL）リンクを表示する。
+
 #### エラーハンドリング
 - 市場データ取得失敗時もXBRL処理を継続
 - 失敗したフィールドはnullを設定（捏造しない）
 - 財務諸表項目はXBRLの `_extract_*` から取得する。EPSは `_extract_eps` を正本とし、operatingIncome×0.7 の近似は廃止（捏造EPSが自己計算PERを汚染するため）
 
 #### パフォーマンス考慮事項
-- 現在: 企業ごとに新規ブラウザインスタンスを起動
-- 課題: 100社で100回のブラウザ起動（最適化が必要）
-- レート制限: Yahoo Financeへのアクセス制限は未実装
+- 市場データ取得は Playwright を廃止し `requests` の単一GET（企業ごと1リクエスト）。ヘッドレスブラウザ起動コストは解消（PR4 / issue #185）
+- レート制限: 使い回す `Session` 上で 1リクエスト/秒以上のペーシング（ジッター付き）と 403/429 バックオフを実装済み

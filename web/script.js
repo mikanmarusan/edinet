@@ -201,24 +201,25 @@ class ColumnVisibilityManager {
             { index: 0, key: 'secCode', label: '証券コード', required: true },
             { index: 1, key: 'filerName', label: '企業名称', required: true },
             { index: 2, key: 'periodEnd', label: '決算期', required: false },
-            { index: 3, key: 'stockPrice', label: '株価', required: false },
-            { index: 4, key: 'netSales', label: '売上高', required: false },
-            { index: 5, key: 'employees', label: '従業員数', required: false },
-            { index: 6, key: 'operatingIncome', label: '営業利益', required: false },
-            { index: 7, key: 'operatingIncomeRate', label: '営業利益率', required: false },
-            { index: 8, key: 'ordinaryIncome', label: '経常利益', required: false },
-            { index: 9, key: 'ordinaryIncomeRate', label: '経常利益率', required: false },
-            { index: 10, key: 'ebitda', label: 'EBITDA', required: false },
-            { index: 11, key: 'ebitdaMargin', label: 'EBITDAマージン', required: false },
-            { index: 12, key: 'marketCapitalization', label: '時価総額', required: false },
-            { index: 13, key: 'per', label: 'PER', required: false },
-            { index: 14, key: 'ev', label: '企業価値', required: false },
-            { index: 15, key: 'evPerEbitda', label: 'EV/EBITDA', required: false },
-            { index: 16, key: 'pbr', label: 'PBR', required: false },
-            { index: 17, key: 'equity', label: '純資産合計', required: false },
-            { index: 18, key: 'debt', label: 'ネット有利子負債', required: false },
-            { index: 19, key: 'issuedDate', label: 'EDINET提出日', required: false },
-            { index: 20, key: 'retrievedDate', label: '最終更新日', required: false }
+            { index: 3, key: 'docLinks', label: '報告書', required: false },
+            { index: 4, key: 'stockPrice', label: '株価', required: false },
+            { index: 5, key: 'netSales', label: '売上高', required: false },
+            { index: 6, key: 'employees', label: '従業員数', required: false },
+            { index: 7, key: 'operatingIncome', label: '営業利益', required: false },
+            { index: 8, key: 'operatingIncomeRate', label: '営業利益率', required: false },
+            { index: 9, key: 'ordinaryIncome', label: '経常利益', required: false },
+            { index: 10, key: 'ordinaryIncomeRate', label: '経常利益率', required: false },
+            { index: 11, key: 'ebitda', label: 'EBITDA', required: false },
+            { index: 12, key: 'ebitdaMargin', label: 'EBITDAマージン', required: false },
+            { index: 13, key: 'marketCapitalization', label: '時価総額', required: false },
+            { index: 14, key: 'per', label: 'PER', required: false },
+            { index: 15, key: 'ev', label: '企業価値', required: false },
+            { index: 16, key: 'evPerEbitda', label: 'EV/EBITDA', required: false },
+            { index: 17, key: 'pbr', label: 'PBR', required: false },
+            { index: 18, key: 'equity', label: '純資産合計', required: false },
+            { index: 19, key: 'debt', label: 'ネット有利子負債', required: false },
+            { index: 20, key: 'issuedDate', label: 'EDINET提出日', required: false },
+            { index: 21, key: 'retrievedDate', label: '最終更新日', required: false }
         ];
 
         this.visibilityState = {};
@@ -622,6 +623,7 @@ function displayData(data) {
             <td class="sec-code sticky-col sticky-col-1">${item.yahooURL ? `<a href="${encodeURI(item.yahooURL)}" target="_blank" rel="noopener noreferrer">${escapeHtml(item.secCode)}</a>` : escapeHtml(item.secCode) || '-'}</td>
             <td class="company-name sticky-col sticky-col-2">${item.docPdfURL ? `<a href="${encodeURI(item.docPdfURL)}" target="_blank" rel="noopener noreferrer">${escapeHtml(item.filerName)}</a>` : escapeHtml(item.filerName) || '-'}${delistedBadge}</td>
             <td>${escapeHtml(item.periodEnd) || '-'}</td>
+            <td class="doc-links">${formatDocLinks(item)}</td>
             <td class="number-cell">${formatStockPrice(item.stockPrice)}</td>
             <td class="number-cell">${formatNumber(item.netSales)}</td>
             <td class="number-cell">${formatEmployees(item.employees)}</td>
@@ -676,6 +678,19 @@ function formatStockPrice(value) {
 function formatEmployees(value) {
     if (value === null || value === undefined) return '-';
     return value.toLocaleString('ja-JP');
+}
+
+// Build the EDINET report-links cell (Web = docURL, PDF = docPdfURL). URLs are
+// rendered as hrefs (encodeURI), never innerHTML; aria-labels are escaped.
+function formatDocLinks(item) {
+    const links = [];
+    if (item.docURL) {
+        links.push(`<a href="${encodeURI(item.docURL)}" target="_blank" rel="noopener noreferrer" aria-label="${escapeHtml(item.secCode)} EDINET報告書 (Web)">Web</a>`);
+    }
+    if (item.docPdfURL) {
+        links.push(`<a href="${encodeURI(item.docPdfURL)}" target="_blank" rel="noopener noreferrer" aria-label="${escapeHtml(item.secCode)} EDINET報告書 (PDF)">PDF</a>`);
+    }
+    return links.length ? links.join(' / ') : '-';
 }
 
 function getValueClass(value) {
@@ -855,6 +870,7 @@ function exportToExcel() {
     const exportData = allData.map(item => ({
         '証券コード': item.secCode || '',
         '企業名称': item.filerName || '',
+        '報告書URL(Web)': item.docURL || '',
         '有価証券報告書URL': item.docPdfURL || '',
         'Yahoo!ファイナンスURL': item.yahooURL || '',
         '決算期': item.periodEnd || '',
