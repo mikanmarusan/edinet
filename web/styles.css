@@ -745,6 +745,21 @@ tbody tr.highlight {
     color: var(--positive);
 }
 
+/* EDINET report links column (報告書): Web / PDF */
+.doc-links {
+    white-space: nowrap;
+    text-align: center;
+}
+
+.doc-links a {
+    color: var(--link, #2563eb);
+    text-decoration: none;
+}
+
+.doc-links a:hover {
+    text-decoration: underline;
+}
+
 /* Non-sticky columns min-width */
 th:not(.sticky-col),
 td:not(.sticky-col) {
