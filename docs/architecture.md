@@ -1,5 +1,5 @@
 # Architecture
-<!-- spec-synced-through: 8ef3257ad5e3c1600bde42bb644889f6c84421f6 -->
+<!-- spec-synced-through: ed3fbdf222b7517b018ee6faf24aecf18848726f -->
 
 ## Development Architecture
 
@@ -104,6 +104,10 @@ else:
 - Priority calculation methods: `_calculate_*_priority()` for consistent scoring
 - Pattern matching maintains backward compatibility for companies with consolidated data
 
+#### Deterministic Tie Resolution (PR6 / issue #187)
+- 候補選択は優先度降順に加え、二次キー（タグの local-name）・三次キー（contextRef）でタイブレークする。全13箇所の候補ソートが `key=lambda x: (-priority, local_name, context_ref)` を使う。
+- これにより、同点候補がドキュメント/反復順に依存して選ばれることを排除し、Python バージョン間で抽出結果を再現可能にする（候補タプルは一様に `(value, priority, local_name, context_ref)`）。
+
 ### Per-Document Taxonomy & XBRL Hardening (2026-06 Update)
 
 #### Per-Document Namespace Resolution
@@ -116,6 +120,12 @@ else:
 
 #### XML Hardening
 - The XBRL parse path uses `defusedxml.ElementTree.fromstring` to reject XML entity-expansion ("billion laughs") payloads.
+
+#### テスト・回帰ガード (PR6 / issue #187)
+- `tests/fixtures/xbrl/` に合成XBRLフィクスチャ（JGAAP 2024/2025、IFRS、銀行、連結≠個別、同点タイブレーク）を配置。すべて架空企業（entity `E00001` / secCode `9999`）の明示的に偽の数値で、`tests/_xbrl_fixture_utils.py` の `parse_fixture` から読み込む。
+- ゴールデン回帰ハーネス `tests/test_golden_regression.py` が抽出結果を `tests/golden/golden_baseline.json` と突き合わせ、`EXPECTED_CHANGES` 許可リスト外の REGRESSION 行が出たら失敗する（`REGEN_GOLDEN=1` で再生成、冪等）。
+- IFRS経路は `tests/test_ifrs_extraction.py` で検証（jpigp名前空間の解決、equity=`EquityIFRS`、net_sales=jpcrp IFRS売上サマリ、ordinaryIncome=null）。
+- Python 3.11/3.12/3.13 のCIマトリクスは `docs/ci/test-matrix.yml` に参照ワークフローとして提供。保護パス `.github/workflows/` への配置は人手で行う（自動エージェントは書き込まない）。
 
 ### 市場データ取得アーキテクチャ（2026-06 更新, PR4 / issue #185）
 
