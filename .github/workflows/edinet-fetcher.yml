@@ -45,7 +45,7 @@ jobs:
     - name: Fetch financial documents from EDINET
       env:
         EDINET_API_KEY: ${{ secrets.EDINET_API_KEY }}
-      run: uv run python bin/fetch_edinet_financial_documents.py --date $(date -d "yesterday" '+%Y-%m-%d') --outputdir data/jsons --api-key $EDINET_API_KEY
+      run: uv run python bin/fetch_edinet_financial_documents.py --date $(date -d "yesterday" '+%Y-%m-%d') --outputdir data/jsons --api-key $EDINET_API_KEY --no-market-data
 
     # JPX data_j.xls との差分で上場廃止銘柄を検出し delisted_companies.yml を更新
     # 失敗時は段階的エスカレーション（1→warning / 2→step summary / 3→exit 1）

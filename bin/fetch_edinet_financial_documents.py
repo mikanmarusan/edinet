@@ -138,6 +138,12 @@ def main():
     parser.add_argument("--verbose", "-v", action="store_true", help="Enable verbose logging")
     parser.add_argument("--max-retries", type=int, default=3, help="Maximum number of retries for failed requests")
     parser.add_argument("--sec-codes", help="Comma-separated list of security codes to filter (e.g., 7203,9984)")
+    parser.add_argument(
+        "--no-market-data",
+        action="store_true",
+        help="Skip market-data fetch (Yahoo); stockPrice/marketCapitalization and "
+             "their derived metrics (per/pbr/ev/evPerEbitda) are left null",
+    )
     
     args = parser.parse_args()
     
@@ -212,17 +218,22 @@ def main():
                         logger.warning(f"Failed to download document for {filer_name} ({sec_code}): {e}")
                         break
                     
-                    # First, try to get data from Yahoo Finance
+                    # First, try to get data from Yahoo Finance (unless skipped).
+                    # When --no-market-data is set, leave yahoo_data None so the
+                    # market fields and their derived metrics stay null.
                     yahoo_data = None
-                    try:
-                        logger.info(f"Fetching Yahoo Finance data for {sec_code}...")
-                        # Convert period_end to Yahoo Finance format (YYYY年M月期)
-                        formatted_period_end = format_period_end(period_end)
-                        yahoo_data = get_financial_data(sec_code, formatted_period_end)
-                        logger.info(f"Successfully fetched Yahoo Finance data for {sec_code}")
-                    except Exception as yahoo_error:
-                        logger.warning(f"Failed to fetch Yahoo Finance data for {sec_code}: {yahoo_error}")
-                        # Continue with XBRL parsing even if Yahoo fails
+                    if args.no_market_data:
+                        logger.debug(f"Skipping market-data fetch for {sec_code} (--no-market-data)")
+                    else:
+                        try:
+                            logger.info(f"Fetching Yahoo Finance data for {sec_code}...")
+                            # Convert period_end to Yahoo Finance format (YYYY年M月期)
+                            formatted_period_end = format_period_end(period_end)
+                            yahoo_data = get_financial_data(sec_code, formatted_period_end)
+                            logger.info(f"Successfully fetched Yahoo Finance data for {sec_code}")
+                        except Exception as yahoo_error:
+                            logger.warning(f"Failed to fetch Yahoo Finance data for {sec_code}: {yahoo_error}")
+                            # Continue with XBRL parsing even if Yahoo fails
                     
                     # Parse financial data with Yahoo data if available
                     financial_data = xbrl_parser.parse_financial_data(
@@ -272,10 +283,13 @@ def main():
         logger.info(f"  Total documents processed: {len(documents)}")
         logger.info(f"  Successful extractions: {successful_extractions}")
         logger.info(f"  Failed extractions: {failed_extractions}")
-        logger.info(
-            f"  Market-data nulls: stockPrice={data_scraper.market_null_counts['stockPrice']}, "
-            f"marketCapitalization={data_scraper.market_null_counts['marketCapitalization']}"
-        )
+        if args.no_market_data:
+            logger.info("  Market-data fetch skipped (--no-market-data); market fields left null")
+        else:
+            logger.info(
+                f"  Market-data nulls: stockPrice={data_scraper.market_null_counts['stockPrice']}, "
+                f"marketCapitalization={data_scraper.market_null_counts['marketCapitalization']}"
+            )
         logger.info(f"  Output file: {output_file}")
         
     except KeyboardInterrupt:
