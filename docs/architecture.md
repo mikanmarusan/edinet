@@ -1,5 +1,5 @@
 # Architecture
-<!-- spec-synced-through: fc661e96e52262b6ec9a03317da84bba499cf22b -->
+<!-- spec-synced-through: 6a36f185ae8d580280fbd5eec22e757c87c483c8 -->
 
 ## Development Architecture
 
@@ -28,11 +28,9 @@ bin/fetch_edinet_financial_documents.py
 │   ├── XBRLParser class
 │   ├── extract_financial_metrics()
 │   └── Dynamic search algorithms
-└── lib/data_scraper.py (2025-07 追加)
-    ├── get_financial_data() - メインエントリポイント
-    ├── extract_profile_data() - 企業概要データ取得
-    ├── extract_performance_data() - 業績データ取得
-    └── extract_financial_data() - 財務データ取得
+└── lib/data_scraper.py (PR4 / issue #185 で requests 化)
+    ├── get_financial_data() - メインエントリポイント（市場データのみ）
+    └── parse_market_data() - SSR HTMLから株価・時価総額を抽出
 
 bin/consolidate_documents.py
 └── lib/edinet_common.py
@@ -119,43 +117,37 @@ else:
 #### XML Hardening
 - The XBRL parse path uses `defusedxml.ElementTree.fromstring` to reject XML entity-expansion ("billion laughs") payloads.
 
-### Yahoo Finance Integration Architecture (2025-07)
+### 市場データ取得アーキテクチャ（2026-06 更新, PR4 / issue #185）
 
 #### データ取得フロー
 1. **EDINET API経由でXBRLドキュメントを取得**
    - 有価証券報告書のメタデータとXBRLファイルをダウンロード
    - APIレート制限: 1リクエスト/秒を遵守
 
-2. **Yahoo Financeから補完データを取得**
-   - 証券コードをYahooティッカーシンボルに変換（lib/ticker_generator.py）
-   - Playwright（ヘッドレスブラウザ）を使用してデータ取得
-   - 3つのページから情報収集:
-     - `/profile` - 企業概要（特色、従業員数）
-     - `/performance` - 業績データ（売上高、利益等）
-     - `/finance` - 財務データ（EPS、BPS、負債等）
+2. **市場データ（株価・時価総額）を取得**
+   - 証券コードをYahooティッカーに変換（lib/ticker_generator.py）し、SSRの基本クォートページ `https://finance.yahoo.co.jp/quote/{ticker}` を `requests` + BeautifulSoup で取得
+   - 取得対象は stockPrice と marketCapitalization（円）のみ。財務諸表項目はEDINET XBRLが正本
+   - Playwright（ヘッドレスブラウザ）は廃止
 
 3. **データの統合と計算**
-   - Yahoo Financeデータが利用可能な場合は優先使用
    - equity と cash は常にXBRLから取得（財務諸表の正式値）
+   - marketCap は取得値を優先し、無ければ 発行済株式数×株価 でフォールバック
    - 各種財務指標を計算（PER、PBR、EV/EBITDA等）
 
-#### 技術スタック
-- **Playwright**: ヘッドレスブラウザ自動化フレームワーク
-  - 動的JavaScriptコンテンツの取得に対応
-  - Chromiumブラウザをバックグラウンドで実行
-  - User-Agent設定でアクセス制限を回避
-
-- **データ抽出戦略**:
-  - PRELOADED_STATEからJSONデータを優先的に抽出
-  - フォールバック: HTMLテーブルからのパーシング
-  - ハードコードされたカラムインデックス使用（要改善）
+#### 技術スタック・取得作法
+- **requests + BeautifulSoup**: SSRページのHTMLを plain GET で取得・解析（ヘッドレスブラウザ不要）
+- **抽出アンカー**: 値はハッシュ化クラス名に依存せず、日本語ラベル「時価総額」（自身のDataListItemデータ要素にスコープ）とプライスボードの意味的クラス断片にアンカーして抽出。隣接指標・兄弟要素・ツールチップの数値混入を防ぐ
+- **ペーシング/リトライ**: 使い回す `Session` 上で 1リクエスト/秒以上（ジッター付き）、403/429 はバックオフ、デフォルトTLS検証を維持
+- **フェイルセーフ**: 市場データ取得失敗時は該当フィールドをnullにしWARNINGを出力（企業の行は中断しない）。null件数は実行サマリに集計
+- **暫定ブリッジ**: Yahooスクレイピングは ToS 上禁止であり、null許容の暫定手段。将来は公式の市場データソース（J-Quants 等）へ移行予定
 
 #### データソース分割（2026-06 更新, PR2-3 / issue #183-184）
 
-財務諸表項目はEDINET XBRLを正本として無条件に取得する。市場データのみ market fetcher（現状Yahoo、PR4で差し替え予定）から取得する。
+財務諸表項目はEDINET XBRLを正本として無条件に取得する。市場データのみ market fetcher（Yahoo SSR基本クォートページを `requests` で取得）から取得する。
 
 **市場データ（market fetcher）から取得するフィールド**:
 - stockPrice（株価）
+- marketCapitalization（時価総額）
 
 **EDINET XBRLから取得するフィールド**:
 - characteristic（企業特色）
