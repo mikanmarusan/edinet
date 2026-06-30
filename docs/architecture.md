@@ -1,5 +1,5 @@
 # Architecture
-<!-- spec-synced-through: 802f64de4b6e4769d0821841496ba26f9ac98f6a -->
+<!-- spec-synced-through: fc661e96e52262b6ec9a03317da84bba499cf22b -->
 
 ## Development Architecture
 
@@ -114,7 +114,7 @@ else:
 - `parse_financial_data()` assigns the resolved map to the (reused) extractor instance per document. Detected URIs are used only as `findall` dict values, never dereferenced.
 
 #### Equity Concept Selection
-- `equity` prioritizes NetAssets (純資産合計) over ShareholdersEquity (株主資本); intentional value changes are tracked in the `EXPECTED_EQUITY_CHANGES` allowlist.
+- `equity` prioritizes NetAssets (純資産合計) over ShareholdersEquity (株主資本), the NCI-inclusive total net assets (IFRS filers resolve to `EquityIFRS`, the equivalent total).
 
 #### XML Hardening
 - The XBRL parse path uses `defusedxml.ElementTree.fromstring` to reject XML entity-expansion ("billion laughs") payloads.
@@ -150,27 +150,32 @@ else:
   - フォールバック: HTMLテーブルからのパーシング
   - ハードコードされたカラムインデックス使用（要改善）
 
-#### データソース分割（2026-06 更新, PR2 / issue #183）
+#### データソース分割（2026-06 更新, PR2-3 / issue #183-184）
 
 財務諸表項目はEDINET XBRLを正本として無条件に取得する。市場データのみ market fetcher（現状Yahoo、PR4で差し替え予定）から取得する。
 
 **市場データ（market fetcher）から取得するフィールド**:
 - stockPrice（株価）
-- ordinaryIncome（経常利益）※PR3 (issue #184) でXBRL化予定
-- debt（有利子負債）※PR3 (issue #184) でXBRL化予定
 
 **EDINET XBRLから取得するフィールド**:
 - characteristic（企業特色）
 - netSales（売上高）
 - employees（従業員数）
 - operatingIncome（営業利益）
+- ordinaryIncome（経常利益）※IFRS提出会社は経常利益概念がないためnull
 - depreciation（減価償却費）
 - bps（1株当たり純資産）
 - outstandingShares（発行済株式数）
 - netIncome（当期純利益）
 - eps（1株当たり利益）
 - equity（純資産合計）
+- debt（ネット有利子負債）
 - cash（現金及び現金同等物）
+
+#### 概念の整合（PR3 / issue #184）
+- netIncome は親会社株主に帰属する当期純利益（`ProfitLossAttributableToOwnersOfParent`）を優先し、非支配株主持分を含む bare `ProfitLoss` は最後の手段とする。
+- debt はネット有利子負債 = 短期借入金 + 1年内返済予定の長期借入金 + 長期借入金 + 社債 + リース債務 − 現金及び現金同等物。
+- EV = 時価総額 + ネット有利子負債。debt が既に現金控除済みのため、EVで現金を二重控除しない（現金の控除は debt 側で一度だけ）。
 
 #### エラーハンドリング
 - 市場データ取得失敗時もXBRL処理を継続
