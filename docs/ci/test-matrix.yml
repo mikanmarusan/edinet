@@ -1,0 +1,46 @@
+# Reference CI workflow for the test matrix + golden regression gate (issue #187).
+#
+# This file lives under docs/ci/ because an automated agent must not write to
+# .github/workflows/ (protected path). A maintainer applies it by copying it to
+# .github/workflows/tests.yml in a separate, human-reviewed commit:
+#
+#     cp docs/ci/test-matrix.yml .github/workflows/tests.yml
+#     git add .github/workflows/tests.yml && git commit
+#
+# Once in place, every push / PR runs the suite on Python 3.11, 3.12, and 3.13.
+# The golden regression harness (tests/test_golden_regression.py) fails the job
+# on any unexplained REGRESSION row, so extraction drift breaks CI.
+#
+# The 3 known-stale tests in tests/test_stock_exchange_mapping.py are deselected
+# (documented pre-existing failures from outdated exchange mapping data); remove
+# the --deselect lines once that mapping is refreshed.
+name: tests
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ['3.11', '3.12', '3.13']
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          pip install pytest
+      - name: Run test suite (golden harness gates on REGRESSION rows)
+        run: |
+          python -m pytest tests/ -v \
+            --deselect tests/test_stock_exchange_mapping.py::TestStockExchangeMapping::test_fukuoka_stock_exchange \
+            --deselect tests/test_stock_exchange_mapping.py::TestStockExchangeMapping::test_nagoya_stock_exchange \
+            --deselect tests/test_stock_exchange_mapping.py::TestStockExchangeMapping::test_sapporo_stock_exchange

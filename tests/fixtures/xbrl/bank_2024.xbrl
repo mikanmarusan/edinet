@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xbrli:xbrl xmlns:xbrli="http://www.xbrl.org/2003/instance" xmlns:xbrldi="http://xbrl.org/2006/xbrldi" xmlns:jpcrp_cor="http://disclosure.edinet-fsa.go.jp/taxonomy/jpcrp/2024-11-01/jpcrp_cor" xmlns:jppfs_cor="http://disclosure.edinet-fsa.go.jp/taxonomy/jppfs/2024-11-01/jppfs_cor" xmlns:jpdei_cor="http://disclosure.edinet-fsa.go.jp/taxonomy/jpdei/2013-08-31/jpdei_cor">
+<xbrli:context id="CurrentYearDuration"><xbrli:entity><xbrli:identifier scheme="http://disclosure.edinet-fsa.go.jp">E00001</xbrli:identifier></xbrli:entity><xbrli:period><xbrli:startDate>2023-04-01</xbrli:startDate><xbrli:endDate>2024-03-31</xbrli:endDate></xbrli:period></xbrli:context><xbrli:context id="CurrentYearInstant"><xbrli:entity><xbrli:identifier scheme="http://disclosure.edinet-fsa.go.jp">E00001</xbrli:identifier></xbrli:entity><xbrli:period><xbrli:instant>2024-03-31</xbrli:instant></xbrli:period></xbrli:context>
+<xbrli:unit id="JPY"><xbrli:measure>iso4217:JPY</xbrli:measure></xbrli:unit><xbrli:unit id="JPYPerShare"><xbrli:divide><xbrli:unitNumerator><xbrli:measure>iso4217:JPY</xbrli:measure></xbrli:unitNumerator><xbrli:unitDenominator><xbrli:measure>xbrli:shares</xbrli:measure></xbrli:unitDenominator></xbrli:divide></xbrli:unit><xbrli:unit id="shares"><xbrli:measure>xbrli:shares</xbrli:measure></xbrli:unit><xbrli:unit id="pure"><xbrli:measure>xbrli:pure</xbrli:measure></xbrli:unit>
+<jppfs_cor:OrdinaryIncomeBNK contextRef="CurrentYearDuration" unitRef="JPY" decimals="-6">9000000000</jppfs_cor:OrdinaryIncomeBNK>
+<jppfs_cor:OrdinaryIncome contextRef="CurrentYearDuration" unitRef="JPY" decimals="-6">2000000000</jppfs_cor:OrdinaryIncome>
+<jppfs_cor:NetAssets contextRef="CurrentYearInstant" unitRef="JPY" decimals="-6">25000000000</jppfs_cor:NetAssets>
+<jppfs_cor:CashAndCashEquivalents contextRef="CurrentYearInstant" unitRef="JPY" decimals="-6">8000000000</jppfs_cor:CashAndCashEquivalents>
+<jppfs_cor:ProfitLossAttributableToOwnersOfParent contextRef="CurrentYearDuration" unitRef="JPY" decimals="-6">1500000000</jppfs_cor:ProfitLossAttributableToOwnersOfParent>
+<jpcrp_cor:NumberOfIssuedSharesAsOfFiscalYearEndIssuedSharesTotalNumberOfSharesEtc contextRef="CurrentYearInstant" unitRef="shares" decimals="0">50000000</jpcrp_cor:NumberOfIssuedSharesAsOfFiscalYearEndIssuedSharesTotalNumberOfSharesEtc>
+</xbrli:xbrl>

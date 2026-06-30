@@ -1007,9 +1007,14 @@ class XBRLParser:
                             continue
                         break
         
-        # Sort by priority (higher is better) and return the best match
+        # Sort by priority (higher is better), then deterministically break
+        # ties on (tag local-name, contextRef). Without the secondary keys,
+        # equal-priority candidates resolved to document/iteration order, which
+        # could differ across Python versions; the explicit keys make selection
+        # reproducible on the CI matrix (issue #187). This convention is applied
+        # to every candidate sort in this module.
         if per_candidates:
-            per_candidates.sort(key=lambda x: x[1], reverse=True)
+            per_candidates.sort(key=lambda x: (-x[1], x[2], x[3]))
             best_match = per_candidates[0]
             return best_match[0]
         
@@ -1239,7 +1244,7 @@ class XBRLParser:
         
         # Sort by priority (higher is better) and return the best match
         if share_candidates:
-            share_candidates.sort(key=lambda x: x[1], reverse=True)
+            share_candidates.sort(key=lambda x: (-x[1], x[2], x[3]))
             best_match = share_candidates[0]
             return best_match[0]
         
@@ -1366,7 +1371,7 @@ class XBRLParser:
         
         # Sort by priority (higher is better) and return the best match
         if sales_candidates:
-            sales_candidates.sort(key=lambda x: x[1], reverse=True)
+            sales_candidates.sort(key=lambda x: (-x[1], x[2], x[3]))
             best_match = sales_candidates[0]
             return best_match[0]
         
@@ -1471,7 +1476,7 @@ class XBRLParser:
         
         # Sort by priority (higher is better) and return the best match
         if employee_candidates:
-            employee_candidates.sort(key=lambda x: x[1], reverse=True)
+            employee_candidates.sort(key=lambda x: (-x[1], x[2], x[3]))
             best_match = employee_candidates[0]
             return best_match[0]
         
@@ -1585,7 +1590,7 @@ class XBRLParser:
         
         # Sort by priority (higher is better) and return the best match
         if equity_candidates:
-            equity_candidates.sort(key=lambda x: x[1], reverse=True)
+            equity_candidates.sort(key=lambda x: (-x[1], x[2], x[3]))
             best_match = equity_candidates[0]
             return best_match[0]
         
@@ -1708,7 +1713,7 @@ class XBRLParser:
         
         # Sort by priority (higher is better) and return the best match
         if depreciation_candidates:
-            depreciation_candidates.sort(key=lambda x: x[1], reverse=True)
+            depreciation_candidates.sort(key=lambda x: (-x[1], x[2], x[3]))
             best_match = depreciation_candidates[0]
             return best_match[0]
         
@@ -1823,7 +1828,7 @@ class XBRLParser:
         
         # Sort by priority (higher is better) and return the best match
         if net_income_candidates:
-            net_income_candidates.sort(key=lambda x: x[1], reverse=True)
+            net_income_candidates.sort(key=lambda x: (-x[1], x[2], x[3]))
             best_match = net_income_candidates[0]
             return best_match[0]
         
@@ -1952,7 +1957,7 @@ class XBRLParser:
         
         # Sort by priority (higher is better) and return the best match
         if eps_candidates:
-            eps_candidates.sort(key=lambda x: x[1], reverse=True)
+            eps_candidates.sort(key=lambda x: (-x[1], x[2], x[3]))
             best_match = eps_candidates[0]
             return best_match[0]
         
@@ -2078,7 +2083,7 @@ class XBRLParser:
         
         # Sort by priority (higher is better) and return the best match
         if bps_candidates:
-            bps_candidates.sort(key=lambda x: x[1], reverse=True)
+            bps_candidates.sort(key=lambda x: (-x[1], x[2], x[3]))
             best_match = bps_candidates[0]
             return best_match[0]
         
@@ -2238,7 +2243,7 @@ class XBRLParser:
         
         # Sort by priority (higher is better) and return the best match
         if debt_candidates:
-            debt_candidates.sort(key=lambda x: x[1], reverse=True)
+            debt_candidates.sort(key=lambda x: (-x[1], x[2], x[3]))
             best_match = debt_candidates[0]
             return best_match[0]
         
@@ -2449,7 +2454,7 @@ class XBRLParser:
         
         # Sort by priority (higher is better) and return the best match
         if cash_candidates:
-            cash_candidates.sort(key=lambda x: x[1], reverse=True)
+            cash_candidates.sort(key=lambda x: (-x[1], x[2], x[3]))
             best_match = cash_candidates[0]
             return best_match[0]
         
@@ -2676,7 +2681,7 @@ class XBRLParser:
         
         # Sort by priority (higher is better) and return the best match
         if business_candidates:
-            business_candidates.sort(key=lambda x: x[1], reverse=True)
+            business_candidates.sort(key=lambda x: (-x[1], x[2], x[3]))
             best_match = business_candidates[0]
             return best_match[0]
         
@@ -2870,7 +2875,7 @@ class XBRLParser:
         
         # Sort by priority and return the best match
         if market_cap_candidates:
-            market_cap_candidates.sort(key=lambda x: x[1], reverse=True)
+            market_cap_candidates.sort(key=lambda x: (-x[1], x[2], x[3]))
             best_match = market_cap_candidates[0]
             return best_match[0]
         
