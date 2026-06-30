@@ -624,26 +624,20 @@ class MetricsCalculator:
             Calculated EPS or None
         """
         try:
-            # Priority 1: Use actual net income if available
+            # Use actual net income only. The operatingIncome * 0.7 approximation
+            # was removed (issue #183): a fabricated EPS corrupts the self-computed
+            # PER. EPS otherwise comes from _extract_eps; this returns None rather
+            # than guess.
             net_income = financial_data.get('netIncome')
             outstanding_shares = financial_data.get('outstandingShares')
-            
+
             if net_income and outstanding_shares and outstanding_shares > 0:
                 eps = net_income / outstanding_shares
                 return eps
-            
-            # Priority 2: Use operating income as approximation
-            operating_income = financial_data.get('operatingIncome')
-            if operating_income and outstanding_shares and outstanding_shares > 0:
-                # This is an approximation - operating income is typically higher than net income
-                # We apply a rough adjustment factor of 0.7 to approximate net income
-                estimated_net_income = operating_income * 0.7
-                eps = estimated_net_income / outstanding_shares
-                return eps
-            
+
         except Exception as e:
             pass
-        
+
         return None
     
     @staticmethod
@@ -773,53 +767,32 @@ class XBRLParser:
         Returns:
             Financial data dictionary
         """
-        # Get data from Yahoo Finance if available
+        # Financial-statement fields are sourced unconditionally from EDINET XBRL
+        # via the existing _extract_* methods (issue #183). EDINET is the source of
+        # truth for the income statement / balance sheet; this removes the
+        # dependence on Yahoo scraping for these fields.
+        characteristic = self._extract_characteristic(root)
+        net_sales = self._extract_net_sales(root)
+        employees = self._extract_employees(root)
+        operating_income = self._extract_operating_income(root)
+        depreciation = self._extract_depreciation(root)
+        bps = self._extract_bps(root)
+        outstanding_shares = self._extract_outstanding_shares(root)
+        net_income = self._extract_net_income(root)
+        eps = self._extract_eps(root)
+
+        # Market data comes from the market fetcher (Yahoo for now; the source is
+        # swapped in PR4). ordinaryIncome and debt remain market-sourced pending
+        # the PR3 concept reconciliation (issue #184).
         if yahoo_data:
-            # Use Yahoo Finance data for most fields
-            characteristic = yahoo_data.get('characteristic')
             stock_price = yahoo_data.get('stockPrice')
-            net_sales = yahoo_data.get('netSales')
-            employees = yahoo_data.get('employees')
-            operating_income = yahoo_data.get('operatingIncome')
             ordinary_income = yahoo_data.get('ordinaryIncome')
-            depreciation = yahoo_data.get('depreciation')
-            bps = yahoo_data.get('bps')
             debt = yahoo_data.get('debt')
-            outstanding_shares = yahoo_data.get('outstandingShares')
-            net_income = yahoo_data.get('netIncome')
-            eps = yahoo_data.get('eps')
         else:
-            # If Yahoo Finance data is not available, set all fields to None
-            # (except equity and cash which are always extracted from XBRL)
-            characteristic = None
             stock_price = None
-            net_sales = None
-            employees = None
-            operating_income = None
             ordinary_income = None
-            depreciation = None
-            bps = None
             debt = None
-            outstanding_shares = None
-            net_income = None
-            eps = None
-            
-            # === COMMENTED OUT: Fallback to XBRL extraction ===
-            # Uncomment the following lines if you want to fall back to XBRL extraction
-            # when Yahoo Finance data is not available:
-            #
-            # characteristic = self._extract_characteristic(root)
-            # stock_price = self._extract_stock_price(root)
-            # net_sales = self._extract_net_sales(root)
-            # employees = self._extract_employees(root)
-            # operating_income = self._extract_operating_income(root)
-            # depreciation = self._extract_depreciation(root)
-            # bps = self._extract_bps(root)
-            # debt = self._extract_debt(root)
-            # outstanding_shares = self._extract_outstanding_shares(root)
-            # net_income = self._extract_net_income(root)
-            # eps = self._extract_eps(root)
-        
+
         # Always extract equity and cash from XBRL
         equity = self._extract_equity(root)
         cash = self._extract_cash(root)
@@ -890,7 +863,11 @@ class XBRLParser:
         return None
     
     def _extract_stock_price(self, root: ET.Element) -> Optional[float]:
-        """Extract stock price"""
+        """Extract stock price.
+
+        Retained for the PR4 market-data rework; stockPrice currently comes from
+        the market fetcher, so this has no production call site yet.
+        """
         return self.data_extractor.extract_numeric_value(root, self.data_extractor.patterns['stock_price'])
     
     def _extract_net_sales(self, root: ET.Element) -> Optional[float]:
@@ -1075,7 +1052,12 @@ class XBRLParser:
         return self._dynamic_search_equity(root)
     
     def _extract_debt(self, root: ET.Element) -> Optional[float]:
-        """Extract net interest-bearing debt with enhanced pattern matching"""
+        """Extract net interest-bearing debt with enhanced pattern matching.
+
+        Retained for the PR3 debt concept reconciliation (issue #184); debt
+        currently comes from the market fetcher, so this has no production call
+        site yet.
+        """
         # Try standard patterns first
         value = self.data_extractor.extract_numeric_value_with_context(root, self.data_extractor.patterns['debt'])
         if value is not None:
