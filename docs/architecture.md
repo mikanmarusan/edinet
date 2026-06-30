@@ -1,4 +1,5 @@
 # Architecture
+<!-- spec-synced-through: 2d06092c9eccb02a538982af73dd7559a726253f -->
 
 ## Development Architecture
 
@@ -11,7 +12,7 @@ The system uses a modular architecture with shared utilities:
 
 ### Key Shared Components
 - EDINET API configuration and rate limiting
-- XBRL namespace mappings for EDINET 2024-11-01 taxonomy  
+- XBRL namespace mappings resolved per document from the filing's declared taxonomy edition (`detect_taxonomy_namespaces`), with the EDINET 2024-11-01 mappings as fallback defaults  
 - Common logging and error handling
 - Data validation and formatting utilities
 
@@ -104,6 +105,19 @@ else:
 - `_dynamic_search_*`: All dynamic search methods check consolidated data availability
 - Priority calculation methods: `_calculate_*_priority()` for consistent scoring
 - Pattern matching maintains backward compatibility for companies with consolidated data
+
+### Per-Document Taxonomy & XBRL Hardening (2026-06 Update)
+
+#### Per-Document Namespace Resolution
+- EDINET taxonomy editions coexist by fiscal period (e.g. 2024-11-01 and 2025-11-01), so a hardcoded namespace map silently returns null for filings on a newer edition.
+- `detect_taxonomy_namespaces()` (lib/edinet_common.py) reads the `jpcrp_cor`/`jppfs_cor`/`jpigp_cor`/`jpdei_cor` xmlns URIs actually declared by each document and merges them over the static defaults; it is fail-safe and logs a WARNING when no known taxonomy resolves.
+- `parse_financial_data()` assigns the resolved map to the (reused) extractor instance per document. Detected URIs are used only as `findall` dict values, never dereferenced.
+
+#### Equity Concept Selection
+- `equity` prioritizes NetAssets (純資産合計) over ShareholdersEquity (株主資本); intentional value changes are tracked in the `EXPECTED_EQUITY_CHANGES` allowlist.
+
+#### XML Hardening
+- The XBRL parse path uses `defusedxml.ElementTree.fromstring` to reject XML entity-expansion ("billion laughs") payloads.
 
 ### Yahoo Finance Integration Architecture (2025-07)
 

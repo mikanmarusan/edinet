@@ -13,7 +13,16 @@ import sys
 from datetime import datetime
 from typing import Dict, Any, Optional, List
 
-from .edinet_common import XBRL_NAMESPACES, XBRL_PATTERNS, XBRLParsingError, format_period_end, get_stock_exchange_code
+from defusedxml.ElementTree import fromstring as defused_fromstring
+
+from .edinet_common import (
+    XBRL_NAMESPACES,
+    XBRL_PATTERNS,
+    XBRLParsingError,
+    format_period_end,
+    get_stock_exchange_code,
+    detect_taxonomy_namespaces,
+)
 
 
 class XBRLExtractor:
@@ -723,9 +732,14 @@ class XBRLParser:
             if not main_xbrl:
                 raise XBRLParsingError("No main XBRL document found")
             
-            # Parse XML content
-            root = ET.fromstring(main_xbrl)
-            
+            # Parse XML content (defused against XML entity-expansion attacks)
+            root = defused_fromstring(main_xbrl)
+
+            # Resolve taxonomy namespaces per document: EDINET editions coexist
+            # by fiscal period, and the extractor instance is reused across
+            # documents, so the namespace map must be assigned for each one.
+            self.data_extractor.namespaces = detect_taxonomy_namespaces(main_xbrl)
+
             # Build financial data structure
             financial_data = self._build_financial_data_structure(
                 root, sec_code, filer_name, doc_id, period_end, issued_date, yahoo_data

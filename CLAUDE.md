@@ -161,3 +161,10 @@ python bin/consolidate_documents.py --inputdir data/jsons --output data/edinet.j
 **テンプレート（`.github/`）**
 - `.github/ISSUE_TEMPLATE/issue-template.md` - Issueテンプレート
 - `.github/PULL_REQUEST_TEMPLATE.md` - PRテンプレート
+
+---
+
+## Lessons
+
+- 新しいモジュールレベルの定数やデータテーブル（許可リスト等）を追加するときは、その定数が記述する振る舞いを検証するテストから必ず参照すること。参照されない定数はデッドコードとして扱われる。
+- 外部のXML/テキストを正規表現で解析するときは、よくあるケースだけでなく有効な入力のすべての異形（例: XML属性値のシングルクォートとダブルクォートの両方）を受け付けること。
