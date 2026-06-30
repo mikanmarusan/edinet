@@ -1,5 +1,5 @@
 # Architecture
-<!-- spec-synced-through: 2d06092c9eccb02a538982af73dd7559a726253f -->
+<!-- spec-synced-through: 802f64de4b6e4769d0821841496ba26f9ac98f6a -->
 
 ## Development Architecture
 
@@ -150,29 +150,32 @@ else:
   - フォールバック: HTMLテーブルからのパーシング
   - ハードコードされたカラムインデックス使用（要改善）
 
-#### データソース分割
-**Yahoo Financeから取得するフィールド**:
-- characteristic（企業特色）
+#### データソース分割（2026-06 更新, PR2 / issue #183）
+
+財務諸表項目はEDINET XBRLを正本として無条件に取得する。市場データのみ market fetcher（現状Yahoo、PR4で差し替え予定）から取得する。
+
+**市場データ（market fetcher）から取得するフィールド**:
 - stockPrice（株価）
+- ordinaryIncome（経常利益）※PR3 (issue #184) でXBRL化予定
+- debt（有利子負債）※PR3 (issue #184) でXBRL化予定
+
+**EDINET XBRLから取得するフィールド**:
+- characteristic（企業特色）
 - netSales（売上高）
 - employees（従業員数）
 - operatingIncome（営業利益）
-- ordinaryIncome（経常利益）※新規追加
 - depreciation（減価償却費）
 - bps（1株当たり純資産）
-- debt（有利子負債）
 - outstandingShares（発行済株式数）
 - netIncome（当期純利益）
 - eps（1株当たり利益）
-
-**EDINETから取得するフィールド**:
-- equity（純資産）
+- equity（純資産合計）
 - cash（現金及び現金同等物）
 
 #### エラーハンドリング
-- Yahoo Finance取得失敗時もXBRL処理を継続
-- 失敗したフィールドはnullを設定
-- XBRLへのフォールバック処理は現在コメントアウト
+- 市場データ取得失敗時もXBRL処理を継続
+- 失敗したフィールドはnullを設定（捏造しない）
+- 財務諸表項目はXBRLの `_extract_*` から取得する。EPSは `_extract_eps` を正本とし、operatingIncome×0.7 の近似は廃止（捏造EPSが自己計算PERを汚染するため）
 
 #### パフォーマンス考慮事項
 - 現在: 企業ごとに新規ブラウザインスタンスを起動
