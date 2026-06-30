@@ -6,11 +6,16 @@ Shared utilities, configurations, and logging setup for EDINET tools.
 """
 
 import logging
+import re
 import sys
 import os
 import yaml
 from datetime import datetime
 from typing import Optional, Dict, Any
+
+
+# Module-level logger for standalone functions
+logger = logging.getLogger(__name__)
 
 
 # EDINET API Configuration
@@ -29,6 +34,29 @@ XBRL_NAMESPACES = {
     'iso4217': 'http://www.xbrl.org/2003/iso4217',
     'xbrldi': 'http://xbrl.org/2006/xbrldi',
     'xsi': 'http://www.w3.org/2001/XMLSchema-instance'
+}
+
+# Taxonomy editions that EDINET ships and that coexist by fiscal period.
+# Detected URIs (see detect_taxonomy_namespaces) merge over the static defaults.
+KNOWN_TAXONOMY_PREFIXES = ('jpcrp_cor', 'jppfs_cor', 'jpigp_cor', 'jpdei_cor')
+
+# Regex over raw XBRL bytes capturing taxonomy xmlns declarations, e.g.
+#   xmlns:jppfs_cor="http://disclosure.edinet-fsa.go.jp/taxonomy/jppfs/2025-11-01/jppfs_cor"
+# Both double- and single-quoted attribute values are accepted (XML permits both).
+_TAXONOMY_NS_RE = re.compile(
+    rb'xmlns:(jpcrp_cor|jppfs_cor|jpigp_cor|jpdei_cor)\s*=\s*(?:"([^"]+)"|\'([^\']+)\')'
+)
+
+# Companies whose `equity` value intentionally changes once NetAssets (純資産合計)
+# is preferred over ShareholdersEquity (株主資本). This is a fix, not a regression;
+# the allowlist records the verified expected values for traceability.
+EXPECTED_EQUITY_CHANGES = {
+    '1301': {
+        'concept': 'NetAssets',
+        'expected_equity': 63189000000,
+        'previous_concept': 'ShareholdersEquity',
+        'previous_equity': 78868000000,
+    },
 }
 
 # XBRL field patterns for financial data extraction
@@ -167,6 +195,14 @@ XBRL_PATTERNS = {
         './/jppfs_cor:ShareholdersEquityPerShare'
     ],
     'equity': [
+        # Net assets (純資産合計 / NetAssets) - highest priority (issue #182).
+        # 純資産合計 is the correct equity concept; 株主資本 (ShareholdersEquity)
+        # excludes non-controlling interests and was previously selected by mistake.
+        './/jpcrp_cor:NetAssets',
+        './/jppfs_cor:NetAssets',
+        './/jpcrp_cor:NetAssetsSummaryOfBusinessResults',
+        './/jppfs_cor:NetAssetsSummaryOfBusinessResults',
+
         # Consolidated equity patterns (priority)
         './/jpcrp_cor:ConsolidatedShareholdersEquity',
         './/jppfs_cor:ConsolidatedShareholdersEquity',
@@ -483,6 +519,51 @@ XBRL_PATTERNS = {
         './/jppfs_cor:CashAndShortTermInvestments'
     ]
 }
+
+
+def detect_taxonomy_namespaces(raw_bytes: bytes) -> Dict[str, str]:
+    """
+    Detect EDINET taxonomy namespace URIs from raw XBRL bytes.
+
+    EDINET taxonomy editions coexist by fiscal period (e.g. 2024-11-01 and
+    2025-11-01). The static XBRL_NAMESPACES map hardcodes a single edition, so a
+    namespace-prefixed findall silently returns nothing for filings that use a
+    different edition. This reads the actual xmlns declarations from the document
+    and merges them over the static defaults.
+
+    The function is fail-safe: any error falls back to the static defaults so a
+    malformed header never aborts parsing.
+
+    Args:
+        raw_bytes: Raw XBRL instance document bytes
+
+    Returns:
+        A namespace map (copy of XBRL_NAMESPACES) with any detected taxonomy
+        URIs merged in. Detected URIs are used ONLY as findall dict values and
+        are never dereferenced (no network or file access).
+    """
+    namespaces = dict(XBRL_NAMESPACES)
+    try:
+        detected = {}
+        for match in _TAXONOMY_NS_RE.finditer(raw_bytes):
+            prefix = match.group(1).decode('ascii')
+            # Group 2 = double-quoted value, group 3 = single-quoted value.
+            uri = (match.group(2) or match.group(3)).decode('utf-8')
+            detected[prefix] = uri
+
+        if detected:
+            namespaces.update(detected)
+        else:
+            logger.warning(
+                "No known EDINET taxonomy namespace (%s) found in XBRL; "
+                "using static defaults. EDINET may have introduced a new "
+                "taxonomy edition.",
+                "/".join(KNOWN_TAXONOMY_PREFIXES),
+            )
+    except Exception as e:
+        logger.warning("Failed to detect taxonomy namespaces, using defaults: %s", e)
+
+    return namespaces
 
 
 def setup_logging(script_name: str, verbose: bool = False) -> logging.Logger:
