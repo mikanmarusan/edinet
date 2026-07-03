@@ -14,6 +14,98 @@ const SEC_CODE_PATTERN = /^(?:[0-9]{4}|[0-9][ACDFGHJKLMNPRSTUXY][0-9]{2}|[0-9]{3
 let allData = [];
 let currentSort = { column: null, direction: 'asc' };
 
+// ---------- Column Visibility Constants & Pure State Logic ----------
+// Bumped whenever the persisted shape or default set changes; a mismatch forces
+// a one-time migration to the current defaults for existing users.
+const COLUMN_VISIBILITY_SCHEMA_VERSION = 2;
+
+// Columns always null in production (the daily fetcher runs with --no-market-data),
+// hidden by default but re-enable-able via the column-visibility dropdown.
+const DEFAULT_HIDDEN_COLUMNS = ['stockPrice', 'marketCapitalization', 'per', 'pbr', 'ev', 'evPerEbitda'];
+
+// Single source of truth for the table's column set. Index order must stay in
+// lockstep with the <th>/<td> order because applyVisibility() maps index -> nth-child.
+const COLUMN_DEFINITIONS = [
+    { index: 0, key: 'secCode', label: '証券コード', required: true },
+    { index: 1, key: 'filerName', label: '企業名称', required: true },
+    { index: 2, key: 'periodEnd', label: '決算期', required: false },
+    { index: 3, key: 'docLinks', label: '報告書', required: false },
+    { index: 4, key: 'stockPrice', label: '株価', required: false },
+    { index: 5, key: 'netSales', label: '売上高', required: false },
+    { index: 6, key: 'employees', label: '従業員数', required: false },
+    { index: 7, key: 'operatingIncome', label: '営業利益', required: false },
+    { index: 8, key: 'operatingIncomeRate', label: '営業利益率', required: false },
+    { index: 9, key: 'ordinaryIncome', label: '経常利益', required: false },
+    { index: 10, key: 'ordinaryIncomeRate', label: '経常利益率', required: false },
+    { index: 11, key: 'ebitda', label: 'EBITDA', required: false },
+    { index: 12, key: 'ebitdaMargin', label: 'EBITDAマージン', required: false },
+    { index: 13, key: 'marketCapitalization', label: '時価総額', required: false },
+    { index: 14, key: 'per', label: 'PER', required: false },
+    { index: 15, key: 'ev', label: '企業価値', required: false },
+    { index: 16, key: 'evPerEbitda', label: 'EV/EBITDA', required: false },
+    { index: 17, key: 'pbr', label: 'PBR', required: false },
+    { index: 18, key: 'equity', label: '純資産合計', required: false },
+    { index: 19, key: 'debt', label: 'ネット有利子負債', required: false },
+    { index: 20, key: 'issuedDate', label: 'EDINET提出日', required: false },
+    { index: 21, key: 'retrievedDate', label: '最終更新日', required: false }
+];
+
+// The one place default visibility is decided: hidden-by-default columns start false.
+function defaultColumnVisible(key) {
+    return !DEFAULT_HIDDEN_COLUMNS.includes(key);
+}
+
+// Defaults map used by both a fresh load and Reset: required columns always visible,
+// the rest follow defaultColumnVisible().
+function resetVisibilityState(columns) {
+    const state = {};
+    columns.forEach(col => {
+        state[col.key] = col.required ? true : defaultColumnVisible(col.key);
+    });
+    return state;
+}
+
+// True only for a stored value that is a current-schema { v, state } wrapper.
+// Used to decide whether a one-time migration save is needed on load.
+function isCurrentSchemaWrapper(storedRaw) {
+    if (storedRaw === null || storedRaw === undefined) {
+        return false;
+    }
+    try {
+        const parsed = JSON.parse(storedRaw);
+        return !!parsed && typeof parsed === 'object' && !Array.isArray(parsed)
+            && parsed.v === COLUMN_VISIBILITY_SCHEMA_VERSION;
+    } catch (e) {
+        return false;
+    }
+}
+
+// DOM-free: turn the raw localStorage string into the visibility map.
+// Discards anything that is not a current-schema wrapper (legacy bare map, stale
+// version, invalid JSON, null) and applies defaults; a valid wrapper is kept per
+// column with required columns forced visible.
+function computeInitialState(storedRaw, columns) {
+    let savedState = null;
+    if (isCurrentSchemaWrapper(storedRaw)) {
+        const parsed = JSON.parse(storedRaw);
+        if (parsed.state && typeof parsed.state === 'object' && !Array.isArray(parsed.state)) {
+            savedState = parsed.state;
+        }
+    }
+
+    const state = {};
+    columns.forEach(col => {
+        if (col.required) {
+            state[col.key] = true;
+        } else if (savedState && typeof savedState[col.key] === 'boolean') {
+            state[col.key] = savedState[col.key];
+        } else {
+            state[col.key] = defaultColumnVisible(col.key);
+        }
+    });
+    return state;
+}
+
 // ---------- Toast Notification System ----------
 class ToastNotification {
     constructor() {
@@ -196,60 +288,29 @@ class ColumnVisibilityManager {
         this.resetBtn = document.getElementById('column-reset');
         this.dropdownList = this.dropdown?.querySelector('.column-dropdown-list');
 
-        // Column definitions with labels
-        this.columns = [
-            { index: 0, key: 'secCode', label: '証券コード', required: true },
-            { index: 1, key: 'filerName', label: '企業名称', required: true },
-            { index: 2, key: 'periodEnd', label: '決算期', required: false },
-            { index: 3, key: 'docLinks', label: '報告書', required: false },
-            { index: 4, key: 'stockPrice', label: '株価', required: false },
-            { index: 5, key: 'netSales', label: '売上高', required: false },
-            { index: 6, key: 'employees', label: '従業員数', required: false },
-            { index: 7, key: 'operatingIncome', label: '営業利益', required: false },
-            { index: 8, key: 'operatingIncomeRate', label: '営業利益率', required: false },
-            { index: 9, key: 'ordinaryIncome', label: '経常利益', required: false },
-            { index: 10, key: 'ordinaryIncomeRate', label: '経常利益率', required: false },
-            { index: 11, key: 'ebitda', label: 'EBITDA', required: false },
-            { index: 12, key: 'ebitdaMargin', label: 'EBITDAマージン', required: false },
-            { index: 13, key: 'marketCapitalization', label: '時価総額', required: false },
-            { index: 14, key: 'per', label: 'PER', required: false },
-            { index: 15, key: 'ev', label: '企業価値', required: false },
-            { index: 16, key: 'evPerEbitda', label: 'EV/EBITDA', required: false },
-            { index: 17, key: 'pbr', label: 'PBR', required: false },
-            { index: 18, key: 'equity', label: '純資産合計', required: false },
-            { index: 19, key: 'debt', label: 'ネット有利子負債', required: false },
-            { index: 20, key: 'issuedDate', label: 'EDINET提出日', required: false },
-            { index: 21, key: 'retrievedDate', label: '最終更新日', required: false }
-        ];
+        // Shared module-level definition so tests exercise the real column set.
+        this.columns = COLUMN_DEFINITIONS;
 
         this.visibilityState = {};
         this.init();
     }
 
     init() {
-        // Load saved visibility state
-        let savedState = null;
+        // Load the raw stored value (may be null, a legacy bare map, or a versioned wrapper).
+        let savedRaw = null;
         try {
-            const savedJson = localStorage.getItem('columnVisibility');
-            if (savedJson) {
-                const parsed = JSON.parse(savedJson);
-                // Validate that parsed data is a plain object with boolean values
-                if (parsed && typeof parsed === 'object' && !Array.isArray(parsed)) {
-                    savedState = parsed;
-                }
-            }
+            savedRaw = localStorage.getItem('columnVisibility');
         } catch (e) {
             console.warn('localStorage unavailable or invalid:', e);
         }
 
-        // Initialize visibility state
-        this.columns.forEach(col => {
-            if (savedState && typeof savedState[col.key] === 'boolean') {
-                this.visibilityState[col.key] = col.required ? true : savedState[col.key];
-            } else {
-                this.visibilityState[col.key] = true;
-            }
-        });
+        this.visibilityState = computeInitialState(savedRaw, this.columns);
+
+        // A stored value that is not a current-schema wrapper was just discarded and
+        // defaulted; persist once so the migration for existing users runs exactly once.
+        if (savedRaw !== null && !isCurrentSchemaWrapper(savedRaw)) {
+            this.saveState();
+        }
 
         this.buildDropdownList();
         this.setupEventListeners();
@@ -340,18 +401,18 @@ class ColumnVisibilityManager {
     }
 
     resetAll() {
-        this.columns.forEach(col => {
-            this.visibilityState[col.key] = true;
-        });
+        this.visibilityState = resetVisibilityState(this.columns);
 
-        // Update checkboxes and aria-checked attributes
+        // Sync each checkbox and aria-checked to the per-column default (not all-visible).
         const items = this.dropdownList?.querySelectorAll('.column-checkbox-item');
         items?.forEach(item => {
             const checkbox = item.querySelector('input[type="checkbox"]');
+            const key = checkbox?.dataset.columnKey;
+            const visible = key ? this.visibilityState[key] : true;
             if (checkbox) {
-                checkbox.checked = true;
+                checkbox.checked = visible;
             }
-            item.setAttribute('aria-checked', 'true');
+            item.setAttribute('aria-checked', String(visible));
         });
 
         this.saveState();
@@ -360,7 +421,10 @@ class ColumnVisibilityManager {
 
     saveState() {
         try {
-            localStorage.setItem('columnVisibility', JSON.stringify(this.visibilityState));
+            localStorage.setItem('columnVisibility', JSON.stringify({
+                v: COLUMN_VISIBILITY_SCHEMA_VERSION,
+                state: this.visibilityState
+            }));
         } catch (e) {
             console.warn('localStorage unavailable:', e);
         }
@@ -543,21 +607,36 @@ let themeManager;
 let densityManager;
 let columnVisibilityManager;
 
-document.addEventListener('DOMContentLoaded', async () => {
-    // Initialize systems
-    toastNotification = new ToastNotification();
-    themeManager = new ThemeManager();
-    densityManager = new DensityManager();
-    columnVisibilityManager = new ColumnVisibilityManager();
-    new KeyboardShortcutsManager(themeManager, densityManager);
+if (typeof document !== 'undefined') {
+    document.addEventListener('DOMContentLoaded', async () => {
+        // Initialize systems
+        toastNotification = new ToastNotification();
+        themeManager = new ThemeManager();
+        densityManager = new DensityManager();
+        columnVisibilityManager = new ColumnVisibilityManager();
+        new KeyboardShortcutsManager(themeManager, densityManager);
 
-    // Load data and setup UI
-    await loadData();
-    setupSearchEvents();
-    setupBackToTopButton();
-    setupExportButton();
-    setupSortableHeaders();
-});
+        // Load data and setup UI
+        await loadData();
+        setupSearchEvents();
+        setupBackToTopButton();
+        setupExportButton();
+        setupSortableHeaders();
+    });
+}
+
+// CommonJS shim so node:test can require the pure column-visibility helpers
+// without a DOM. Guarded so the browser (no `module`) is unaffected.
+if (typeof module !== 'undefined' && module.exports) {
+    module.exports = {
+        DEFAULT_HIDDEN_COLUMNS,
+        defaultColumnVisible,
+        COLUMN_VISIBILITY_SCHEMA_VERSION,
+        COLUMN_DEFINITIONS,
+        computeInitialState,
+        resetVisibilityState
+    };
+}
 
 // ---------- Data Loading ----------
 async function loadData() {
