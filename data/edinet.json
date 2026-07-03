@@ -2624,8 +2624,8 @@
     "cash": 1680000000.0,
     "issuedDate": "2025-06-23",
     "retrievedDate": "2026-06-30",
-    "isDelisted": false,
-    "delistedDate": null
+    "isDelisted": true,
+    "delistedDate": "2026-07-03"
   },
   {
     "secCode": "1736",
@@ -14540,8 +14540,8 @@
     "cash": null,
     "issuedDate": "2026-06-25",
     "retrievedDate": "2026-07-01",
-    "isDelisted": false,
-    "delistedDate": null
+    "isDelisted": true,
+    "delistedDate": "2026-07-03"
   },
   {
     "secCode": "254A",
@@ -16088,8 +16088,8 @@
     "cash": 672000000.0,
     "issuedDate": "2026-05-25",
     "retrievedDate": "2026-06-30",
-    "isDelisted": false,
-    "delistedDate": null
+    "isDelisted": true,
+    "delistedDate": "2026-07-03"
   },
   {
     "secCode": "2687",
@@ -25734,8 +25734,8 @@
     "cash": 4308101000.0,
     "issuedDate": "2026-05-21",
     "retrievedDate": "2026-06-30",
-    "isDelisted": false,
-    "delistedDate": null
+    "isDelisted": true,
+    "delistedDate": "2026-07-03"
   },
   {
     "secCode": "3199",
@@ -27138,8 +27138,8 @@
     "cash": 6473298000.0,
     "issuedDate": "2025-06-25",
     "retrievedDate": "2026-06-30",
-    "isDelisted": false,
-    "delistedDate": null
+    "isDelisted": true,
+    "delistedDate": "2026-07-03"
   },
   {
     "secCode": "3297",
@@ -31710,8 +31710,8 @@
     "cash": 6205000000.0,
     "issuedDate": "2026-05-26",
     "retrievedDate": "2026-06-30",
-    "isDelisted": false,
-    "delistedDate": null
+    "isDelisted": true,
+    "delistedDate": "2026-07-03"
   },
   {
     "secCode": "3547",
@@ -51110,8 +51110,8 @@
     "cash": 16933000000.0,
     "issuedDate": "2026-03-27",
     "retrievedDate": "2026-06-30",
-    "isDelisted": false,
-    "delistedDate": null
+    "isDelisted": true,
+    "delistedDate": "2026-07-03"
   },
   {
     "secCode": "4450",
@@ -52082,8 +52082,8 @@
     "cash": 973433000.0,
     "issuedDate": "2026-05-27",
     "retrievedDate": "2026-06-30",
-    "isDelisted": false,
-    "delistedDate": null
+    "isDelisted": true,
+    "delistedDate": "2026-07-03"
   },
   {
     "secCode": "4495",
@@ -53233,8 +53233,8 @@
     "cash": 3056322000.0,
     "issuedDate": "2025-06-20",
     "retrievedDate": "2026-06-30",
-    "isDelisted": false,
-    "delistedDate": null
+    "isDelisted": true,
+    "delistedDate": "2026-07-03"
   },
   {
     "secCode": "4558",
@@ -55465,8 +55465,8 @@
     "cash": 15721086000.0,
     "issuedDate": "2025-06-23",
     "retrievedDate": "2026-06-30",
-    "isDelisted": false,
-    "delistedDate": null
+    "isDelisted": true,
+    "delistedDate": "2026-07-03"
   },
   {
     "secCode": "4661",
@@ -57052,42 +57052,6 @@
     "delistedDate": null
   },
   {
-    "secCode": "4745",
-    "filerName": "株式会社東京個別指導学院",
-    "docID": "S100VUL4",
-    "docPdfURL": "https://disclosure2dl.edinet-fsa.go.jp/searchdocument/pdf/S100VUL4.pdf",
-    "docURL": "https://disclosure2.edinet-fsa.go.jp/WZEK0040.aspx?S100VUL4",
-    "yahooURL": "https://finance.yahoo.co.jp/quote/4745.T",
-    "periodEnd": "2025年2月期",
-    "characteristic": "３ 【事業の内容】当社は、「やればできるという自信 チャレンジする喜び 夢を持つ事の大切さ」この３つの教育理念とホスピタリティをすべての企業活動の基軸とし、笑顔あふれる『人の未来』に貢献する、との企業理念のもと、教育環境やニーズの変化に対応しながら、子どもたち一人ひとりの目標達成を支援しています。",
-    "stockPrice": null,
-    "netSales": 22182368000.0,
-    "employees": 592,
-    "operatingIncome": 1598559000.0,
-    "ordinaryIncome": 1605752000.0,
-    "operatingIncomeRate": 7.206439817426165,
-    "ordinaryIncomeRate": 7.238866472686775,
-    "depreciation": 62966000.0,
-    "ebitda": 1661525000.0,
-    "ebitdaMargin": 7.49029589627221,
-    "marketCapitalization": null,
-    "per": null,
-    "ev": null,
-    "evPerEbitda": null,
-    "pbr": null,
-    "bps": 160.23,
-    "equity": 8721811000.0,
-    "debt": null,
-    "outstandingShares": 54291435,
-    "netIncome": 1039066000.0,
-    "eps": 19.14,
-    "cash": 7747243000.0,
-    "issuedDate": "2025-05-29",
-    "retrievedDate": "2026-06-30",
-    "isDelisted": true,
-    "delistedDate": "2026-04-11"
-  },
-  {
     "secCode": "4746",
     "filerName": "株式会社東計電算",
     "docID": "S100XUNZ",
@@ -57126,36 +57090,36 @@
   {
     "secCode": "4750",
     "filerName": "株式会社ダイサン",
-    "docID": "S100WASN",
-    "docPdfURL": "https://disclosure2dl.edinet-fsa.go.jp/searchdocument/pdf/S100WASN.pdf",
-    "docURL": "https://disclosure2.edinet-fsa.go.jp/WZEK0040.aspx?S100WASN",
+    "docID": "S100YNWZ",
+    "docPdfURL": "https://disclosure2dl.edinet-fsa.go.jp/searchdocument/pdf/S100YNWZ.pdf",
+    "docURL": "https://disclosure2.edinet-fsa.go.jp/WZEK0040.aspx?S100YNWZ",
     "yahooURL": "https://finance.yahoo.co.jp/quote/4750.T",
-    "periodEnd": "2025年4月期",
-    "characteristic": "３【事業の内容】 当社グループは、連結財務諸表提出会社及び子会社５社（連結子会社１社、非連結子会社４社）により構成されており、建設向け仮設足場の企画・開発・生産・販売のほか、足場の組立て・解体・貸出しを行う施工サービスを主たる業務としております。",
+    "periodEnd": "2026年4月期",
+    "characteristic": "３【事業の内容】 当社グループは、連結財務諸表提出会社、子会社５社及び関連会社１社により構成されており、建設向け仮設足場の企画・開発・生産・販売のほか、足場の組立て・解体・貸出しを行う施工サービスを主たる業務としております。",
     "stockPrice": null,
-    "netSales": 10837533000.0,
-    "employees": 490,
-    "operatingIncome": 370802000.0,
-    "ordinaryIncome": 346100000.0,
-    "operatingIncomeRate": 3.421461323347297,
-    "ordinaryIncomeRate": 3.193531221542763,
-    "depreciation": 21165000.0,
-    "ebitda": 391967000.0,
-    "ebitdaMargin": 3.6167548463289565,
+    "netSales": 11139339000.0,
+    "employees": 638,
+    "operatingIncome": 268934000.0,
+    "ordinaryIncome": 290908000.0,
+    "operatingIncomeRate": 2.414272516529033,
+    "ordinaryIncomeRate": 2.6115373632133827,
+    "depreciation": 21589000.0,
+    "ebitda": 290523000.0,
+    "ebitdaMargin": 2.608081143773432,
     "marketCapitalization": null,
     "per": null,
     "ev": null,
     "evPerEbitda": null,
     "pbr": null,
-    "bps": 868.01,
-    "equity": 5566424000.0,
-    "debt": 249409000.0,
+    "bps": 892.93,
+    "equity": 5726236000.0,
+    "debt": -247102000.0,
     "outstandingShares": 7618000,
-    "netIncome": 335244000.0,
-    "eps": 52.28,
-    "cash": 2219739000.0,
-    "issuedDate": "2025-07-03",
-    "retrievedDate": "2026-06-30",
+    "netIncome": 262233000.0,
+    "eps": 40.89,
+    "cash": 2689340000.0,
+    "issuedDate": "2026-07-02",
+    "retrievedDate": "2026-07-03",
     "isDelisted": false,
     "delistedDate": null
   },
@@ -60899,8 +60863,8 @@
     "cash": 27036000000.0,
     "issuedDate": "2025-06-20",
     "retrievedDate": "2026-06-30",
-    "isDelisted": false,
-    "delistedDate": null
+    "isDelisted": true,
+    "delistedDate": "2026-07-03"
   },
   {
     "secCode": "4975",
@@ -70436,8 +70400,8 @@
     "cash": 2830841000.0,
     "issuedDate": "2025-06-30",
     "retrievedDate": "2026-06-30",
-    "isDelisted": false,
-    "delistedDate": null
+    "isDelisted": true,
+    "delistedDate": "2026-07-03"
   },
   {
     "secCode": "5857",
@@ -76595,42 +76559,6 @@
     "delistedDate": null
   },
   {
-    "secCode": "6173",
-    "filerName": "株式会社アクアライン",
-    "docID": "S100VUCO",
-    "docPdfURL": "https://disclosure2dl.edinet-fsa.go.jp/searchdocument/pdf/S100VUCO.pdf",
-    "docURL": "https://disclosure2.edinet-fsa.go.jp/WZEK0040.aspx?S100VUCO",
-    "yahooURL": "https://finance.yahoo.co.jp/quote/6173.T",
-    "periodEnd": "2025年2月期",
-    "characteristic": "３ 【事業の内容】 (1) 事業の概要当社グループは、当社と連結子会社１社で構成されており、「時代と共に歩み、お客様から学び、従業員と共に成長します」という経営理念のもと、生活に欠かせない「水」から「住」へをテーマに、皆さまの住環境の充実や生活の質の向上に貢献することをミッションとして、事業を行っております。",
-    "stockPrice": null,
-    "netSales": 3462536000.0,
-    "employees": 64,
-    "operatingIncome": -399565000.0,
-    "ordinaryIncome": -391236000.0,
-    "operatingIncomeRate": -11.539663414329844,
-    "ordinaryIncomeRate": -11.29911717885388,
-    "depreciation": 58239000.0,
-    "ebitda": -341326000.0,
-    "ebitdaMargin": -9.857688122231798,
-    "marketCapitalization": null,
-    "per": null,
-    "ev": null,
-    "evPerEbitda": null,
-    "pbr": null,
-    "bps": 264.81,
-    "equity": -438215000.0,
-    "debt": 388357000.0,
-    "outstandingShares": 3729429,
-    "netIncome": -346761000.0,
-    "eps": -93.9,
-    "cash": 64427000.0,
-    "issuedDate": "2025-05-29",
-    "retrievedDate": "2026-06-30",
-    "isDelisted": false,
-    "delistedDate": null
-  },
-  {
     "secCode": "6176",
     "filerName": "株式会社ブランジスタ",
     "docID": "S100XAF9",
@@ -77419,8 +77347,8 @@
     "cash": 378455000000.0,
     "issuedDate": "2025-06-09",
     "retrievedDate": "2026-06-30",
-    "isDelisted": false,
-    "delistedDate": null
+    "isDelisted": true,
+    "delistedDate": "2026-07-03"
   },
   {
     "secCode": "6203",
@@ -81919,8 +81847,8 @@
     "cash": 4595000000.0,
     "issuedDate": "2025-06-26",
     "retrievedDate": "2026-06-30",
-    "isDelisted": false,
-    "delistedDate": null
+    "isDelisted": true,
+    "delistedDate": "2026-07-03"
   },
   {
     "secCode": "6405",
@@ -87715,8 +87643,8 @@
     "cash": 31055000000.0,
     "issuedDate": "2025-06-24",
     "retrievedDate": "2026-06-30",
-    "isDelisted": false,
-    "delistedDate": null
+    "isDelisted": true,
+    "delistedDate": "2026-07-03"
   },
   {
     "secCode": "6674",
@@ -98620,8 +98548,8 @@
     "cash": 40745000000.0,
     "issuedDate": "2025-06-27",
     "retrievedDate": "2026-06-30",
-    "isDelisted": false,
-    "delistedDate": null
+    "isDelisted": true,
+    "delistedDate": "2026-07-03"
   },
   {
     "secCode": "7231",
@@ -111935,8 +111863,8 @@
     "cash": 2261515000.0,
     "issuedDate": "2025-06-30",
     "retrievedDate": "2026-06-30",
-    "isDelisted": false,
-    "delistedDate": null
+    "isDelisted": true,
+    "delistedDate": "2026-07-03"
   },
   {
     "secCode": "7923",
@@ -113806,8 +113734,8 @@
     "cash": 10549000000.0,
     "issuedDate": "2025-06-26",
     "retrievedDate": "2026-06-30",
-    "isDelisted": false,
-    "delistedDate": null
+    "isDelisted": true,
+    "delistedDate": "2026-07-03"
   },
   {
     "secCode": "8001",
@@ -119092,8 +119020,8 @@
     "cash": 3597000000.0,
     "issuedDate": "2026-05-28",
     "retrievedDate": "2026-06-30",
-    "isDelisted": false,
-    "delistedDate": null
+    "isDelisted": true,
+    "delistedDate": "2026-07-03"
   },
   {
     "secCode": "8291",
@@ -126682,8 +126610,8 @@
     "cash": 2174000000.0,
     "issuedDate": "2025-06-24",
     "retrievedDate": "2026-06-30",
-    "isDelisted": false,
-    "delistedDate": null
+    "isDelisted": true,
+    "delistedDate": "2026-07-03"
   },
   {
     "secCode": "9068",
@@ -130786,8 +130714,8 @@
     "cash": 10750743000.0,
     "issuedDate": "2026-03-16",
     "retrievedDate": "2026-06-30",
-    "isDelisted": false,
-    "delistedDate": null
+    "isDelisted": true,
+    "delistedDate": "2026-07-03"
   },
   {
     "secCode": "9339",
@@ -139713,8 +139641,8 @@
     "cash": 1854020000.0,
     "issuedDate": "2025-06-27",
     "retrievedDate": "2026-06-30",
-    "isDelisted": false,
-    "delistedDate": null
+    "isDelisted": true,
+    "delistedDate": "2026-07-03"
   },
   {
     "secCode": "9928",

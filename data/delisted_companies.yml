@@ -4,8 +4,8 @@
 # 自動更新スクリプト: bin/update_delisted_companies.py
 metadata:
   schema_version: 1
-  last_updated: '2026-07-02'
-  last_success: '2026-07-02'
+  last_updated: '2026-07-03'
+  last_success: '2026-07-03'
   consecutive_failures: 0
   source: https://www.jpx.co.jp/markets/statistics-equities/misc/tvdivq0000001vg2-att/data_j.xls
 delisted:
@@ -20,6 +20,10 @@ delisted:
   '1712':
     name: 株式会社ダイセキ環境ソリューション
     detectedDate: '2026-04-11'
+    reason: null
+  '1726':
+    name: 株式会社ビーアールホールディングス
+    detectedDate: '2026-07-03'
     reason: null
   '1730':
     name: 麻生フオームクリート株式会社
@@ -113,6 +117,10 @@ delisted:
     name: 株式会社フュートレック
     detectedDate: '2026-04-11'
     reason: null
+  '2540':
+    name: 養命酒製造株式会社
+    detectedDate: '2026-07-03'
+    reason: null
   '2599':
     name: ジャパンフーズ株式会社
     detectedDate: '2026-04-11'
@@ -120,6 +128,10 @@ delisted:
   260A:
     name: 株式会社オルツ
     detectedDate: '2026-04-11'
+    reason: null
+  '2686':
+    name: 株式会社ジーフット
+    detectedDate: '2026-07-03'
     reason: null
   '2692':
     name: 伊藤忠食品株式会社
@@ -161,6 +173,10 @@ delisted:
     name: ウエルシアホールディングス株式会社
     detectedDate: '2026-04-11'
     reason: null
+  '3198':
+    name: ＳＦＰホールディングス株式会社
+    detectedDate: '2026-07-03'
+    reason: null
   '3254':
     name: 株式会社プレサンスコーポレーション
     detectedDate: '2026-04-11'
@@ -172,6 +188,10 @@ delisted:
   '3275':
     name: ハウスコム株式会社
     detectedDate: '2026-04-11'
+    reason: null
+  '3294':
+    name: 株式会社イーグランド
+    detectedDate: '2026-07-03'
     reason: null
   '3319':
     name: 株式会社ゴルフダイジェスト・オンライン
@@ -212,6 +232,10 @@ delisted:
   '3541':
     name: 株式会社農業総合研究所
     detectedDate: '2026-05-08'
+    reason: null
+  '3546':
+    name: アレンザホールディングス株式会社
+    detectedDate: '2026-07-03'
     reason: null
   '3593':
     name: 株式会社ホギメディカル
@@ -337,9 +361,17 @@ delisted:
     name: 株式会社カオナビ
     detectedDate: '2026-04-11'
     reason: null
+  '4449':
+    name: 株式会社ギフティ
+    detectedDate: '2026-07-03'
+    reason: null
   '4485':
     name: 株式会社ＪＴＯＷＥＲ
     detectedDate: '2026-04-11'
+    reason: null
+  '4494':
+    name: バリオセキュア株式会社
+    detectedDate: '2026-07-03'
     reason: null
   '4530':
     name: 久光製薬株式会社
@@ -348,6 +380,14 @@ delisted:
   '4551':
     name: 鳥居薬品株式会社
     detectedDate: '2026-04-11'
+    reason: null
+  '4556':
+    name: 株式会社カイノス
+    detectedDate: '2026-07-03'
+    reason: null
+  '4659':
+    name: 株式会社エイジス
+    detectedDate: '2026-07-03'
     reason: null
   '4690':
     name: 日本パレットプール株式会社
@@ -384,6 +424,10 @@ delisted:
   '4957':
     name: ヤスハラケミカル株式会社
     detectedDate: '2026-04-11'
+    reason: null
+  '4974':
+    name: タカラバイオ株式会社
+    detectedDate: '2026-07-03'
     reason: null
   '5009':
     name: 富士興産株式会社
@@ -457,6 +501,10 @@ delisted:
     name: 株式会社エージェント・インシュアランス・グループ
     detectedDate: '2026-04-11'
     reason: null
+  '5856':
+    name: 株式会社エルアイイーエイチ
+    detectedDate: '2026-07-03'
+    reason: null
   '5935':
     name: 元旦ビューティ工業株式会社
     detectedDate: '2026-04-11'
@@ -488,6 +536,14 @@ delisted:
   '6131':
     name: 浜井産業株式会社
     detectedDate: '2026-04-11'
+    reason: null
+  '6173':
+    name: 株式会社アクアライン
+    detectedDate: '2026-07-03'
+    reason: null
+  '6201':
+    name: 株式会社豊田自動織機
+    detectedDate: '2026-07-03'
     reason: null
   '6210':
     name: ＴＯＹＯイノベックス株式会社
@@ -521,6 +577,10 @@ delisted:
     name: 大同工業株式会社
     detectedDate: '2026-04-11'
     reason: null
+  '6403':
+    name: 水道機工株式会社
+    detectedDate: '2026-07-03'
+    reason: null
   '6406':
     name: フジテック株式会社
     detectedDate: '2026-04-11'
@@ -544,6 +604,10 @@ delisted:
   '6550':
     name: Ｕｎｉｐｏｓ株式会社
     detectedDate: '2026-04-11'
+    reason: null
+  '6670':
+    name: 株式会社ＭＣＪ
+    detectedDate: '2026-07-03'
     reason: null
   '6698':
     name: ヴィスコ・テクノロジーズ株式会社
@@ -620,6 +684,10 @@ delisted:
   '7205':
     name: 日野自動車株式会社
     detectedDate: '2026-04-11'
+    reason: null
+  '7229':
+    name: 株式会社ユタカ技研
+    detectedDate: '2026-07-03'
     reason: null
   '7250':
     name: 太平洋工業株式会社
@@ -717,6 +785,10 @@ delisted:
     name: 株式会社サマンサタバサジャパンリミテッド
     detectedDate: '2026-04-11'
     reason: null
+  '7922':
+    name: 三光産業株式会社
+    detectedDate: '2026-07-03'
+    reason: null
   '7923':
     name: トーイン株式会社
     detectedDate: '2026-04-11'
@@ -728,6 +800,10 @@ delisted:
   '7958':
     name: 天馬株式会社
     detectedDate: '2026-04-11'
+    reason: null
+  '7999':
+    name: ＭＵＴＯＨホールディングス株式会社
+    detectedDate: '2026-07-03'
     reason: null
   '8038':
     name: 東都水産株式会社
@@ -764,6 +840,10 @@ delisted:
   '8279':
     name: 株式会社ヤオコー
     detectedDate: '2026-04-11'
+    reason: null
+  '8289':
+    name: 株式会社Ｏｌｙｍｐｉｃグループ
+    detectedDate: '2026-07-03'
     reason: null
   '8462':
     name: フューチャーベンチャーキャピタル株式会社
@@ -805,6 +885,10 @@ delisted:
     name: 株式会社日新
     detectedDate: '2026-04-11'
     reason: null
+  '9067':
+    name: 株式会社丸運
+    detectedDate: '2026-07-03'
+    reason: null
   '9070':
     name: トナミホールディングス株式会社
     detectedDate: '2026-04-11'
@@ -836,6 +920,10 @@ delisted:
   '9275':
     name: 株式会社ナルミヤ・インターナショナル
     detectedDate: '2026-04-11'
+    reason: null
+  '9338':
+    name: 株式会社ＩＮＦＯＲＩＣＨ
+    detectedDate: '2026-07-03'
     reason: null
   '9377':
     name: 株式会社　エージーピー
@@ -900,4 +988,8 @@ delisted:
   '9919':
     name: 株式会社関西フードマーケット
     detectedDate: '2026-04-11'
+    reason: null
+  '9927':
+    name: 株式会社ワットマン
+    detectedDate: '2026-07-03'
     reason: null
