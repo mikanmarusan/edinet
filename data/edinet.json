@@ -16915,8 +16915,8 @@
     "cash": 10899000000.0,
     "issuedDate": "2026-06-29",
     "retrievedDate": "2026-07-01",
-    "isDelisted": false,
-    "delistedDate": null
+    "isDelisted": true,
+    "delistedDate": "2026-08-05"
   },
   {
     "secCode": "2764",
@@ -26238,8 +26238,8 @@
     "cash": 11698447000.0,
     "issuedDate": "2025-09-29",
     "retrievedDate": "2026-06-30",
-    "isDelisted": false,
-    "delistedDate": null
+    "isDelisted": true,
+    "delistedDate": "2026-08-05"
   },
   {
     "secCode": "3276",
@@ -33798,8 +33798,8 @@
     "cash": 2002098000.0,
     "issuedDate": "2026-04-30",
     "retrievedDate": "2026-06-30",
-    "isDelisted": false,
-    "delistedDate": null
+    "isDelisted": true,
+    "delistedDate": "2026-08-05"
   },
   {
     "secCode": "3682",
@@ -47403,8 +47403,8 @@
     "cash": 433043000.0,
     "issuedDate": "2026-06-25",
     "retrievedDate": "2026-07-01",
-    "isDelisted": false,
-    "delistedDate": null
+    "isDelisted": true,
+    "delistedDate": "2026-08-05"
   },
   {
     "secCode": "4368",
@@ -69500,8 +69500,8 @@
     "cash": 1970044000.0,
     "issuedDate": "2025-09-18",
     "retrievedDate": "2026-06-30",
-    "isDelisted": false,
-    "delistedDate": null
+    "isDelisted": true,
+    "delistedDate": "2026-08-05"
   },
   {
     "secCode": "5905",
@@ -73747,8 +73747,8 @@
     "cash": 3008685000.0,
     "issuedDate": "2026-06-23",
     "retrievedDate": "2026-07-01",
-    "isDelisted": false,
-    "delistedDate": null
+    "isDelisted": true,
+    "delistedDate": "2026-08-05"
   },
   {
     "secCode": "6098",
@@ -97755,8 +97755,8 @@
     "cash": 3895338000.0,
     "issuedDate": "2026-06-26",
     "retrievedDate": "2026-07-01",
-    "isDelisted": false,
-    "delistedDate": null
+    "isDelisted": true,
+    "delistedDate": "2026-08-05"
   },
   {
     "secCode": "7318",
@@ -109415,8 +109415,8 @@
     "cash": 4112261000.0,
     "issuedDate": "2026-06-17",
     "retrievedDate": "2026-07-01",
-    "isDelisted": false,
-    "delistedDate": null
+    "isDelisted": true,
+    "delistedDate": "2026-08-05"
   },
   {
     "secCode": "7942",
