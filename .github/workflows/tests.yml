@@ -1,13 +1,6 @@
-# Reference CI workflow for the test matrix + golden regression gate (issue #187).
+# CI: test matrix + golden regression gate (issue #187).
 #
-# This file lives under docs/ci/ because an automated agent must not write to
-# .github/workflows/ (protected path). A maintainer applies it by copying it to
-# .github/workflows/tests.yml in a separate, human-reviewed commit:
-#
-#     cp docs/ci/test-matrix.yml .github/workflows/tests.yml
-#     git add .github/workflows/tests.yml && git commit
-#
-# Once in place, every push / PR runs the suite on Python 3.11, 3.12, and 3.13.
+# Runs the pytest suite on Python 3.11, 3.12, and 3.13 for every push and PR.
 # The golden regression harness (tests/test_golden_regression.py) fails the job
 # on any unexplained REGRESSION row, so extraction drift breaks CI.
 #
