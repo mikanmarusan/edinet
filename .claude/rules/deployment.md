@@ -1,31 +1,20 @@
 # Deployment
 
-## 環境別の設定管理
-- 現在は本番環境のみ
-- GitHub Actionsで自動実行
+GitHub Actions による自動実行のみ。環境は本番の1つだけで、環境別の設定分岐は持たない。
 
-## デプロイ前のチェックリスト
-1. requirements.txtの更新確認
-2. APIキーの設定確認
-3. 出力ディレクトリの権限確認
+ワークフローの中身は `.github/workflows/` を直接読むこと。ここには YAML から読み取れない運用上の判断のみを記す。
 
-## GitHub Actions設定
-```yaml
-# .github/workflows/daily_edinet_fetch.yml
-- 実行時刻: 毎日午前3時（JST）
-- 使用するPythonバージョン: 3.x
-- 必要なsecrets: EDINET_API_KEY
-```
+## 必要なシークレット
 
-## ロールバック手順
-1. 前日のデータが残っているため、処理失敗時は前日データを使用
-2. 必要に応じて手動で再実行
+- `EDINET_API_KEY` — リポジトリのSecretsに登録。**コード・ログ・設定ファイルに平文で書かないこと。**
 
-## 監視・ログの設定
-- ログファイル: fetch_edinet_financial_documents_YYYYMMDD.log
-- エラー通知: GitHub Actionsの通知機能を使用
+## 障害時の扱い
 
-## 本番環境での注意事項
-- API制限（1リクエスト/秒）の遵守
-- 大量データ処理時のメモリ使用量
-- ディスク容量の定期的な確認
+- 日次取得が失敗しても前日までのデータは `data/jsons/` に残るため、統合結果は前日分で継続する。復旧は該当日を指定した手動再実行でよい。
+- 個別文書の失敗で全体を止めない（フェイルセーフ原則）。失敗は集計してログ末尾に報告される。
+
+## 運用上の注意
+
+- EDINET APIのレート制限（1リクエスト/秒）を必ず守る。並列化しない。
+- ログは `fetch_edinet_financial_documents_YYYYMMDD.log` としてリポジトリルートに出力される。定期的に整理すること。
+- 日次 `data.json` が約4.7MB あるため、Pages公開は `force_orphan: true` で履歴を切り捨てている。

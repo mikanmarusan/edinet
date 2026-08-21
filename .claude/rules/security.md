@@ -1,102 +1,27 @@
-# Security Best Practices
+# Security
 
-## セキュリティのベストプラクティス
+## APIキーの扱い（最重要）
 
-### 機密情報の扱い方
+- APIキーは**コマンドライン引数で明示的に指定する**。`argparse` では `required=True` とし、デフォルト値を持たせない。
+- **ハードコード禁止。** ソース、テスト、フィクスチャ、設定ファイル、`.claude/settings*.json` の権限ルールに平文で書かないこと。
+- ログとエラーメッセージにキーを含めない。認証失敗は `"API call failed: Authentication error"` のように、値を伴わない形で記録する。
+- 誤ってキーを書き込んでしまった場合は、ファイルの修正だけで済ませず **EDINET側でキーをローテーションする**こと。
 
-#### APIキーの管理
-- **必須**: APIキーはコマンドライン引数として明示的に指定
-- **禁止**: ハードコード、デフォルト値の設定
-- **推奨**: 環境変数からの読み込み（将来的な実装）
+## 外部データの検証
 
-```python
-# Good: 明示的なパラメータ要求
-parser.add_argument('--api-key', required=True, help='EDINET API key')
+EDINET APIのレスポンスとXBRLは外部入力として扱う。
 
-# Bad: デフォルト値やハードコード
-API_KEY = "xxxxxxxx"  # 絶対にNG
-```
+- 日付は `YYYY-MM-DD` 形式を `datetime.strptime` で検証してからAPIに渡す
+- XMLのパースには `defusedxml` を使う（実体展開攻撃の回避のため依存に含めている）
+- 不正なデータで処理全体を止めない。個別にログへ記録して継続する
 
-#### ログ出力での配慮
-- APIキーや個人情報をログに出力しない
-- エラーメッセージにも機密情報を含めない
+## 依存関係
 
-```python
-# Bad
-logger.error(f"API call failed with key: {api_key}")
-
-# Good
-logger.error("API call failed: Authentication error")
-```
-
-### 入力値検証のルール
-
-#### コマンドライン引数の検証
-```python
-def validate_date_format(date_str):
-    """日付形式（YYYY-MM-DD）を検証"""
-    try:
-        datetime.strptime(date_str, '%Y-%m-%d')
-        return True
-    except ValueError:
-        return False
-
-def validate_api_key(api_key):
-    """APIキーの基本的な形式を検証"""
-    if not api_key or len(api_key) < 10:
-        raise ValueError("Invalid API key format")
-    return api_key
-```
-
-#### 外部データの検証
-- EDINET APIレスポンスの妥当性確認
-- XBRLデータの構造検証
-- 不正なデータによる処理停止を防ぐ
-
-### 認証・認可の実装パターン
-- 現在はAPIキーベースの認証のみ
-- 将来的な拡張に備えた設計
-
-### 依存関係の脆弱性チェック
-
-#### 定期的な更新
 ```bash
-# 脆弱性チェック（推奨）
-pip install safety
-safety check
-
-# 依存関係の更新
-pip install --upgrade -r requirements.txt
+uv sync                 # 通常のインストール
+safety check            # 脆弱性チェック（任意）
 ```
 
-#### 最小権限の原則
-- ファイルアクセスは必要最小限に
-- 書き込み権限は出力ディレクトリのみ
+## 出力データ
 
-### データ保護
-- 個人情報を含む可能性のあるデータは慎重に扱う
-- 出力ファイルの権限設定に注意
-
-```python
-# ファイル作成時の権限指定
-import os
-import stat
-
-def save_json_secure(data, filepath):
-    """セキュアなJSON保存"""
-    with open(filepath, 'w', encoding='utf-8') as f:
-        json.dump(data, f, ensure_ascii=False, indent=2)
-    
-    # 読み取り専用に設定（オプション）
-    os.chmod(filepath, stat.S_IRUSR | stat.S_IRGRP)
-```
-
-### エラーハンドリングでのセキュリティ
-- スタックトレースに機密情報を含めない
-- 外部に公開されるエラーメッセージは最小限に
-
-### 将来的な実装推奨事項
-1. secrets管理システムの導入
-2. API呼び出しのレート制限実装
-3. 監査ログの実装
-4. データ暗号化の検討
+`data/` 配下の生成物は公開前提のデータだが、書き込み権限は出力ディレクトリのみに限定する。

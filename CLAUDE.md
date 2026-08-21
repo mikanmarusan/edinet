@@ -12,39 +12,14 @@
 - **目的**: 上場企業の財務データを日次で自動取得し、構造化されたJSONとして保管・公開する。
 - **背景**: EDINETは有価証券報告書等を提供するが、機械可読な統合データセットは提供しない。本ツールはXBRLを解析し、Yahoo Financeの市場データで補完して、横断分析可能なデータセットを生成する。
 - **公開**: 生成データはWebビューア（`web/`）とともにGitHub Pages（`gh-pages`ブランチ）で `https://mikanmarusan.net/edinet/` に公開される。
-- **技術スタック**: Python 3.x + requests / lxml / argparse / playwright
 
 ---
 
 ## WHAT — アーキテクチャと設計判断
 
-### ディレクトリ構成
+### ボイラープレートからの意図的な逸脱
 
-```
-edinet/
-├── bin/                     # 実行可能スクリプト
-├── lib/                     # 共有ライブラリ
-│   ├── edinet_common.py     # EDINET API共通処理
-│   ├── xbrl_parser.py       # XBRL解析処理
-│   ├── ticker_generator.py  # Yahoo Finance用ティッカー生成
-│   ├── url_generator.py     # Yahoo Finance URL生成
-│   └── data_scraper.py      # Yahoo Financeスクレイピング
-├── data/jsons/              # 出力データ（日次JSON）
-├── data/edinet.json         # 統合データ
-├── web/                     # 公開Webビューアのソース（gh-pagesへ配信）
-├── docs/                    # 内部ドキュメント（GitHub Pages非公開）
-│   ├── architecture.md      # アーキテクチャ設計
-│   ├── context/             # プロダクト要件・XBRL知見・変更履歴
-│   └── examples/            # 実装パターン例
-├── .github/                 # ワークフロー・Issue/PRテンプレート
-└── .claude/                 # Claude Code用ルール・スキル・設定
-    ├── rules/               # 開発ルール・ガイドライン
-    ├── skills/              # スキル（例: update-stock-exchange-mapping）
-    ├── agents/              # エージェント定義
-    └── settings.json
-```
-
-> **ボイラープレートからの意図的な逸脱**: 本プロジェクトはPythonプロジェクトとして `src/` を導入せず、既存の `bin/`（実行可能スクリプト）+ `lib/`（共有モジュール）構成を維持する。これは確立された慣習に基づく意図的な設計判断である。
+本プロジェクトはPythonプロジェクトとして `src/` を導入せず、`bin/`（実行可能スクリプト）+ `lib/`（共有モジュール）構成を維持する。これは確立された慣習に基づく意図的な設計判断であり、`src/` レイアウトへ移行してはならない。
 
 ### ドキュメント・ファイル配置の方針
 
@@ -52,8 +27,8 @@ edinet/
 
 - **`docs/`（プロジェクトの背景・仕様・知識 = What/Why）**: このプロジェクトを理解するための背景情報。プロダクト要件、アーキテクチャ、ドメイン知識、変更履歴など。
 - **`docs/examples/`（コード例・実装パターン）**: 具体的なコードやその解説。実装パターン、データ抽出例、エラーハンドリング例など。
-- **`.claude/rules/`（手順書・ガイドライン・ルール = How）**: 何かを実行するための手順やルール。開発手順、コーディング規約、デプロイ手順、テスト方法など。
-- **`.claude/skills/`（スキル）**: Claude Codeが実行する自動化スキル（`SKILL.md` 形式）。
+- **`.claude/rules/`（手順書・ガイドライン・ルール = How）**: 常時読み込まれるため、**セッションを問わず必要な短いルールのみ**を置く。特定タスクでしか使わない手順は `.claude/skills/` に置くこと。
+- **`.claude/skills/`（スキル）**: Claude Codeが実行する自動化スキル（`SKILL.md` 形式）。呼び出し時のみ本文が読み込まれる。
 - **`.claude/agents/`（エージェント定義）**: サブエージェント定義。
 - **`.github/`（雛形・テンプレート）**: そのままコピーして使うことを想定したファイル。Issue/PRテンプレートなど。
 
@@ -75,15 +50,7 @@ edinet/
 - 決算期: YYYY年M月期（先頭0なし）
 - 財務データ優先: 連結 > 個別、当期 > 過去
 
-### 最近の重要な更新
-
-**Yahoo Finance統合の完了（2025年7月）**: Yahoo Financeデータとの統合により、新たに以下のフィールドが追加された。
-
-- **ordinaryIncome**: 経常利益
-- **ordinaryIncomeRate**: 経常利益率
-- **issuedDate**: 有価証券報告書の提出日
-
-詳細な変更履歴と技術的な学習事項は `docs/context/changelog.md` を参照。
+変更履歴と技術的な学習事項は `docs/context/changelog.md` を参照。
 
 ---
 
@@ -109,16 +76,28 @@ python bin/fetch_edinet_financial_documents.py --date YYYY-MM-DD --outputdir dat
 python bin/consolidate_documents.py --inputdir data/jsons --output data/edinet.json
 ```
 
+### テスト（要点のみ）
+
+```bash
+uv run python -m pytest tests/ -v
+```
+
+- **`tests/golden/golden_baseline.json` を手で編集してはならない。** 必ず `REGEN_GOLDEN=1 python -m pytest tests/test_golden_regression.py` で再生成する。
+- 抽出ロジックを意図的に変更したときは、先に `tests/test_golden_regression.py` の `EXPECTED_CHANGES` に追記する（さもないとCIが `REGRESSION` で落ちる）。
+- CIは `tests/test_stock_exchange_mapping.py` の地方取引所3テストを既知失敗として `--deselect` している。
+
+フィクスチャの追加、ゴールデン再生成、Webビューアのテスト実行など詳細な手順は `.claude/skills/running-tests/` を参照（呼び出し時に読み込まれる）。
+
 ### Issue対応時の必須事項
 
 #### 開発手順（必ず順番通りに実行）
-1. **ブランチ作成**: `git checkout -b fix/issue-{番号}-{簡潔な説明}`
+1. **ブランチ作成**: `git checkout -b <type>/<issue番号>-<kebab-case-description>`（例: `fix/123-null-pointer`）
 2. **実装**: コード変更を実施
 3. **テスト実行**: `python -m pytest tests/ -v`
-4. **コミット**: 適切なコミットメッセージで変更を記録
-   - 形式: `<type>: <description>`
-   - 例: `fix: improve company characteristic extraction logic`
-5. **PR作成**: 必要に応じてPull Requestを作成
+4. **コミット**: Conventional Commits 形式で変更を記録
+   - 形式: `<type>(<scope>): <short summary>`（72文字以内、命令形、末尾ピリオドなし）
+   - 例: `fix(xbrl): improve company characteristic extraction logic`
+5. **PR作成**: 必要に応じてPull Requestを作成（タイトルはコミット1行目と同形式）
 
 #### Issueフォーマット
 - Goal: 達成したい目的
@@ -133,35 +112,22 @@ python bin/consolidate_documents.py --inputdir data/jsons --output data/edinet.j
 
 ### 詳細ドキュメントへの参照
 
-新機能追加やバグ修正の際は、必ず以下の関連ドキュメントを参照すること。
+`.claude/rules/` は常時読み込まれるためここには列挙しない。以下は必要に応じて開くこと。
 
 **プロジェクトコンテキスト（`docs/`）**
 - `docs/architecture.md` - アーキテクチャ設計
 - `docs/context/product-requirements.md` - プロダクト要件
 - `docs/context/xbrl-taxonomy-notes.md` - XBRL構造の理解と学習事項
 - `docs/context/changelog.md` - 変更履歴・学習事項
+- `docs/examples/development-patterns.md` - 開発パターン
+- `docs/examples/xbrl-extraction-patterns.md` - XBRL抽出パターン例
 
-**開発ルール（`.claude/rules/`）**
-- `coding-standards.md` - コーディング規約
-- `git-workflow.md` - Git運用ルール
-- `security.md` - セキュリティ指針
-- `documentation.md` - ドキュメント作成
-- `debugging-guide.md` - デバッグ手法
-- `deployment.md` - デプロイ設定
-- `performance-guidelines.md` - パフォーマンス最適化
-- `testing-guidelines.md` - テスト戦略
-- `web-viewer-guide.md` - Webビューア実装
-
-**実装例（`docs/examples/`）**
-- `development-patterns.md` - 開発パターン
-- `xbrl-extraction-patterns.md` - XBRL抽出パターン例
-
-**スキル（`.claude/skills/`）**
+**スキル（`.claude/skills/`、呼び出し時のみ読み込み）**
 - `update-stock-exchange-mapping/` - 地方取引所マッピングの四半期更新
+- `running-tests/` - テスト実行・フィクスチャ追加・ゴールデン再生成の手順
 
-**テンプレート（`.github/`）**
-- `.github/ISSUE_TEMPLATE/issue-template.md` - Issueテンプレート
-- `.github/PULL_REQUEST_TEMPLATE.md` - PRテンプレート
+**サブディレクトリ固有のガイダンス**
+- `web/CLAUDE.md` - Webビューアの実装ガイド（`web/` 配下の作業時に読み込まれる）
 
 ---
 
@@ -175,3 +141,4 @@ python bin/consolidate_documents.py --inputdir data/jsons --output data/edinet.j
 - 同じ入力（例: docID）から派生する複数フィールドにバリデーションを追加する際は、片方だけでなく兄弟フィールドにも一貫して適用すること。検証の非対称性は、片方だけ壊れた値を残す。
 - Webビューアに列を追加する際は、`ColumnVisibilityManager.columns` の index 登録・`<th>`・行 `<td>` の3者を必ず同数に揃えること（`applyVisibility` は index→nth-child で表示制御するため、ズレると別列を誤って表示/非表示にする）。
 - 候補選択ロジックに決定的タイブレーク（二次ソートキー等）を追加するときは、その分岐が実際に効く条件（＝同点）を満たすフィクスチャを必ず添えて勝者をピン留めすること。同点が発生しないフィクスチャだけでは、タイブレークを外しても緑のままで挙動変化を検出できない。あわせて「本当に同点である」ことをアサート（例: 優先度計算が両候補で等しい）してフィクスチャ自体を守る。
+- 常時読み込まれる指示ファイル（`CLAUDE.md` / `.claude/rules/`）には、`ls` や manifest から導出できる情報（ディレクトリ構成・依存一覧・ファイル索引）と、実在しないコードの例示を書かないこと。前者は毎セッションの無駄なコストになり、後者は実装済み機能と誤読される。

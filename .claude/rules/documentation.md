@@ -1,60 +1,22 @@
 # Documentation
 
-## ディレクトリ構造
+ディレクトリ構成とモジュール依存関係は `ls` と import 文から読み取れるため、ここには記載しない。
+ファイルの配置先を決める方針は `CLAUDE.md` の「ドキュメント・ファイル配置の方針」を参照。
 
-### 主要なディレクトリとその役割
-```
-edinet/
-├── bin/                    # 実行可能スクリプト
-│   ├── fetch_edinet_financial_documents.py  # 日次データ取得
-│   └── consolidate_documents.py             # データ統合
-├── lib/                    # 共有ライブラリモジュール
-│   ├── __init__.py        # パッケージ初期化
-│   ├── edinet_common.py   # API設定、共通関数
-│   └── xbrl_parser.py     # XBRL解析専用機能
-├── data/                  # データディレクトリ
-│   ├── jsons/            # 日次JSONファイル (YYYY-MM-DD.json)
-│   └── edinet.json       # 統合済み最新データ
-├── .claude/              # AI向け詳細ルール
-├── .github/workflows/    # GitHub Actions定義
-└── requirements.txt      # Python依存関係
-```
+## コード内ドキュメント
 
-### ファイルの配置ルール
-- 実行可能スクリプト: bin/
-- 共有コード: lib/
-- 出力データ: data/jsons/
-- ログファイル: プロジェクトルート（script_YYYYMMDD.log）
+- docstring は **Google スタイル**を使う（Args / Returns を明記）
+- 「なにをするか」ではなく「なぜそうするか」をコメントに書く。コードから読み取れることは書かない
+- 特に、複数のXBRLタグを合算する処理では前提条件（二重計上の回避、連結/個別のスコープ整合）をコメントで明示する
 
-### モジュール間の依存関係
-```
-bin/fetch_edinet_financial_documents.py
-└── lib/edinet_common.py
-    └── lib/xbrl_parser.py
+## ログファイルの配置
 
-bin/consolidate_documents.py
-└── lib/edinet_common.py
-```
+実行ログはリポジトリルートに `<script名>_YYYYMMDD.log` として出力される。生成物であり、コミット対象ではない。
 
-## コード内ドキュメントの書き方
-- docstringはGoogle スタイルを使用
-- 関数の目的、引数、戻り値を明記
-- 複雑なロジックにはインラインコメントを追加
+## 変更履歴
 
-## API ドキュメントの形式
-現在は内部ツールのため、詳細なAPIドキュメントは未作成。
-将来的にはSphinxやmkdocsの使用を検討。
+`docs/context/changelog.md` に記録する。技術的な学習事項もここに集約し、`CLAUDE.md` の `## Lessons` には再発防止の一般則だけを短く残す。
 
-## README の更新タイミング
-- 新機能追加時
-- 使用方法の変更時
-- 依存関係の更新時
+## 図表
 
-## 変更履歴の記録方法
-- GitHubのリリースノートを活用
-- 重要な変更はCHANGELOG.mdに記録（将来実装）
-
-## 図表の作成ガイドライン
-- アーキテクチャ図: draw.ioやmermaidを使用
-- データフロー図: 処理の流れを視覚化
-- シーケンス図: API呼び出しの順序を明確化
+アーキテクチャ図・データフロー図は mermaid で記述し、`docs/architecture.md` に置く。
