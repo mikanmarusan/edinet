@@ -1,29 +1,30 @@
 # Git Workflow
 
-## ブランチ戦略
-- メインブランチ: main
-- 機能開発: feature/機能名
-- バグ修正: fix/issue-番号-説明
-- Claude生成: claude/issue-番号-タイムスタンプ
+コミットメッセージ・ブランチ名・PRタイトル・Issueタイトルは **Conventional Commits** に従う。
+共通仕様はユーザーグローバルの `08-conventional-commits.md` にあり、本ファイルはこのリポジトリ固有の運用のみを記す。
 
-## コミットメッセージの規則
-- 形式: `<type>: <description>`
-- タイプ: feat, fix, docs, refactor, test, chore
-- 例: `fix: Set stock price to null when eps is negative`
+## ブランチ
 
-## PR作成時のチェックリスト
-1. テストが通ること（将来実装予定）
-2. ログ出力の確認
-3. エラーハンドリングの確認
-4. コードレビューの観点
+- メインブランチ: `main`。**mainブランチでの直接作業は厳禁。**
+- 形式: `<type>/<kebab-case-description>`（例: `feat/add-user-auth`）
+- Issue対応時: `<type>/<issue番号>-<kebab-case-description>`（例: `fix/123-null-pointer`）
+- Claude Code生成: `claude/issue-<番号>-<タイムスタンプ>`
 
-## レビュー時の観点
-- PEP 8準拠
-- エラーハンドリングの適切性
-- パフォーマンスへの影響
-- セキュリティの考慮
+## コミット
+
+- 1行目: `<type>(<scope>): <short summary>`（72文字以内、命令形、末尾ピリオドなし）
+- 空行を挟み、変更内容と理由を1〜3個の箇条書きで記す
+- 例: `fix(xbrl): set stock price to null when eps is negative`
+
+## PR
+
+マージ前に確認すること：
+
+1. `python -m pytest tests/ -v` が通ること（CIでも Python 3.11/3.12/3.13 で実行される）
+2. `web/` を変更した場合は `node --test web/tests/` を手動実行すること（CI未接続）
+3. ログ出力とエラーハンドリングが設計原則（フェイルセーフ）に沿っていること
 
 ## マージ戦略
-- mainブランチへの直接プッシュは避ける
-- PRを通じたマージを推奨
-- スクワッシュマージで履歴を整理
+
+- mainへの直接プッシュは避け、PR経由でマージする
+- スカッシュマージで履歴を整理する

@@ -324,3 +324,35 @@ Include the total count of codes per exchange after the update.
 - If browser_evaluate yields no recognizable security codes, warn the user that the page structure may have changed and show the raw snapshot text for inspection.
 - Do not guess or invent codes. Only include codes actually observed in the scraped data.
 - If any exchange's scraped count falls below the sanity threshold, skip that exchange and report it.
+
+## 運用メモ
+
+`.claude/rules/stock-exchange-mapping-update.md` にあった運用情報をここに統合した（同ファイルは削除済み）。
+
+### 対象データの定義
+
+`config/stock_exchange_mapping.yml` には、地方取引所に**単独上場**している企業のみを含める。東証との重複上場、および複数の地方取引所への上場は**除外**する。取引所コードは `"N"`（名古屋） / `"F"`（福岡） / `"S"`（札幌）の3種のみ。
+
+### 更新頻度
+
+- **定期**: 四半期ごと（3ヶ月に1回）
+- **臨時**: 新規上場・上場廃止・東証への市場変更のニュースがあった場合
+
+### このマッピングの利用箇所
+
+- `lib/ticker_generator.py` — Yahoo Finance用ティッカーシンボルの生成
+- `lib/url_generator.py` — Yahoo Finance URLの生成
+- `lib/data_scraper.py` — スクレイピング処理での参照
+
+更新後は `python -m pytest tests/ -v -k stock_exchange` で関連テストを確認すること。CIは地方取引所3テスト（`test_fukuoka_stock_exchange` / `test_nagoya_stock_exchange` / `test_sapporo_stock_exchange`）をマッピング陳腐化のため `--deselect` している。**この3テストが通るようになったら `.github/workflows/tests.yml` の該当 `--deselect` 行を削除すること。**
+
+### 旧URL（いずれも404、2026-03-28確認）
+
+`https://www.nse.or.jp/listing/single/` / `https://www.fse.or.jp/listing/single/` / `https://www.sse.or.jp/listing/single/`。現行URLは冒頭の「References: Exchange Site Structure」を参照。
+
+### コミット
+
+```bash
+git add config/stock_exchange_mapping.yml
+git commit -m "chore(config): update stock exchange mapping (YYYY-MM-DD)"
+```

@@ -1,265 +1,47 @@
 # Coding Standards
 
-## 詳細なコーディング規約
+PEP 8 準拠。汎用的な作法（説明的な変数名、標準ライブラリ→サードパーティ→ローカルの import 順など）は既定として従うものとし、ここには**このリポジトリ固有の逸脱と判断基準**のみを記す。
 
-### Python コーディング標準
-- **PEP 8準拠**: 基本的にPEP 8に従う
-- **Python バージョン**: 3.x系を使用
+## PEP 8 からの逸脱
 
-### インデント、改行、スペースのルール
-- インデント: スペース4つ
-- 行の最大長: 120文字（PEP 8の79文字より緩和）
-- 空行:
-  - トップレベル関数・クラス定義の間: 2行
-  - メソッド定義の間: 1行
-  - ロジックブロックの区切り: 1行
+- **行の最大長: 120文字**（PEP 8 の79文字ではない）
+- インデントはスペース4つ、関数の目安は50行、ネストは最大4レベル
 
-### 関数の長さ、複雑度の上限
-- 関数の最大行数: 50行を目安
-- 循環的複雑度: 10以下を推奨
-- ネストの深さ: 最大4レベル
+## フェイルセーフ原則
 
-### コメントの書き方
-```python
-# 単一行コメント: 処理の意図を説明
+個別文書の処理失敗で全体を止めない。これはこのプロジェクトの中心的な設計判断であり、例外を握りつぶす通常のアンチパターンとは区別する。
 
-def fetch_document_list(api_key, date):
-    """
-    指定日のEDINET文書リストを取得する。
-    
-    Args:
-        api_key (str): EDINET APIキー
-        date (str): 取得対象日（YYYY-MM-DD形式）
-        
-    Returns:
-        list: 文書情報のリスト
-    """
-    # API制限: 1リクエスト/秒
-    time.sleep(1)
-```
+- 個別のエラーはログに記録して `continue` し、次の文書へ進む
+- エラーは集計して処理の最後にまとめて報告する
+- ログには文書ID・企業名・処理段階を必ず含める（後から原因を特定できるようにするため）
+- APIキーや個人情報はログに出力しない
 
-### エラーハンドリングのパターン
+## 欠損値の扱い
 
-#### 基本パターン
-```python
-try:
-    # 処理実行
-    result = process_document(doc)
-except SpecificException as e:
-    logger.error(f"特定のエラー: {e}")
-    # 個別エラーは継続
-    continue
-except Exception as e:
-    logger.error(f"予期しないエラー: {e}")
-    # 必要に応じて再スロー
-    raise
-```
+- 欠損フィールドは**キーを省略せず `null` を入れる**。消費側（Webビューア）が列の存在を前提にしているため。
+- 数値フィールドを文字列化しない。数値か `null` のいずれか。
+- 必須フィールド（`secCode`, `periodEnd`）が欠けている文書のみスキップする。
 
-#### フェイルセーフ原則
-- 個別文書の処理失敗で全体を停止しない
-- エラーはログに記録し、処理を継続
-- 重要なエラーは集計して最後に報告
+## データ形式の一貫性
 
-### 命名規則の詳細
-- **変数名**: 説明的な名前を使用
-  - Good: `document_list`, `api_response`
-  - Bad: `dl`, `resp`
-- **定数**: モジュールレベルで定義
-  - `API_BASE_URL = "https://api.edinet-fsa.go.jp/api/v2"`
-- **プライベート関数**: アンダースコアで開始
-  - `_validate_response(response)`
+- 日付: ISO 8601（`YYYY-MM-DD`）
+- 証券コード: 常に4桁
+- 決算期: `YYYY年M月期`（先頭0なし）
+- 真偽値: `true` / `false`
 
-### インポート規則
-```python
-# 標準ライブラリ
-import os
-import sys
-import json
-from datetime import datetime
+## XBRLコンテキストの優先度付け
 
-# サードパーティライブラリ
-import requests
-from lxml import etree
+指標ごとに `_calculate_<metric>_priority(tag_name, context_ref, value)` を実装し、複数候補から1つを選ぶ。この構造は `lib/xbrl_parser.py` に多数存在するので、**新しい指標を追加するときは既存メソッドの実装をそのまま読んで倣うこと**（スコアの具体値はここに書かない。実装が唯一の正）。
 
-# ローカルモジュール
-from lib.edinet_common import setup_logging
-from lib.xbrl_parser import XBRLParser
-```
+守るべき原則は次の4点：
 
-### データ形式の一貫性
-- 日付: ISO 8601形式（YYYY-MM-DD）
-- 時刻: タイムゾーン付きISO形式
-- 数値: nullまたは数値（文字列化しない）
-- 真偽値: true/false（小文字）
+1. まず `_has_consolidated_data()` で連結データの有無を判定する
+2. 連結が存在する場合、`ReportingCompany` / `NonConsolidatedMember` などの個別コンテキストをスキップする
+3. 連結が存在しない場合は `NonConsolidatedMember` を**除外してはならない**（除外すると単体決算企業のデータが全滅する）
+4. 現金など時点依存の指標は期末コンテキストを優先する
 
-### ログ出力規則
-```python
-# ログレベルの使い分け
-logger.debug("詳細なデバッグ情報")
-logger.info("正常な処理フロー")
-logger.warning("注意が必要だが継続可能")
-logger.error("エラーだが処理は継続")
-logger.critical("致命的エラー、処理停止")
+範囲外の値（PER > 1000、非現実的な株式数など）はフィルタする。異常値はスキップする前に `logger.warning` を残す。
 
-# 構造化ログ
-logger.info(f"処理完了: 成功={success_count}, 失敗={error_count}")
-```
+## 決定的な選択
 
-## Error Handling
-
-The system includes robust error handling for various scenarios:
-
-### Error Categories
-
-#### Missing Data
-- **Behavior**: Skip companies with incomplete data
-- **Logging**: Log missing fields with company identifier
-- **Example**:
-```python
-if not company_data.get('secCode'):
-    logger.warning(f"Missing secCode for document {doc_id}")
-    continue
-```
-
-#### API Errors
-- **Behavior**: Log errors and continue processing
-- **Retry Logic**: Automatic retry with exponential backoff
-- **Example**:
-```python
-try:
-    response = requests.get(url, params=params)
-    response.raise_for_status()
-except requests.RequestException as e:
-    logger.error(f"API request failed: {e}")
-    # Retry logic applies
-```
-
-#### File I/O Errors
-- **Behavior**: Display clear error messages
-- **Recovery**: Attempt to create directories if missing
-- **Example**:
-```python
-try:
-    with open(filepath, 'w', encoding='utf-8') as f:
-        json.dump(data, f, ensure_ascii=False, indent=2)
-except IOError as e:
-    logger.error(f"Failed to write file {filepath}: {e}")
-```
-
-#### Network Issues
-- **Behavior**: Implement retry logic with delays
-- **Timeout Handling**: Configurable request timeouts
-- **Connection Pooling**: Reuse connections when possible
-
-#### XBRL Parsing Errors
-- **Behavior**: Handle malformed or incomplete XBRL data
-- **Fallback**: Use dynamic search when standard patterns fail
-- **Logging**: Record parsing failures with context
-
-### Error Recovery Strategies
-
-1. **Graceful Degradation**: Continue with partial data rather than failing completely
-2. **Error Aggregation**: Collect all errors and report summary at the end
-3. **Contextual Logging**: Include document ID, company name, and processing stage
-4. **User-Friendly Messages**: Translate technical errors into actionable guidance
-
-## Data Quality
-
-The system ensures data quality through multiple mechanisms:
-
-### Data Validation
-
-#### Input Validation
-- **Date Format**: Validate YYYY-MM-DD format before API calls
-- **API Key**: Check for presence and basic format
-- **File Paths**: Verify directory existence and write permissions
-
-#### Extracted Data Validation
-- **Type Checking**: Ensure numeric fields contain numbers or null
-- **Range Validation**: Check for reasonable values (e.g., PER between 0-1000)
-- **Required Fields**: Verify presence of critical fields (secCode, periodEnd)
-
-### Missing Fields Handling
-- **Null Assignment**: Set missing fields to null rather than omitting
-- **Graceful Degradation**: Process documents even with partial data
-- **Logging**: Record all missing fields for analysis
-
-### Data Consistency
-- **Type Consistency**: Ensure consistent data types across all outputs
-- **Format Standards**: Apply consistent formatting rules
-  - Securities codes: Always 4 digits
-  - Period end: Always YYYY年M月期 format
-  - Numbers: Never stringify numeric values
-
-### Duplicate Handling
-- **Latest Data Precedence**: In consolidation, newer data overwrites older
-- **Duplicate Detection**: Use secCode as unique identifier
-- **Logging**: Record duplicate occurrences
-
-### Quality Metrics
-- **Success Rate Tracking**: Monitor extraction success per field
-- **Error Rate Analysis**: Track common failure patterns
-- **Completeness Score**: Calculate percentage of successfully extracted fields
-
-### Data Integrity Checks
-```python
-def validate_financial_data(data):
-    """Validate extracted financial data"""
-    # Check required fields
-    if not data.get('secCode') or not data.get('periodEnd'):
-        return False
-    
-    # Validate numeric fields
-    numeric_fields = ['netSales', 'operatingIncome', 'netIncome', 'equity']
-    for field in numeric_fields:
-        value = data.get(field)
-        if value is not None and not isinstance(value, (int, float)):
-            return False
-    
-    # Range validation
-    per = data.get('per')
-    if per is not None and (per < 0 or per > 1000):
-        logger.warning(f"Suspicious PER value: {per}")
-    
-    return True
-```
-
-## XBRL Context Handling
-
-### Context Priority System
-Implement a consistent priority scoring system for XBRL contexts:
-
-```python
-# Priority scoring constants
-BUSINESS_RESULTS_GROUP_PRIORITY = 50  # Highest - consolidated group data
-CONSOLIDATED_MEMBER_PRIORITY = 30     # High - explicit consolidated
-CURRENT_YEAR_PRIORITY = 15            # Standard - current year data
-REPORTING_COMPANY_PENALTY = -30       # Penalty - individual data
-NON_CONSOLIDATED_PENALTY = -20        # Penalty - non-consolidated
-
-def calculate_context_priority(context_ref):
-    """Calculate priority score for XBRL context"""
-    priority = 0
-    
-    # Apply bonuses
-    if 'BusinessResultsOfGroup' in context_ref:
-        priority += BUSINESS_RESULTS_GROUP_PRIORITY
-    if 'ConsolidatedMember' in context_ref:
-        priority += CONSOLIDATED_MEMBER_PRIORITY
-    if 'CurrentYear' in context_ref:
-        priority += CURRENT_YEAR_PRIORITY
-    
-    # Apply penalties
-    if 'ReportingCompany' in context_ref:
-        priority += REPORTING_COMPANY_PENALTY
-    if 'NonConsolidatedMember' in context_ref:
-        priority += NON_CONSOLIDATED_PENALTY
-    
-    return priority
-```
-
-### Context Validation Rules
-1. **Always check consolidated data availability first**
-2. **Skip individual contexts when consolidated exists**
-3. **Use consistent priority scoring across all metrics**
-4. **Log context decisions for debugging**
+候補の優先度が同点になりうるロジックには、必ず決定的なタイブレーク（二次ソートキー等）を入れる。実行ごとに結果が変わると、ゴールデン回帰テストが不安定になる。
