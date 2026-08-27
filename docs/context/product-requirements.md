@@ -48,7 +48,7 @@ python fetch_edinet_financial_documents.py --date YYYY-MM-DD --outputdir data/js
 | issuedDate | 有価証券報告書提出日（2025-07追加） | 2024-09-30 |
 | isDelisted | 上場廃止フラグ（2026-04追加） | true / false |
 | delistedDate | 上場廃止検知日（2026-04追加） | 2026-04-11 |
-| characteristic | 企業特色（Yahoo Finance優先） | 【特色】IT企業向けクラウドサービス |
+| characteristic | 企業特色（EDINET XBRL） | 【特色】IT企業向けクラウドサービス |
 | （他多数） | | |
 
 ### 2.2 データ統合ツール
@@ -84,21 +84,19 @@ python bin/update_delisted_companies.py \
 
 ### 3.1 開発環境
 - **言語**: Python 3.x
-- **外部依存**: EDINET API、XBRLパースライブラリ、Playwright（2025-07追加）
+- **外部依存**: EDINET API、XBRLパース用の lxml/defusedxml、市場データ取得用の requests + BeautifulSoup4、上場廃止検知用のJPX「東証上場銘柄一覧」（`data_j.xls`）
 
 ### 3.2 API統合
 - **エンドポイント**: EDINET API
 - **レート制限**: 最大1リクエスト/秒
 - **認証**: APIキー必須
 
-### 3.2.1 Yahoo Finance統合（2025-07追加）
+### 3.2.1 市場データ取得（2025-07追加、2026-06更新）
 - **データソース**: finance.yahoo.co.jp
-- **取得方法**: Playwright（ヘッドレスブラウザ）
-- **対象ページ**:
-  - `/profile` - 企業概要（特色、従業員数）
-  - `/performance` - 業績データ（売上高、営業利益、経常利益、当期純利益）
-  - `/finance` - 財務データ（EPS、BPS、負債、減価償却費、発行済株式数）
-- **レート制限**: 未実装（要改善）
+- **取得方法**: `requests` + BeautifulSoupによるSSR基本クォートページ（`https://finance.yahoo.co.jp/quote/{ticker}`）へのplain GET（ヘッドレスブラウザ不要）
+- **取得対象**: stockPrice（株価）と marketCapitalization（時価総額）のみ。企業特色・従業員数・売上高・営業利益・経常利益・当期純利益・EPS・BPS・負債・減価償却費・発行済株式数などの財務諸表項目はすべてEDINET XBRLが正本
+- **レート制限**: 使い回す `Session` 上で1リクエスト/秒以上（ジッター付き）のペーシングと、403/429時のバックオフを実装済み
+- **暫定ブリッジ**: Yahooスクレイピングは ToS 上禁止されており、null許容の暫定的な手段。将来は公式の市場データソース（J-Quants等）へ移行予定
 
 ### 3.3 XBRL処理
 
