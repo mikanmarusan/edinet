@@ -21,6 +21,21 @@
 
 本プロジェクトはPythonプロジェクトとして `src/` を導入せず、`bin/`（実行可能スクリプト）+ `lib/`（共有モジュール）構成を維持する。これは確立された慣習に基づく意図的な設計判断であり、`src/` レイアウトへ移行してはならない。
 
+### ディレクトリ構成
+
+役割ごとの主要ディレクトリ（ファイル単位の網羅列挙はしない。個々のファイル名は、名前自体が構造的な意味を持つ場合のみ挙げる）:
+
+- `bin/` — 実行可能スクリプト（パイプラインの各段）: `fetch_edinet_financial_documents.py`（日次取得）、`update_delisted_companies.py`（上場廃止検出）、`consolidate_documents.py`（統合）
+- `lib/` — 共有モジュール（`delisted_detector.py` を含む6モジュール）。モジュール間の依存関係は `docs/architecture.md` の「Module Dependencies」が正本
+- `config/` — 証券取引所マッピング（`stock_exchange_mapping.yml`）
+- `data/` — 出力データ（`jsons/` に日次JSON、`edinet.json` に統合データ、`delisted_companies.yml` に上場廃止検知結果）
+- `tests/` — pytestスイート
+- `web/` — 公開Webビューアのソース（`web/CLAUDE.md` を参照）
+- `docs/` — 内部ドキュメント（本ファイル下部の「詳細ドキュメントへの参照」を参照）
+- `.claude/agents/` — サブエージェント定義の配置先。現時点では `.gitkeep` のみで未使用だが、配置ルールとして維持する
+- `Makefile` — `make install` で依存インストール（`uv sync`）を実行
+- `pyproject.toml` / `uv.lock` — 依存関係定義（uv管理）
+
 ### ドキュメント・ファイル配置の方針
 
 それぞれの配置先は「役割」で決める。新たにドキュメントやファイルを追加する際の指針：
@@ -71,9 +86,14 @@ python bin/fetch_edinet_financial_documents.py --date YYYY-MM-DD --outputdir dat
 # 市場データ取得をスキップ（Yahooにアクセスせず stockPrice/marketCapitalization と派生指標 per/pbr/ev/evPerEbitda を null にする）: --no-market-data
 ```
 
+**上場廃止検出**（`edinet-fetcher.yml` では取得の直後・統合の直前に実行）:
+```bash
+python bin/update_delisted_companies.py --jsonsdir data/jsons --mapping config/stock_exchange_mapping.yml --output data/delisted_companies.yml
+```
+
 **データ統合**:
 ```bash
-python bin/consolidate_documents.py --inputdir data/jsons --output data/edinet.json
+python bin/consolidate_documents.py --inputdir data/jsons --output data/edinet.json --delisted data/delisted_companies.yml
 ```
 
 ### テスト（要点のみ）
@@ -112,7 +132,14 @@ uv run python -m pytest tests/ -v
 
 ### 詳細ドキュメントへの参照
 
-`.claude/rules/` は常時読み込まれるためここには列挙しない。以下は必要に応じて開くこと。
+**ルール（`.claude/rules/`、常時読み込み。索引がないルールは見つけられないため一覧化する）**
+- `coding-standards.md` - コーディング規約・フェイルセーフ原則・欠損値の扱い
+- `debugging-guide.md` - XBRL抽出の典型的な不具合と切り分け手順
+- `deployment.md` - GitHub Actionsによるデプロイと障害時の扱い
+- `documentation.md` - コード内ドキュメント・変更履歴の記録方法
+- `git-workflow.md` - ブランチ・コミット・PRの運用
+- `performance-guidelines.md` - APIレート制限とボトルネック
+- `security.md` - APIキーの扱いと外部データの検証
 
 **プロジェクトコンテキスト（`docs/`）**
 - `docs/architecture.md` - アーキテクチャ設計
@@ -141,4 +168,5 @@ uv run python -m pytest tests/ -v
 - 同じ入力（例: docID）から派生する複数フィールドにバリデーションを追加する際は、片方だけでなく兄弟フィールドにも一貫して適用すること。検証の非対称性は、片方だけ壊れた値を残す。
 - Webビューアに列を追加する際は、`ColumnVisibilityManager.columns` の index 登録・`<th>`・行 `<td>` の3者を必ず同数に揃えること（`applyVisibility` は index→nth-child で表示制御するため、ズレると別列を誤って表示/非表示にする）。
 - 候補選択ロジックに決定的タイブレーク（二次ソートキー等）を追加するときは、その分岐が実際に効く条件（＝同点）を満たすフィクスチャを必ず添えて勝者をピン留めすること。同点が発生しないフィクスチャだけでは、タイブレークを外しても緑のままで挙動変化を検出できない。あわせて「本当に同点である」ことをアサート（例: 優先度計算が両候補で等しい）してフィクスチャ自体を守る。
-- 常時読み込まれる指示ファイル（`CLAUDE.md` / `.claude/rules/`）には、`ls` や manifest から導出できる情報（ディレクトリ構成・依存一覧・ファイル索引）と、実在しないコードの例示を書かないこと。前者は毎セッションの無駄なコストになり、後者は実装済み機能と誤読される。
+- 常時読み込まれる指示ファイル（`CLAUDE.md` / `.claude/rules/`）に構造情報を書く場合は、ディレクトリ単位＋役割の要約と `.claude/rules/*.md` の索引に留めること。ファイル単位の網羅的なツリーやモジュール依存グラフ（正本は `docs/architecture.md`）、実在しないコードの例示は書かないこと。前者は正本を二重化して次の `mkdir`/`touch` で再び drift し、後者は実装済み機能と誤読される。
+- When adding or editing a canonical listing of directories or artifacts, check it against every other section in the same document that already names those artifacts (for example, a command example showing an output file the listing should also mention), not only for internal self-consistency. A listing that only checks itself can still omit an artifact the document's own examples already require.
