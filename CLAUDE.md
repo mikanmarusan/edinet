@@ -142,3 +142,6 @@ uv run python -m pytest tests/ -v
 - Webビューアに列を追加する際は、`ColumnVisibilityManager.columns` の index 登録・`<th>`・行 `<td>` の3者を必ず同数に揃えること（`applyVisibility` は index→nth-child で表示制御するため、ズレると別列を誤って表示/非表示にする）。
 - 候補選択ロジックに決定的タイブレーク（二次ソートキー等）を追加するときは、その分岐が実際に効く条件（＝同点）を満たすフィクスチャを必ず添えて勝者をピン留めすること。同点が発生しないフィクスチャだけでは、タイブレークを外しても緑のままで挙動変化を検出できない。あわせて「本当に同点である」ことをアサート（例: 優先度計算が両候補で等しい）してフィクスチャ自体を守る。
 - 常時読み込まれる指示ファイル（`CLAUDE.md` / `.claude/rules/`）には、`ls` や manifest から導出できる情報（ディレクトリ構成・依存一覧・ファイル索引）と、実在しないコードの例示を書かないこと。前者は毎セッションの無駄なコストになり、後者は実装済み機能と誤読される。
+- When documenting what an automated bot identity does that a human or agent may not do (e.g. pushing directly to a protected branch), phrase it as a plain description of that identity's own behavior, never with permission-flavored wording, and restate the human/agent policy right next to it.
+- Before labeling any file as legacy or deprecated in documentation, check whether another workflow, script, or pipeline still consumes it directly - a path that is legacy for one consumer can be load-bearing for another.
+- When deliberately duplicating facts from another file into an always-loaded rules file to guard against drift, mark the duplication explicitly and enumerate everything duplicated, not a subset - an incomplete list leaves some duplicated facts unmarked and out of sync when the source changes.
