@@ -1,5 +1,5 @@
 # Architecture
-<!-- spec-synced-through: ed3fbdf222b7517b018ee6faf24aecf18848726f -->
+<!-- spec-synced-through: 4095ce9eefb8a751d9f50e468f1388daa67ba783 -->
 
 ## Development Architecture
 
@@ -32,10 +32,19 @@ bin/fetch_edinet_financial_documents.py
     ├── get_financial_data() - メインエントリポイント（市場データのみ）
     └── parse_market_data() - SSR HTMLから株価・時価総額を抽出
 
+bin/update_delisted_companies.py
+└── lib/delisted_detector.py
+    ├── load_jpx_listed_set() - JPX「東証上場銘柄一覧」(data_j.xls) から現存銘柄を取得
+    ├── load_observed_secs_from_jsons() - data/jsons/*.json から過去に観測したsecCodeを収集
+    ├── load_regional_skip_set() - config/stock_exchange_mapping.yml（地方単独上場銘柄）を除外リストとして読込
+    └── compute_delisted() / merge_delisted_yaml() - 上場廃止判定をdata/delisted_companies.ymlへ反映
+
 bin/consolidate_documents.py
-└── lib/edinet_common.py
-    ├── Logging setup (setup_logging)
-    └── Utility functions (load_json_file)
+├── lib/edinet_common.py
+│   ├── Logging setup (setup_logging)
+│   └── Utility functions (load_json_file)
+└── data/delisted_companies.yml (--delisted、既定 data/delisted_companies.yml)
+    └── DataConsolidator._annotate_delisted() が各社に isDelisted / delistedDate を付与
 ```
 
 ### Design Principles
@@ -125,7 +134,7 @@ else:
 - `tests/fixtures/xbrl/` に合成XBRLフィクスチャ（JGAAP 2024/2025、IFRS、銀行、連結≠個別、同点タイブレーク）を配置。すべて架空企業（entity `E00001` / secCode `9999`）の明示的に偽の数値で、`tests/_xbrl_fixture_utils.py` の `parse_fixture` から読み込む。
 - ゴールデン回帰ハーネス `tests/test_golden_regression.py` が抽出結果を `tests/golden/golden_baseline.json` と突き合わせ、`EXPECTED_CHANGES` 許可リスト外の REGRESSION 行が出たら失敗する（`REGEN_GOLDEN=1` で再生成、冪等）。
 - IFRS経路は `tests/test_ifrs_extraction.py` で検証（jpigp名前空間の解決、equity=`EquityIFRS`、net_sales=jpcrp IFRS売上サマリ、ordinaryIncome=null）。
-- Python 3.11/3.12/3.13 のCIマトリクスは `.github/workflows/tests.yml` として適用済み。push / pull_request のたびに全件（20モジュール・140テスト）実行される。`tests/test_stock_exchange_mapping.py` の3テストは取引所マッピングデータが古く既知失敗のため `--deselect` されている（詳細は `.claude/rules/testing-guidelines.md`）。
+- Python 3.11/3.12/3.13 のCIマトリクスは `.github/workflows/tests.yml` として適用済み。push / pull_request のたびに全件（20モジュール・140テスト）実行される。`tests/test_stock_exchange_mapping.py` の3テストは取引所マッピングデータが古く既知失敗のため `--deselect` されている（詳細は `.claude/skills/running-tests/`）。
 
 ### 市場データ取得アーキテクチャ（2026-06 更新, PR4 / issue #185）
 
