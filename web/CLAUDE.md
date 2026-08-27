@@ -1,7 +1,7 @@
 # web/ — Webビューア
 
 `data/edinet.json` の財務データを閲覧・検索する静的ビューア（タイトル: **上場企業の財務情報**）。
-`index.html` / `styles.css` / `script.js` の3ファイル構成で、ビルド工程を持たない。
+`index.html` / `styles.css` / `script.js` に `robots.txt` と `tests/` を加えた構成で、ビルド工程を持たない。
 
 このファイルは `web/` 配下の作業時のみ読み込まれる。列定義・フォーマッタ・DOM構造は `script.js` を直接読むこと（ここには重複させない）。
 
@@ -36,8 +36,18 @@ python3 -m http.server 8080
 
 ### ヘッダー固定
 
-- ページヘッダーは CSS の `position: fixed` が効かないケースがあり、`index.html` にインラインスタイルで `!important` 付き指定を残してある。これは意図的な回避策なので、CSSへ移そうとしないこと。
-- テーブルヘッダーはコンテナ内スクロール方式。`#table-container` に `height: calc(100vh - 150px)`、`thead` に `position: sticky` / `-webkit-sticky`（Safari対応）を指定している。
+- ページヘッダーは `header` 要素に通常のCSS `position: fixed` を指定した「フローティングコマンドバー」実装（`web/styles.css` の `Header - Floating Command Bar` ブロック）。インラインスタイルや `!important` の回避策は使っていない。高さはCSS変数 `--header-height`（既定 `72px`、モバイルは `64px`）で管理する。
+- テーブルヘッダーはコンテナ内スクロール方式。`#table-container` に `max-height: calc(100vh - var(--header-height) - 48px)`（`web/styles.css:410`）、`thead` に `position: sticky` / `-webkit-sticky`（Safari対応）を指定している。
+
+### ソート・書き出し・上場廃止表示
+
+- ソート可能な列は `data-sort` 属性を持つ8列のみ（`th.sortable`）。報告書列は `data-sort` を持たず、ソート対象外。
+- Excelエクスポートは SheetJS（CDN読み込み）経由の `exportToExcel()` が担う。書き出される列は26列で、画面表示の22列（`COLUMN_DEFINITIONS`）とは別の列セット。
+- 上場廃止銘柄は行に `.delisted-row` クラス、企業名セルに `.badge-delisted`（「廃止」バッジ）が付き、`title` 属性に `delistedDate` を表示する。
+
+### テーマ・密度切替
+
+ヘッダーの `#theme-toggle`（ライト/ダーク）と `#density-toggle`（表示密度）はいずれも `localStorage`（キー: `theme` / `density`）にユーザー選択を保存する。`ColumnVisibilityManager` 同様、`localStorage` アクセスは try/catch で囲むこと。
 
 ### 固定列
 
