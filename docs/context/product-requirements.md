@@ -136,42 +136,33 @@ python bin/update_delisted_companies.py \
 ## 5. Webビューア機能
 
 ### 5.1 概要
-`/docs`配下のWebビューアは、財務データを閲覧・検索・エクスポートするツール。
+`web/`配下のWebビューアは、財務データを閲覧・検索・エクスポートするツール。GitHub Pages（`gh-pages`ブランチ）経由で公開される。
 
 ### 5.2 主要機能
-- データ表示（約4,000社）
+- データ表示（約3,800社。実件数は `data/edinet.json` に依存）
 - 証券コード検索
 - 固定ヘッダー・固定列
-- 事業内容省略表示
+- 列表示/非表示の切り替え（列ごとの表示制御）
+- ソート（列ヘッダークリック）
+- テーマ切り替え（ライト/ダーク）・表示密度切り替え
+- 上場廃止バッジ（`isDelisted`）
+- 報告書リンク列（EDINET Web版・PDF版へのリンク）
 - トップへ戻るボタン
 
 ### 5.3 Excelエクスポート
 - ファイル形式: .xlsx
 - ファイル名: `edinet_data_YYYYMMDD.xlsx`
-- 全20カラムをエクスポート
+- 全26カラムをエクスポート（画面表示の22カラムとは異なる集合。`docURL`・`docPdfURL`・`yahooURL`と上場廃止2項目を追加し、画面表示専用の「報告書」列は含まない）
 - SheetJSでクライアントサイド処理
 
 ## 6. システム統合
 
 ### 6.1 ファイル構成
-```
-project/
-├── bin/
-│   ├── fetch_edinet_financial_documents.py
-│   └── consolidate_documents.py
-├── lib/
-│   ├── edinet_common.py
-│   └── xbrl_parser.py
-├── config/
-│   └── stock_exchange_mapping.yml
-└── data/
-    ├── jsons/
-    └── edinet.json
-```
+正本は `CLAUDE.md`「ディレクトリ構成」を参照。
 
 ### 6.2 データフロー
 ```
-EDINET API → XBRL → fetch_edinet → 日次JSON → consolidate → 統合JSON
+EDINET API → XBRL → fetch_edinet → 日次JSON → update_delisted → consolidate → 統合JSON
 ```
 
 ## 7. 制約事項
