@@ -1,5 +1,5 @@
 # Architecture
-<!-- spec-synced-through: 4095ce9eefb8a751d9f50e468f1388daa67ba783 -->
+<!-- spec-synced-through: 9867f50915f03fd473afe592530ae4d347c6e59d -->
 
 ## Development Architecture
 
@@ -147,6 +147,7 @@ else:
    - 証券コードをYahooティッカーに変換（lib/ticker_generator.py）し、SSRの基本クォートページ `https://finance.yahoo.co.jp/quote/{ticker}` を `requests` + BeautifulSoup で取得
    - 取得対象は stockPrice と marketCapitalization（円）のみ。財務諸表項目はEDINET XBRLが正本
    - Playwright（ヘッドレスブラウザ）は廃止
+   - `--no-market-data` を指定するとこの取得自体をスキップでき、stockPrice/marketCapitalizationと派生指標（per/pbr/ev/evPerEbitda）はnullになる。日次CIジョブ（`edinet-fetcher.yml`）はこのフラグを付けて実行しており、公開データセットではデフォルトでこれらのフィールドがnullになる
 
 3. **データの統合と計算**
    - equity と cash は常にXBRLから取得（財務諸表の正式値）
