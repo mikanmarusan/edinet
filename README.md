@@ -15,7 +15,7 @@ This system provides comprehensive financial data extraction and analysis capabi
 **Key Features:**
 - **Automated Data Collection**: Daily extraction from EDINET API with intelligent retry mechanisms
 - **Comprehensive Metrics**: Extraction of 25+ key financial indicators including P&L, balance sheet, and market data
-- **Yahoo Finance Integration**: Enriched data with real-time stock prices and market metrics
+- **Yahoo Finance Integration**: Enriched data with stock price and market capitalization (skipped by default in the daily CI run)
 - **Delisted Company Detection**: Automatically flags companies that no longer appear in the JPX listing, based on differences against the JPX `data_j.xls` snapshot
 - **Flexible Filtering**: Target specific companies using security codes
 - **Data Consolidation**: Merge multiple daily extracts into unified datasets
@@ -114,6 +114,7 @@ Extracts financial data for a specific date.
 - `--verbose, -v`: Enable detailed logging
 - `--max-retries`: Maximum retry attempts (default: 3)
 - `--sec-codes`: Comma-separated list of security codes to filter (e.g., 7203,9984)
+- `--no-market-data`: Skip market-data fetch (Yahoo); `stockPrice`/`marketCapitalization` and their derived metrics (`per`/`pbr`/`ev`/`evPerEbitda`) are left null. The daily CI job (`edinet-fetcher.yml`) runs with this flag set.
 
 **Output:** Creates `{outputdir}/{YYYY-MM-DD}.json`
 
@@ -153,6 +154,7 @@ uv run python bin/update_delisted_companies.py \
 | secCode | 4-digit securities code | String |
 | filerName | Company name | String |
 | docPdfURL | Securities report PDF URL | String |
+| docURL | EDINET web viewer URL | String |
 | yahooURL | Yahoo Finance URL | String |
 | periodEnd | Fiscal period end (YYYY年M月期) | String |
 | characteristic | Company characteristics | String |
@@ -182,6 +184,8 @@ uv run python bin/update_delisted_companies.py \
 | ev | Enterprise value | Number |
 | evPerEbitda | EV/EBITDA ratio | Number |
 | retrievedDate | Data retrieval date | String |
+
+`docPdfURL` and `docURL` are both `null` when `docID` fails the `^[A-Za-z0-9]+$` validation.
 
 ## Example Workflow
 
