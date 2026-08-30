@@ -19,7 +19,11 @@ logger = logging.getLogger(__name__)
 
 
 # EDINET API Configuration
-EDINET_BASE_URL = "https://disclosure.edinet-fsa.go.jp/api/v2"
+# api.edinet-fsa.go.jp is the host documented in the official "EDINET API 仕様書
+# (Version 2)". The former host disclosure.edinet-fsa.go.jp now redirects API
+# calls to the browsing site's HTML error page and answers HTTP 200 text/html,
+# which slips past raise_for_status() and only fails later at response.json().
+EDINET_BASE_URL = "https://api.edinet-fsa.go.jp/api/v2"
 RATE_LIMIT_DELAY = 1.0  # seconds
 DEFAULT_TIMEOUT = 30  # seconds
 DOWNLOAD_TIMEOUT = 60  # seconds

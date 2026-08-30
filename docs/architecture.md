@@ -1,5 +1,5 @@
 # Architecture
-<!-- spec-synced-through: 9867f50915f03fd473afe592530ae4d347c6e59d -->
+<!-- spec-synced-through: 598b925683505ed45dbf2f2079cf46cb575ef25f -->
 
 ## Development Architecture
 
@@ -11,7 +11,7 @@ The system uses a modular architecture with shared utilities:
 - **Main scripts**: Import from lib module for shared functionality
 
 ### Key Shared Components
-- EDINET API configuration and rate limiting
+- EDINET API configuration and rate limiting. The base URL (`EDINET_BASE_URL` in `lib/edinet_common.py`) is `https://api.edinet-fsa.go.jp/api/v2`, the host documented in the official EDINET API 仕様書 (Version 2). The former host `disclosure.edinet-fsa.go.jp` must not be used: it redirects API calls to the browsing site's HTML error page and answers HTTP 200 `text/html`, which passes `raise_for_status()` and only fails later at `response.json()`.
 - XBRL namespace mappings resolved per document from the filing's declared taxonomy edition (`detect_taxonomy_namespaces`), with the EDINET 2024-11-01 mappings as fallback defaults  
 - Common logging and error handling
 - Data validation and formatting utilities
