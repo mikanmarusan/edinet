@@ -1,5 +1,5 @@
 # Architecture
-<!-- spec-synced-through: 598b925683505ed45dbf2f2079cf46cb575ef25f -->
+<!-- spec-synced-through: 32e4bd34d8af5e82006a769315e6fe44da31aadd -->
 
 ## Development Architecture
 
@@ -13,8 +13,16 @@ The system uses a modular architecture with shared utilities:
 ### Key Shared Components
 - EDINET API configuration and rate limiting. The base URL (`EDINET_BASE_URL` in `lib/edinet_common.py`) is `https://api.edinet-fsa.go.jp/api/v2`, the host documented in the official EDINET API 仕様書 (Version 2). The former host `disclosure.edinet-fsa.go.jp` must not be used: it redirects API calls to the browsing site's HTML error page and answers HTTP 200 `text/html`, which passes `raise_for_status()` and only fails later at `response.json()`. `validate_edinet_response` (`lib/edinet_common.py`) now rejects that response shape, and any 3xx, at the call site; both `session.get()` calls use `allow_redirects=False` so the `Subscription-Key` is never forwarded to another host and one rate-limit slot never covers several HTTP hops.
 - XBRL namespace mappings resolved per document from the filing's declared taxonomy edition (`detect_taxonomy_namespaces`), with the EDINET 2024-11-01 mappings as fallback defaults  
-- Common logging and error handling
+- Common logging and error handling. `setup_logging()` attaches `_SubscriptionKeyRedactingFilter` to the console **and** file handlers — handler-side rather than logger-side, so records propagated up from third-party loggers (notably `urllib3.connectionpool`, which writes the full request target at DEBUG for every request and at WARNING on a header-parse failure) are covered too — and clamps the `urllib3` logger to INFO as defence in depth. The `Subscription-Key` query parameter therefore never reaches a log line.
 - Data validation and formatting utilities
+
+### EDINET API Response Validation (2026-08 Update, issue #219)
+
+- **Where it runs**: `bin/fetch_edinet_financial_documents.py` calls `validate_edinet_response()` immediately after `raise_for_status()` in both `get_documents()` and `download_document()`. `EdinetAPIError` derives from `EdinetError(Exception)` and is *not* a `requests.exceptions.RequestException`, so it passes through each method's `except RequestException` clause without being rewrapped into the opaque message this validation exists to replace.
+- **Content-type policy differs per endpoint**: the document list passes `expected_content_type="application/json"` (allowlist), because that endpoint's contract is known. The ZIP download passes no expected type and only rejects `text/html` (blocklist): the success-case content type of the download is not established, and allowlisting an unverified value would reject legitimate downloads — the same class of failure this validation fixes.
+- **JSON decoding is explicit**: `get_documents()` wraps `response.json()` in its own `except ValueError` and additionally rejects a non-`dict` body. `requests.exceptions.JSONDecodeError` is a `RequestException` subclass (so the outer clause would rewrap it), and a JSON array body would otherwise fail as an `AttributeError` at `data.get()`.
+- **The API key never reaches an exception message**: it travels as the `Subscription-Key` query parameter, so every URL is passed through `_redact_subscription_key()` — a structural `urllib.parse` round trip rather than a regex, so parameter order, percent-encoded values, repeated keys and blank-valued parameters all survive — and requests exceptions are reduced by `summarize_request_error()` to `HTTP <status> <reason>` (or the exception class name when the error carries no response), because `str()` of a requests exception embeds the full request URL.
+- **Tests**: `tests/test_edinet_response_validation.py` covers redaction variants, both content-type policies, 3xx detection, the JSON-decode and non-object bodies, the handler-side log filter, and the client wiring (including that `allow_redirects=False` is actually passed). HTTP mocking uses stdlib `unittest.mock`; no HTTP-mocking dependency is introduced.
 
 ### Module Dependencies
 ```
@@ -23,6 +31,7 @@ bin/fetch_edinet_financial_documents.py
 │   ├── API configuration (API_BASE_URL, RETRY_DELAYS)
 │   ├── XBRL namespaces (NAMESPACES)
 │   ├── Logging setup (setup_logging)
+│   ├── Response validation (validate_edinet_response, summarize_request_error, _redact_subscription_key)
 │   └── Utility functions (fetch_document_list, format_date)
 ├── lib/xbrl_parser.py
 │   ├── XBRLParser class
@@ -56,6 +65,7 @@ bin/consolidate_documents.py
 
 #### Error Handling Strategy
 - **Fail-Safe Operation**: Individual document failures don't stop the entire process
+- **Batch vs document scope**: fail-safe applies to individual documents, not to the batch-level listing. In `bin/fetch_edinet_financial_documents.py`, an `EdinetAPIError` from `get_documents()` is logged and ends the run with `sys.exit(1)`; an `EdinetAPIError` from `download_document()` is logged at WARNING and only that document is skipped
 - **Comprehensive Logging**: All errors are logged with context
 - **Graceful Degradation**: Missing data fields are set to null rather than causing exceptions
 
@@ -134,7 +144,7 @@ else:
 - `tests/fixtures/xbrl/` に合成XBRLフィクスチャ（JGAAP 2024/2025、IFRS、銀行、連結≠個別、同点タイブレーク）を配置。すべて架空企業（entity `E00001` / secCode `9999`）の明示的に偽の数値で、`tests/_xbrl_fixture_utils.py` の `parse_fixture` から読み込む。
 - ゴールデン回帰ハーネス `tests/test_golden_regression.py` が抽出結果を `tests/golden/golden_baseline.json` と突き合わせ、`EXPECTED_CHANGES` 許可リスト外の REGRESSION 行が出たら失敗する（`REGEN_GOLDEN=1` で再生成、冪等）。
 - IFRS経路は `tests/test_ifrs_extraction.py` で検証（jpigp名前空間の解決、equity=`EquityIFRS`、net_sales=jpcrp IFRS売上サマリ、ordinaryIncome=null）。
-- Python 3.11/3.12/3.13 のCIマトリクスは `.github/workflows/tests.yml` として適用済み。push / pull_request のたびに全件（20モジュール・140テスト）実行される。`tests/test_stock_exchange_mapping.py` の3テストは取引所マッピングデータが古く既知失敗のため `--deselect` されている（詳細は `.claude/skills/running-tests/`）。
+- Python 3.11/3.12/3.13 のCIマトリクスは `.github/workflows/tests.yml` として適用済み。push / pull_request のたびに全件（21モジュール・172テスト）実行される。`tests/test_stock_exchange_mapping.py` の3テストは取引所マッピングデータが古く既知失敗のため `--deselect` されている（詳細は `.claude/skills/running-tests/`）。
 
 ### 市場データ取得アーキテクチャ（2026-06 更新, PR4 / issue #185）
 
