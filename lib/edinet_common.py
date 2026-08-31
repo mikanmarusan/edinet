@@ -11,7 +11,11 @@ import sys
 import os
 import yaml
 from datetime import datetime
-from typing import Optional, Dict, Any
+from typing import Optional, Dict, Any, TYPE_CHECKING
+from urllib.parse import parse_qsl, urlencode, urlsplit, urlunsplit
+
+if TYPE_CHECKING:  # requests is only needed for annotations; keep it out of runtime imports
+    import requests
 
 
 # Module-level logger for standalone functions
@@ -516,13 +520,27 @@ def setup_logging(script_name: str, verbose: bool = False) -> logging.Logger:
     console_handler.setLevel(log_level)
     console_handler.setFormatter(formatter)
     logger.addHandler(console_handler)
-    
+
     # File handler
     file_handler = logging.FileHandler(log_filename, encoding='utf-8')
     file_handler.setLevel(log_level)
     file_handler.setFormatter(formatter)
     logger.addHandler(file_handler)
-    
+
+    # The EDINET API key travels in the URL as the Subscription-Key query
+    # parameter, and third-party libraries log the full request target: urllib3
+    # does so at DEBUG for every request and at WARNING when header parsing
+    # fails. The filter is attached to the handlers rather than to a logger,
+    # because a filter on a logger does not run for records propagated up from
+    # another library's logger. _SubscriptionKeyRedactingFilter is defined
+    # further down, next to the redaction helper it delegates to.
+    redacting_filter = _SubscriptionKeyRedactingFilter()
+    console_handler.addFilter(redacting_filter)
+    file_handler.addFilter(redacting_filter)
+
+    # Defence in depth, and it keeps per-request DEBUG noise out of the log.
+    logging.getLogger("urllib3").setLevel(logging.INFO)
+
     return logger
 
 
@@ -617,6 +635,156 @@ class EdinetAPIError(EdinetError):
 class XBRLParsingError(EdinetError):
     """Exception for XBRL parsing-related errors"""
     pass
+
+
+# Query parameter carrying the EDINET API key. It travels in the URL, so every
+# URL derived from a response must pass through _redact_subscription_key()
+# before it reaches a log record or an exception message
+# (see .claude/rules/security.md).
+SUBSCRIPTION_KEY_PARAM = "Subscription-Key"
+REDACTED_VALUE = "REDACTED"
+
+# The browsing site answers API paths with its HTML error page under HTTP 200,
+# which is the failure signature this validator exists to name.
+HTML_CONTENT_TYPE = "text/html"
+
+
+def _redact_subscription_key(url: str) -> str:
+    """
+    Replace the Subscription-Key query parameter value with a placeholder.
+
+    Parsed and re-serialized with urllib.parse rather than matched with a
+    regular expression: parameter ordering, percent-encoded values and repeated
+    keys are all handled structurally, so no valid URL variant is missed.
+
+    Args:
+        url: URL possibly carrying a Subscription-Key query parameter
+
+    Returns:
+        The same URL with the key value redacted and every other parameter
+        preserved. URLs without a query string are returned unchanged.
+    """
+    if not url:
+        return url
+
+    parts = urlsplit(url)
+    if not parts.query:
+        return url
+
+    # keep_blank_values=True so that valueless parameters survive the
+    # parse/re-serialize round trip instead of being silently dropped.
+    pairs = parse_qsl(parts.query, keep_blank_values=True)
+    redacted_pairs = [
+        (key, REDACTED_VALUE if key.lower() == SUBSCRIPTION_KEY_PARAM.lower() else value)
+        for key, value in pairs
+    ]
+    return urlunsplit(parts._replace(query=urlencode(redacted_pairs)))
+
+
+class _SubscriptionKeyRedactingFilter(logging.Filter):
+    """
+    Strip the EDINET API key out of any log record, whoever emitted it.
+
+    Attached to the handlers created by setup_logging(), so it also covers
+    records that propagate up from third-party loggers such as
+    urllib3.connectionpool, which writes the full request target (query string
+    included) both at DEBUG and, on a header-parsing failure, at WARNING.
+    """
+
+    def filter(self, record: logging.LogRecord) -> bool:
+        message = record.getMessage()
+        if SUBSCRIPTION_KEY_PARAM not in message:
+            return True
+
+        # The record is rewritten in place with args already interpolated,
+        # because the key may arrive either in the format string or in the args.
+        record.msg = " ".join(
+            _redact_subscription_key(token) if f"{SUBSCRIPTION_KEY_PARAM}=" in token else token
+            for token in message.split(" ")
+        )
+        record.args = ()
+        return True
+
+
+def summarize_request_error(error: Exception) -> str:
+    """
+    Summarize a requests exception without leaking the API key.
+
+    str(error) embeds the full request URL ("... for url: https://...") and the
+    API key travels in that URL as a query parameter, so a requests exception
+    can never be interpolated into a message or a log record as-is.
+
+    Args:
+        error: exception raised by requests (typically a RequestException)
+
+    Returns:
+        A short, key-free description: the HTTP status and reason when the
+        exception carries a response, otherwise the exception class name.
+    """
+    error_response = getattr(error, "response", None)
+    if error_response is not None:
+        status = getattr(error_response, "status_code", None)
+        reason = getattr(error_response, "reason", "") or ""
+        if status is not None:
+            return f"HTTP {status} {reason}".strip()
+    return type(error).__name__
+
+
+def validate_edinet_response(response: "requests.Response", context: str,
+                             expected_content_type: Optional[str] = None) -> None:
+    """
+    Verify that a response is EDINET API output before it is parsed.
+
+    requests' raise_for_status() passes on both 3xx responses and on an HTML
+    error page served with HTTP 200, so without this check such a response only
+    fails much later as an opaque decoding error carrying neither the status,
+    the content type, nor the URL.
+
+    Args:
+        response: requests.Response to validate
+        context: short description of the call site, used as the message prefix
+        expected_content_type: content type the endpoint contract promises
+            (allowlist). When None, only text/html is rejected (blocklist),
+            because the success-case content type of the ZIP download is not
+            established and allowlisting an unverified value would risk
+            rejecting a legitimate download.
+
+    Raises:
+        EdinetAPIError: the response is a redirect or is not the expected kind
+            of payload. EdinetAPIError is not a RequestException subclass, so
+            it passes through the callers' `except requests.exceptions.
+            RequestException` clauses without being rewrapped and losing this
+            detail.
+    """
+    safe_url = _redact_subscription_key(response.url or "")
+    status = response.status_code
+    content_type = response.headers.get("Content-Type", "")
+    base_content_type = content_type.split(";")[0].strip().lower()
+
+    # allow_redirects=False leaves response.history empty, so a redirect is only
+    # visible in the status code itself.
+    if 300 <= status < 400:
+        location = response.headers.get("Location", "")
+        safe_location = _redact_subscription_key(location) if location else "(no Location header)"
+        raise EdinetAPIError(
+            f"{context}: unexpected redirect (HTTP {status}, content type "
+            f"'{content_type or 'unknown'}') from {safe_url} to {safe_location}. "
+            f"Redirects are not followed: each hop would forward the API key to "
+            f"another host and consume the rate-limit slot of a single request."
+        )
+
+    if expected_content_type is not None:
+        if base_content_type != expected_content_type.lower():
+            raise EdinetAPIError(
+                f"{context}: expected content type '{expected_content_type}' but received "
+                f"HTTP {status} with content type '{content_type or 'unknown'}' "
+                f"from {safe_url}. The response is not EDINET API output."
+            )
+    elif base_content_type == HTML_CONTENT_TYPE:
+        raise EdinetAPIError(
+            f"{context}: received an HTML page instead of API output "
+            f"(HTTP {status}, content type '{content_type}') from {safe_url}."
+        )
 
 
 # Cache for stock exchange mapping

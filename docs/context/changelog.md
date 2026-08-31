@@ -137,6 +137,29 @@
   - **JPX 取得失敗の段階的エスカレーション**: 1 連続失敗→stderr warning、2 連続→`$GITHUB_STEP_SUMMARY` に警告、3 連続→`exit 1` で step を失敗させる。連続失敗カウンタは `metadata.consecutive_failures` に永続化
 - **初期導入時の検出数**: 約 200 件（直近の TOB/MBO による上場廃止が大半。e.g., イオンモール, SCSK, NTTデータグループ, ベネッセHD, ＳＢＩレオスひふみ 等）
 
+### EDINET APIレスポンス検証の導入（2026年8月 - Issue #219）
+- **インシデント**: 2026-08-29、EDINET APIのホスト移行により旧ホスト `disclosure.edinet-fsa.go.jp` がAPIパスへのリクエストを閲覧サイトのHTMLエラーページへリダイレクトするようになった。日次取得が停止したが、ログに残ったのは `Expecting value: line 1 column 1 (char 0)` のみだった
+- **なぜ原因が見えなかったか**:
+  - 旧ホストは HTTP 200 + `text/html` を返すため `raise_for_status()` を通過し、失敗は後段の `response.json()` まで遅延した
+  - `requests.exceptions.JSONDecodeError` は `RequestException` のサブクラス（MRO: `JSONDecodeError -> InvalidJSONError -> RequestException`）なので、既存の `except requests.exceptions.RequestException` に捕捉されて再ラップされ、ステータス・content type・URLのいずれも残らないメッセージになった
+- **対応**（`lib/edinet_common.py` に2関数を追加し、`bin/fetch_edinet_financial_documents.py` の両APIメソッドから `raise_for_status()` 直後に呼ぶ）:
+  - `validate_edinet_response(response, context, expected_content_type=None)` — ステータス・content type・**秘匿済み**URLを名指しして `EdinetAPIError` を送出する。`EdinetAPIError` は `EdinetError(Exception)` 派生で `RequestException` ではないため、呼び出し元の `except` に再捕捉されて情報を失うことがない
+  - `_redact_subscription_key(url)` — `Subscription-Key` クエリパラメータの値のみを伏せる
+  - `summarize_request_error(error)` — requests例外を「HTTP <status> <reason>」または例外クラス名に要約する。`str(requests例外)` は `... for url: https://...` の形で完全なリクエストURL（＝APIキー）を埋め込むため、既存の `except RequestException` 節が例外をそのまま補間していた経路もキー漏洩源だった。両APIメソッドのハンドラをこの要約に差し替えた（ダウンロード側のメッセージは呼び出し元がログファイルへ書き出す）
+- **重要な技術判断**:
+  - **リダイレクトを自動追従しない**（両 `session.get()` に `allow_redirects=False`）。理由は2つ: (1) `_wait_for_rate_limit()` は `session.get()` 1回につき1度しか効かないため、301→302→302 のチェーンは1つのレート制限スロットで3リクエストを発火させる。(2) APIキーは `Subscription-Key` クエリパラメータとして送られるため、リダイレクト先（実測では hop 1 の `disclosure2.edinet-fsa.go.jp`）へ意図せず転送される
+  - **3xxは明示的に検出する**: `allow_redirects=False` では `response.history` が常に空であり、`raise_for_status()` は 3xx で例外を投げないため、ステータスコードを直接見る以外に検出手段がない
+  - **サードパーティのログ経路も塞ぐ**: `setup_logging()` は root logger に `FileHandler` を付けるため、urllib3 の `connectionpool` が出力するリクエストターゲット（クエリ文字列＝APIキーを含む）がログファイルに平文で残る。DEBUG（毎リクエスト）だけでなく WARNING（ヘッダ解析失敗時の `Failed to parse headers (url=...)`）にも同じ経路があり、レベル調整だけでは塞げない。そのため `_SubscriptionKeyRedactingFilter` を**ハンドラ側**に付ける（ロガーに付けたフィルタは他ライブラリのロガーから伝播してきたレコードには適用されないため）。あわせて `logging.getLogger("urllib3").setLevel(logging.INFO)` も残し、多層防御かつ毎リクエストのDEBUGノイズ抑止としている
+  - **一覧取得は allowlist、ダウンロードは blocklist**: `documents.json` は `application/json` が確実なので allowlist。ZIPダウンロードの成功時 content type（`application/octet-stream` か `application/zip` か）は有効なAPIキーなしでは実測できず、未検証の値を allowlist すると正当なZIPを拒否する — 本Issueが直そうとしている失敗と同じ種類 — ため、確実に判明している失敗シグネチャ（`text/html`）のみを拒否する
+  - **秘匿処理に正規表現を使わない**: `urllib.parse`（`parse_qsl` / `urlencode` / `urlsplit` / `urlunsplit`）で構造的にパース・再直列化する。正規表現ではパラメータ順序・URLエンコード値・キーの重複をすべて正しく扱う必要があり、有効な異形を取りこぼす
+  - **JSONのデコードを明示的に扱う**: `requests.exceptions.JSONDecodeError` は `RequestException` のサブクラスなので、`response.json()` を `except` 節任せにすると本Issueが置き換えようとしている不透明なメッセージに再ラップされる。デコード失敗と「JSONオブジェクトでない本文」（`data.get()` が `AttributeError` を送出し `except EdinetAPIError` を素通りする）を `EdinetAPIError` に変換する
+- **運用メモ（3xxが返るようになった場合）**: EDINETが正当な理由でリダイレクトを返す構成に変わった場合、一覧取得は `sys.exit(1)`、ダウンロードは文書単位のスキップとして失敗する。ログには秘匿済みの `Location` が出るので、まず移転先ホストが公式仕様書に載っているかを確認し、載っていれば `EDINET_BASE_URL` を新ホストへ更新する（`allow_redirects=True` に戻す形での対処はしない。上記2つの理由がそのまま残るため）
+- **意図的に見送った選択肢**:
+  - ベースURLの環境変数化 — 単一エンドポイントの日次バッチに、クライアントを誤ったホストへ静かに向けうる設定面を増やすため
+  - fetchステップへの `$GITHUB_STEP_SUMMARY` エスカレーション — 最初の失敗で非ゼロ終了しGitHub Actionsが既に可視化するため。`update_delisted_companies.py` の段階的エスカレーションは、同スクリプトが複数日にまたがる一時的失敗を追跡するために存在する
+- **エラーの振り分けは変更不要**: `get_documents` の失敗は従来どおり `sys.exit(1)` で実行全体を止め、`download_document` の失敗は文書単位でログ記録してスキップする。フェイルセーフ原則の「個別文書の失敗で全体を止めない」は個々の文書に適用されるのであって、バッチ単位の一覧取得には適用されない
+- **テスト**: `tests/test_edinet_response_validation.py`。HTTPモックは新規依存を入れず標準ライブラリの `unittest.mock` で行う（`tests/test_data_scraper.py` / `tests/test_no_market_data_flag.py` の既存イディオムに合わせる）。センチネル値のAPIキーを注入し、例外メッセージ全文にそれが現れないことを負のアサーションで確認している
+
 ## 今後の改善予定
 
 ### 技術的改善
