@@ -23,7 +23,8 @@ sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from lib.edinet_common import (
     EDINET_BASE_URL, RATE_LIMIT_DELAY, DEFAULT_TIMEOUT, DOWNLOAD_TIMEOUT,
     setup_logging, validate_date_format, normalize_securities_code,
-    ensure_output_directory, EdinetAPIError, format_period_end
+    ensure_output_directory, EdinetAPIError, format_period_end,
+    validate_edinet_response, summarize_request_error, _redact_subscription_key
 )
 from lib.xbrl_parser import XBRLParser
 from lib import data_scraper
@@ -67,10 +68,32 @@ class EdinetClient:
             params["Subscription-Key"] = self.api_key
             
         try:
-            response = self.session.get(url, params=params, timeout=DEFAULT_TIMEOUT)
+            # Redirects are not followed: a redirect chain would forward the
+            # Subscription-Key to a host this client never intended to contact
+            # and fire several HTTP requests inside one rate-limit slot.
+            response = self.session.get(url, params=params, timeout=DEFAULT_TIMEOUT,
+                                        allow_redirects=False)
             response.raise_for_status()
-            data = response.json()
-            
+            validate_edinet_response(response, "Error fetching documents",
+                                     expected_content_type="application/json")
+
+            # Decoding is handled here rather than left to the except clause
+            # below: requests.exceptions.JSONDecodeError is a RequestException
+            # subclass, so it would otherwise be rewrapped into the same opaque
+            # message this validation exists to replace.
+            try:
+                data = response.json()
+            except ValueError as e:
+                raise EdinetAPIError(
+                    f"Error fetching documents from {_redact_subscription_key(url)}: "
+                    f"response was not valid JSON ({e})"
+                )
+            if not isinstance(data, dict):
+                raise EdinetAPIError(
+                    f"Error fetching documents from {_redact_subscription_key(url)}: "
+                    f"expected a JSON object but received {type(data).__name__}"
+                )
+
             # Filter for documents with docTypeCode=120 and secCode exists
             documents = data.get("results", [])
             securities_reports = [
@@ -81,7 +104,15 @@ class EdinetClient:
             return securities_reports
             
         except requests.exceptions.RequestException as e:
-            raise EdinetAPIError(f"Error fetching documents: {e}")
+            # str(e) embeds the request URL, which carries the Subscription-Key
+            # as a query parameter, so the exception is summarized rather than
+            # interpolated. `url` itself is key-free (the key travels in
+            # `params`); it is redacted anyway so the guarantee survives if that
+            # ever changes.
+            raise EdinetAPIError(
+                f"Error fetching documents from {_redact_subscription_key(url)}: "
+                f"{summarize_request_error(e)}"
+            )
     
     def download_document(self, doc_id: str) -> Optional[bytes]:
         """
@@ -102,12 +133,23 @@ class EdinetClient:
             params["Subscription-Key"] = self.api_key
             
         try:
-            response = self.session.get(url, params=params, timeout=DOWNLOAD_TIMEOUT)
+            # Redirects are not followed, for the same reasons as get_documents.
+            response = self.session.get(url, params=params, timeout=DOWNLOAD_TIMEOUT,
+                                        allow_redirects=False)
             response.raise_for_status()
+            # No expected content type: the success-case type of the ZIP
+            # download is not established, so only the known failure signature
+            # (an HTML error page) is rejected.
+            validate_edinet_response(response, f"Error downloading document {doc_id}")
             return response.content
             
         except requests.exceptions.RequestException as e:
-            raise EdinetAPIError(f"Error downloading document {doc_id}: {e}")
+            # Summarized for the same reason as in get_documents: this message
+            # is also written to the on-disk log by the caller.
+            raise EdinetAPIError(
+                f"Error downloading document {doc_id} from {_redact_subscription_key(url)}: "
+                f"{summarize_request_error(e)}"
+            )
 
     
     
