@@ -11,6 +11,7 @@ Usage:
 
 import argparse
 import json
+import logging
 import sys
 import time
 import os
@@ -29,6 +30,16 @@ from lib.edinet_common import (
 from lib.xbrl_parser import XBRLParser
 from lib import data_scraper
 from lib.data_scraper import get_financial_data
+
+# docTypeCode alone cannot distinguish a company's own annual securities
+# report from a trust beneficiary certificate report filed under the same
+# code (120) against the same secCode - only docDescription names the
+# distinction, in a parenthesized suffix such as
+# "有価証券報告書（内国信託受益証券等）". Ingesting one overwrites the
+# filer's real annual report (see issue #224).
+TRUST_BENEFICIARY_CERTIFICATE_MARKER = "内国信託受益証券等"
+
+_module_logger = logging.getLogger(__name__)
 
 
 class EdinetClient:
@@ -100,8 +111,20 @@ class EdinetClient:
                 doc for doc in documents
                 if doc.get("docTypeCode") == "120" and doc.get("secCode")
             ]
-            
-            return securities_reports
+
+            filtered_reports = []
+            for doc in securities_reports:
+                doc_description = doc.get("docDescription") or ""
+                if TRUST_BENEFICIARY_CERTIFICATE_MARKER in doc_description:
+                    _module_logger.info(
+                        f"Excluding trust beneficiary certificate report: "
+                        f"docID={doc.get('docID', '')} filer={doc.get('filerName', '')} "
+                        f"docDescription={doc_description}"
+                    )
+                    continue
+                filtered_reports.append(doc)
+
+            return filtered_reports
             
         except requests.exceptions.RequestException as e:
             # str(e) embeds the request URL, which carries the Subscription-Key
