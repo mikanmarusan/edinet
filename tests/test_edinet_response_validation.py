@@ -394,6 +394,50 @@ class TestClientIntegration(unittest.TestCase):
         self.assertEqual(reports, [{"docTypeCode": "120", "secCode": "72030"}])
         self.assertFalse(mock_get.call_args.kwargs["allow_redirects"])
 
+    def test_get_documents_excludes_trust_beneficiary_certificate_reports(self):
+        # Fictional filer with round numbers, per the debugging-guide fixture
+        # convention - not a real company's reported figures.
+        client = self.fetch.EdinetClient(api_key=FAKE_API_KEY)
+        marker = self.fetch.TRUST_BENEFICIARY_CERTIFICATE_MARKER
+        trust_doc = {
+            "docID": "S100TEST",
+            "docTypeCode": "120",
+            "secCode": "10000",
+            "filerName": "サンプル信託株式会社",
+            "docDescription": f"有価証券報告書（{marker}）－第1期(2025/06/01－2026/05/31)",
+        }
+        response = _make_response(status_code=200, content_type="application/json",
+                                  json_data={"results": [trust_doc]})
+
+        with patch.object(client.session, "get", return_value=response):
+            with self.assertLogs(level="INFO") as log_ctx:
+                reports = client.get_documents("2026-08-29")
+
+        self.assertEqual(reports, [])
+        joined_logs = "\n".join(log_ctx.output)
+        self.assertIn("S100TEST", joined_logs)
+        self.assertIn("サンプル信託株式会社", joined_logs)
+        self.assertIn(marker, joined_logs)
+
+    def test_get_documents_keeps_ordinary_annual_report(self):
+        # Positive case: the exclusion filter must not swallow a normal
+        # annual securities report just because it shares docTypeCode=120.
+        client = self.fetch.EdinetClient(api_key=FAKE_API_KEY)
+        ordinary_doc = {
+            "docID": "S100ORDN",
+            "docTypeCode": "120",
+            "secCode": "10000",
+            "filerName": "サンプル株式会社",
+            "docDescription": "有価証券報告書－第10期(2025/04/01－2026/03/31)",
+        }
+        response = _make_response(status_code=200, content_type="application/json",
+                                  json_data={"results": [ordinary_doc]})
+
+        with patch.object(client.session, "get", return_value=response):
+            reports = client.get_documents("2026-08-29")
+
+        self.assertEqual(reports, [ordinary_doc])
+
     def test_download_document_disables_redirects(self):
         client = self.fetch.EdinetClient(api_key=FAKE_API_KEY)
         response = _make_response(status_code=200, content_type="application/octet-stream",
