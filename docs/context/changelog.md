@@ -160,6 +160,12 @@
 - **エラーの振り分けは変更不要**: `get_documents` の失敗は従来どおり `sys.exit(1)` で実行全体を止め、`download_document` の失敗は文書単位でログ記録してスキップする。フェイルセーフ原則の「個別文書の失敗で全体を止めない」は個々の文書に適用されるのであって、バッチ単位の一覧取得には適用されない
 - **テスト**: `tests/test_edinet_response_validation.py`。HTTPモックは新規依存を入れず標準ライブラリの `unittest.mock` で行う（`tests/test_data_scraper.py` / `tests/test_no_market_data_flag.py` の既存イディオムに合わせる）。センチネル値のAPIキーを注入し、例外メッセージ全文にそれが現れないことを負のアサーションで確認している
 
+### JPX上場銘柄一覧の xlrd → openpyxl 移行（2026年9月 - Issue #226）
+- **問題**: 上場廃止検出パイプラインが404で失敗するようになった
+- **原因**: JPXが「東証上場銘柄一覧」のファイル名を `data_j.xls` から `data_j.xlsx` に変更した（パスのハッシュ `tvdivq0000001vg2-att` は変わらず拡張子のみ変更）。`xlrd` は `.xlsx` を読めない（`xlrd>=2.0` で `.xls` サポートが落とされたため、あえて `xlrd==1.2.0` に固定していた経緯があるが、`.xlsx` への移行によりその制約自体が不要になった）
+- **対応**: `lib/delisted_detector.py` の `load_jpx_listed_set()` を `openpyxl.load_workbook(path, read_only=True, data_only=True)` + `sheet.iter_rows(values_only=True)` に書き換え、`JPX_DATA_J_URL` を `.xlsx` に更新。`pyproject.toml` / `requirements.txt` から `xlrd==1.2.0` を削除し `openpyxl>=3.1.0` を追加
+- **落とし穴**: `openpyxl.load_workbook()` はファイルの中身ではなく**拡張子でフォーマットを検証する**。`bin/update_delisted_companies.py::download_jpx_xls()` がダウンロード内容を一時ファイルへ書き出す際の `tempfile.NamedTemporaryFile(suffix=...)` を `.xlsx` に合わせて更新しないと、実体は正しい `.xlsx` バイト列でも `InvalidFileException` が発生する。ライブラリ本体の単体テストは `openpyxl.load_workbook` をモックするため、この拡張子検証パスは踏まない — 呼び出し側（`bin/`）まで含めて確認する必要がある
+
 ## 今後の改善予定
 
 ### 技術的改善

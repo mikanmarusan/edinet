@@ -4,14 +4,14 @@ Delisted Company Detector
 
 Utilities for detecting delisted Japanese listed companies by comparing
 the set of securities codes observed in EDINET daily fetches against the
-JPX "東証上場銘柄一覧" (data_j.xls) snapshot.
+JPX "東証上場銘柄一覧" (data_j.xlsx) snapshot.
 
 The detection policy is:
     delisted = (observed_secs - regional_skip) - jpx_listed
 
 where:
     observed_secs : secCodes ever seen in data/jsons/*.json (past EDINET data)
-    jpx_listed    : secCodes currently present in JPX data_j.xls
+    jpx_listed    : secCodes currently present in JPX data_j.xlsx
     regional_skip : secCodes registered in config/stock_exchange_mapping.yml
                     (Nagoya / Fukuoka / Sapporo single-listed stocks which
                     are NOT included in the JPX Tokyo snapshot and must be
@@ -25,7 +25,7 @@ import os
 from datetime import datetime
 from typing import Dict, Optional, Set, Tuple
 
-import xlrd
+import openpyxl
 import yaml
 
 # Allow running as a script from the project root or from lib/.
@@ -38,7 +38,7 @@ logger = logging.getLogger(__name__)
 
 JPX_DATA_J_URL = (
     "https://www.jpx.co.jp/markets/statistics-equities/misc/"
-    "tvdivq0000001vg2-att/data_j.xls"
+    "tvdivq0000001vg2-att/data_j.xlsx"
 )
 
 # Candidate header names for the JPX "code" column.
@@ -47,10 +47,11 @@ _JPX_CODE_COLUMNS = ("コード", "Local Code", "コード（Code）")
 
 def _normalize_raw_code(raw) -> str:
     """
-    Convert a raw cell value (from xlrd or similar) into a securities code
-    string. xlrd returns numeric-looking codes as floats (e.g., 1301.0), so
-    we convert them to zero-padded 4-digit strings. Alphanumeric codes
-    (e.g., 259A) are returned as plain strings.
+    Convert a raw cell value (from openpyxl or similar) into a securities
+    code string. openpyxl returns numeric-looking codes as int or float
+    (e.g., 1301 or 1301.0) depending on the cell, so we convert either to a
+    zero-padded 4-digit string. Alphanumeric codes (e.g., 259A) are returned
+    as plain strings.
     """
     if raw is None:
         return ""
@@ -67,12 +68,12 @@ def load_jpx_listed_set(xls_path: str) -> Set[str]:
     """
     Load the set of currently-listed securities codes from the JPX snapshot.
 
-    Uses xlrd directly (not pandas) because pandas 2.x requires xlrd>=2.0,
-    but xlrd 2.x dropped .xls support. The `data_j.xls` file JPX publishes
-    is an actual legacy .xls, so we pin xlrd==1.2.0 and call it directly.
+    Uses openpyxl (not pandas) to read the `data_j.xlsx` file JPX publishes,
+    opening it in read-only mode to keep memory usage low for a
+    single-pass, header-then-rows scan.
 
     Args:
-        xls_path: Local path to the downloaded data_j.xls file.
+        xls_path: Local path to the downloaded data_j.xlsx file.
 
     Returns:
         Set of normalized securities codes currently listed on JPX (TSE).
@@ -84,32 +85,37 @@ def load_jpx_listed_set(xls_path: str) -> Set[str]:
     if not os.path.exists(xls_path):
         raise FileNotFoundError(f"JPX listing file not found: {xls_path}")
 
-    book = xlrd.open_workbook(xls_path)
-    sheet = book.sheet_by_index(0)
+    workbook = openpyxl.load_workbook(xls_path, read_only=True, data_only=True)
+    try:
+        sheet = workbook.worksheets[0]
+        rows = sheet.iter_rows(values_only=True)
 
-    if sheet.nrows < 1:
-        raise ValueError(f"JPX sheet is empty: {xls_path}")
+        try:
+            header = list(next(rows))
+        except StopIteration:
+            raise ValueError(f"JPX sheet is empty: {xls_path}")
 
-    header = [sheet.cell_value(0, c) for c in range(sheet.ncols)]
-    code_col_idx = None
-    for idx, name in enumerate(header):
-        if name in _JPX_CODE_COLUMNS:
-            code_col_idx = idx
-            break
+        code_col_idx = None
+        for idx, name in enumerate(header):
+            if name in _JPX_CODE_COLUMNS:
+                code_col_idx = idx
+                break
 
-    if code_col_idx is None:
-        raise ValueError(
-            f"Could not find a securities code column in {xls_path}. "
-            f"Columns present: {header}"
-        )
+        if code_col_idx is None:
+            raise ValueError(
+                f"Could not find a securities code column in {xls_path}. "
+                f"Columns present: {header}"
+            )
 
-    listed: Set[str] = set()
-    for row_idx in range(1, sheet.nrows):
-        raw = sheet.cell_value(row_idx, code_col_idx)
-        code = _normalize_raw_code(raw)
-        if not code:
-            continue
-        listed.add(normalize_securities_code(code))
+        listed: Set[str] = set()
+        for row in rows:
+            raw = row[code_col_idx]
+            code = _normalize_raw_code(raw)
+            if not code:
+                continue
+            listed.add(normalize_securities_code(code))
+    finally:
+        workbook.close()
 
     logger.info(
         "Loaded %d listed securities codes from JPX snapshot: %s",
@@ -124,7 +130,7 @@ def load_regional_skip_set(config_path: str) -> Set[str]:
     Load the exclusion set from config/stock_exchange_mapping.yml.
 
     Codes registered in this file denote regional-exchange single-listed stocks
-    (Nagoya / Fukuoka / Sapporo) that are NOT represented in JPX data_j.xls.
+    (Nagoya / Fukuoka / Sapporo) that are NOT represented in JPX data_j.xlsx.
     They must be skipped during delisted detection to avoid being flagged as
     delisted.
 
@@ -215,7 +221,7 @@ def compute_delisted(
 
     Args:
         observed_secs: All secCodes ever observed in EDINET daily fetches.
-        jpx_listed:    secCodes currently listed on JPX (from data_j.xls).
+        jpx_listed:    secCodes currently listed on JPX (from data_j.xlsx).
         regional_skip: secCodes to exclude (regional single-listed stocks).
 
     Returns:

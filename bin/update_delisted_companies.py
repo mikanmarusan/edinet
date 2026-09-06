@@ -2,7 +2,7 @@
 """
 Update data/delisted_companies.yml by detecting newly delisted companies.
 
-Fetches JPX "東証上場銘柄一覧" (data_j.xls), compares it with every secCode
+Fetches JPX "東証上場銘柄一覧" (data_j.xlsx), compares it with every secCode
 ever observed in data/jsons/*.json, excludes regional-exchange single-listed
 stocks (stock_exchange_mapping.yml), and writes the resulting delisted set
 to data/delisted_companies.yml.
@@ -54,7 +54,7 @@ DOWNLOAD_RETRIES = 2
 
 def download_jpx_xls(url: str, user_agent: str = DEFAULT_USER_AGENT) -> str:
     """
-    Download the JPX data_j.xls file to a temporary path.
+    Download the JPX data_j.xlsx file to a temporary path.
 
     Retries up to DOWNLOAD_RETRIES times on transient failures.
 
@@ -77,7 +77,10 @@ def download_jpx_xls(url: str, user_agent: str = DEFAULT_USER_AGENT) -> str:
             if not response.content:
                 raise RuntimeError("Empty response body")
 
-            tmp = tempfile.NamedTemporaryFile(suffix=".xls", delete=False)
+            # openpyxl validates the file by its extension, not its content,
+            # so the temp file suffix must match the real .xlsx format or
+            # load_jpx_listed_set() raises InvalidFileException.
+            tmp = tempfile.NamedTemporaryFile(suffix=".xlsx", delete=False)
             tmp.write(response.content)
             tmp.close()
             logger.info(
@@ -112,7 +115,7 @@ def save_yaml(output_path: str, data: dict) -> None:
     with open(output_path, "w", encoding="utf-8") as f:
         f.write(
             "# 上場廃止企業リスト (auto-generated)\n"
-            "# 検出方法: JPX data_j.xls にない、かつ stock_exchange_mapping.yml 未登録、\n"
+            "# 検出方法: JPX data_j.xlsx にない、かつ stock_exchange_mapping.yml 未登録、\n"
             "#           かつ data/jsons/ で過去に観測された secCode\n"
             "# 自動更新スクリプト: bin/update_delisted_companies.py\n"
         )
@@ -244,7 +247,7 @@ def main() -> int:
     parser.add_argument(
         "--source-url",
         default=JPX_DATA_J_URL,
-        help="JPX data_j.xls URL (default: official JPX URL)",
+        help="JPX data_j.xlsx URL (default: official JPX URL)",
     )
     parser.add_argument(
         "--max-consecutive-failures",
