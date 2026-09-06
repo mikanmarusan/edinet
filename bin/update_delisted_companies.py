@@ -24,6 +24,7 @@ import logging
 import os
 import sys
 import tempfile
+from urllib.parse import urlparse
 
 import requests
 import yaml
@@ -79,8 +80,12 @@ def download_jpx_xls(url: str, user_agent: str = DEFAULT_USER_AGENT) -> str:
 
             # openpyxl validates the file by its extension, not its content,
             # so the temp file suffix must match the real .xlsx format or
-            # load_jpx_listed_set() raises InvalidFileException.
-            tmp = tempfile.NamedTemporaryFile(suffix=".xlsx", delete=False)
+            # load_jpx_listed_set() raises InvalidFileException. Derive the
+            # suffix from the URL's path (not the raw URL, so a query string
+            # or fragment on a custom --source-url is never folded into the
+            # suffix), falling back to .xlsx when the path has no extension.
+            suffix = os.path.splitext(urlparse(url).path)[1] or ".xlsx"
+            tmp = tempfile.NamedTemporaryFile(suffix=suffix, delete=False)
             tmp.write(response.content)
             tmp.close()
             logger.info(
