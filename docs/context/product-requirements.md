@@ -68,7 +68,7 @@ python consolidate_documents.py --inputdir data/jsons/ --output data/edinet.json
 ### 2.3 上場廃止検出ツール（2026-04追加）
 
 #### 基本機能
-- JPX「東証上場銘柄一覧」(`data_j.xls`) との差分で上場廃止企業を検出
+- JPX「東証上場銘柄一覧」(`data_j.xlsx`) との差分で上場廃止企業を検出
 - `data/delisted_companies.yml` に永続化（初回検出日を保存）
 - JPX 取得失敗時は段階的エスカレーション（1 連続 warning / 2 連続 GitHub Actions step summary / 3 連続 exit 1）
 
@@ -84,7 +84,7 @@ python bin/update_delisted_companies.py \
 
 ### 3.1 開発環境
 - **言語**: Python 3.x
-- **外部依存**: EDINET API、XBRLパース用の lxml/defusedxml、市場データ取得用の requests + BeautifulSoup4、上場廃止検知用のJPX「東証上場銘柄一覧」（`data_j.xls`）
+- **外部依存**: EDINET API、XBRLパース用の lxml/defusedxml、市場データ取得用の requests + BeautifulSoup4、上場廃止検知用のJPX「東証上場銘柄一覧」（`data_j.xlsx`）
 
 ### 3.2 API統合
 - **エンドポイント**: EDINET API

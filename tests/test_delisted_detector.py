@@ -242,24 +242,18 @@ class TestLoadObservedSecsFromJsons(unittest.TestCase):
 
 
 def _make_fake_sheet(rows):
-    """Build a mock xlrd sheet from a 2D Python list."""
+    """Build a mock openpyxl read-only worksheet from a 2D Python list."""
     sheet = MagicMock()
-    sheet.nrows = len(rows)
-    sheet.ncols = len(rows[0]) if rows else 0
-
-    def cell_value(r, c):
-        return rows[r][c]
-
-    sheet.cell_value.side_effect = cell_value
+    sheet.iter_rows.return_value = iter(rows)
     return sheet
 
 
 class TestLoadJpxListedSet(unittest.TestCase):
-    """load_jpx_listed_set() handles xlrd cell types correctly"""
+    """load_jpx_listed_set() handles openpyxl cell types correctly"""
 
     def setUp(self):
         # Create a dummy file so os.path.exists passes.
-        self.tmpfile = tempfile.NamedTemporaryFile(suffix=".xls", delete=False)
+        self.tmpfile = tempfile.NamedTemporaryFile(suffix=".xlsx", delete=False)
         self.tmpfile.write(b"fake")
         self.tmpfile.close()
 
@@ -269,8 +263,8 @@ class TestLoadJpxListedSet(unittest.TestCase):
     def _run_with_rows(self, rows):
         sheet = _make_fake_sheet(rows)
         book = MagicMock()
-        book.sheet_by_index.return_value = sheet
-        with patch.object(delisted_detector.xlrd, "open_workbook", return_value=book):
+        book.worksheets = [sheet]
+        with patch.object(delisted_detector.openpyxl, "load_workbook", return_value=book):
             return delisted_detector.load_jpx_listed_set(self.tmpfile.name)
 
     def test_float_codes_zero_padded(self):

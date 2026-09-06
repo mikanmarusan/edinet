@@ -43,7 +43,7 @@ bin/fetch_edinet_financial_documents.py
 
 bin/update_delisted_companies.py
 └── lib/delisted_detector.py
-    ├── load_jpx_listed_set() - JPX「東証上場銘柄一覧」(data_j.xls) から現存銘柄を取得
+    ├── load_jpx_listed_set() - JPX「東証上場銘柄一覧」(data_j.xlsx) から現存銘柄を取得
     ├── load_observed_secs_from_jsons() - data/jsons/*.json から過去に観測したsecCodeを収集
     ├── load_regional_skip_set() - config/stock_exchange_mapping.yml（地方単独上場銘柄）を除外リストとして読込
     └── compute_delisted() / merge_delisted_yaml() - 上場廃止判定をdata/delisted_companies.ymlへ反映

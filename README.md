@@ -16,7 +16,7 @@ This system provides comprehensive financial data extraction and analysis capabi
 - **Automated Data Collection**: Daily extraction from EDINET API with intelligent retry mechanisms
 - **Comprehensive Metrics**: Extraction of 25+ key financial indicators including P&L, balance sheet, and market data
 - **Yahoo Finance Integration**: Enriched data with stock price and market capitalization (skipped by default in the daily CI run)
-- **Delisted Company Detection**: Automatically flags companies that no longer appear in the JPX listing, based on differences against the JPX `data_j.xls` snapshot
+- **Delisted Company Detection**: Automatically flags companies that no longer appear in the JPX listing, based on differences against the JPX `data_j.xlsx` snapshot
 - **Flexible Filtering**: Target specific companies using security codes
 - **Data Consolidation**: Merge multiple daily extracts into unified datasets
 - **Enterprise Value Calculations**: Automated EV, EBITDA, and EV/EBITDA calculations
@@ -135,7 +135,7 @@ Consolidates multiple daily JSON files into a single file.
 
 ### update_delisted_companies.py
 
-Detects delisted companies by comparing every securities code ever observed in `data/jsons/*.json` against the current JPX listing (`data_j.xls`), excluding regional-exchange single-listed stocks. Updates `data/delisted_companies.yml` in place, preserving the first detection date for codes already known to be delisted.
+Detects delisted companies by comparing every securities code ever observed in `data/jsons/*.json` against the current JPX listing (`data_j.xlsx`), excluding regional-exchange single-listed stocks. Updates `data/delisted_companies.yml` in place, preserving the first detection date for codes already known to be delisted.
 
 ```bash
 uv run python bin/update_delisted_companies.py \
