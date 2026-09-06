@@ -1,5 +1,5 @@
 # Architecture
-<!-- spec-synced-through: 32e4bd34d8af5e82006a769315e6fe44da31aadd -->
+<!-- spec-synced-through: d87a495bfd9d794da83518b136157e3f024faf68 -->
 
 ## Development Architecture
 
