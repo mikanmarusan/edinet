@@ -1,12 +1,12 @@
 # 上場廃止企業リスト (auto-generated)
-# 検出方法: JPX data_j.xls にない、かつ stock_exchange_mapping.yml 未登録、
+# 検出方法: JPX data_j.xlsx にない、かつ stock_exchange_mapping.yml 未登録、
 #           かつ data/jsons/ で過去に観測された secCode
 # 自動更新スクリプト: bin/update_delisted_companies.py
 metadata:
   schema_version: 1
-  last_updated: '2026-09-04'
-  last_success: '2026-09-02'
-  consecutive_failures: 2
+  last_updated: '2026-09-07'
+  last_success: '2026-09-07'
+  consecutive_failures: 0
   source: https://www.jpx.co.jp/markets/statistics-equities/misc/tvdivq0000001vg2-att/data_j.xls
 delisted:
   '1451':
@@ -89,6 +89,10 @@ delisted:
     name: 株式会社ケアネット
     detectedDate: '2026-04-11'
     reason: null
+  '2162':
+    name: ｎｍｓホールディングス株式会社
+    detectedDate: '2026-09-07'
+    reason: null
   '2196':
     name: 株式会社エスクリ
     detectedDate: '2026-04-11'
@@ -164,6 +168,10 @@ delisted:
   '3073':
     name: 株式会社ＤＤグループ
     detectedDate: '2026-04-11'
+    reason: null
+  '3079':
+    name: ディーブイエックス株式会社
+    detectedDate: '2026-09-07'
     reason: null
   '3094':
     name: 株式会社スーパーバリュー
@@ -321,6 +329,10 @@ delisted:
     name: 株式会社田中化学研究所
     detectedDate: '2026-04-11'
     reason: null
+  '4171':
+    name: 株式会社グローバルインフォメーション
+    detectedDate: '2026-09-07'
+    reason: null
   '4173':
     name: 株式会社ＷＡＣＵＬ
     detectedDate: '2026-04-11'
@@ -457,6 +469,10 @@ delisted:
     name: 株式会社ドラフト
     detectedDate: '2026-04-11'
     reason: null
+  '5103':
+    name: 昭和ホールディングス株式会社
+    detectedDate: '2026-09-07'
+    reason: null
   '5191':
     name: 住友理工株式会社
     detectedDate: '2026-04-11'
@@ -500,6 +516,10 @@ delisted:
   '5596':
     name: アウトルックコンサルティング株式会社
     detectedDate: '2026-04-11'
+    reason: null
+  '5660':
+    name: 神鋼鋼線工業株式会社
+    detectedDate: '2026-09-07'
     reason: null
   '5727':
     name: 東邦チタニウム株式会社
@@ -564,6 +584,10 @@ delisted:
   '6173':
     name: 株式会社アクアライン
     detectedDate: '2026-07-03'
+    reason: null
+  '6197':
+    name: 株式会社ソラスト
+    detectedDate: '2026-09-07'
     reason: null
   '6201':
     name: 株式会社豊田自動織機
@@ -872,6 +896,10 @@ delisted:
   '8279':
     name: 株式会社ヤオコー
     detectedDate: '2026-04-11'
+    reason: null
+  '8283':
+    name: 株式会社ＰＡＬＴＡＣ
+    detectedDate: '2026-09-07'
     reason: null
   '8289':
     name: 株式会社Ｏｌｙｍｐｉｃグループ
