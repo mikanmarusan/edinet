@@ -4,8 +4,8 @@
 # 自動更新スクリプト: bin/update_delisted_companies.py
 metadata:
   schema_version: 1
-  last_updated: '2026-10-04'
-  last_success: '2026-10-04'
+  last_updated: '2026-10-05'
+  last_success: '2026-10-05'
   consecutive_failures: 0
   source: https://www.jpx.co.jp/markets/statistics-equities/misc/tvdivq0000001vg2-att/data_j.xls
 delisted:
@@ -73,6 +73,14 @@ delisted:
     name: 東洋建設株式会社
     detectedDate: '2026-04-11'
     reason: null
+  '1909':
+    name: 日本ドライケミカル株式会社
+    detectedDate: '2026-10-05'
+    reason: null
+  '1948':
+    name: 株式会社弘電社
+    detectedDate: '2026-10-05'
+    reason: null
   '1949':
     name: 住友電設株式会社
     detectedDate: '2026-04-11'
@@ -96,6 +104,10 @@ delisted:
   '2162':
     name: ｎｍｓホールディングス株式会社
     detectedDate: '2026-09-07'
+    reason: null
+  '2180':
+    name: 株式会社サニーサイドアップグループ
+    detectedDate: '2026-10-05'
     reason: null
   '2196':
     name: 株式会社エスクリ
@@ -237,6 +249,10 @@ delisted:
     name: 株式会社シーアールイー
     detectedDate: '2026-04-11'
     reason: null
+  '3480':
+    name: 株式会社ジェイ・エス・ビー
+    detectedDate: '2026-10-05'
+    reason: null
   '3497':
     name: 株式会社ＬｅＴｅｃｈ
     detectedDate: '2026-04-11'
@@ -300,6 +316,10 @@ delisted:
   '3847':
     name: パシフィックシステム株式会社
     detectedDate: '2026-04-11'
+    reason: null
+  '3856':
+    name: Ａｂａｌａｎｃｅ株式会社
+    detectedDate: '2026-10-05'
     reason: null
   '3857':
     name: 株式会社ラック
@@ -441,6 +461,10 @@ delisted:
     name: 日本ハウズイング株式会社
     detectedDate: '2026-04-11'
     reason: null
+  '4800':
+    name: オリコン株式会社
+    detectedDate: '2026-10-05'
+    reason: null
   '4824':
     name: 株式会社メディアシーク
     detectedDate: '2026-04-11'
@@ -480,6 +504,10 @@ delisted:
   '5191':
     name: 住友理工株式会社
     detectedDate: '2026-04-11'
+    reason: null
+  '5202':
+    name: 日本板硝子株式会社
+    detectedDate: '2026-10-05'
     reason: null
   '5217':
     name: テクノクオーツ株式会社
@@ -625,10 +653,6 @@ delisted:
     name: 株式会社シンニッタン
     detectedDate: '2026-04-11'
     reason: null
-  634A:
-    name: 株式会社レイヤード
-    detectedDate: '2026-09-30'
-    reason: null
   '6362':
     name: 株式会社石井鐵工所
     detectedDate: '2026-04-11'
@@ -652,6 +676,10 @@ delisted:
   '6416':
     name: 桂川電機株式会社
     detectedDate: '2026-04-11'
+    reason: null
+  '6486':
+    name: イーグル工業株式会社
+    detectedDate: '2026-10-05'
     reason: null
   '6489':
     name: 前澤工業株式会社
@@ -717,6 +745,10 @@ delisted:
     name: 協栄産業株式会社
     detectedDate: '2026-04-11'
     reason: null
+  '7082':
+    name: 株式会社ジモティー
+    detectedDate: '2026-10-05'
+    reason: null
   '7086':
     name: 株式会社きずなホールディングス
     detectedDate: '2026-04-11'
@@ -749,6 +781,10 @@ delisted:
     name: 株式会社ユタカ技研
     detectedDate: '2026-07-03'
     reason: null
+  '7240':
+    name: ＮＯＫ株式会社
+    detectedDate: '2026-10-05'
+    reason: null
   '7250':
     name: 太平洋工業株式会社
     detectedDate: '2026-05-08'
@@ -776,6 +812,10 @@ delisted:
   '7420':
     name: 佐鳥電機株式会社
     detectedDate: '2026-04-11'
+    reason: null
+  '7426':
+    name: 株式会社　山大
+    detectedDate: '2026-10-05'
     reason: null
   '7445':
     name: 株式会社ライトオン
@@ -981,6 +1021,10 @@ delisted:
     name: 株式会社トライト
     detectedDate: '2026-04-11'
     reason: null
+  '9223':
+    name: 株式会社ＡＳＮＯＶＡ
+    detectedDate: '2026-10-05'
+    reason: null
   '9232':
     name: 株式会社パスコ
     detectedDate: '2026-04-11'
@@ -1012,6 +1056,10 @@ delisted:
   '9479':
     name: 株式会社インプレスホールディングス
     detectedDate: '2026-04-11'
+    reason: null
+  '9508':
+    name: 九州電力株式会社
+    detectedDate: '2026-10-05'
     reason: null
   '9600':
     name: 株式会社アイネット
@@ -1056,6 +1104,10 @@ delisted:
   '9873':
     name: 日本ＫＦＣホールディングス株式会社
     detectedDate: '2026-04-11'
+    reason: null
+  '9914':
+    name: 株式会社　植松商会
+    detectedDate: '2026-10-05'
     reason: null
   '9919':
     name: 株式会社関西フードマーケット
