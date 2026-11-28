@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>上場企業の財務情報</title>
+    <meta name="robots" content="noai, noimageai">
+
+    <!-- Preconnect for performance -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <!-- Typography -->
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&family=Noto+Sans+JP:wght@400;500;600&family=Outfit:wght@500;600;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Skip Link for Accessibility -->
+    <a href="#table-container" class="skip-link">メインコンテンツへスキップ</a>
+
+    <!-- Floating Command Bar Header -->
+    <header id="main-header">
+        <div class="header-content">
+            <h1 class="site-title">
+                <span class="title-accent"></span>
+                上場企業の財務情報
+            </h1>
+
+            <div class="header-actions">
+                <div class="search-container">
+                    <svg class="search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="11" cy="11" r="8"></circle>
+                        <path d="m21 21-4.3-4.3"></path>
+                    </svg>
+                    <input type="text" id="search-input" aria-label="証券コードで検索" placeholder="証券コードで検索..." pattern="[0-9A-Za-z]*" title="英数字のみ入力可能" autocomplete="off">
+                    <button id="search-button" class="btn btn-primary">検索</button>
+                </div>
+
+                <button id="density-toggle" class="btn btn-icon" aria-label="表示密度切替" title="表示密度切替 (compact/comfortable)">
+                    <svg class="icon-density-compact" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="3" y1="6" x2="21" y2="6"></line>
+                        <line x1="3" y1="10" x2="21" y2="10"></line>
+                        <line x1="3" y1="14" x2="21" y2="14"></line>
+                        <line x1="3" y1="18" x2="21" y2="18"></line>
+                    </svg>
+                    <svg class="icon-density-comfortable" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="3" y1="5" x2="21" y2="5"></line>
+                        <line x1="3" y1="12" x2="21" y2="12"></line>
+                        <line x1="3" y1="19" x2="21" y2="19"></line>
+                    </svg>
+                </button>
+
+                <div class="column-visibility-wrapper">
+                    <button id="column-toggle" class="btn btn-icon" aria-label="列表示設定" title="列表示設定" aria-haspopup="true" aria-expanded="false" aria-controls="column-dropdown">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="3" y="3" width="7" height="7"></rect>
+                            <rect x="14" y="3" width="7" height="7"></rect>
+                            <rect x="14" y="14" width="7" height="7"></rect>
+                            <rect x="3" y="14" width="7" height="7"></rect>
+                        </svg>
+                    </button>
+                    <div id="column-dropdown" class="column-dropdown" role="menu" aria-label="列表示設定">
+                        <div class="column-dropdown-header">
+                            <span>表示する列</span>
+                            <button id="column-reset" class="column-reset-btn" aria-label="デフォルト表示に戻す">リセット</button>
+                        </div>
+                        <div class="column-dropdown-list">
+                            <!-- Column checkboxes will be populated by JavaScript -->
+                        </div>
+                    </div>
+                </div>
+
+                <button id="export-button" class="btn btn-secondary" aria-label="Excelエクスポート">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                        <polyline points="7 10 12 15 17 10"></polyline>
+                        <line x1="12" y1="15" x2="12" y2="3"></line>
+                    </svg>
+                    <span class="btn-text">Excel</span>
+                </button>
+
+                <button id="theme-toggle" class="btn btn-icon" aria-label="テーマ切替" title="テーマ切替">
+                    <svg class="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="4"></circle>
+                        <path d="M12 2v2"></path>
+                        <path d="M12 20v2"></path>
+                        <path d="m4.93 4.93 1.41 1.41"></path>
+                        <path d="m17.66 17.66 1.41 1.41"></path>
+                        <path d="M2 12h2"></path>
+                        <path d="M20 12h2"></path>
+                        <path d="m6.34 17.66-1.41 1.41"></path>
+                        <path d="m19.07 4.93-1.41 1.41"></path>
+                    </svg>
+                    <svg class="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- Loading State -->
+        <div id="loading" class="loading-container">
+            <div class="loading-spinner"></div>
+            <p class="loading-text">データを読み込んでいます...</p>
+        </div>
+
+        <!-- Legend -->
+        <div class="legend-container" aria-label="凡例">
+            <span class="legend-chip">
+                <span class="badge badge-delisted">廃止</span>
+                上場廃止企業
+            </span>
+        </div>
+
+        <!-- Data Table -->
+        <div id="table-container" style="display: none;">
+            <table id="data-table" role="table" aria-label="財務データ一覧">
+                <thead role="rowgroup">
+                    <tr>
+                        <th scope="col" class="sortable sticky-col sticky-col-1" data-sort="secCode">
+                            <span class="th-content">証券コード</span>
+                            <span class="sort-indicator"></span>
+                        </th>
+                        <th scope="col" class="sticky-col sticky-col-2">
+                            <span class="th-content">企業名称</span>
+                        </th>
+                        <th scope="col"><span class="th-content">決算期</span></th>
+                        <th scope="col" aria-label="報告書（EDINET WebおよびPDF）"><span class="th-content">報告書</span></th>
+                        <th scope="col" aria-label="株価（円）"><span class="th-content">株価<br><span class="unit">(円)</span></span></th>
+                        <th scope="col" class="sortable" data-sort="netSales" aria-label="売上高（百万円）"><span class="th-content">売上高<br><span class="unit">(百万円)</span></span><span class="sort-indicator"></span></th>
+                        <th scope="col" class="sortable" data-sort="employees" aria-label="期末従業員数（人）"><span class="th-content">従業員数<br><span class="unit">(人)</span></span><span class="sort-indicator"></span></th>
+                        <th scope="col" class="sortable" data-sort="operatingIncome" aria-label="営業利益（百万円）"><span class="th-content">営業利益<br><span class="unit">(百万円)</span></span><span class="sort-indicator"></span></th>
+                        <th scope="col" aria-label="営業利益率（パーセント）"><span class="th-content">営業利益率<br><span class="unit">(%)</span></span></th>
+                        <th scope="col" class="sortable" data-sort="ordinaryIncome" aria-label="経常利益（百万円）"><span class="th-content">経常利益<br><span class="unit">(百万円)</span></span><span class="sort-indicator"></span></th>
+                        <th scope="col" aria-label="経常利益率（パーセント）"><span class="th-content">経常利益率<br><span class="unit">(%)</span></span></th>
+                        <th scope="col" class="sortable" data-sort="ebitda" aria-label="EBITDA（百万円）"><span class="th-content">EBITDA<br><span class="unit">(百万円)</span></span><span class="sort-indicator"></span></th>
+                        <th scope="col" aria-label="EBITDAマージン（パーセント）"><span class="th-content">EBITDA<br><span class="unit">マージン(%)</span></span></th>
+                        <th scope="col" class="sortable" data-sort="marketCapitalization" aria-label="時価総額（百万円）"><span class="th-content">時価総額<br><span class="unit">(百万円)</span></span><span class="sort-indicator"></span></th>
+                        <th scope="col" aria-label="PER（倍）"><span class="th-content">PER<br><span class="unit">(倍)</span></span></th>
+                        <th scope="col" class="sortable" data-sort="ev" aria-label="企業価値（百万円）"><span class="th-content">企業価値<br><span class="unit">(百万円)</span></span><span class="sort-indicator"></span></th>
+                        <th scope="col" aria-label="EV/EBITDA（倍）"><span class="th-content">EV/EBITDA<br><span class="unit">(倍)</span></span></th>
+                        <th scope="col" aria-label="PBR（倍）"><span class="th-content">PBR<br><span class="unit">(倍)</span></span></th>
+                        <th scope="col" aria-label="純資産合計（百万円）"><span class="th-content">純資産合計<br><span class="unit">(百万円)</span></span></th>
+                        <th scope="col" aria-label="ネット有利子負債（百万円）"><span class="th-content">ネット有利子負債<br><span class="unit">(百万円)</span></span></th>
+                        <th scope="col"><span class="th-content">EDINET<br><span class="unit">提出日</span></span></th>
+                        <th scope="col"><span class="th-content">最終<br><span class="unit">更新日</span></span></th>
+                    </tr>
+                </thead>
+                <tbody id="data-tbody">
+                </tbody>
+            </table>
+        </div>
+    </main>
+
+    <!-- Mobile Bottom Action Bar -->
+    <div id="mobile-action-bar" class="mobile-action-bar" role="toolbar" aria-label="モバイルアクションバー">
+        <div class="mobile-search-container">
+            <svg class="mobile-search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <circle cx="11" cy="11" r="8"></circle>
+                <path d="m21 21-4.3-4.3"></path>
+            </svg>
+            <input type="text" id="mobile-search-input" aria-label="証券コードで検索" placeholder="証券コードで検索..." pattern="[0-9A-Za-z]*" title="英数字のみ入力可能" autocomplete="off">
+        </div>
+        <button id="mobile-search-button" class="btn btn-primary mobile-btn" aria-label="検索">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <circle cx="11" cy="11" r="8"></circle>
+                <path d="m21 21-4.3-4.3"></path>
+            </svg>
+        </button>
+        <button id="mobile-export-button" class="btn btn-secondary mobile-btn" aria-label="Excelエクスポート">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                <polyline points="7 10 12 15 17 10"></polyline>
+                <line x1="12" y1="15" x2="12" y2="3"></line>
+            </svg>
+        </button>
+    </div>
+
+    <!-- Back to Top Button -->
+    <button id="back-to-top" aria-label="トップへ戻る" title="トップへ戻る">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="m18 15-6-6-6 6"/>
+        </svg>
+    </button>
+
+    <!-- Toast Notification Container -->
+    <div id="toast-container" aria-live="polite" aria-atomic="true"></div>
+
+    <!-- Keyboard Shortcuts Modal -->
+    <div id="shortcuts-modal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="shortcuts-title" hidden>
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="shortcuts-title">キーボードショートカット</h2>
+                <button id="shortcuts-close" class="modal-close" aria-label="閉じる">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M18 6L6 18M6 6l12 12"/>
+                    </svg>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="shortcut-group">
+                    <h3>検索</h3>
+                    <div class="shortcut-item">
+                        <span class="shortcut-keys">
+                            <kbd>/</kbd>
+                            <span class="shortcut-or">または</span>
+                            <kbd>Ctrl</kbd><kbd>K</kbd>
+                        </span>
+                        <span class="shortcut-desc">検索フィールドにフォーカス</span>
+                    </div>
+                    <div class="shortcut-item">
+                        <span class="shortcut-keys"><kbd>Escape</kbd></span>
+                        <span class="shortcut-desc">フォーカス解除</span>
+                    </div>
+                </div>
+                <div class="shortcut-group">
+                    <h3>表示</h3>
+                    <div class="shortcut-item">
+                        <span class="shortcut-keys"><kbd>d</kbd></span>
+                        <span class="shortcut-desc">ダークモード切替</span>
+                    </div>
+                    <div class="shortcut-item">
+                        <span class="shortcut-keys"><kbd>c</kbd></span>
+                        <span class="shortcut-desc">表示密度切替</span>
+                    </div>
+                </div>
+                <div class="shortcut-group">
+                    <h3>ヘルプ</h3>
+                    <div class="shortcut-item">
+                        <span class="shortcut-keys"><kbd>?</kbd></span>
+                        <span class="shortcut-desc">ショートカット一覧を表示</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.sheetjs.com/xlsx-0.20.3/package/dist/xlsx.full.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
